@@ -1,0 +1,22 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Submitted By</th>
+      <th scope="col">Submitted Against</th>
+      <th scope="col">Submitted On</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let objection of objections">
+      <td>{{objection.submittedBy.units[0].addressLineOne}}</td>
+      <td>{{objection.submittedAgainst.units[0].addressLineOne}}</td>
+      <td>
+        {{objection.createdAt | date:'short'}}
+      </td>
+      <td>
+        <a routerLink="../objection/{{objection.id}}">View</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
