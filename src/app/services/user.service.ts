@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { tap, catchError, map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, ReplaySubject, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from "../../environments/environment";
 import { response } from 'express';
+import { asObservable } from "./asObservable";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -12,7 +13,9 @@ const BACKEND_URL = environment.apiUrl;
   providedIn: 'root',
 })
 export class UserService {
-  user;
+  // private userSubject = new ReplaySubject(1);
+  private userSubject = new BehaviorSubject<any>('');
+  // user;
   userUpdated: EventEmitter<string> = new EventEmitter();
   currentAssociation;
   currentAssociationUpdated: EventEmitter<string> = new EventEmitter();
@@ -28,7 +31,7 @@ export class UserService {
   }
 
   setUser(user) {
-    this.user = user;
+    this.userSubject.next(user);
     this.userUpdated.emit(user);
   } 
 
@@ -62,18 +65,24 @@ export class UserService {
   }
 
   getUser() {
-    if (!this.user) {
-      return this.http.get(BACKEND_URL + '/user').pipe(
-        tap(user => {
-          this.setUser(user);
-        }),
-        catchError((error) => {
-          return of(false);
-        })
-      )
-    } else {
-      return of(this.user);
-    }
+    // if class variable is falsy get the user from the backend and 
+    // set the user by calling setUser
+    // if (!this.user) {
+    //   return this.http.get(BACKEND_URL + '/user').pipe(
+    //     tap(user => {
+    //       this.setUser(user);
+    //     }),
+    //     catchError((error) => {
+    //       return of(false);
+    //     })
+    //   )
+    // } 
+    // if this user does exist, return the user
+    // else 
+    // {
+    //   return of(this.user);
+    // }
+    return asObservable(this.userSubject);
   }
 
   isLoggedIn(): Observable<boolean> {
@@ -90,7 +99,7 @@ export class UserService {
       if (!user) {
         return of({});
       }
-      return this.http.get(BACKEND_URL + `/user/associations/?userId=${this.user.id}`);
+      return this.http.get(BACKEND_URL + `/user/associations/?userId=${this.userSubject.getValue().id}`);
     });
   }
 

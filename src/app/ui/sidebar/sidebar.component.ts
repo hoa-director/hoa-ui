@@ -86,7 +86,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   init() {
-    this.userIsLoggedIn = this.userService.user;
+    this.userService.isLoggedIn().subscribe((res) => {
+      this.userIsLoggedIn = res;
+    });
   }
 
   logout() {
