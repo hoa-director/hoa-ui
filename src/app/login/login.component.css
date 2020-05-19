@@ -19,3 +19,7 @@ img {
 .incorrect {
   color: #af0c26;
 }
+
+.row-padding {
+  padding: 30vh;
+}

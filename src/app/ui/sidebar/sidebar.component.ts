@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,8 +8,10 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  userIsLoggedIn = false;
-  subscriptions = [];
+  // subscriptions = [];
+
+  userIsAuthenticated = false;
+  private authListenerSubs: Subscription;
 
   links: Array<{ path: string; label: string; active: boolean }> = [
     {
@@ -65,34 +68,51 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   constructor(public userService: UserService) {}
 
+  // ngOnInit() {
+  //   this.init();
+  //   const associationSubscription = this.userService.currentAssociationUpdated.subscribe(
+  //     () => {
+  //       this.init();
+  //     },
+  //   );
+  //   const userSubscription = this.userService.userUpdated.subscribe(() => {
+  //     this.init();
+  //   });
+  //   this.subscriptions.push(associationSubscription, userSubscription);
+  // }
+
+  // ngOnDestroy() {
+  //   // unsubscribe to ensure no memory leaks
+  //   this.subscriptions.map((subscription) => {
+  //     subscription.unsubscribe();
+  //   });
+  // }
+
+  // init() {
+  //   this.userService.isLoggedIn().subscribe((res) => {
+  //     this.userIsLoggedIn = res;
+  //   });
+  // }
+
   ngOnInit() {
-    this.init();
-    const associationSubscription = this.userService.currentAssociationUpdated.subscribe(
-      () => {
-        this.init();
-      },
-    );
-    const userSubscription = this.userService.userUpdated.subscribe(() => {
-      this.init();
-    });
-    this.subscriptions.push(associationSubscription, userSubscription);
+    this.userIsAuthenticated = this.userService.getIsAuthenticated();
+    this.listenForEvents();
   }
 
   ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.subscriptions.map((subscription) => {
-      subscription.unsubscribe();
-    });
+    this.authListenerSubs.unsubscribe();
   }
 
-  init() {
-    this.userService.isLoggedIn().subscribe((res) => {
-      this.userIsLoggedIn = res;
-    });
+  listenForEvents() {
+    this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(
+      isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        // if(!isAuthenticated) return;
+      }
+    );
   }
 
-  logout() {
-    console.log('logout clicked');
-    this.userService.logout().subscribe();
+  onLogout() {
+    this.userService.logout();
   }
 }

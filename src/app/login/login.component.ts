@@ -1,36 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   user: { email: string; password: string } = { email: '', password: '' };
 
-  message: string;
+  userAuthError: string = null;
+  private authErrorSubs: Subscription;
+
+  userIsAuthenticated = false;
+  private authListenerSubs: Subscription;
 
   constructor(private userService: UserService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.listenForEvents();
+  }
+
+  ngOnDestroy() {
+    this.authListenerSubs.unsubscribe();
+    this.authErrorSubs.unsubscribe();
+  }
+
+  listenForEvents() {
+    this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(
+      isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        if(!isAuthenticated) return;
+        this.userAuthError = null;
+        // this.router.navigateByUrl('/directory');
+      }
+    );
+
+    this.authErrorSubs = this.userService.getAuthErrorListener().subscribe(
+      authError => {
+        this.userAuthError = authError;
+      }
+    );
+  }
 
   login(user): void {
     this.userService.loginUser(user)
-    .subscribe(
-      (response) => {
-        this.router.navigateByUrl('/directory');
-      },
-      (error) => {
-        console.log(error);
-        if (error.status === 401) {
-          this.message = 'Username or password in incorrect.';
-          return;
-        }
-        this.message =
-          'There was an error on the server. Please try again later';
-      },
-    );
   }
 }

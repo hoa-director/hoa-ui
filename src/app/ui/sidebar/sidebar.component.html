@@ -1,13 +1,15 @@
 <div id="sidebar" class="row sidebar">
   <div class="col">
-    <div class="home-info" *ngIf="!userIsLoggedIn">
+    <div class="home-info" *ngIf="!userIsAuthenticated">
       <p>Everyday in your association will be pleasant.</p>
       <p>Timely answers to questions and concerns.</p>
       <p>You have problem resolution at your fingertips.</p>
     </div>
     <!-- <div *ngIf="userService.user" class="nav flex-column nav-pills"> -->
-    <ul *ngIf="userIsLoggedIn" class="nav flex-column nav-pills">
-      <app-association-switch class="align-content-center"></app-association-switch>
+    <ul *ngIf="userIsAuthenticated" class="nav flex-column nav-pills">
+      <app-association-switch
+        class="align-content-center"
+      ></app-association-switch>
       <div class="menu-title">
         <h3>
           Menu
@@ -15,13 +17,13 @@
       </div>
       <ng-container *ngFor="let link of links">
         <li class="nav-item" *ngIf="link.active">
-          <a routerLink={{link.path}} class="nav-link">
-            {{link.label}}
+          <a routerLink="{{ link.path }}" class="nav-link">
+            {{ link.label }}
           </a>
         </li>
       </ng-container>
       <li class="nav-item">
-        <a (click)="logout()" class="nav-link clickable">
+        <a (click)="onLogout()" class="nav-link clickable">
           Logout
         </a>
       </li>
