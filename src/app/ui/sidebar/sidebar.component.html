@@ -1,12 +1,12 @@
-<div id="sidebar" class="row sidebar">
-  <div class="col">
-    <div class="home-info" *ngIf="!userIsAuthenticated">
+<div id="sidebar" class="sidebar">
+  <div>
+    <!-- <div class="home-info" *ngIf="!userIsAuthenticated">
       <p>Everyday in your association will be pleasant.</p>
       <p>Timely answers to questions and concerns.</p>
       <p>You have problem resolution at your fingertips.</p>
-    </div>
+    </div> -->
     <!-- <div *ngIf="userService.user" class="nav flex-column nav-pills"> -->
-    <ul *ngIf="userIsAuthenticated" class="nav flex-column nav-pills">
+    <ul *ngIf="userIsAuthenticated" class="nav-pills">
       <app-association-switch
         class="align-content-center"
       ></app-association-switch>
@@ -15,18 +15,35 @@
           Menu
         </h3>
       </div>
-      <ng-container *ngFor="let link of links">
+      <a mat-button [routerLink]="['directory']" routerLinkActive="active">
+        Neighborhood Directory
+      </a>
+      <a mat-button [routerLink]="['rules']" routerLinkActive="active">
+        Rules & Regulations
+      </a>
+      <a  mat-button [routerLink]="['/resolution-center']"routerLinkActive="active">
+        Resolution Center
+      </a>
+      <a mat-button [routerLink]="['documents']"routerLinkActive="active">
+        Association Documents
+      </a>
+      <a mat-button (click)="onLogout()">
+        Logout
+      </a>
+      <!-- <ng-container *ngFor="let link of links">
         <li class="nav-item" *ngIf="link.active">
-          <a routerLink="{{ link.path }}" class="nav-link">
+          <a
+            [routerLink]="[link.path]"
+            class="nav-link"
+            routerLinkActive="active"
+          >
             {{ link.label }}
           </a>
         </li>
-      </ng-container>
-      <li class="nav-item">
-        <a (click)="onLogout()" class="nav-link clickable">
-          Logout
-        </a>
-      </li>
+      </ng-container> -->
+      <!-- <li class="nav-item">
+        
+      </li> -->
     </ul>
   </div>
 </div>

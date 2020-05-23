@@ -10,7 +10,7 @@ import { Subscription } from "rxjs";
 export class SidebarComponent implements OnInit, OnDestroy {
   // subscriptions = [];
 
-  userIsAuthenticated = false;
+  userIsAuthenticated = true;
   private authListenerSubs: Subscription;
 
   links: Array<{ path: string; label: string; active: boolean }> = [

@@ -1,4 +1,4 @@
-form.form-control {
+/* form.form-control {
   background-color: transparent;
   border: none;
 }
@@ -9,17 +9,30 @@ img {
 
 .call-home {
   max-width: 50%;
-}
+} */
 
 .welcome-images {
   text-align: center;
-  margin-top: -30px;
+  margin: 30px;
 }
 
-.incorrect {
+/* .incorrect {
   color: #af0c26;
 }
 
 .row-padding {
   padding: 30vh;
+} */
+
+mat-card {
+  width: 30%;
+  margin: auto;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
 }

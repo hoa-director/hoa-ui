@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { ModalComponent } from '../app/modal/modal.component';
+// import { ModalComponent } from '../app/modal/modal.component';
 import { CreateObjectionComponent } from './create-objection/create-objection.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { ObjectionComponent } from './objection/objection.component';
@@ -26,11 +26,11 @@ import { PastObjectionsComponent } from './past-objections/past-objections.compo
     InboxComponent,
     ObjectionComponent,
     CreateObjectionComponent,
-    ModalComponent,
+    // ModalComponent,
     OutboxComponent,
     PastObjectionsComponent,
   ],
   providers: [ResolutionCenterService],
-  exports: [ModalComponent],
+  // exports: [ModalComponent],
 })
 export class ResolutionCenterModule {}

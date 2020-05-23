@@ -1,3 +1,12 @@
 .rule-list-title {
   cursor: pointer;
 }
+
+.association-rules-and-regulations-header {
+  font-size: 3rem;
+  margin-bottom: 5%;
+}
+
+mat-chip {
+  max-width: 200px;
+}

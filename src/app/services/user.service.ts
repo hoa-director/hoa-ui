@@ -75,9 +75,11 @@ export class UserService {
             this.isAuthenticated = true;
             this.authStatusListener.next(true);
             const now = new Date();
-            const expirationDate = new Date(now.getTime() + expiresInDuration * 1000)
-            this.saveAuthData(token, expirationDate)
-            this.router.navigateByUrl("/directory");
+            const expirationDate = new Date(
+              now.getTime() + expiresInDuration * 1000
+            );
+            this.saveAuthData(token, expirationDate);
+            this.router.navigate(['/main', 'directory']);
           }
           // return 'success';
         },
@@ -117,15 +119,16 @@ export class UserService {
 
   autoAuthenticateUser() {
     const authInformation = this.getAuthDate();
+    if (!authInformation) return;
     const now = new Date();
     // check to see if expiration date is in the future, if greater than now
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
-    if(expiresIn > 0){
+    if (expiresIn > 0) {
       this.token = authInformation.token;
       this.isAuthenticated = true;
       this.setAuthenticatedTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
-      this.router.navigateByUrl("/directory");
+      this.router.navigate(['/main', 'directory']);
     }
   }
 
@@ -159,11 +162,11 @@ export class UserService {
   private getAuthDate() {
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
-    if(!token || !expirationDate) return;
+    if (!token || !expirationDate) return;
     return {
       token: token,
-      expirationDate: new Date(expirationDate)
-    }
+      expirationDate: new Date(expirationDate),
+    };
   }
 
   getUser() {

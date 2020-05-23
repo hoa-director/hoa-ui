@@ -9,6 +9,8 @@ import { Subscription} from 'rxjs';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+isLoading = true;
+
   user: { email: string; password: string } = { email: '', password: '' };
 
   userAuthError: string = null;
@@ -34,7 +36,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         if(!isAuthenticated) return;
         this.userAuthError = null;
-        // this.router.navigateByUrl('/directory');
       }
     );
 
