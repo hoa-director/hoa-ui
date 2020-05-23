@@ -45,27 +45,27 @@
 /* Basic reset to make every browser render in the same way */
 /* Universal selector will select each element on the page an apply these declarations */
 /* using this allows you to start clean without any added margin or padding from the web browser */
-*,
-*::after,
-*::before {
-  margin: 0px;
-  padding: 0px;
+/* *, */
+/* *::after, */
+/* *::before { */
+  /* margin: 0px; */
+  /* padding: 0px; */
   /* when possible, we should inherit so move box-sizing boarder-box to body */
-  box-sizing: inherit;
-}
+  /* box-sizing: inherit; */
+/* } */
 
 /* the global font size is set in the html element */
 /* if we convert all our font size to rem, it will be based of the root font */
 /* this is very helpful for making response sites, for example, when a a break point for mobile
   need a way to decrease all the sizes with one font setting  */
 /* why set the font-size to 10 instead of default 16px. So that we know that one rem is exactly 10px */
-html {
+/* html { */
   /* font-size: 10px; */
   /* if we keep 10px here, it does not allow the user to make the default browser font size bigger
       so we set the font size to 62.5% of 16px, which is the default browser size, and end up with 10px here.
       now if the user changes the font size in the browser, the page will still be responsive */
-  font-size: 62.5%;
-}
+  /* font-size: 62.5%;
+} */
 
 body {
   font-family: "Lato", sans-serif;
@@ -311,6 +311,7 @@ body {
   border-radius: 3px;
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
   transition: transform 0.3s;
+  height: 35rem;
 }
 .feature-box__icon {
   font-size: 6rem;
@@ -322,43 +323,6 @@ body {
 }
 .feature-box:hover {
   transform: translateY(-1.5rem) scale(1.03);
-}
-
-.row {
-  max-width: 114rem;
-  margin: 0 auto;
-}
-.row:not(:last-child) {
-  margin-bottom: 8rem;
-}
-.row::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.row [class^="col-"] {
-  float: left;
-}
-.row [class^="col-"]:not(:last-child) {
-  margin-right: 6rem;
-}
-.row .col-1-of-2 {
-  width: calc((100% - 6rem) / 2);
-}
-.row .col-1-of-3 {
-  width: calc((100% - (2 * 6rem)) / 3);
-}
-.row .col-2-of-3 {
-  width: calc(2 * ((100% - (2 * 6rem)) / 3) + 6rem);
-}
-.row .col-1-of-4 {
-  width: calc((100% - (3 * 6rem)) / 4);
-}
-.row .col-2-of-4 {
-  width: calc(2 * ((100% - (3 * 6rem)) / 4) + 6rem);
-}
-.row .col-3-of-4 {
-  width: calc(3 * ((100% - (3 * 6rem)) / 4) + (2 * 6rem));
 }
 
 .header {

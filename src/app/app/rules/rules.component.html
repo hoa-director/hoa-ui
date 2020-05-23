@@ -1,8 +1,8 @@
-<div class="row">
+<!-- <div class="row">
   <div class="col">
     <div class="row">
       <div class="col">
-        <h3 class="directory-header">
+        <h3 class="association-rules-and-regulations-header">
           Association Rules and Regulations
         </h3>
       </div>
@@ -17,9 +17,23 @@
       </div>
     </div>
   </div>
+</div> -->
+
+<div>
+  <h3 class="association-rules-and-regulations-header">
+    Association Rules and Regulations
+  </h3>
+  <mat-chip-list class="mat-chip-list-stacked" #rule>
+    <mat-divider></mat-divider>
+    <mat-chip *ngFor="let rule of rules">
+      <a class="rule-chip" (click)="selectRuleList(rule); htmlInsideModal.open();" class="rule-list-title">{{rule.title}}</a>
+      <mat-divider></mat-divider> 
+    </mat-chip>
+  </mat-chip-list>
 </div>
 
 <app-modal #htmlInsideModal>
+  <mat-card>
   <ng-template #modalHeader>
     <h2>{{currentRuleList.title}}</h2>
   </ng-template>
@@ -48,4 +62,5 @@
       </div>
     </div>
   </ng-template>
+</mat-card>
 </app-modal>

@@ -15,6 +15,8 @@ import { RulesComponent } from './app/rules/rules.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { LayoutComponent } from './ui/layout/layout.component';
+import { MainComponent } from './ui/main/main.component';
 
 export const routes: Routes = [
   {
@@ -25,7 +27,7 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent ,
+    component: LoginComponent,
     runGuardsAndResolvers: 'always',
   },
   {
@@ -44,63 +46,77 @@ export const routes: Routes = [
     runGuardsAndResolvers: 'always',
   },
   {
-    path: 'directory',
-    component: DirectoryComponent,
-    canActivate: [AuthGuardService],
+    path: 'main',
+    component: MainComponent,
     runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuardService],
+    children: [
+      {
+        path: 'directory',
+        component: DirectoryComponent,
+        canActivate: [AuthGuardService],
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'rules',
+        component: RulesComponent,
+        canActivate: [AuthGuardService],
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'messages',
+        component: MessageComponent,
+        canActivate: [AuthGuardService],
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'financials',
+        component: FinancialsComponent,
+        canActivate: [AuthGuardService],
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'documents',
+        component: DocumentsComponent,
+        canActivate: [AuthGuardService],
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'exterior',
+        component: ExteriorComponent,
+        canActivate: [AuthGuardService],
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'interior',
+        component: InteriorComponent,
+        canActivate: [AuthGuardService],
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'board',
+        component: BoardComponent,
+        canActivate: [AuthGuardService],
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'notes',
+        component: NotesComponent,
+        canActivate: [AuthGuardService],
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [AuthGuardService],
+        runGuardsAndResolvers: 'always',
+      }
+    ] 
   },
   {
-    path: 'rules',
-    component: RulesComponent,
+    path: '**',
+    component: MainComponent,
     canActivate: [AuthGuardService],
     runGuardsAndResolvers: 'always',
-  },
-  {
-    path: 'messages',
-    component: MessageComponent,
-    canActivate: [AuthGuardService],
-    runGuardsAndResolvers: 'always',
-  },
-  {
-    path: 'financials',
-    component: FinancialsComponent,
-    canActivate: [AuthGuardService],
-    runGuardsAndResolvers: 'always',
-  },
-  {
-    path: 'documents',
-    component: DocumentsComponent,
-    canActivate: [AuthGuardService],
-    runGuardsAndResolvers: 'always',
-  },
-  {
-    path: 'exterior',
-    component: ExteriorComponent,
-    canActivate: [AuthGuardService],
-    runGuardsAndResolvers: 'always',
-  },
-  {
-    path: 'interior',
-    component: InteriorComponent,
-    canActivate: [AuthGuardService],
-    runGuardsAndResolvers: 'always',
-  },
-  {
-    path: 'board',
-    component: BoardComponent,
-    canActivate: [AuthGuardService],
-    runGuardsAndResolvers: 'always',
-  },
-  {
-    path: 'notes',
-    component: NotesComponent,
-    canActivate: [AuthGuardService],
-    runGuardsAndResolvers: 'always',
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [AuthGuardService],
-    runGuardsAndResolvers: 'always',
-  },
+  }
 ];

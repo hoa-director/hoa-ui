@@ -1,4 +1,32 @@
 .person {
-  margin: 15px;
-  margin-left: 50px;
+  margin: 20px;
+}
+
+.unit-card-name {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.unit-card {
+  width: 24rem;
+  height: 14rem;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.header-image {
+  /* background-image: url('https://');
+  background-size: cover; */
+}
+
+.directory-header {
+  font-size: 3rem;
+  margin-bottom: 5%;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
 }

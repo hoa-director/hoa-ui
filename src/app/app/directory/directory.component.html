@@ -1,37 +1,66 @@
-<div class="row">
-  <div class="col">
-    <div class="row">
-      <div class="col">
-        <h3 class="directory-header">
-          Neighborhood Directory
-        </h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm col-md-6 col-lg-4 d-flex" *ngFor="let unit of units">
-        <div class="person">
-          <h5 *ngIf="unit.user">
-            {{unit.user.firstName + ' ' + unit.user.lastName}}
-          </h5>
-          <h5 *ngIf="!unit.user">
-              Unoccupied
-            </h5>
-          <div class="person-content">
-            <div class="address-line-1">
-              {{unit.addressLineOne}}
-            </div>
-            <div class="address-line-2">
-              {{unit.city}}, {{unit.state}} {{unit.zip}}
-            </div>
-            <div *ngIf="unit.user" class="email">
-              {{unit.user.email}}
-            </div>
-            <div *ngIf="unit.user" class="phone">
-              {{unit.user.number}}
-            </div>
+<div>
+
+      <h3 class="directory-header">
+        Neighborhood Directory
+      </h3>
+
+  <div class=flex-container>
+    <div *ngFor="let unit of units">
+      <mat-card class="unit-card">
+        <mat-card-header>
+          <!-- <div mat-card-avatar class="header-image"></div> -->
+          <mat-card-title class="unit-card-name" *ngIf="unit.user">{{
+            unit.user.firstName + " " + unit.user.lastName
+          }}</mat-card-title>
+          <mat-card-title class="unit-card-name" *ngIf="!unit.user">{{
+            unit.user.firstName + " " + unit.user.lastName
+          }}</mat-card-title>
+          <!-- <mat-card-subtitle></mat-card-subtitle> -->
+        </mat-card-header>
+        <!-- <img mat-card-image src="https://" alt=""> -->
+        <mat-card-content class="person">
+          <div class="address-line-1">
+            {{ unit.addressLineOne }}
+          </div>
+          <div class="address-line-2">
+            {{ unit.city }}, {{ unit.state }} {{ unit.zip }}
+          </div>
+          <div *ngIf="unit.user" class="email">
+            {{ unit.user.email }}
+          </div>
+          <div *ngIf="unit.user" class="phone">
+            {{ unit.user.number }}
+          </div>
+        </mat-card-content>
+        <!-- <mat-card-actions>
+          TODO: if logged in user can edit their information
+          <button mat-button></button>
+          <button mat-button></button>
+        </mat-card-actions> -->
+      </mat-card>
+
+      <!-- <div class="person">
+        <h5 *ngIf="unit.user">
+          {{ unit.user.firstName + " " + unit.user.lastName }}
+        </h5>
+        <h5 *ngIf="!unit.user">
+          Unoccupied
+        </h5>
+        <div class="person-content">
+          <div class="address-line-1">
+            {{ unit.addressLineOne }}
+          </div>
+          <div class="address-line-2">
+            {{ unit.city }}, {{ unit.state }} {{ unit.zip }}
+          </div>
+          <div *ngIf="unit.user" class="email">
+            {{ unit.user.email }}
+          </div>
+          <div *ngIf="unit.user" class="phone">
+            {{ unit.user.number }}
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
