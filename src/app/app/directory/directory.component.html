@@ -1,10 +1,9 @@
 <div>
-
-      <h3 class="directory-header">
-        Neighborhood Directory
-      </h3>
-
-  <div class=flex-container>
+  <h3 class="directory-header">
+    Neighborhood Directory
+  </h3>
+  <mat-spinner *ngIf=isLoading></mat-spinner>
+  <div class="flex-container">
     <div *ngFor="let unit of units">
       <mat-card class="unit-card">
         <mat-card-header>
