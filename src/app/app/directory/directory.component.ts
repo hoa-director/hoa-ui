@@ -23,6 +23,8 @@ export class DirectoryComponent implements OnInit {
     };
   }> = [];
 
+  isLoading: boolean;
+
   constructor(private dataService: DataService, private userService: UserService) {}
 
   ngOnInit() {
@@ -34,8 +36,10 @@ export class DirectoryComponent implements OnInit {
   }
 
   init() {
+    this.isLoading = true;
     this.units = [];
     this.dataService.getDirectory().subscribe((response: any) => {
+      this.isLoading = false;
       this.units = response.units;
     });
 

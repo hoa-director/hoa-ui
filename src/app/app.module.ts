@@ -34,7 +34,6 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatListModule } from "@angular/material/list";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatDialogModule } from "@angular/material/dialog";
-
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
