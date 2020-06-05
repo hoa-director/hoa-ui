@@ -26,6 +26,10 @@ export class UserService {
   private isAuthenticated = false;
   private tokenTimer: NodeJS.Timer;
 
+  // loading properties
+  private loadingStatusListener = new BehaviorSubject<boolean>(false);
+  private isLoading = false;
+
   constructor(private http: HttpClient, private router: Router) {}
 
   // allow other components to get the token from this service
@@ -48,6 +52,10 @@ export class UserService {
     return this.isAuthenticated;
   }
 
+  getLoadingStatusListener() {
+    return this.loadingStatusListener.asObservable();
+  }
+
   setCurrentAssociation(id) {
     this.currentAssociation = id;
     this.currentAssociationUpdated.emit(this.currentAssociation);
@@ -59,6 +67,7 @@ export class UserService {
   }
 
   loginUser(user) {
+    this.setLoadingStatusListener(true);
     this.http
       .post<{ token: string; user: any; expiresIn: number }>(
         BACKEND_URL + "/user/login",
@@ -79,7 +88,7 @@ export class UserService {
               now.getTime() + expiresInDuration * 1000
             );
             this.saveAuthData(token, expirationDate);
-            this.router.navigate(['/main', 'directory']);
+            this.router.navigate(["/main", "directory"]);
           }
           // return 'success';
         },
@@ -92,7 +101,10 @@ export class UserService {
             "There was an error on the server. Please try again later"
           );
         }
-      );
+      )
+      .add(() => {
+        this.setLoadingStatusListener(false);
+      });
 
     // .pipe(
     //   tap((loginResponse) => {
@@ -128,7 +140,7 @@ export class UserService {
       this.isAuthenticated = true;
       this.setAuthenticatedTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
-      this.router.navigate(['/main', 'directory']);
+      this.router.navigate(["/main", "directory"]);
     }
   }
 
@@ -238,5 +250,9 @@ export class UserService {
       password,
       token,
     });
+  }
+
+  private setLoadingStatusListener(isLoading: boolean): void {
+    this.loadingStatusListener.next(isLoading);
   }
 }

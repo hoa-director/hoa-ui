@@ -1,38 +1,38 @@
-/* form.form-control {
-  background-color: transparent;
-  border: none;
-}
-
-img {
-  max-width: 100%;
-}
-
-.call-home {
-  max-width: 50%;
-} */
-
-.welcome-images {
-  text-align: center;
-  margin: 30px;
-}
-
-/* .incorrect {
-  color: #af0c26;
-}
-
-.row-padding {
-  padding: 30vh;
-} */
-
 mat-card {
-  width: 30%;
-  margin: auto;
+  max-width: 55vh;
+  min-width: 250px;
+}
+
+mat-card-header {
+  font-size: 4rem;
+  margin-bottom: 40px;
+}
+
+mat-card-content {
+  font-size: 2rem;
 }
 
 mat-form-field {
   width: 100%;
+  margin-bottom: 20px;
 }
 
-mat-spinner {
-  margin: auto;
+.custom-auth-error {
+  background-color: rgba(255, 204, 203, 1);
+  border-left: 5px solid #f44336;
+  color: inherit;
+  padding: 5%;
+  margin-bottom: 20px;
+}
+
+.reset-link {
+  margin-right: 2%;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e5e5ea;
+  height: 100vh;
 }

@@ -1,7 +1,6 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -9,20 +8,131 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+// rgb (55, 121, 183)
+// #3779b7
+/* For use in src/lib/core/theming/_palette.scss */
+$hoa-light-blue: (
+  50: #e7eff6,
+  100: #c3d7e9,
+  200: #9bbcdb,
+  300: #73a1cd,
+  400: #558dc2,
+  500: #3779b7,
+  600: #3171b0,
+  700: #2a66a7,
+  800: #235c9f,
+  900: #164990,
+  A100: #c5dbff,
+  A200: #92bcff,
+  A400: #5f9cff,
+  A700: #468dff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+// rgb(38, 41, 84)
+// #262954
+/* For use in src/lib/core/theming/_palette.scss */
+$hoa-dark-blue: (
+  50: #e5e5ea, // background-color
+  100: #bebfcc,
+  200: #9394aa,
+  300: #676987,
+  400: #47496e,
+  500: #262954,
+  600: #22244d,
+  700: #1c1f43,
+  800: #17193a,
+  900: #0d0f29,
+  A100: #686fff,
+  A200: #353eff,
+  A400: #020dff,
+  A700: #000be7,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #ffffff,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+// rgb(131, 184, 52)
+// #83b834
+/* For use in src/lib/core/theming/_palette.scss */
+$hoa-green: (
+  50: #f0f6e7,
+  100: #daeac2,
+  200: #c1dc9a,
+  300: #a8cd71,
+  400: #96c352,
+  500: #83b834,
+  600: #7bb12f,
+  700: #70a827,
+  800: #66a021,
+  900: #539115,
+  A100: #e0ffc5,
+  A200: #c5ff92,
+  A400: #aaff5f,
+  A700: #9cff46,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$hoadirector-primary: mat-palette($mat-indigo);
-$hoadirector-accent: mat-palette($mat-pink, A200, A100, A400);
+$hoadirector-primary: mat-palette($hoa-light-blue);
+$hoadirector-accent: mat-palette($hoa-green);
 
 // The warn palette is optional (defaults to red).
 $hoadirector-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$hoadirector-theme: mat-light-theme($hoadirector-primary, $hoadirector-accent, $hoadirector-warn);
+$hoadirector-theme: mat-light-theme(
+  $hoadirector-primary,
+  $hoadirector-accent,
+  $hoadirector-warn
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($hoadirector-theme);
-
