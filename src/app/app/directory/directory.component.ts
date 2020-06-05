@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { UserService } from '../../services/user.service';
+import { Component, OnInit } from "@angular/core";
+import { DataService } from "../../services/data.service";
+import { UserService } from "../../services/user.service";
 
 @Component({
-  selector: 'app-directory',
-  templateUrl: './directory.component.html',
-  styleUrls: ['./directory.component.css'],
+  selector: "app-directory",
+  templateUrl: "./directory.component.html",
+  styleUrls: ["./directory.component.css"],
 })
 export class DirectoryComponent implements OnInit {
   units: Array<{
@@ -25,14 +25,16 @@ export class DirectoryComponent implements OnInit {
 
   isLoading: boolean;
 
-  constructor(private dataService: DataService, private userService: UserService) {}
+  constructor(
+    private dataService: DataService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.init();
     this.userService.currentAssociationUpdated.subscribe(() => {
       this.init();
     });
-    
   }
 
   init() {
@@ -42,6 +44,5 @@ export class DirectoryComponent implements OnInit {
       this.isLoading = false;
       this.units = response.units;
     });
-
   }
 }

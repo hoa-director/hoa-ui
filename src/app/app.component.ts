@@ -13,6 +13,9 @@ export class AppComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
 
+  isLoading = false;
+  private loadingListenerSubs: Subscription;
+
   constructor(private userService: UserService) {}
 
   ngOnInit() {
@@ -22,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
+    this.loadingListenerSubs.unsubscribe();
   }
 
   listenForEvents() {
@@ -30,5 +34,11 @@ export class AppComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
       }
     );
+
+    this.loadingListenerSubs = this.userService.getLoadingStatusListener().subscribe(
+      loadingStatus => {
+        this.isLoading = loadingStatus;
+      }
+    )
   }
 }

@@ -1,17 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { Subscription} from 'rxjs';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Router } from "@angular/router";
+import { UserService } from "../services/user.service";
+import { Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-isLoading = true;
-
-  user: { email: string; password: string } = { email: '', password: '' };
+  user: { email: string; password: string } = { email: "", password: "" };
 
   userAuthError: string = null;
   private authErrorSubs: Subscription;
@@ -31,22 +29,22 @@ isLoading = true;
   }
 
   listenForEvents() {
-    this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(
-      isAuthenticated => {
+    this.authListenerSubs = this.userService
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
         this.userIsAuthenticated = isAuthenticated;
-        if(!isAuthenticated) return;
+        if (!isAuthenticated) return;
         this.userAuthError = null;
-      }
-    );
+      });
 
-    this.authErrorSubs = this.userService.getAuthErrorListener().subscribe(
-      authError => {
+    this.authErrorSubs = this.userService
+      .getAuthErrorListener()
+      .subscribe((authError) => {
         this.userAuthError = authError;
-      }
-    );
+      });
   }
 
   login(user): void {
-    this.userService.loginUser(user)
+    this.userService.loginUser(user);
   }
 }
