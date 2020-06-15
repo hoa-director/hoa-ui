@@ -1,0 +1,23 @@
+.rule-dialog-title {
+    font-size: 3rem;
+}
+
+mat-dialog-content {
+    font-size: 2rem;
+}
+
+.rule-description {
+    margin-bottom: 2rem;
+}
+
+.rule-descriptions {
+    margin-left: 4rem;
+    margin-bottom: 4rem;
+}
+.rule-list-item {
+    margin: 2rem
+}
+
+.rule-close-button {
+    margin-bottom: 2rem;
+}

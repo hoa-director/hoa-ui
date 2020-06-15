@@ -25,6 +25,7 @@ import { HomeComponent } from "./home/home.component";
 import { ForgottenPasswordComponent } from "./forgotten-password/forgotten-password.component";
 import { RequestPasswordChangeComponent } from "./request-password-change/request-password-change.component";
 import { AuthInterceptor } from "./services/auth-interceptor";
+import { DialogComponent } from "./app/dialog/dialog.component"; 
 
 // import { MatInputModule, MatCardModule, MatButtonModule } from "@angular/material";
 import { MatInputModule } from "@angular/material/input";
@@ -37,7 +38,6 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ModalComponent } from "./app/modal/modal.component";
 
 @NgModule({
   declarations: [
@@ -56,7 +56,7 @@ import { ModalComponent } from "./app/modal/modal.component";
     MessageComponent,
     ForgottenPasswordComponent,
     RequestPasswordChangeComponent,
-    ModalComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +75,9 @@ import { ModalComponent } from "./app/modal/modal.component";
     MatListModule,
     MatChipsModule,
     MatDialogModule
+  ],
+  entryComponents: [
+    DialogComponent
   ],
   providers: [
     // provides the interceptor
