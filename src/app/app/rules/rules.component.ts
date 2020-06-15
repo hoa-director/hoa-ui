@@ -12,7 +12,6 @@ import { DialogComponent } from "../dialog/dialog.component";
 export class RulesComponent implements OnInit {
   rules: any = [];
   currentRuleList: any;
-  rulesStringify: string;
 
   constructor(
     private dataService: DataService,
@@ -34,7 +33,6 @@ export class RulesComponent implements OnInit {
   init() {
     this.dataService.getRules().subscribe((response) => {
       this.rules = response;
-      this.rulesStringify = JSON.stringify(response, null, 2);
     });
   }
 
