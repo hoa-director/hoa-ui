@@ -2,14 +2,14 @@
   <h3 class="association-rules-and-regulations-header">
     Association Rules and Regulations
   </h3>
-  <mat-chip-list class="mat-chip-list-stacked" #rule>
-    <mat-chip color="primary" selected *ngFor="let rule of rules">
+  <mat-list role="list" class="mat-chip-list-stacked" #rule>
+    <mat-list-item role="listitem" selected *ngFor="let rule of rules">
       <a
-        class="rule-chip"
+        mat-raised-button
         (click)="selectRuleList(rule); openDialog()"
         class="rule-list-title"
         >{{ rule.title }}</a
       >
-    </mat-chip>
-  </mat-chip-list>
+    </mat-list-item>
+  </mat-list>
 </div>

@@ -1,5 +1,7 @@
 .rule-list-title {
   cursor: pointer;
+  width: 30vh;
+  text-align: left;
 }
 
 .association-rules-and-regulations-header {
