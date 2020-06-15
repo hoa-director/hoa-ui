@@ -1,66 +1,15 @@
-<!-- <div class="row">
-  <div class="col">
-    <div class="row">
-      <div class="col">
-        <h3 class="association-rules-and-regulations-header">
-          Association Rules and Regulations
-        </h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="row" *ngFor="let ruleList of rules">
-          <div class="col">
-            <a (click)="selectRuleList(ruleList); htmlInsideModal.open();" class="rule-list-title">{{ruleList.title}}</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <div>
   <h3 class="association-rules-and-regulations-header">
     Association Rules and Regulations
   </h3>
-  <mat-chip-list class="mat-chip-list-stacked" #rule>
-    <mat-divider></mat-divider>
-    <mat-chip *ngFor="let rule of rules">
-      <a class="rule-chip" (click)="selectRuleList(rule); htmlInsideModal.open();" class="rule-list-title">{{rule.title}}</a>
-      <mat-divider></mat-divider> 
-    </mat-chip>
-  </mat-chip-list>
+  <mat-list role="list" class="mat-chip-list-stacked" #rule>
+    <mat-list-item role="listitem" selected *ngFor="let rule of rules">
+      <a
+        mat-raised-button
+        (click)="selectRuleList(rule); openDialog()"
+        class="rule-list-title"
+        >{{ rule.title }}</a
+      >
+    </mat-list-item>
+  </mat-list>
 </div>
-
-<app-modal #htmlInsideModal>
-  <mat-card>
-  <ng-template #modalHeader>
-    <h2>{{currentRuleList.title}}</h2>
-  </ng-template>
-  <ng-template #modalBody>
-    <div class="row">
-      <div class="col">
-        <p>
-          {{currentRuleList.description}}
-        </p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <ul>
-          <li *ngFor="let rule of currentRuleList.rules">
-            {{rule.description}}
-          </li>
-        </ul>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template #modalFooter>
-    <div class="row">
-      <div class="col">
-        <button class="btn btn-primary" (click)="htmlInsideModal.close()">Close</button>
-      </div>
-    </div>
-  </ng-template>
-</mat-card>
-</app-modal>
