@@ -4,8 +4,8 @@ import { tap, catchError, map } from "rxjs/operators";
 import { Observable, of, ReplaySubject, BehaviorSubject, Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { environment } from "../../environments/environment";
-import { response } from "express";
 import { asObservable } from "./asObservable";
+import { SpinnerService } from "./spinner.service";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -26,11 +26,11 @@ export class UserService {
   private isAuthenticated = false;
   private tokenTimer: NodeJS.Timer;
 
-  // loading properties
-  private loadingStatusListener = new BehaviorSubject<boolean>(false);
-  private isLoading = false;
-
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private spinnerService: SpinnerService
+  ) {}
 
   // allow other components to get the token from this service
   getToken() {
@@ -52,10 +52,6 @@ export class UserService {
     return this.isAuthenticated;
   }
 
-  getLoadingStatusListener() {
-    return this.loadingStatusListener.asObservable();
-  }
-
   setCurrentAssociation(id) {
     this.currentAssociation = id;
     this.currentAssociationUpdated.emit(this.currentAssociation);
@@ -67,7 +63,7 @@ export class UserService {
   }
 
   loginUser(user) {
-    this.setLoadingStatusListener(true);
+    this.spinnerService.setLoadingStatusListener(true);
     this.http
       .post<{ token: string; user: any; expiresIn: number }>(
         BACKEND_URL + "/user/login",
@@ -103,7 +99,7 @@ export class UserService {
         }
       )
       .add(() => {
-        this.setLoadingStatusListener(false);
+        this.spinnerService.setLoadingStatusListener(false);
       });
 
     // .pipe(
@@ -250,9 +246,5 @@ export class UserService {
       password,
       token,
     });
-  }
-
-  private setLoadingStatusListener(isLoading: boolean): void {
-    this.loadingStatusListener.next(isLoading);
   }
 }
