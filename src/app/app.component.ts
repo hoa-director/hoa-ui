@@ -1,13 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from './services/user.service';
-import { Subscription} from 'rxjs';
-import { is } from 'bluebird';
-import { isatty } from 'tty';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { UserService } from "./services/user.service";
+import { Subscription } from "rxjs";
+import { SpinnerService } from "./services/spinner.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
@@ -16,7 +15,10 @@ export class AppComponent implements OnInit, OnDestroy {
   isLoading = false;
   private loadingListenerSubs: Subscription;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private spinner: SpinnerService
+  ) {}
 
   ngOnInit() {
     this.listenForEvents();
@@ -29,16 +31,16 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   listenForEvents() {
-    this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(
-      isAuthenticated => {
+    this.authListenerSubs = this.userService
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
         this.userIsAuthenticated = isAuthenticated;
-      }
-    );
+      });
 
-    this.loadingListenerSubs = this.userService.getLoadingStatusListener().subscribe(
-      loadingStatus => {
+    this.loadingListenerSubs = this.spinner
+      .getLoadingStatusListener()
+      .subscribe((loadingStatus) => {
         this.isLoading = loadingStatus;
-      }
-    )
+      });
   }
 }

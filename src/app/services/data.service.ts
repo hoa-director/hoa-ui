@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
-
+import { BehaviorSubject } from "rxjs";
+import { SpinnerService } from "./spinner.service";
 import { environment } from "../../environments/environment";
+import { asObservable } from "./asObservable";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -10,18 +11,60 @@ const BACKEND_URL = environment.apiUrl;
   providedIn: "root",
 })
 export class DataService {
-  constructor(private http: HttpClient) {}
+  public directoryListener = new BehaviorSubject<any>("");
+  public documentsListener = new BehaviorSubject<any>("");
+  public rulesListener = new BehaviorSubject<any>("");
 
-  public getDirectory(): Observable<any> {
-    return this.http.get(BACKEND_URL + "/api/directory");
+  constructor(
+    private http: HttpClient,
+    private spinnerService: SpinnerService
+  ) {}
+
+  getDirectoryListener() {
+    return this.directoryListener.asObservable();
   }
 
-  //
-  public getDocuments(): Observable<any> {
-    return this.http.get(BACKEND_URL + "/api/documents");
+  getDocumentsListener() {
+    return this.documentsListener.asObservable();
   }
-  //
-  public getRules(): Observable<any> {
-    return this.http.get(BACKEND_URL + "/api/rules");
+
+  getRulesListener() {
+    return this.rulesListener.asObservable();
+  }
+
+  getDirectory() {
+    this.spinnerService.setLoadingStatusListener(true);
+    this.http
+      .get(BACKEND_URL + "/api/directory")
+      .subscribe((response) => {
+        this.directoryListener.next(response);
+      })
+      .add(() => {
+        this.spinnerService.setLoadingStatusListener(false);
+      });
+  }
+
+  getDocuments() {
+    this.spinnerService.setLoadingStatusListener(true);
+    this.http
+      .get(BACKEND_URL + "/api/documents")
+      .subscribe((response) => {
+        this.documentsListener.next(response);
+      })
+      .add(() => {
+        this.spinnerService.setLoadingStatusListener(false);
+      });
+  }
+
+  getRules() {
+    this.spinnerService.setLoadingStatusListener(true);
+    this.http
+      .get(BACKEND_URL + "/api/rules")
+      .subscribe((response) => {
+        this.rulesListener.next(response);
+      })
+      .add(() => {
+        this.spinnerService.setLoadingStatusListener(false);
+      });
   }
 }

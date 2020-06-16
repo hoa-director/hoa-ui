@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { DataService } from "../../services/data.service";
 import { UserService } from "../../services/user.service";
+import { Subscription } from "rxjs";
+import { SpinnerService } from "app/services/spinner.service";
 
 @Component({
   selector: "app-directory",
@@ -23,26 +25,40 @@ export class DirectoryComponent implements OnInit {
     };
   }> = [];
 
-  isLoading: boolean;
+  private directoryListenerSubs: Subscription;
+  private loadingListenerSubs: Subscription;
+  isLoading = false;
 
   constructor(
     private dataService: DataService,
-    private userService: UserService
+    private userService: UserService,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit() {
-    this.init();
+    this.listenForEvents();
     this.userService.currentAssociationUpdated.subscribe(() => {
-      this.init();
+      this.listenForEvents();
     });
+    this.dataService.getDirectory();
   }
 
-  init() {
-    this.isLoading = true;
-    this.units = [];
-    this.dataService.getDirectory().subscribe((response: any) => {
-      this.isLoading = false;
-      this.units = response.units;
-    });
+  ngOnDestroy() {
+    this.directoryListenerSubs.unsubscribe();
+    this.loadingListenerSubs.unsubscribe();
+  }
+
+  listenForEvents() {
+    this.directoryListenerSubs = this.dataService
+      .getDirectoryListener()
+      .subscribe((response: any) => {
+        this.units = response.units;
+      });
+
+    this.loadingListenerSubs = this.spinnerService
+      .getLoadingStatusListener()
+      .subscribe((loadingStatus) => {
+        this.isLoading = loadingStatus;
+      });
   }
 }
