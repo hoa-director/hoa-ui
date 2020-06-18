@@ -14,6 +14,7 @@ export class DataService {
   public directoryListener = new BehaviorSubject<any>("");
   public documentsListener = new BehaviorSubject<any>("");
   public rulesListener = new BehaviorSubject<any>("");
+  public documentListener = new BehaviorSubject<any>("");
 
   constructor(
     private http: HttpClient,
@@ -26,6 +27,10 @@ export class DataService {
 
   getDocumentsListener() {
     return this.documentsListener.asObservable();
+  }
+
+  getDocumentListener() {
+    return this.documentListener.asObservable();
   }
 
   getRulesListener() {
@@ -62,6 +67,18 @@ export class DataService {
       .get(BACKEND_URL + "/api/rules")
       .subscribe((response) => {
         this.rulesListener.next(response);
+      })
+      .add(() => {
+        this.spinnerService.setLoadingStatusListener(false);
+      });
+  }
+
+  getDocumentById(documentId: string) {
+    this.spinnerService.setLoadingStatusListener(true);
+    this.http
+      .get(BACKEND_URL + `/api/documents/${documentId}`, { responseType: 'blob' })
+      .subscribe((response) => {
+        this.documentListener.next(response);
       })
       .add(() => {
         this.spinnerService.setLoadingStatusListener(false);

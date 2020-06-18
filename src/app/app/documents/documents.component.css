@@ -1,3 +1,10 @@
-.document {
-  font-size: 16px;
+.documents-list-title {
+  cursor: pointer;
+  width: 30vh;
+  text-align: left;
+}
+
+.association-documents-header {
+  font-size: 3rem;
+  margin-bottom: 5%;
 }

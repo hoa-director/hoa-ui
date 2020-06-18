@@ -39,6 +39,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
+import { PdfViewerModule } from "ng2-pdf-viewer"
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,7 +76,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     MatGridListModule,
     MatListModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule,
+    PdfViewerModule
   ],
   entryComponents: [
     DialogComponent
