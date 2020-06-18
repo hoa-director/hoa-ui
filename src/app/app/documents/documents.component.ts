@@ -13,8 +13,10 @@ export class DocumentsComponent implements OnInit {
   documents: Array<{ name: string; id: number }>;
 
   private documentsListenerSubs: Subscription;
+  private documentListenerSubs: Subscription;
   private loadingListenerSubs: Subscription;
   isLoading = false;
+  fileSource = "";
 
   constructor(
     private dataService: DataService,
@@ -31,6 +33,7 @@ export class DocumentsComponent implements OnInit {
   }
   ngOnDestroy() {
     this.documentsListenerSubs.unsubscribe();
+    this.documentListenerSubs.unsubscribe();
     this.loadingListenerSubs.unsubscribe();
   }
 
@@ -41,10 +44,25 @@ export class DocumentsComponent implements OnInit {
         this.documents = response;
       });
 
+    this.documentListenerSubs = this.dataService
+      .getDocumentListener()
+      .subscribe((response: Blob) => {
+        var file = new Blob([response], { type: "application/pdf" });
+        var fileURL = URL.createObjectURL(file);
+        // window.open(fileURL);
+        this.fileSource = fileURL;
+
+      });
+
     this.loadingListenerSubs = this.spinnerService
       .getLoadingStatusListener()
       .subscribe((loadingStatus) => {
         this.isLoading = loadingStatus;
       });
+  }
+
+  getDocument(event: Event) {
+    this.dataService
+      .getDocumentById((<HTMLAnchorElement>event.target).id);
   }
 }
