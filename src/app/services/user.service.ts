@@ -150,7 +150,6 @@ export class UserService {
   }
 
   private setAuthenticatedTimer(duration: number) {
-    console.log("Setting timer: " + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000); // need to convert second argument into milliseconds, multiply by 1000

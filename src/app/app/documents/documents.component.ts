@@ -51,7 +51,6 @@ export class DocumentsComponent implements OnInit {
         var fileURL = URL.createObjectURL(file);
         // window.open(fileURL);
         this.fileSource = fileURL;
-
       });
 
     this.loadingListenerSubs = this.spinnerService

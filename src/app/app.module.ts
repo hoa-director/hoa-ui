@@ -27,7 +27,6 @@ import { RequestPasswordChangeComponent } from "./request-password-change/reques
 import { AuthInterceptor } from "./services/auth-interceptor";
 import { DialogComponent } from "./app/dialog/dialog.component"; 
 
-// import { MatInputModule, MatCardModule, MatButtonModule } from "@angular/material";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -77,7 +76,7 @@ import { PdfViewerModule } from "ng2-pdf-viewer"
     MatListModule,
     MatChipsModule,
     MatDialogModule,
-    PdfViewerModule
+    PdfViewerModule,
   ],
   entryComponents: [
     DialogComponent

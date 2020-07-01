@@ -15,8 +15,11 @@ import { RulesComponent } from './app/rules/rules.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
-import { LayoutComponent } from './ui/layout/layout.component';
+
 import { MainComponent } from './ui/main/main.component';
+
+import { ResolutionCenterRoutes } from "../app/resolution-center/resolution-center.module";
+import { componentFactoryName } from '@angular/compiler';
 
 export const routes: Routes = [
   {
@@ -110,7 +113,8 @@ export const routes: Routes = [
         component: ProfileComponent,
         canActivate: [AuthGuardService],
         runGuardsAndResolvers: 'always',
-      }
+      },
+      ...ResolutionCenterRoutes,
     ] 
   },
   {
