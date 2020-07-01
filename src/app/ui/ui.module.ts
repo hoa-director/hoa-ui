@@ -12,7 +12,7 @@ import { MainComponent } from "./main/main.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { MatButtonModule } from "@angular/material/button";
-
+import { MatTableModule } from "@angular/material/table";
 
 @NgModule({
   imports: [
@@ -20,7 +20,8 @@ import { MatButtonModule } from "@angular/material/button";
     RouterModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTableModule
   ],
   declarations: [
     LayoutComponent,
@@ -28,7 +29,7 @@ import { MatButtonModule } from "@angular/material/button";
     FooterComponent,
     SidebarComponent,
     AssociationSwitchComponent,
-    MainComponent
+    MainComponent,
   ],
   exports: [LayoutComponent],
 })

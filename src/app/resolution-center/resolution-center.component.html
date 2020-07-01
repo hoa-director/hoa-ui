@@ -1,32 +1,22 @@
-<div class="row">
-  <div class="col">
-    <div class="row">
-      <div class="col">
-        <h1>Welcome to the Resolution Center</h1>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="./inbox">Inbox</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="./outbox">Outbox</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="./past">Past Objections</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="./objection/create">File Objection</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
+<div>
+  <h3 class="resolution-center-header">
+    Welcome to the Resolution Center
+  </h3>
+  <nav mat-tab-nav-bar color="primary">
+    <a mat-tab-link *ngFor="let link of resolutionCenterLinks"
+    (click)="activeLink = link.name"
+    [active]="activeLink == link.name"
+    routerLinkActive="active"
+    [routerLink]="[link.path]"
+    >
+      {{link.name}}
+    </a>
+    <!-- <a mat-tab-link [routerLink]="['inbox']" routerLinkActive="active">Inbox</a>
+    <a mat-tab-link [routerLink]="['outbox']" routerLinkActive="active">Outbox</a>
+    <a mat-tab-link [routerLink]="['past']" routerLinkActive="active">Past Objections</a>
+    <a mat-tab-link [routerLink]="['objection/create']" routerLinkActive="active">File Objection</a> -->
+  </nav>
+  <div>
+    <router-outlet></router-outlet>
   </div>
 </div>

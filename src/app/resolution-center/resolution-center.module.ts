@@ -15,6 +15,10 @@ import { PastObjectionsComponent } from "./past-objections/past-objections.compo
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuardService } from "../services/auth-guard.service";
 
+import { MatTabsModule } from "@angular/material/tabs";
+
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
 export const ResolutionCenterRoutes: Routes = [
   {
     path: "resolution-center",
@@ -38,6 +42,8 @@ export const ResolutionCenterRoutes: Routes = [
     HttpClientModule,
     FormsModule,
     RouterModule.forChild(ResolutionCenterRoutes),
+    MatTabsModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     ResolutionCenterComponent,
