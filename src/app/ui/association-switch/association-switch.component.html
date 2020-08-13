@@ -1,6 +1,20 @@
 <div class="form-group" *ngIf="associations.length > 1">
-  <label class="align-self-center" for="association-switch">Switch Assoication</label>
-  <select [(ngModel)]="currentAssociation" (change)="selectAssociation($event.target.value)" class="form-control" name="association-switch" id="association-switch">
-    <option *ngFor="let association of associations" value="{{association.id}}">{{association.name}}</option>
-  </select>
+  <mat-form-field appearance="fill">
+    <mat-label class="align-self-center" for="association-switch"
+      >Switch Association</mat-label
+    >
+    <mat-select
+      [(ngModel)]="currentAssociation"
+      (change)="selectAssociation($event.target.value)"
+      class="form-control"
+      name="association-switch"
+      id="association-switch"
+    >
+      <mat-option
+        *ngFor="let association of associations"
+        value="{{ association.id }}"
+        >{{ association.name }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 </div>

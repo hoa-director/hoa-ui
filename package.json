@@ -11,7 +11,7 @@
     "client": "ng serve",
     "build": "npm run clean && npm run build-client",
     "clean": "rm -fR dist/",
-    "dev": "npm run build-dev && npm run watch",
+    "dev": "npm run build-client-dev && npm run watch",
     "lint-client": "npx tslint -c tslint.json -p src/tsconfig.app.json"
   },
   "dependencies": {

@@ -1,6 +1,6 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { ModalModule } from "angular-custom-modal";
 
@@ -25,7 +25,7 @@ import { HomeComponent } from "./home/home.component";
 import { ForgottenPasswordComponent } from "./forgotten-password/forgotten-password.component";
 import { RequestPasswordChangeComponent } from "./request-password-change/request-password-change.component";
 import { AuthInterceptor } from "./services/auth-interceptor";
-import { DialogComponent } from "./app/dialog/dialog.component"; 
+import { DialogComponent } from "./app/dialog/dialog.component";
 
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
@@ -38,7 +38,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { PdfViewerModule } from "ng2-pdf-viewer"
+import { PdfViewerModule } from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -57,7 +57,8 @@ import { PdfViewerModule } from "ng2-pdf-viewer"
     MessageComponent,
     ForgottenPasswordComponent,
     RequestPasswordChangeComponent,
-    DialogComponent
+    DialogComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -77,10 +78,9 @@ import { PdfViewerModule } from "ng2-pdf-viewer"
     MatChipsModule,
     MatDialogModule,
     PdfViewerModule,
+    ReactiveFormsModule
   ],
-  entryComponents: [
-    DialogComponent
-  ],
+  entryComponents: [DialogComponent],
   providers: [
     // provides the interceptor
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
