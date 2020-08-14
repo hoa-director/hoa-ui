@@ -16,16 +16,16 @@
   },
   "dependencies": {
     "@angular-material-extensions/password-strength": "^6.0.0",
-    "@angular/animations": "^9.1.12",
+    "@angular/animations": "^10.0.9",
     "@angular/cdk": "^9.2.4",
-    "@angular/common": "^9.1.12",
-    "@angular/compiler": "^9.1.12",
-    "@angular/core": "^9.1.12",
-    "@angular/forms": "^9.1.12",
+    "@angular/common": "^10.0.9",
+    "@angular/compiler": "^10.0.9",
+    "@angular/core": "^10.0.9",
+    "@angular/forms": "^10.0.9",
     "@angular/material": "^9.2.4",
-    "@angular/platform-browser": "^9.1.12",
-    "@angular/platform-browser-dynamic": "^9.1.12",
-    "@angular/router": "^9.1.12",
+    "@angular/platform-browser": "^10.0.9",
+    "@angular/platform-browser-dynamic": "^10.0.9",
+    "@angular/router": "^10.0.9",
     "@bugsnag/js": "^6.5.2",
     "@bugsnag/plugin-express": "^6.5.1",
     "angular-custom-modal": "^1.2.0",
@@ -48,15 +48,15 @@
     "sequelize": "^4.44.4",
     "shelljs": "^0.8.4",
     "tslib": "^1.10.0",
-    "typescript": "^3.8.3",
+    "typescript": "^3.9.7",
     "uuid": "^3.4.0",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.901.12",
-    "@angular/cli": "^9.1.12",
-    "@angular/compiler-cli": "^9.1.12",
-    "@angular/language-service": "^9.1.12",
+    "@angular-devkit/build-angular": "~0.1000.6",
+    "@angular/cli": "^10.0.6",
+    "@angular/compiler-cli": "^10.0.9",
+    "@angular/language-service": "^10.0.9",
     "@types/bcrypt": "^2.0.0",
     "@types/bluebird": "^3.5.32",
     "@types/dotenv": "^6.1.1",
@@ -85,6 +85,6 @@
     "sequelize-typescript": "^1.1.0",
     "ts-node": "^5.0.1",
     "tsc-watch": "^1.1.39",
-    "tslint": "^5.20.1"
+    "tslint": "~6.1.0"
   }
 }
