@@ -1,11 +1,24 @@
 {
-    "files": [],
-    "references": [
-      {
-        "path": ""
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": false,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "typeRoots": ["node_modules/@types"],
+    "paths": {
+      "schemas": ["schema/schemas"]
       },
-      {
-        "path": ""
-      }
-  ]
-  }
+  },
+  "exclude": ["node_modules", "build", "dist"],
+}

@@ -55,7 +55,7 @@ export class ObjectionComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.message = 'A server error has occured. Please try again later';
+          this.message = 'A server error has occurred. Please try again later';
         },
       );
   }
