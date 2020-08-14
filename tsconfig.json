@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "target": "es2015",
     "baseUrl": "src",
     "paths": {
       "schemas": ["schema/schemas"]
@@ -11,17 +12,8 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ]
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"]
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist",
-  ]
+  "exclude": ["node_modules", "build", "dist"]
 }
