@@ -1,4 +1,4 @@
-import "hammerjs";
+
 import { enableProdMode } from "@angular/core";
 
 // added with angular material
