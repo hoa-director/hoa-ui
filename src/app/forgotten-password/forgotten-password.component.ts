@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "../services/user.service";
 import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-forgotten-password",
@@ -10,11 +11,14 @@ import { Router } from "@angular/router";
   styleUrls: ["./forgotten-password.component.css"],
 })
 export class ForgottenPasswordComponent implements OnInit {
-  public password: string = "";
   public token: string = "";
   public message: string = "";
   public isSuccess: boolean = false;
   public noSuccess: boolean = false
+
+  resetPassword = new FormGroup({
+    password: new FormControl("", [Validators.required, ]),
+  });
 
   constructor(
     private userService: UserService,
@@ -24,6 +28,11 @@ export class ForgottenPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.token = this.route.snapshot.paramMap.get("token");
+  }
+
+  onCancel() {
+    this.resetPassword.reset();
+    this.router.navigate(["/login"]);
   }
 
   changePassword(password) {

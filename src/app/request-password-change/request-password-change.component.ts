@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./request-password-change.component.css"],
 })
 export class RequestPasswordChangeComponent implements OnInit {
-  resetPassword = new FormGroup({
+  requestPasswordChange = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
   });
 
@@ -21,19 +21,19 @@ export class RequestPasswordChangeComponent implements OnInit {
 
   onSubmit() {
     // this.requestToken(event;
-    this.requestToken(this.resetPassword.get("email").value);
+    this.requestToken(this.requestPasswordChange.get("email").value);
   }
 
   onCancel() {
-    this.resetPassword.reset();
-    this.router.navigate(["/home"]);
+    this.requestPasswordChange.reset();
+    this.router.navigate(["/login"]);
   }
 
   requestToken(email: string) {
     this.userService.requestToken(email).subscribe(
       (response) => {
         this.message = `An email will be sent to ${email} with a link to reset your password`;
-        this.resetPassword.disable();
+        this.requestPasswordChange.disable();
         setTimeout(() => {
           this.router.navigate(["/home"]);
         }, 5000);

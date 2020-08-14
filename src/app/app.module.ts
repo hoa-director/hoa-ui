@@ -40,6 +40,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { PdfViewerModule } from "ng2-pdf-viewer";
 
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +80,8 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
     MatChipsModule,
     MatDialogModule,
     PdfViewerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatPasswordStrengthModule.forRoot()
   ],
   entryComponents: [DialogComponent],
   providers: [
