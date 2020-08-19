@@ -1,5 +1,5 @@
 // import { Location } from '@angular/common';
-import { Component, OnInit } from "@angular/core";
+import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { UserService } from "../services/user.service";
 import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
@@ -9,6 +9,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
   selector: "app-forgotten-password",
   templateUrl: "./forgotten-password.component.html",
   styleUrls: ["./forgotten-password.component.css"],
+  //encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ForgottenPasswordComponent implements OnInit {
   public token: string = "";

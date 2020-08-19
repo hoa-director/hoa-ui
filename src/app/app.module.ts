@@ -35,12 +35,15 @@ import { MatListModule } from "@angular/material/list";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatIconModule } from "@angular/material/icon";
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { PdfViewerModule } from "ng2-pdf-viewer";
 
-import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { MatPasswordStrengthModule } from "@angular-material-extensions/password-strength";
+
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,6 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     ForgottenPasswordComponent,
     RequestPasswordChangeComponent,
     DialogComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -79,9 +81,11 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     MatListModule,
     MatChipsModule,
     MatDialogModule,
+    MatIconModule,
     PdfViewerModule,
     ReactiveFormsModule,
-    MatPasswordStrengthModule.forRoot()
+    MatPasswordStrengthModule.forRoot(),
+    FlexLayoutModule
   ],
   entryComponents: [DialogComponent],
   providers: [
