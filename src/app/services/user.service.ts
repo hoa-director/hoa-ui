@@ -24,7 +24,8 @@ export class UserService {
   private authStatusListener = new Subject<boolean>();
   private authErrorListener = new Subject<string>();
   private isAuthenticated = false;
-  private tokenTimer: NodeJS.Timer;
+  // TODO: update type to NodeJS.Timer
+  private tokenTimer: any;
 
   constructor(
     private http: HttpClient,
