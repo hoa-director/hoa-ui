@@ -1,6 +1,6 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { ModalModule } from "angular-custom-modal";
 
@@ -25,7 +25,7 @@ import { HomeComponent } from "./home/home.component";
 import { ForgottenPasswordComponent } from "./forgotten-password/forgotten-password.component";
 import { RequestPasswordChangeComponent } from "./request-password-change/request-password-change.component";
 import { AuthInterceptor } from "./services/auth-interceptor";
-import { DialogComponent } from "./app/dialog/dialog.component"; 
+import { DialogComponent } from "./app/dialog/dialog.component";
 
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
@@ -35,10 +35,15 @@ import { MatListModule } from "@angular/material/list";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatIconModule } from "@angular/material/icon";
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { PdfViewerModule } from "ng2-pdf-viewer"
+import { PdfViewerModule } from "ng2-pdf-viewer";
+
+import { MatPasswordStrengthModule } from "@angular-material-extensions/password-strength";
+
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -57,7 +62,7 @@ import { PdfViewerModule } from "ng2-pdf-viewer"
     MessageComponent,
     ForgottenPasswordComponent,
     RequestPasswordChangeComponent,
-    DialogComponent
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,11 +81,13 @@ import { PdfViewerModule } from "ng2-pdf-viewer"
     MatListModule,
     MatChipsModule,
     MatDialogModule,
+    MatIconModule,
     PdfViewerModule,
+    ReactiveFormsModule,
+    MatPasswordStrengthModule.forRoot(),
+    FlexLayoutModule
   ],
-  entryComponents: [
-    DialogComponent
-  ],
+  entryComponents: [DialogComponent],
   providers: [
     // provides the interceptor
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

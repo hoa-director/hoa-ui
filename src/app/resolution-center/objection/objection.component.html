@@ -10,11 +10,11 @@
   <div class="col" *ngIf="objection">
     <p>
       <strong>Submitted By: </strong>
-      {{objection.submittedBy.units[0].addressLineOne}}
+      {{objection.submittedBy.units[0]?.addressLineOne}}
     </p>
     <p>
       <strong>Submitted Against: </strong>
-      {{objection.submittedAgainst.units[0].addressLineOne}}
+      {{objection.submittedAgainst.units[0]?.addressLineOne}}
     </p>
     <p>
       <strong>Objection: </strong>

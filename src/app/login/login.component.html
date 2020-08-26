@@ -1,8 +1,8 @@
 <div class="login-container">
   <mat-card>
-    <mat-card-header>
+    <div class="card-header">
       Login
-    </mat-card-header>
+    </div>
     <mat-card-content>
       <div>
         <div class="custom-auth-error" *ngIf="userAuthError">
@@ -19,7 +19,7 @@
               <input
                 matInput
                 type="email"
-                placeholder="email"
+                placeholder="your@email.com"
                 class="form-control"
                 name="email"
                 required

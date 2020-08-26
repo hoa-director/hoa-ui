@@ -71,7 +71,6 @@ export class UserService {
       )
       .subscribe(
         (response) => {
-          this.setUser(response.user);
           const token = response.token;
           this.token = token;
           if (token) {
@@ -84,6 +83,8 @@ export class UserService {
               now.getTime() + expiresInDuration * 1000
             );
             this.saveAuthData(token, expirationDate);
+            this.saveUserData(response.user.id);
+            this.setUser(response.user);
             this.router.navigate(["/main", "directory"]);
           }
           // return 'success';
@@ -146,6 +147,7 @@ export class UserService {
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
+    this.clearUserDate();
     this.router.navigateByUrl("/home");
   }
 
@@ -174,6 +176,14 @@ export class UserService {
       token: token,
       expirationDate: new Date(expirationDate),
     };
+  }
+
+  private saveUserData(userId: string) {
+    sessionStorage.setItem("userId", userId);
+  }
+
+  private clearUserDate() {
+    sessionStorage.removeItem("userId");
   }
 
   getUser() {
@@ -206,15 +216,19 @@ export class UserService {
   }
 
   getUserAssociations(): Observable<any> {
-    return this.getUser().pipe((user) => {
-      if (!user) {
-        return of({});
-      }
-      return this.http.get(
-        BACKEND_URL +
-          `/user/associations/?userId=${this.userSubject.getValue().id}`
-      );
-    });
+    // return this.getUser().pipe((user) => {
+    //   if (!user) {
+    //     return of({});
+    //   }
+    // return this.http.get(
+    //   BACKEND_URL +
+    //     `/user/associations?userId=${this.userSubject.getValue().id}`
+    // );
+    // });
+    return this.http.get(
+      BACKEND_URL +
+        `/user/associations?userId=${sessionStorage.getItem("userId")}`
+    );
   }
 
   selectAssociation(associationId): Observable<any> {
@@ -241,7 +255,7 @@ export class UserService {
   }
 
   changeForgottenPassword({ password, token }) {
-    return this.http.post(BACKEND_URL + "/users/forgotten", {
+    return this.http.post<{ success: boolean }>(BACKEND_URL + "/users/forgotten", {
       password,
       token,
     });
