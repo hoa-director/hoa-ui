@@ -30,10 +30,10 @@ COPY --from=build /app/dist/* usr/share/nginx/html/
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 # Copy SSL Cert
-COPY ../hoa-ssl-crt/ /etc/ssl/gd_bundle-g2-g1.crt
+COPY ../hoa-ssl-crt/* /etc/ssl/
 
 # Copy SSL Key
-COPY ../hoa-ssl-key/ /etc/ssl/website_ssl.key
+COPY ../hoa-ssl-key/website_ssl.key /etc/ssl/website_ssl.key
 
 # Expose the port the app runs in
 EXPOSE 80
