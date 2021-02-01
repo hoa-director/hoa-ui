@@ -1,31 +1,19 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { DataService } from "../../services/data.service";
 import { UserService } from "../../services/user.service";
 import { Subscription } from "rxjs";
 import { SpinnerService } from "app/services/spinner.service";
+import { Unit } from "./unit.model";
 
 @Component({
   selector: "app-directory",
   templateUrl: "./directory.component.html",
   styleUrls: ["./directory.component.css"],
 })
-export class DirectoryComponent implements OnInit {
-  units: Array<{
-    addressLineOne: string;
-    addressLineTwo?: string;
-    city: string;
-    state: string;
-    zip: number;
-    user: {
-      email: string;
-      phone: string;
-      fullName: string;
-      firstName: string;
-      lastName: string;
-    };
-  }> = [];
+export class DirectoryComponent implements OnInit, OnDestroy {
+  units: Unit[] = [];
 
-  private directoryListenerSubs: Subscription;
+  private userSubjectSubs: Subscription;
   private loadingListenerSubs: Subscription;
   isLoading = false;
 
@@ -37,23 +25,30 @@ export class DirectoryComponent implements OnInit {
 
   ngOnInit() {
     this.listenForEvents();
-    this.userService.currentAssociationUpdated.subscribe(() => {
-      this.listenForEvents();
-    });
-    this.dataService.getDirectory();
+    this.onFetchUnits();
   }
 
   ngOnDestroy() {
-    this.directoryListenerSubs.unsubscribe();
+    this.userSubjectSubs.unsubscribe();
     this.loadingListenerSubs.unsubscribe();
   }
 
-  listenForEvents() {
-    this.directoryListenerSubs = this.dataService
-      .getDirectoryListener()
-      .subscribe((response: any) => {
-        this.units = response.units;
+  onFetchUnits() {
+    this.spinnerService.setLoadingStatusListener(true);
+
+    this.dataService
+      .fetchUnits()
+      .subscribe((responseData: any) => {
+        this.units = [...responseData.units]
       });
+
+    this.spinnerService.setLoadingStatusListener(false);
+  }
+
+  listenForEvents() {
+    this.userSubjectSubs = this.userService.selectedAssociation.subscribe(() => {
+      this.onFetchUnits();
+    });
 
     this.loadingListenerSubs = this.spinnerService
       .getLoadingStatusListener()

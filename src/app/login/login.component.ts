@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   listenForEvents() {
     this.authListenerSubs = this.userService
       .getAuthStatusListener()
-      .subscribe((isAuthenticated) => {
+      .subscribe((isAuthenticated: boolean) => {
         this.userIsAuthenticated = isAuthenticated;
         if (!isAuthenticated) return;
         this.userAuthError = null;
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.authErrorSubs = this.userService
       .getAuthErrorListener()
-      .subscribe((authError) => {
+      .subscribe((authError: string) => {
         this.userAuthError = authError;
       });
   }

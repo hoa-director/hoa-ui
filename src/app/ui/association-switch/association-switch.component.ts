@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
 import { Location } from "@angular/common";
 import { UserService } from "../../services/user.service";
+import { BehaviorSubject, ReplaySubject } from "rxjs";
 
 @Component({
   selector: "app-association-switch",
@@ -9,22 +10,32 @@ import { UserService } from "../../services/user.service";
 })
 export class AssociationSwitchComponent implements OnInit, OnDestroy {
   subscriptions = [];
-  associations: {}[] = [];
-  currentAssociation: number;
+  // associationsReplaySubject = new ReplaySubject<[{id: string, name: string}]>(1);
+  associations: { id: string; name: string }[] = [];
+  currentAssociation: string;
 
   constructor(public userService: UserService, private location: Location) {}
 
   ngOnInit() {
     this.init();
-    const associationSubscription = this.userService.currentAssociationUpdated.subscribe(
-      () => {
-        this.init();
+    const selectedAssociationSubscription = this.userService.selectedAssociation
+    .subscribe(
+      (value: any) => {
+        this.currentAssociation = value;
       }
     );
-    const userSubscription = this.userService.userUpdated.subscribe(() => {
-      this.init();
-    });
-    this.subscriptions.push(associationSubscription, userSubscription);
+
+    const userAssociations = this.userService.availableAssociations
+    .subscribe(
+      (value: any) => {
+        this.associations = value.associations;
+      }
+    );
+
+    this.subscriptions.push(
+      selectedAssociationSubscription,
+      userAssociations
+    );
   }
 
   ngOnDestroy() {
@@ -34,26 +45,15 @@ export class AssociationSwitchComponent implements OnInit, OnDestroy {
     });
   }
 
+  // ngAfterViewInit(){
+  //   this.currentAssociation = this.associations[0].id
+  // }
+
   private init() {
-    this.userService.getUserAssociations().subscribe(
-      ({ associations, currentAssociation }: any) => {
-        this.associations = associations;
-        this.currentAssociation = currentAssociation;
-      },
-      () => {
-        // this.associations = [];
-      }
-    );
+    this.userService.getUserAssociations();
   }
 
   selectAssociation(associationId) {
-    this.userService
-      .selectAssociation(associationId)
-      .subscribe(({ associations, currentAssociation }: any) => {
-        this.associations = associations;
-        this.currentAssociation = currentAssociation;
-        const url = this.location.path();
-        this.location.go(url);
-      });
+    this.userService.setAssociation(associationId.value)
   }
 }

@@ -25,7 +25,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   listenForEvents() {
     this.authListenerSubs = this.userService
       .getAuthStatusListener()
-      .subscribe((isAuthenticated) => {
+      .subscribe((isAuthenticated: boolean) => {
         this.userIsAuthenticated = isAuthenticated;
       });
   }

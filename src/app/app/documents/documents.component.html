@@ -2,17 +2,15 @@
   <h3 class="association-documents-header">
     Association Documents
   </h3>
-  <mat-list role="list">
+  <mat-list role="list" #document>
     <mat-list-item role="listitem" selected *ngFor="let document of documents">
       <a
         mat-raised-button
         [id]="document.id"
-        (click)="getDocument($event)"
+        (click)="onFetchAndOpenDocument(document.id)"
         class="documents-list-title"
-        >{{ document.name }}</a
-      >
+        >{{ document.name }}
+        </a>
     </mat-list-item>
   </mat-list>
-  <pdf-viewer [src]="fileSource" [render-text]="true" style="display: block;">
-  </pdf-viewer>
 </div>

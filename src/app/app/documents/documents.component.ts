@@ -3,6 +3,8 @@ import { DataService } from "../../services/data.service";
 import { UserService } from "../../services/user.service";
 import { Subscription } from "rxjs";
 import { SpinnerService } from "app/services/spinner.service";
+import { Document } from "./document.model";
+import { response } from "express";
 
 @Component({
   selector: "app-documents",
@@ -10,11 +12,10 @@ import { SpinnerService } from "app/services/spinner.service";
   styleUrls: ["./documents.component.css"],
 })
 export class DocumentsComponent implements OnInit {
-  documents: Array<{ name: string; id: number }>;
+  documents: Document[] = [];
 
-  private documentsListenerSubs: Subscription;
-  private documentListenerSubs: Subscription;
   private loadingListenerSubs: Subscription;
+  private userSubjectSubs: Subscription;
   isLoading = false;
   fileSource = "";
 
@@ -26,32 +27,44 @@ export class DocumentsComponent implements OnInit {
 
   ngOnInit() {
     this.listenForEvents();
-    this.userService.currentAssociationUpdated.subscribe(() => {
-      this.listenForEvents();
-    });
-    this.dataService.getDocuments();
+    this.onFetchDocuments();
   }
   ngOnDestroy() {
-    this.documentsListenerSubs.unsubscribe();
-    this.documentListenerSubs.unsubscribe();
     this.loadingListenerSubs.unsubscribe();
+    this.userSubjectSubs.unsubscribe();
   }
 
-  listenForEvents() {
-    this.documentsListenerSubs = this.dataService
-      .getDocumentsListener()
-      .subscribe((response: any) => {
-        this.documents = response;
-      });
+  onFetchDocuments() {
+    this.spinnerService.setLoadingStatusListener(true);
 
-    this.documentListenerSubs = this.dataService
-      .getDocumentListener()
+    this.dataService.fetchDocuments().subscribe((responseData: any) => {
+      console.log(responseData);
+      this.documents = [...responseData];
+    });
+    this.spinnerService.setLoadingStatusListener(false);
+  }
+
+  onFetchAndOpenDocument(documentId: string) {
+    this.spinnerService.setLoadingStatusListener(true);
+
+    this.dataService
+      .fetchDocumentById(documentId)
       .subscribe((response: Blob) => {
         var file = new Blob([response], { type: "application/pdf" });
         var fileURL = URL.createObjectURL(file);
-        // window.open(fileURL);
         this.fileSource = fileURL;
+        this.openDocumentInWindow(this.fileSource);
       });
+
+    this.spinnerService.setLoadingStatusListener(false);
+  }
+
+  listenForEvents() {
+    this.userSubjectSubs = this.userService.selectedAssociation.subscribe(
+      () => {
+        this.onFetchDocuments();
+      }
+    );
 
     this.loadingListenerSubs = this.spinnerService
       .getLoadingStatusListener()
@@ -60,8 +73,7 @@ export class DocumentsComponent implements OnInit {
       });
   }
 
-  getDocument(event: Event) {
-    this.dataService
-      .getDocumentById((<HTMLAnchorElement>event.target).id);
+  openDocumentInWindow(fileSource: string) {
+    window.open(fileSource);
   }
 }
