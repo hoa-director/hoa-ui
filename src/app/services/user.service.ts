@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, EventEmitter } from "@angular/core";
-import { tap, catchError, map } from "rxjs/operators";
+import { tap, catchError, map, shareReplay } from "rxjs/operators";
 import { Observable, of, ReplaySubject, BehaviorSubject, Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { environment } from "../../environments/environment";
@@ -14,10 +14,6 @@ const BACKEND_URL = environment.apiUrl;
 })
 export class UserService {
   private userSubject = new BehaviorSubject<any>("");
-  // user;
-  userUpdated: EventEmitter<string> = new EventEmitter();
-  currentAssociation;
-  currentAssociationUpdated: EventEmitter<string> = new EventEmitter();
 
   // auth properties
   private token: string;
@@ -26,7 +22,15 @@ export class UserService {
   private isAuthenticated = false;
   private tokenTimer: NodeJS.Timer;
 
-  constructor(
+  // association properties
+  private _availableAssociations = new ReplaySubject<
+    [{ id: string; name: string }]
+  >(1);
+  public readonly availableAssociations = asObservable(this._availableAssociations);
+  private _selectedAssociation = new ReplaySubject(1);
+  public readonly selectedAssociation = asObservable(this._selectedAssociation);
+
+  constructor (
     private http: HttpClient,
     private router: Router,
     private spinnerService: SpinnerService
@@ -37,38 +41,31 @@ export class UserService {
     return this.token;
   }
 
-  // don't want to expose subject to components to prevent other components from being able to emit
-  // Only want to emit from this service, but allow other to listen, so it is a private property
-  // need to return the subject as an observable
   getAuthStatusListener() {
-    return this.authStatusListener.asObservable();
+    return asObservable(this.authStatusListener);
   }
 
   getAuthErrorListener() {
-    return this.authErrorListener.asObservable();
+    return asObservable(this.authErrorListener);
   }
 
   getIsAuthenticated() {
     return this.isAuthenticated;
   }
 
-  setCurrentAssociation(id) {
-    this.currentAssociation = id;
-    this.currentAssociationUpdated.emit(this.currentAssociation);
-  }
-
   setUser(user) {
     this.userSubject.next(user);
-    this.userUpdated.emit(user);
   }
 
   loginUser(user) {
     this.spinnerService.setLoadingStatusListener(true);
     this.http
-      .post<{ token: string; user: any; expiresIn: number }>(
-        BACKEND_URL + "/user/login",
-        user
-      )
+      .post<{
+        token: string;
+        user: any;
+        associationId: number;
+        expiresIn: number;
+      }>(BACKEND_URL + "/user/login", user)
       .subscribe(
         (response) => {
           const token = response.token;
@@ -85,6 +82,8 @@ export class UserService {
             this.saveAuthData(token, expirationDate);
             this.saveUserData(response.user.id);
             this.setUser(response.user);
+            this._selectedAssociation.next(response.associationId);
+            this.saveUserAssociationData(response.associationId)
             this.router.navigate(["/main", "directory"]);
           }
           // return 'success';
@@ -182,6 +181,11 @@ export class UserService {
     sessionStorage.setItem("userId", userId);
   }
 
+  private saveUserAssociationData(associationId: number) {
+    sessionStorage.setItem("associationId", associationId.toString());
+  }
+    
+
   private clearUserDate() {
     sessionStorage.removeItem("userId");
   }
@@ -204,6 +208,7 @@ export class UserService {
     // {
     //   return of(this.user);
     // }
+    // return this.userSubject.asObservable();
     return asObservable(this.userSubject);
   }
 
@@ -215,7 +220,7 @@ export class UserService {
     );
   }
 
-  getUserAssociations(): Observable<any> {
+  getUserAssociations() {
     // return this.getUser().pipe((user) => {
     //   if (!user) {
     //     return of({});
@@ -225,25 +230,21 @@ export class UserService {
     //     `/user/associations?userId=${this.userSubject.getValue().id}`
     // );
     // });
-    return this.http.get(
-      BACKEND_URL +
-        `/user/associations?userId=${sessionStorage.getItem("userId")}`
-    );
+    let observable = this.http
+      .get<[{ id: string; name: string }]>(
+        BACKEND_URL +
+          `/user/associations?userId=${sessionStorage.getItem("userId")}`
+      )
+      .pipe(shareReplay());
+
+    observable.subscribe((associations) => {
+      this._availableAssociations.next(associations);
+    });
   }
 
-  selectAssociation(associationId): Observable<any> {
-    return this.getUser().pipe((user) => {
-      if (!user) {
-        return of({});
-      }
-      return this.http
-        .post(BACKEND_URL + "/user/associations/", { associationId })
-        .pipe(
-          tap(({ currentAssociation }) => {
-            this.setCurrentAssociation(currentAssociation);
-          })
-        );
-    });
+  setAssociation(associationId) {
+    this.saveUserAssociationData(associationId);
+    this._selectedAssociation.next(associationId);
   }
 
   requestToken(email) {
@@ -255,9 +256,12 @@ export class UserService {
   }
 
   changeForgottenPassword({ password, token }) {
-    return this.http.post<{ success: boolean }>(BACKEND_URL + "/users/forgotten", {
-      password,
-      token,
-    });
+    return this.http.post<{ success: boolean }>(
+      BACKEND_URL + "/users/forgotten",
+      {
+        password,
+        token,
+      }
+    );
   }
 }

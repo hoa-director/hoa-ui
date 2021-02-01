@@ -23,7 +23,7 @@ export class ObjectionComponent implements OnInit {
 
   ngOnInit() {
     this.init();
-    this.userService.currentAssociationUpdated.subscribe(() => {
+    this.userService.selectedAssociation.subscribe(() => {
       this.init();
     });
   }

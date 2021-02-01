@@ -1,11 +1,11 @@
-<div class="form-group" *ngIf="associations.length > 1">
-  <mat-form-field appearance="fill">
+<div class="form-group">
+  <mat-form-field appearance="fill" matNativeControl>
     <mat-label class="align-self-center" for="association-switch"
       >Switch Association</mat-label
     >
     <mat-select
       [(ngModel)]="currentAssociation"
-      (change)="selectAssociation($event.target.value)"
+      (selectionChange)="selectAssociation($event)"
       class="form-control"
       name="association-switch"
       id="association-switch"

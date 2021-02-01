@@ -5,6 +5,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { DialogComponent } from "../dialog/dialog.component";
 import { SpinnerService } from "app/services/spinner.service";
 import { Subscription } from "rxjs";
+import { Rule } from "./rule.model";
 
 @Component({
   selector: "app-rules",
@@ -12,11 +13,11 @@ import { Subscription } from "rxjs";
   styleUrls: ["./rules.component.css"],
 })
 export class RulesComponent implements OnInit {
-  rules: any = [];
+  rules: Rule[] = [];
   currentRuleList: any;
 
-  private rulesListenerSubs: Subscription;
   private loadingListenerSubs: Subscription;
+  private userSubjectSubs: Subscription;
   isLoading = false;
 
   constructor(
@@ -28,29 +29,31 @@ export class RulesComponent implements OnInit {
 
   ngOnInit() {
     this.ListenForEvents();
-    this.userService.currentAssociationUpdated.subscribe(() => {
-      this.ListenForEvents();
-    });
-    this.dataService.getRules();
   }
 
   ngOnDestroy() {
-    this.rulesListenerSubs.unsubscribe();
     this.loadingListenerSubs.unsubscribe();
+    this.userSubjectSubs.unsubscribe();
   }
 
   ListenForEvents() {
-    this.rulesListenerSubs = this.dataService
-      .getRulesListener()
-      .subscribe((response) => {
-        this.rules = response;
-      });
+    this.userSubjectSubs = this.userService.selectedAssociation.subscribe(
+      () => {
+        this.onFetchRules();
+      }
+    );
 
     this.loadingListenerSubs = this.spinnerService
       .getLoadingStatusListener()
       .subscribe((loadingStatus) => {
         this.isLoading = loadingStatus;
       });
+  }
+
+  onFetchRules() {
+    this.dataService.fetchRules().subscribe((responseData: any) => {
+      this.rules = [...responseData];
+    });
   }
 
   selectRuleList(ruleList) {

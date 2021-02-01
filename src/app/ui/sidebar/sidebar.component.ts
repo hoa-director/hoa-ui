@@ -8,8 +8,6 @@ import { Subscription } from "rxjs";
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  // subscriptions = [];
-
   userIsAuthenticated = true;
   private authListenerSubs: Subscription;
 
@@ -105,7 +103,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   listenForEvents() {
     this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(
-      isAuthenticated => {
+      (isAuthenticated: boolean) => {
         this.userIsAuthenticated = isAuthenticated;
         // if(!isAuthenticated) return;
       }
