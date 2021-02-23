@@ -43,4 +43,7 @@ export class RequestPasswordChangeComponent implements OnInit {
       }
     );
   }
+  navToHome(){
+    this.router.navigate(["/home"]);
+  }
 }

@@ -9,7 +9,6 @@ const BACKEND_URL = environment.apiUrl;
   providedIn: "root",
 })
 export class DataService {
-
   constructor(
     private http: HttpClient,
     private spinnerService: SpinnerService
@@ -34,13 +33,12 @@ export class DataService {
   }
 
   fetchRules() {
-    return this.http
-      .get(BACKEND_URL + "/api/rules", {
-        params: new HttpParams().set(
-          "associationId",
-          sessionStorage.getItem("associationId").toString()
-        ),
-      });
+    return this.http.get(BACKEND_URL + "/api/rules", {
+      params: new HttpParams().set(
+        "associationId",
+        sessionStorage.getItem("associationId").toString()
+      ),
+    });
   }
 
   fetchDocumentById(documentId: string) {

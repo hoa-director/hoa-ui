@@ -7,13 +7,13 @@ import { SpinnerService } from "./services/spinner.service";
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
+  providers: [SpinnerService]
 })
 export class AppComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
 
   isLoading = false;
-  private loadingListenerSubs: Subscription;
 
   constructor(
     private userService: UserService,
@@ -27,7 +27,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
-    this.loadingListenerSubs.unsubscribe();
   }
 
   listenForEvents() {
@@ -37,9 +36,9 @@ export class AppComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
       });
 
-    this.loadingListenerSubs = this.spinner
+    this.spinner
       .getLoadingStatusListener()
-      .subscribe((loadingStatus) => {
+      .subscribe((loadingStatus: boolean) => {
         this.isLoading = loadingStatus;
       });
   }

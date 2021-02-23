@@ -47,4 +47,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   login(user): void {
     this.userService.loginUser(user);
   }
+
+  navToHome(){
+    this.router.navigate(["/home"]);
+  }
 }

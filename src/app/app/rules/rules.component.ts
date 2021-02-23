@@ -32,7 +32,6 @@ export class RulesComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.loadingListenerSubs.unsubscribe();
     this.userSubjectSubs.unsubscribe();
   }
 
@@ -42,17 +41,15 @@ export class RulesComponent implements OnInit {
         this.onFetchRules();
       }
     );
-
-    this.loadingListenerSubs = this.spinnerService
-      .getLoadingStatusListener()
-      .subscribe((loadingStatus) => {
-        this.isLoading = loadingStatus;
-      });
   }
 
   onFetchRules() {
+    this.spinnerService.setLoadingStatusListener(true);
+
     this.dataService.fetchRules().subscribe((responseData: any) => {
       this.rules = [...responseData];
+    }).add(() => {
+      this.spinnerService.setLoadingStatusListener(false);
     });
   }
 

@@ -30,18 +30,20 @@ export class DocumentsComponent implements OnInit {
     this.onFetchDocuments();
   }
   ngOnDestroy() {
-    this.loadingListenerSubs.unsubscribe();
     this.userSubjectSubs.unsubscribe();
   }
 
   onFetchDocuments() {
     this.spinnerService.setLoadingStatusListener(true);
 
-    this.dataService.fetchDocuments().subscribe((responseData: any) => {
-      console.log(responseData);
-      this.documents = [...responseData];
-    });
-    this.spinnerService.setLoadingStatusListener(false);
+    this.dataService
+      .fetchDocuments()
+      .subscribe((responseData: any) => {
+        console.log(responseData);
+        this.documents = [...responseData];})
+      .add(() => {
+        this.spinnerService.setLoadingStatusListener(false);
+      });
   }
 
   onFetchAndOpenDocument(documentId: string) {
@@ -53,10 +55,10 @@ export class DocumentsComponent implements OnInit {
         var file = new Blob([response], { type: "application/pdf" });
         var fileURL = URL.createObjectURL(file);
         this.fileSource = fileURL;
-        this.openDocumentInWindow(this.fileSource);
+        this.openDocumentInWindow(this.fileSource);})
+      .add(() => {
+        this.spinnerService.setLoadingStatusListener(false);
       });
-
-    this.spinnerService.setLoadingStatusListener(false);
   }
 
   listenForEvents() {
@@ -65,12 +67,6 @@ export class DocumentsComponent implements OnInit {
         this.onFetchDocuments();
       }
     );
-
-    this.loadingListenerSubs = this.spinnerService
-      .getLoadingStatusListener()
-      .subscribe((loadingStatus) => {
-        this.isLoading = loadingStatus;
-      });
   }
 
   openDocumentInWindow(fileSource: string) {

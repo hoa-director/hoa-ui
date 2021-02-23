@@ -30,30 +30,23 @@ export class DirectoryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSubjectSubs.unsubscribe();
-    this.loadingListenerSubs.unsubscribe();
   }
 
   onFetchUnits() {
     this.spinnerService.setLoadingStatusListener(true);
 
-    this.dataService
-      .fetchUnits()
-      .subscribe((responseData: any) => {
-        this.units = [...responseData.units]
-      });
-
-    this.spinnerService.setLoadingStatusListener(false);
+    this.dataService.fetchUnits().subscribe((responseData: any) => {
+      this.units = [...responseData.units];
+    }).add(() => {
+      this.spinnerService.setLoadingStatusListener(false);
+    });
   }
 
   listenForEvents() {
-    this.userSubjectSubs = this.userService.selectedAssociation.subscribe(() => {
-      this.onFetchUnits();
-    });
-
-    this.loadingListenerSubs = this.spinnerService
-      .getLoadingStatusListener()
-      .subscribe((loadingStatus) => {
-        this.isLoading = loadingStatus;
-      });
+    this.userSubjectSubs = this.userService.selectedAssociation.subscribe(
+      () => {
+        this.onFetchUnits();
+      }
+    );
   }
 }

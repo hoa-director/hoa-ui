@@ -90,7 +90,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   entryComponents: [DialogComponent],
   providers: [
     // provides the interceptor
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
 })
