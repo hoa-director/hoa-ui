@@ -2,9 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { DataService } from "../../services/data.service";
 import { UserService } from "../../services/user.service";
 import { Subscription } from "rxjs";
-import { SpinnerService } from "app/services/spinner.service";
 import { Document } from "./document.model";
-import { response } from "express";
+import { isLoading } from "../../shared/isLoading";
 
 @Component({
   selector: "app-documents",
@@ -22,7 +21,6 @@ export class DocumentsComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private userService: UserService,
-    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit() {
@@ -34,21 +32,19 @@ export class DocumentsComponent implements OnInit {
   }
 
   onFetchDocuments() {
-    this.spinnerService.setLoadingStatusListener(true);
-
+    isLoading(true);
     this.dataService
       .fetchDocuments()
       .subscribe((responseData: any) => {
         console.log(responseData);
         this.documents = [...responseData];})
-      .add(() => {
-        this.spinnerService.setLoadingStatusListener(false);
-      });
+        .add(()=>{
+          isLoading(false);
+        });
   }
 
   onFetchAndOpenDocument(documentId: string) {
-    this.spinnerService.setLoadingStatusListener(true);
-
+    isLoading(true);
     this.dataService
       .fetchDocumentById(documentId)
       .subscribe((response: Blob) => {
@@ -56,9 +52,9 @@ export class DocumentsComponent implements OnInit {
         var fileURL = URL.createObjectURL(file);
         this.fileSource = fileURL;
         this.openDocumentInWindow(this.fileSource);})
-      .add(() => {
-        this.spinnerService.setLoadingStatusListener(false);
-      });
+        .add(()=> {
+          isLoading(false);
+        });
   }
 
   listenForEvents() {

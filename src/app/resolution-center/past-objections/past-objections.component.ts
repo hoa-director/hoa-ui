@@ -11,7 +11,10 @@ import { UserService } from '../../services/user.service';
 export class PastObjectionsComponent implements OnInit {
   public objections;
 
-  constructor(private resolutionCenterService: ResolutionCenterService, private userService: UserService) {}
+  constructor(
+    private resolutionCenterService: ResolutionCenterService, 
+    private userService: UserService,
+    ) {}
 
   ngOnInit() {
     this.init();
@@ -23,6 +26,6 @@ export class PastObjectionsComponent implements OnInit {
   private init() {
     this.resolutionCenterService.getPastObjections().subscribe((response) => {
       this.objections = response.objections;
-    });
+    });   
   }
 }

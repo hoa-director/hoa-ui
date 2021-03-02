@@ -3,9 +3,9 @@ import { DataService } from "../../services/data.service";
 import { UserService } from "../../services/user.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogComponent } from "../dialog/dialog.component";
-import { SpinnerService } from "app/services/spinner.service";
 import { Subscription } from "rxjs";
 import { Rule } from "./rule.model";
+import { isLoading } from "../../shared/isLoading";
 
 @Component({
   selector: "app-rules",
@@ -16,14 +16,12 @@ export class RulesComponent implements OnInit {
   rules: Rule[] = [];
   currentRuleList: any;
 
-  private loadingListenerSubs: Subscription;
   private userSubjectSubs: Subscription;
   isLoading = false;
 
   constructor(
     private dataService: DataService,
     private userService: UserService,
-    private spinnerService: SpinnerService,
     public dialog: MatDialog
   ) {}
 
@@ -44,12 +42,11 @@ export class RulesComponent implements OnInit {
   }
 
   onFetchRules() {
-    this.spinnerService.setLoadingStatusListener(true);
-
+    isLoading(true);
     this.dataService.fetchRules().subscribe((responseData: any) => {
       this.rules = [...responseData];
     }).add(() => {
-      this.spinnerService.setLoadingStatusListener(false);
+      isLoading(false);
     });
   }
 

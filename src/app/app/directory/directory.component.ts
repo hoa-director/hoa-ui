@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { DataService } from "../../services/data.service";
 import { UserService } from "../../services/user.service";
 import { Subscription } from "rxjs";
-import { SpinnerService } from "app/services/spinner.service";
 import { Unit } from "./unit.model";
+import { isLoading } from "../../shared/isLoading";
 
 @Component({
   selector: "app-directory",
@@ -14,13 +14,11 @@ export class DirectoryComponent implements OnInit, OnDestroy {
   units: Unit[] = [];
 
   private userSubjectSubs: Subscription;
-  private loadingListenerSubs: Subscription;
   isLoading = false;
 
   constructor(
     private dataService: DataService,
     private userService: UserService,
-    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit() {
@@ -33,13 +31,13 @@ export class DirectoryComponent implements OnInit, OnDestroy {
   }
 
   onFetchUnits() {
-    this.spinnerService.setLoadingStatusListener(true);
-
+    isLoading(true);
     this.dataService.fetchUnits().subscribe((responseData: any) => {
       this.units = [...responseData.units];
     }).add(() => {
-      this.spinnerService.setLoadingStatusListener(false);
+      isLoading(false);
     });
+
   }
 
   listenForEvents() {

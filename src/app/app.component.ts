@@ -1,28 +1,25 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UserService } from "./services/user.service";
-import { Subscription } from "rxjs";
-import { SpinnerService } from "./services/spinner.service";
+import { BehaviorSubject, Subscription } from "rxjs";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
-  providers: [SpinnerService]
 })
 export class AppComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
 
-  isLoading = false;
+  public isLoading = false;
 
-  constructor(
-    private userService: UserService,
-    private spinner: SpinnerService
-  ) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.listenForEvents();
     this.userService.autoAuthenticateUser();
+
+    document.addEventListener("loading", this.setLoadingStatus.bind(this));
   }
 
   ngOnDestroy() {
@@ -35,11 +32,9 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe((isAuthenticated: boolean) => {
         this.userIsAuthenticated = isAuthenticated;
       });
+  }
 
-    this.spinner
-      .getLoadingStatusListener()
-      .subscribe((loadingStatus: boolean) => {
-        this.isLoading = loadingStatus;
-      });
+  setLoadingStatus(loadingEvent: CustomEvent) {
+    this.isLoading = loadingEvent.detail.isLoading;
   }
 }

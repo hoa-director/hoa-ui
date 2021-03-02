@@ -1,11 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, EventEmitter } from "@angular/core";
-import { tap, catchError, map, shareReplay } from "rxjs/operators";
+import { map, shareReplay } from "rxjs/operators";
 import { Observable, of, ReplaySubject, BehaviorSubject, Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { environment } from "../../environments/environment";
 import { asObservable } from "./asObservable";
-import { SpinnerService } from "./spinner.service";
+import { isLoading } from "../shared/isLoading";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -26,15 +26,13 @@ export class UserService {
   private _availableAssociations = new ReplaySubject<
     [{ id: string; name: string }]
   >(1);
-  public readonly availableAssociations = asObservable(this._availableAssociations);
+  public readonly availableAssociations = asObservable(
+    this._availableAssociations
+  );
   private _selectedAssociation = new ReplaySubject(1);
   public readonly selectedAssociation = asObservable(this._selectedAssociation);
 
-  constructor (
-    private http: HttpClient,
-    private router: Router,
-    private spinnerService: SpinnerService
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   // allow other components to get the token from this service
   getToken() {
@@ -58,7 +56,7 @@ export class UserService {
   }
 
   loginUser(user) {
-    this.spinnerService.setLoadingStatusListener(true);
+    isLoading(true);
     this.http
       .post<{
         token: string;
@@ -83,7 +81,7 @@ export class UserService {
             this.saveUserData(response.user.id);
             this.setUser(response.user);
             this._selectedAssociation.next(response.associationId);
-            this.saveUserAssociationData(response.associationId)
+            this.saveUserAssociationData(response.associationId);
             this.router.navigate(["/main", "directory"]);
           }
           // return 'success';
@@ -99,7 +97,7 @@ export class UserService {
         }
       )
       .add(() => {
-        this.spinnerService.setLoadingStatusListener(false);
+        isLoading(false);
       });
 
     // .pipe(
@@ -184,7 +182,6 @@ export class UserService {
   private saveUserAssociationData(associationId: number) {
     sessionStorage.setItem("associationId", associationId.toString());
   }
-    
 
   private clearUserDate() {
     sessionStorage.removeItem("userId");
