@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { environment } from "../../environments/environment";
 import { asObservable } from "./asObservable";
 import { isLoading } from "../shared/isLoading";
+import { UserModel } from "app/models/user.model";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -13,7 +14,7 @@ const BACKEND_URL = environment.apiUrl;
   providedIn: "root",
 })
 export class UserService {
-  private userSubject = new BehaviorSubject<any>("");
+  private userSubject = new Subject<UserModel>();
 
   // auth properties
   private token: string;
@@ -51,8 +52,12 @@ export class UserService {
     return this.isAuthenticated;
   }
 
-  setUser(user) {
+  setUser(user: UserModel) {
     this.userSubject.next(user);
+  }
+
+  getCurrentUser(): Observable<UserModel>  {
+    return this.userSubject.asObservable();
   }
 
   loginUser(user) {
@@ -79,10 +84,11 @@ export class UserService {
             );
             this.saveAuthData(token, expirationDate);
             this.saveUserData(response.user.id);
-            this.setUser(response.user);
+            this.setUser(<UserModel>response.user);
+            console.log(response.user);
             this._selectedAssociation.next(response.associationId);
             this.saveUserAssociationData(response.associationId);
-            this.router.navigate(["/main", "directory"]);
+            this.router.navigate(["/home", "directory"]);
           }
           // return 'success';
         },
@@ -134,7 +140,7 @@ export class UserService {
       this.isAuthenticated = true;
       this.setAuthenticatedTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
-      this.router.navigate(["/main", "directory"]);
+      this.router.navigate(["/home", "directory"]);
     }
   }
 
@@ -145,7 +151,7 @@ export class UserService {
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.clearUserDate();
-    this.router.navigateByUrl("/home");
+    this.router.navigateByUrl("/landing");
   }
 
   private setAuthenticatedTimer(duration: number) {

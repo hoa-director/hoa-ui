@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
 import { Location } from "@angular/common";
-import { UserService } from "../../services/user.service";
+import { UserService } from "../services/user.service";
 import { BehaviorSubject, ReplaySubject } from "rxjs";
 
 @Component({

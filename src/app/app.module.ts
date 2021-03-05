@@ -9,7 +9,6 @@ import { LoginComponent } from "./login/login.component";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { ResolutionCenterModule } from "./resolution-center/resolution-center.module";
-import { UiModule } from "./ui/ui.module";
 
 import { BoardComponent } from "./app/board/board.component";
 import { DirectoryComponent } from "./app/directory/directory.component";
@@ -21,14 +20,13 @@ import { MessageComponent } from "./app/message/message.component";
 import { NotesComponent } from "./app/notes/notes.component";
 import { ProfileComponent } from "./app/profile/profile.component";
 import { RulesComponent } from "./app/rules/rules.component";
-import { HomeComponent } from "./home/home.component";
+import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { ForgottenPasswordComponent } from "./forgotten-password/forgotten-password.component";
 import { RequestPasswordChangeComponent } from "./request-password-change/request-password-change.component";
 import { AuthInterceptor } from "./services/auth-interceptor";
 import { DialogComponent } from "./app/dialog/dialog.component";
 
 import { MatInputModule } from "@angular/material/input";
-import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatListModule } from "@angular/material/list";
@@ -36,6 +34,10 @@ import { MatChipsModule } from "@angular/material/chips";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { MatTableModule } from "@angular/material/table";
+import { MatSelectModule } from "@angular/material/select";
+import { MatFormFieldModule } from "@angular/material/form-field";
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -45,11 +47,24 @@ import { MatPasswordStrengthModule } from "@angular-material-extensions/password
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { CommonModule } from "@angular/common";
+
+import { RouterModule } from "@angular/router";
+import { FooterComponent } from "./footer/footer.component";
+import { HeaderComponent } from "./header/header.component";
+import { SidebarComponent } from "./sidebar/sidebar.component";
+import { AssociationSwitchComponent } from "./association-switch/association-switch.component";
+import { HomeComponent } from "./home/home.component";
+
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent,
+    LandingPageComponent,
     DirectoryComponent,
     RulesComponent,
     FinancialsComponent,
@@ -63,10 +78,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ForgottenPasswordComponent,
     RequestPasswordChangeComponent,
     DialogComponent,
+    HeaderComponent,
+    FooterComponent,
+    SidebarComponent,
+    AssociationSwitchComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
-    UiModule,
     FormsModule,
     HttpClientModule,
     ModalModule,
@@ -85,7 +104,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     PdfViewerModule,
     ReactiveFormsModule,
     MatPasswordStrengthModule.forRoot(),
-    FlexLayoutModule
+    FlexLayoutModule,
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatTableModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   entryComponents: [DialogComponent],
   providers: [
