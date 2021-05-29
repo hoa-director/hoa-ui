@@ -8,15 +8,11 @@
 }
 
 .unit-card {
-  width: 24rem;
-  height: 14rem;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-.header-image {
-  /* background-image: url('https://');
-  background-size: cover; */
+  width: 37rem;
+  height: 24rem;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .directory-header {

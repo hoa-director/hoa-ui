@@ -1,12 +1,32 @@
-#site-container {
-    background-color: #e5e5ea;
-    min-height: 100vh;
-  }
-  
-  #content-row {
-    min-height: 100%;
-  }
-  
-  .app-container {
-    height: 100%;
-  }
+.main-container {
+  display: grid;
+  grid-template-columns: 5% 20% auto 5%;
+  grid-template-rows: 15rem auto 15rem;
+  grid-template-areas: "header header header header"
+                        "left sidebar content right"
+                        "footer footer footer footer";
+}
+
+.main-container__header {
+  grid-area: header;
+}
+
+.main-container__sidebar {
+  grid-area: sidebar
+}
+
+.main-container__content {
+  grid-area: content;
+}
+
+.main-container__footer {
+  grid-area: footer;
+}
+
+.left-empty {
+  grid-area: left
+}
+
+.right-empty {
+  grid-area: right
+}

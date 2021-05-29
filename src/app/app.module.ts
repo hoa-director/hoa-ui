@@ -55,6 +55,7 @@ import { HeaderComponent } from "./header/header.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { AssociationSwitchComponent } from "./association-switch/association-switch.component";
 import { HomeComponent } from "./home/home.component";
+import { PhonePipe } from './phone.pipe';
 
 
 
@@ -83,6 +84,7 @@ import { HomeComponent } from "./home/home.component";
     SidebarComponent,
     AssociationSwitchComponent,
     HomeComponent,
+    PhonePipe
   ],
   imports: [
     BrowserModule,

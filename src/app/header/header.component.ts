@@ -8,6 +8,7 @@ import { UserService } from "../services/user.service";
 })
 export class HeaderComponent implements OnInit {
   currentUserName: any;
+  collapsed = true;
 
   constructor(private userService: UserService) {}
 

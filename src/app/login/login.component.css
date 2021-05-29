@@ -46,29 +46,18 @@ mat-form-field {
   background-position: center;
   position: relative;
 }
-.header__logo-box {
+.btn-arrow-back {
   position: absolute;
-  /* top: 40px;
-          left: 40px; */
   top: 4rem;
   left: 4rem;
-  cursor: pointer;
-}
-.header__logo {
-  /* height: 35px; */
-  height: 10rem;
 }
 
-.btn:hover {
+.btn-arrow-back:hover {
   transform: translateY(-3px);
-  /* first value is shadow in the x direction, we want 0 */
-  /* second value is shadow in the y direction,  */
-  /* third value is the blur, more blur makes it look further away from page */
-  /* fourth value is the color */
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
 }
 
-.btn--animated {
+.btn-arrow-back--animated {
   /* last value is animation delay */
   animation: moveInBottom 0.5s ease-out 0.75s;
   /* apply the animation style of the 0% before the animation starts */

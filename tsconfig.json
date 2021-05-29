@@ -24,5 +24,10 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
   },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": false,
+    "strictTemplates": false,
+    "strictInjectionParameters": true
+  },
   "exclude": ["node_modules", "build", "dist"]
 }
