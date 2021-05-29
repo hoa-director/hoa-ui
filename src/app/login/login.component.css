@@ -46,20 +46,3 @@ mat-form-field {
   background-position: center;
   position: relative;
 }
-.btn-arrow-back {
-  position: absolute;
-  top: 4rem;
-  left: 4rem;
-}
-
-.btn-arrow-back:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
-}
-
-.btn-arrow-back--animated {
-  /* last value is animation delay */
-  animation: moveInBottom 0.5s ease-out 0.75s;
-  /* apply the animation style of the 0% before the animation starts */
-  animation-fill-mode: backwards;
-}

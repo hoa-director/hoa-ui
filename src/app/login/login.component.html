@@ -1,17 +1,5 @@
 <div class="login-container">
-  <div class="button-container">
-    <button
-      class="btn-arrow-back btn-arrow-back--animated clickable"
-      mat-fab
-      color="white"
-      (click)="navToLanding()"
-    >
-      <mat-icon aria-hidden="false" aria-label="Back to landing page">
-        arrow_back
-      </mat-icon>
-    </button>
-  </div>
-
+  <app-back-fab></app-back-fab>
   <mat-card>
     <div class="card-header">Login</div>
     <mat-card-content>
@@ -60,7 +48,7 @@
               mat-stroked-button
               class="reset-link"
               color="primary"
-              routerLink="/forgotten-password"
+              routerLink="/reset-password"
               >Reset Password</a
             >
             <button

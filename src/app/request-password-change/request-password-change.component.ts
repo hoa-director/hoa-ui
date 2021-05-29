@@ -43,7 +43,4 @@ export class RequestPasswordChangeComponent implements OnInit {
       }
     );
   }
-  navToLanding(){
-    this.router.navigate(["/landing"]);
-  }
 }

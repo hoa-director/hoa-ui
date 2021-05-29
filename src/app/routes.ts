@@ -34,7 +34,7 @@ export const routes: Routes = [
     runGuardsAndResolvers: 'always',
   },
   {
-    path: 'forgotten-password',
+    path: 'reset-password',
     component: RequestPasswordChangeComponent ,
     runGuardsAndResolvers: 'always',
   },
