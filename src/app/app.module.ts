@@ -56,13 +56,14 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
 import { AssociationSwitchComponent } from "./association-switch/association-switch.component";
 import { HomeComponent } from "./home/home.component";
 import { PhonePipe } from './phone.pipe';
-
+import { BackFabComponent } from './back-fab/back-fab.component';
+import { NavBackDirective } from './nav-back.directive';
 
 
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     LandingPageComponent,
@@ -84,8 +85,11 @@ import { PhonePipe } from './phone.pipe';
     SidebarComponent,
     AssociationSwitchComponent,
     HomeComponent,
-    PhonePipe
-  ],
+    PhonePipe,
+    BackFabComponent,
+    NavBackDirective
+
+   ],
   imports: [
     BrowserModule,
     FormsModule,

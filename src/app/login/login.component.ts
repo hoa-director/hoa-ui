@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Router } from "@angular/router";
 import { UserService } from "../services/user.service";
 import { Subscription } from "rxjs";
 
@@ -17,7 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.listenForEvents();
@@ -46,9 +45,5 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login(user): void {
     this.userService.loginUser(user);
-  }
-
-  navToLanding(){
-    this.router.navigate(["/landing"]);
   }
 }
