@@ -1,0 +1,89 @@
+.header {
+  height: 100%;
+}
+
+.header-primary {
+  height: 10rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.hoa-logo-container {
+  padding-left: calc(100vw * 0.05);
+  width: 50rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#hoa-logo {
+  max-height: 5rem;
+}
+.hoa-title {
+  font-size: 5rem;
+  margin-left: .5rem;
+}
+
+.header-user-data {
+  padding-left: calc(100vw * 0.05);
+  background-color: rgba(38, 41, 84);
+  height: 4.5rem;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+}
+
+.header-line {
+  height: .5rem;
+  background-color: rgba(131, 184, 52, 1);
+}
+
+/* .header-user-data::after {
+  content: "";
+  background-color: rgba(131, 184, 52, 1);
+  display: block;
+  width: 140px;
+  height: 2px;
+} */
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-10rem);
+  }
+  80% {
+    transform: translateX(1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10rem);
+  }
+  80% {
+    transform: translateX(-1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}

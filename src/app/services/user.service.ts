@@ -1,11 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, EventEmitter } from "@angular/core";
-import { tap, catchError, map, shareReplay } from "rxjs/operators";
+import { map, shareReplay } from "rxjs/operators";
 import { Observable, of, ReplaySubject, BehaviorSubject, Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { environment } from "../../environments/environment";
 import { asObservable } from "./asObservable";
-import { SpinnerService } from "./spinner.service";
+import { isLoading } from "../shared/isLoading";
+import { UserModel } from "app/models/user.model";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -13,7 +14,7 @@ const BACKEND_URL = environment.apiUrl;
   providedIn: "root",
 })
 export class UserService {
-  private userSubject = new BehaviorSubject<any>("");
+  private userSubject = new Subject<UserModel>();
 
   // auth properties
   private token: string;
@@ -26,15 +27,13 @@ export class UserService {
   private _availableAssociations = new ReplaySubject<
     [{ id: string; name: string }]
   >(1);
-  public readonly availableAssociations = asObservable(this._availableAssociations);
+  public readonly availableAssociations = asObservable(
+    this._availableAssociations
+  );
   private _selectedAssociation = new ReplaySubject(1);
   public readonly selectedAssociation = asObservable(this._selectedAssociation);
 
-  constructor (
-    private http: HttpClient,
-    private router: Router,
-    private spinnerService: SpinnerService
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   // allow other components to get the token from this service
   getToken() {
@@ -53,12 +52,16 @@ export class UserService {
     return this.isAuthenticated;
   }
 
-  setUser(user) {
+  setUser(user: UserModel) {
     this.userSubject.next(user);
   }
 
+  getCurrentUser(): Observable<UserModel>  {
+    return this.userSubject.asObservable();
+  }
+
   loginUser(user) {
-    this.spinnerService.setLoadingStatusListener(true);
+    isLoading(true);
     this.http
       .post<{
         token: string;
@@ -81,10 +84,11 @@ export class UserService {
             );
             this.saveAuthData(token, expirationDate);
             this.saveUserData(response.user.id);
-            this.setUser(response.user);
+            this.setUser(<UserModel>response.user);
+            console.log(response.user);
             this._selectedAssociation.next(response.associationId);
-            this.saveUserAssociationData(response.associationId)
-            this.router.navigate(["/main", "directory"]);
+            this.saveUserAssociationData(response.associationId);
+            this.router.navigate(["/home", "directory"]);
           }
           // return 'success';
         },
@@ -99,7 +103,7 @@ export class UserService {
         }
       )
       .add(() => {
-        this.spinnerService.setLoadingStatusListener(false);
+        isLoading(false);
       });
 
     // .pipe(
@@ -136,7 +140,7 @@ export class UserService {
       this.isAuthenticated = true;
       this.setAuthenticatedTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
-      this.router.navigate(["/main", "directory"]);
+      this.router.navigate(["/home", "directory"]);
     }
   }
 
@@ -147,7 +151,7 @@ export class UserService {
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.clearUserDate();
-    this.router.navigateByUrl("/home");
+    this.router.navigateByUrl("/landing");
   }
 
   private setAuthenticatedTimer(duration: number) {
@@ -184,7 +188,6 @@ export class UserService {
   private saveUserAssociationData(associationId: number) {
     sessionStorage.setItem("associationId", associationId.toString());
   }
-    
 
   private clearUserDate() {
     sessionStorage.removeItem("userId");

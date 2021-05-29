@@ -12,11 +12,11 @@ import { NotesComponent } from './app/notes/notes.component';
 import { ProfileComponent } from './app/profile/profile.component';
 import { RequestPasswordChangeComponent } from './request-password-change/request-password-change.component';
 import { RulesComponent } from './app/rules/rules.component';
-import { HomeComponent } from './home/home.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
-import { MainComponent } from './ui/main/main.component';
+import { HomeComponent } from './home/home.component';
 
 import { ResolutionCenterRoutes } from "../app/resolution-center/resolution-center.module";
 import { componentFactoryName } from '@angular/compiler';
@@ -24,7 +24,7 @@ import { componentFactoryName } from '@angular/compiler';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/landing',
     pathMatch: 'full',
     runGuardsAndResolvers: 'always',
   },
@@ -44,13 +44,13 @@ export const routes: Routes = [
     runGuardsAndResolvers: 'always',
   },
   {
-    path: 'home',
-    component: HomeComponent,
+    path: 'landing',
+    component: LandingPageComponent,
     runGuardsAndResolvers: 'always',
   },
   {
-    path: 'main',
-    component: MainComponent,
+    path: 'home',
+    component: HomeComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuardService],
     children: [
@@ -119,7 +119,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    component: MainComponent,
+    component: HomeComponent,
     canActivate: [AuthGuardService],
     runGuardsAndResolvers: 'always',
   }

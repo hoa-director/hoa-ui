@@ -66,4 +66,7 @@ export class ForgottenPasswordComponent implements OnInit, OnDestroy {
         }
       );
   }
+  navToLanding(){
+    this.router.navigate(["/landing"]);
+  }
 }

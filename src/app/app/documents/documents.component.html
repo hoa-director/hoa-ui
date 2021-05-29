@@ -1,7 +1,5 @@
 <div>
-  <h3 class="association-documents-header">
-    Association Documents
-  </h3>
+  <h3 class="association-documents-header">Association Documents</h3>
   <mat-list role="list" #document>
     <mat-list-item role="listitem" selected *ngFor="let document of documents">
       <a
@@ -10,7 +8,7 @@
         (click)="onFetchAndOpenDocument(document.id)"
         class="documents-list-title"
         >{{ document.name }}
-        </a>
+      </a>
     </mat-list-item>
   </mat-list>
 </div>

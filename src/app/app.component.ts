@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UserService } from "./services/user.service";
 import { Subscription } from "rxjs";
-import { SpinnerService } from "./services/spinner.service";
 
 @Component({
   selector: "app-root",
@@ -12,22 +11,19 @@ export class AppComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
 
-  isLoading = false;
-  private loadingListenerSubs: Subscription;
+  public isLoading = false;
 
-  constructor(
-    private userService: UserService,
-    private spinner: SpinnerService
-  ) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.listenForEvents();
     this.userService.autoAuthenticateUser();
+
+    document.addEventListener("loading", this.setLoadingStatus.bind(this));
   }
 
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
-    this.loadingListenerSubs.unsubscribe();
   }
 
   listenForEvents() {
@@ -36,11 +32,9 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe((isAuthenticated: boolean) => {
         this.userIsAuthenticated = isAuthenticated;
       });
+  }
 
-    this.loadingListenerSubs = this.spinner
-      .getLoadingStatusListener()
-      .subscribe((loadingStatus) => {
-        this.isLoading = loadingStatus;
-      });
+  setLoadingStatus(loadingEvent: CustomEvent) {
+    this.isLoading = loadingEvent.detail.isLoading;
   }
 }

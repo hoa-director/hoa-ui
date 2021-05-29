@@ -1,8 +1,19 @@
 <div class="login-container">
+  <div class="button-container">
+    <button
+      class="btn-arrow-back btn-arrow-back--animated clickable"
+      mat-fab
+      color="white"
+      (click)="navToLanding()"
+    >
+      <mat-icon aria-hidden="false" aria-label="Back to landing page">
+        arrow_back
+      </mat-icon>
+    </button>
+  </div>
+
   <mat-card>
-    <div class="card-header">
-      Login
-    </div>
+    <div class="card-header">Login</div>
     <mat-card-content>
       <div>
         <div class="custom-auth-error" *ngIf="userAuthError">
@@ -13,9 +24,7 @@
         <div>
           <form #loginForm="ngForm" (ngSubmit)="login(user)">
             <mat-form-field>
-              <mat-label>
-                E-Mail
-              </mat-label>
+              <mat-label> E-Mail </mat-label>
               <input
                 matInput
                 type="email"
@@ -31,9 +40,7 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field>
-              <mat-label>
-                Password
-              </mat-label>
+              <mat-label> Password </mat-label>
               <input
                 matInput
                 type="password"

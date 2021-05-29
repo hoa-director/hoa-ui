@@ -1,18 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { UserService } from 'app/services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(private router: Router) {}
+  userIsAuthenticated = false;
+  private authListenerSubs: Subscription;
 
-  ngOnInit() {}
+  constructor(private userService: UserService) {}
 
-  onHomeLogin() {
-    this.router.navigateByUrl('login');
+  ngOnInit() {
+    this.listenForEvents();
+    this.userService.autoAuthenticateUser();
+  }
+
+  ngOnDestroy() {
+    this.authListenerSubs.unsubscribe();
+  }
+
+  listenForEvents() {
+    this.authListenerSubs = this.userService
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated: boolean) => {
+        this.userIsAuthenticated = isAuthenticated;
+      });
   }
 }
-//comment 

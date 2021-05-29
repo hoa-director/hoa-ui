@@ -1,7 +1,8 @@
 <div>
-  <div *ngIf="isLoading" class="loading-overlay">
+  <div *ngIf="isLoading"  class="loading-overlay">
     <mat-spinner color="accent" class="spinner"></mat-spinner>
   </div>
+  <router-outlet></router-outlet>
 </div>
 
-<router-outlet></router-outlet>
+

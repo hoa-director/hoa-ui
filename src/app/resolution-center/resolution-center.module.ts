@@ -25,7 +25,7 @@ export const ResolutionCenterRoutes: Routes = [
     component: ResolutionCenterComponent,
     canActivate: [AuthGuardService],
     children: [
-      { path: "", redirectTo: "main/resolution-center/inbox", pathMatch: "full" },
+      { path: "", redirectTo: "home/resolution-center/inbox", pathMatch: "full" },
       { path: "inbox", component: InboxComponent },
       { path: "outbox", component: OutboxComponent },
       { path: "past", component: PastObjectionsComponent },

@@ -1,11 +1,5 @@
 <app-association-switch class="align-content-center"></app-association-switch>
 <div class="sidebar">
-  <!-- <div class="home-info" *ngIf="!userIsAuthenticated">
-      <p>Everyday in your association will be pleasant.</p>
-      <p>Timely answers to questions and concerns.</p>
-      <p>You have problem resolution at your fingertips.</p>
-    </div> -->
-  <!-- <div *ngIf="userService.user" class="nav flex-column nav-pills"> -->
   <div *ngIf="userIsAuthenticated" class="nav-pills">
     <a mat-button class="link-button" [routerLink]="['directory']" routerLinkActive="active">
       Neighborhood Directory
