@@ -18,7 +18,7 @@ export class CreateObjectionComponent implements OnInit {
 
   ngOnInit() {
     this.init();
-    this.userService.selectedAssociation.subscribe(() => {
+    this.userService.selectedAssociation$.subscribe(() => {
       this.init();
     });
   }
@@ -29,17 +29,14 @@ export class CreateObjectionComponent implements OnInit {
       comment: '',
     };
     this.resolutionCenterService.getUnits().subscribe((response) => {
-      console.log(response);
       this.units = response.units;
     });
   }
 
   public submit(objection) {
-    // console.log(objection);
     this.resolutionCenterService
       .submitObjection(objection)
       .subscribe((response) => {
-        console.log(response);
       });
   }
 }

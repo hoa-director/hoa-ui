@@ -3,10 +3,7 @@
   margin: 0;
   padding: 0;
   width: 200px;
-  /* background-color: #e5e5ea; */
-  /* position: fixed; */
   height: 100%;
-  /* overflow: auto; */
   display: inline-block;
 }
 
@@ -21,7 +18,7 @@
 }
 
 .nav-vertical-line {
-  padding-bottom: 100vh;
+  padding-bottom: 100%;
   border-right: solid 1px rgba(0, 0, 0, 0.12);
 }
 

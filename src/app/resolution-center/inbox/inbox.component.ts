@@ -16,7 +16,7 @@ export class InboxComponent implements OnInit {
 
   ngOnInit() {
     this.init();
-    this.userService.selectedAssociation.subscribe(() => {
+    this.userService.selectedAssociation$.subscribe(() => {
       this.init();
     });
   }
@@ -38,7 +38,6 @@ export class InboxComponent implements OnInit {
         objectionId: this.currentObjection.id,
       })
       .subscribe((response) => {
-        console.log(response);
       });
   }
 }

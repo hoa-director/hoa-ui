@@ -36,7 +36,6 @@ export class DocumentsComponent implements OnInit {
     this.dataService
       .fetchDocuments()
       .subscribe((responseData: any) => {
-        console.log(responseData);
         this.documents = [...responseData];})
         .add(()=>{
           isLoading(false);
@@ -58,7 +57,7 @@ export class DocumentsComponent implements OnInit {
   }
 
   listenForEvents() {
-    this.userSubjectSubs = this.userService.selectedAssociation.subscribe(
+    this.userSubjectSubs = this.userService.selectedAssociation$.subscribe(
       () => {
         this.onFetchDocuments();
       }

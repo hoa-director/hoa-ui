@@ -10,7 +10,16 @@
     </div>
   </div>
   <div class="header-user-data">
-    <p>Welcome | Greg</p>
+    <p>Welcome to the<span> {{selectedAssociation$ | async}} </span>HOA!</p>
+    <div class="logged-in-indicator">
+      <mat-icon aria-hidden="false" aria-label="User icon">
+        account_circle
+      </mat-icon>
+      <p class="user-name">
+        {{ loggedInUser$ | async }}
+      </p>
+      <app-association-switch class="align-content-center"></app-association-switch>
+    </div>
   </div>
   <div class="header-line"></div>
 </header>

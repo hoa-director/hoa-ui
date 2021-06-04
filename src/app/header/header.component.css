@@ -3,14 +3,16 @@
 }
 
 .header-primary {
+  padding-left: calc(100vw * 0.05);
+  padding-right: calc(100vw * 0.05);
   height: 10rem;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 }
 
 .hoa-logo-container {
-  padding-left: calc(100vw * 0.05);
   width: 50rem;
   display: flex;
   flex-direction: row;
@@ -27,18 +29,31 @@
 
 .header-user-data {
   padding-left: calc(100vw * 0.05);
+  padding-right: calc(100vw * 0.05);
   background-color: rgba(38, 41, 84);
   height: 4.5rem;
   color: #fff;
   font-size: 2rem;
   font-weight: 400;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
 .header-line {
   height: .5rem;
   background-color: rgba(131, 184, 52, 1);
+}
+
+.logged-in-indicator {
+  display: flex;
+  align-items: center;
+}
+
+.user-name{
+  margin-left: 1rem;
+  border-right: white solid .1rem;
+  padding-right: 1rem;
 }
 
 /* .header-user-data::after {

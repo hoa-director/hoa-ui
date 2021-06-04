@@ -1,3 +1,21 @@
-mat-form-field {
-  font-size: 2rem;
+.association-switch-container {
+
+}
+
+.mat-button {
+  font-size: inherit;
+  font-weight: inherit;
+  margin-left: .5rem;
+  padding: 0 .5rem;
+  padding-top: .2rem;
+}
+
+.mat-button:hover {
+  background-color: white;
+  color: rgba(38, 41, 84);
+}
+
+.mat-menu-item:hover {
+  background-color: #3779b7;
+  color: white;
 }
