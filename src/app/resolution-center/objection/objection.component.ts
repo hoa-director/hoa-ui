@@ -23,7 +23,7 @@ export class ObjectionComponent implements OnInit {
 
   ngOnInit() {
     this.init();
-    this.userService.selectedAssociation.subscribe(() => {
+    this.userService.selectedAssociation$.subscribe(() => {
       this.init();
     });
   }
@@ -34,7 +34,6 @@ export class ObjectionComponent implements OnInit {
       .getObjection(this.objectionId)
       .subscribe(
         (response: { objection: string; canVote: boolean; results: {} }) => {
-          console.log(response);
           this.objection = response.objection;
           this.canVote = response.canVote;
           this.results = response.results;
@@ -54,7 +53,6 @@ export class ObjectionComponent implements OnInit {
           this.message = 'Your vote has been recorded. Thank you for voting';
         },
         (error) => {
-          console.log(error);
           this.message = 'A server error has occurred. Please try again later';
         },
       );

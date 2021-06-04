@@ -27,6 +27,7 @@ export class RulesComponent implements OnInit {
 
   ngOnInit() {
     this.ListenForEvents();
+    this.onFetchRules();
   }
 
   ngOnDestroy() {
@@ -34,7 +35,7 @@ export class RulesComponent implements OnInit {
   }
 
   ListenForEvents() {
-    this.userSubjectSubs = this.userService.selectedAssociation.subscribe(
+    this.userSubjectSubs = this.userService.selectedAssociation$.subscribe(
       () => {
         this.onFetchRules();
       }
@@ -62,9 +63,5 @@ export class RulesComponent implements OnInit {
         rules: this.currentRuleList.rules,
       },
     });
-
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   console.log(`Dialog result: ${result}`);
-    // });
   }
 }

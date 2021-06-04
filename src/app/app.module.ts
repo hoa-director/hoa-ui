@@ -38,6 +38,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatMenuModule } from "@angular/material/menu";
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -45,7 +46,7 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
 
 import { MatPasswordStrengthModule } from "@angular-material-extensions/password-strength";
 
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { CommonModule } from "@angular/common";
 
@@ -55,15 +56,12 @@ import { HeaderComponent } from "./header/header.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { AssociationSwitchComponent } from "./association-switch/association-switch.component";
 import { HomeComponent } from "./home/home.component";
-import { PhonePipe } from './phone.pipe';
-import { BackFabComponent } from './back-fab/back-fab.component';
-import { NavBackDirective } from './nav-back.directive';
-
-
-
+import { PhonePipe } from "./phone.pipe";
+import { BackFabComponent } from "./back-fab/back-fab.component";
+import { NavBackDirective } from "./nav-back.directive";
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     LoginComponent,
     LandingPageComponent,
@@ -87,9 +85,8 @@ import { NavBackDirective } from './nav-back.directive';
     HomeComponent,
     PhonePipe,
     BackFabComponent,
-    NavBackDirective
-
-   ],
+    NavBackDirective,
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -118,12 +115,13 @@ import { NavBackDirective } from './nav-back.directive';
     MatButtonModule,
     MatTableModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatMenuModule
   ],
   entryComponents: [DialogComponent],
   providers: [
     // provides the interceptor
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

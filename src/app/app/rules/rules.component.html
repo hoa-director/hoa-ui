@@ -2,14 +2,19 @@
   <h3 class="association-rules-and-regulations-header">
     Association Rules and Regulations
   </h3>
-  <mat-list role="list" #rule>
-    <mat-list-item role="listitem" selected *ngFor="let rule of rules">
-      <a
-        mat-raised-button
-        (click)="selectRuleList(rule); openDialog()"
-        class="rule-list-title"
-        >{{ rule.title }}
-      </a>
-    </mat-list-item>
-  </mat-list>
+  <div class="rules-container">
+    <mat-list role="list" #rule>
+      <mat-list-item role="listitem" selected *ngFor="let rule of rules">
+        <a
+          mat-raised-button
+          (click)="selectRuleList(rule); openDialog()"
+          class="rule-list-title"
+          >{{ rule.title }}
+        </a>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div class="empty">
+
+  </div>
 </div>

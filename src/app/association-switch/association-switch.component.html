@@ -1,4 +1,4 @@
-<div class="form-group">
+<!-- <div class="form-group">
   <mat-form-field appearance="fill" matNativeControl>
     <mat-label class="align-self-center" for="association-switch"
       >Switch Association</mat-label
@@ -11,10 +11,28 @@
       id="association-switch"
     >
       <mat-option
-        *ngFor="let association of associations"
+        *ngFor="let association of availableAssociations$ | async"
         value="{{ association.id }}"
         >{{ association.name }}</mat-option
       >
     </mat-select>
   </mat-form-field>
+</div> -->
+<div class="association-switch-container">
+  <!-- <mat-icon mat-button [matMenuTriggerFor]="menu" aria-hidden="false" aria-label="switch associations">
+    <span class="material-icons-outlined">
+      change_circle
+      </span>
+  </mat-icon> -->
+  <button mat-button [matMenuTriggerFor]="menu">Switch Association</button>
+  <mat-menu #menu="matMenu">
+    <button
+      *ngFor="let association of availableAssociations$ | async"
+      mat-menu-item
+      value="{{ association.id }}"
+      (click)="selectAssociation($event, association)"
+    >
+      {{ association.name }}
+    </button>
+  </mat-menu>
 </div>

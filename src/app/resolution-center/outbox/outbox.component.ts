@@ -14,7 +14,7 @@ export class OutboxComponent implements OnInit {
 
   ngOnInit() {
     this.init();
-    this.userService.selectedAssociation.subscribe(() => {
+    this.userService.selectedAssociation$.subscribe(() => {
       this.init();
     });
   }

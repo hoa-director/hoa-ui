@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
 import { Location } from "@angular/common";
 import { UserService } from "../services/user.service";
-import { BehaviorSubject, ReplaySubject } from "rxjs";
+import { Observable } from "rxjs";
+import { AssociationModel } from "app/models/association.model";
 
 @Component({
   selector: "app-association-switch",
@@ -10,50 +11,29 @@ import { BehaviorSubject, ReplaySubject } from "rxjs";
 })
 export class AssociationSwitchComponent implements OnInit, OnDestroy {
   subscriptions = [];
-  // associationsReplaySubject = new ReplaySubject<[{id: string, name: string}]>(1);
-  associations: { id: string; name: string }[] = [];
   currentAssociation: string;
+  availableAssociations$: Observable<AssociationModel[]>;
 
   constructor(public userService: UserService, private location: Location) {}
 
   ngOnInit() {
-    this.init();
-    const selectedAssociationSubscription = this.userService.selectedAssociation
-    .subscribe(
-      (value: any) => {
+    this.userService.getUserAssociations();
+    this.availableAssociations$ = this.userService.availableAssociations$;
+    const selectedAssociationSubscription =
+      this.userService.selectedAssociation$.subscribe((value: any) => {
         this.currentAssociation = value;
-      }
-    );
+      });
 
-    const userAssociations = this.userService.availableAssociations
-    .subscribe(
-      (value: any) => {
-        this.associations = value.associations;
-      }
-    );
-
-    this.subscriptions.push(
-      selectedAssociationSubscription,
-      userAssociations
-    );
+    this.subscriptions.push(selectedAssociationSubscription);
   }
 
   ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
     this.subscriptions.map((subscription) => {
       subscription.unsubscribe();
     });
   }
 
-  // ngAfterViewInit(){
-  //   this.currentAssociation = this.associations[0].id
-  // }
-
-  private init() {
-    this.userService.getUserAssociations();
-  }
-
-  selectAssociation(associationId) {
-    this.userService.setAssociation(associationId.value)
+  selectAssociation(event: any, association: AssociationModel) {
+    this.userService.setAssociation(association);
   }
 }

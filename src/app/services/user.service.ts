@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable, EventEmitter } from "@angular/core";
 import { map, shareReplay } from "rxjs/operators";
 import { Observable, of, ReplaySubject, BehaviorSubject, Subject } from "rxjs";
@@ -7,6 +7,7 @@ import { environment } from "../../environments/environment";
 import { asObservable } from "./asObservable";
 import { isLoading } from "../shared/isLoading";
 import { UserModel } from "app/models/user.model";
+import { AssociationModel } from "app/models/association.model";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -14,7 +15,8 @@ const BACKEND_URL = environment.apiUrl;
   providedIn: "root",
 })
 export class UserService {
-  private userSubject = new Subject<UserModel>();
+  private readonly userSubject = new BehaviorSubject<string>(null);
+  readonly user$ = this.userSubject.asObservable();
 
   // auth properties
   private token: string;
@@ -23,15 +25,14 @@ export class UserService {
   private isAuthenticated = false;
   private tokenTimer: NodeJS.Timer;
 
-  // association properties
-  private _availableAssociations = new ReplaySubject<
-    [{ id: string; name: string }]
-  >(1);
-  public readonly availableAssociations = asObservable(
-    this._availableAssociations
-  );
-  private _selectedAssociation = new ReplaySubject(1);
-  public readonly selectedAssociation = asObservable(this._selectedAssociation);
+  // available association properties
+  private availableAssociationsSubject = new ReplaySubject<AssociationModel[]>(1);
+  public availableAssociations$ = this.availableAssociationsSubject.asObservable();
+
+  // selected association properties
+  private readonly selectedAssociationSubject = new BehaviorSubject<string>(null);
+  public selectedAssociation$ = this.selectedAssociationSubject.asObservable();
+
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -52,12 +53,12 @@ export class UserService {
     return this.isAuthenticated;
   }
 
-  setUser(user: UserModel) {
-    this.userSubject.next(user);
+  private setUser(userName: string) {
+    this.userSubject.next(userName);
   }
 
-  getCurrentUser(): Observable<UserModel>  {
-    return this.userSubject.asObservable();
+  getUser(): string {
+    return this.userSubject.getValue();
   }
 
   loginUser(user) {
@@ -66,7 +67,7 @@ export class UserService {
       .post<{
         token: string;
         user: any;
-        associationId: number;
+        association: AssociationModel;
         expiresIn: number;
       }>(BACKEND_URL + "/user/login", user)
       .subscribe(
@@ -84,10 +85,10 @@ export class UserService {
             );
             this.saveAuthData(token, expirationDate);
             this.saveUserData(response.user.id);
-            this.setUser(<UserModel>response.user);
-            console.log(response.user);
-            this._selectedAssociation.next(response.associationId);
-            this.saveUserAssociationData(response.associationId);
+            this.getLoggedInUser();
+            // this.setSelectedAssociation({id: response.associationId, name: response.});
+            this.saveUserAssociationData(response.association.id, response.association.name);
+            this.setSelectedAssociationSubject(response.association.name);
             this.router.navigate(["/home", "directory"]);
           }
           // return 'success';
@@ -105,29 +106,7 @@ export class UserService {
       .add(() => {
         isLoading(false);
       });
-
-    // .pipe(
-    //   tap((loginResponse) => {
-    //     this.setUser(loginResponse.user);
-    //     console.log(loginResponse.user);
-    //     console.log(loginResponse.token);
-    //     const token = loginResponse.token;
-    //     this.token = token;
-    //     return 'success';
-    //   }),
-    // );
-    // this.http.post(BACKEND_URL + '/user/login', user).subscribe(response => {
-    // })
   }
-
-  // logout() {
-  //   return this.http.get(BACKEND_URL + "/users/logout").pipe(
-  //     tap(() => {
-  //       this.setUser(undefined);
-  //       this.router.navigate(["/login"]);
-  //     })
-  //   );
-  // }
 
   autoAuthenticateUser() {
     const authInformation = this.getAuthDate();
@@ -140,7 +119,7 @@ export class UserService {
       this.isAuthenticated = true;
       this.setAuthenticatedTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
-      this.router.navigate(["/home", "directory"]);
+      // this.router.navigate(["/home", "directory"]);
     }
   }
 
@@ -152,6 +131,19 @@ export class UserService {
     this.clearAuthData();
     this.clearUserDate();
     this.router.navigateByUrl("/landing");
+  }
+
+  getLoggedInUser(): void {
+    this.http
+      .get<{ userFirstName: string }>(BACKEND_URL + "/user/loggedInUser", {
+        params: new HttpParams().set(
+          "userId",
+          sessionStorage.getItem("userId").toString()
+        ),
+      })
+      .subscribe((response) => {
+        this.setUser(response.userFirstName);
+      });
   }
 
   private setAuthenticatedTimer(duration: number) {
@@ -185,69 +177,33 @@ export class UserService {
     sessionStorage.setItem("userId", userId);
   }
 
-  private saveUserAssociationData(associationId: number) {
+  private saveUserAssociationData(associationId: number, associationName: string) {
     sessionStorage.setItem("associationId", associationId.toString());
+    sessionStorage.setItem("associationName", associationName);
   }
 
   private clearUserDate() {
     sessionStorage.removeItem("userId");
   }
 
-  getUser() {
-    // if class variable is falsy get the user from the backend and
-    // set the user by calling setUser
-    // if (!this.user) {
-    //   return this.http.get(BACKEND_URL + '/user').pipe(
-    //     tap(user => {
-    //       this.setUser(user);
-    //     }),
-    //     catchError((error) => {
-    //       return of(false);
-    //     })
-    //   )
-    // }
-    // if this user does exist, return the user
-    // else
-    // {
-    //   return of(this.user);
-    // }
-    // return this.userSubject.asObservable();
-    return asObservable(this.userSubject);
-  }
-
-  isLoggedIn(): Observable<boolean> {
-    return this.getUser().pipe(
-      map((user) => {
-        return !!user;
-      })
-    );
+  private setSelectedAssociationSubject(associationName: string) {
+    this.selectedAssociationSubject.next(associationName);
   }
 
   getUserAssociations() {
-    // return this.getUser().pipe((user) => {
-    //   if (!user) {
-    //     return of({});
-    //   }
-    // return this.http.get(
-    //   BACKEND_URL +
-    //     `/user/associations?userId=${this.userSubject.getValue().id}`
-    // );
-    // });
-    let observable = this.http
-      .get<[{ id: string; name: string }]>(
+    this.http
+      .get<any>(
         BACKEND_URL +
           `/user/associations?userId=${sessionStorage.getItem("userId")}`
       )
-      .pipe(shareReplay());
-
-    observable.subscribe((associations) => {
-      this._availableAssociations.next(associations);
-    });
+      .subscribe((response) => {
+        this.availableAssociationsSubject.next(response.associations);
+      });
   }
 
-  setAssociation(associationId) {
-    this.saveUserAssociationData(associationId);
-    this._selectedAssociation.next(associationId);
+  setAssociation(association: AssociationModel) {
+    this.saveUserAssociationData(association.id, association.name);
+    this.setSelectedAssociationSubject(association.name);
   }
 
   requestToken(email) {

@@ -37,11 +37,10 @@ export class DirectoryComponent implements OnInit, OnDestroy {
     }).add(() => {
       isLoading(false);
     });
-
   }
 
   listenForEvents() {
-    this.userSubjectSubs = this.userService.selectedAssociation.subscribe(
+    this.userSubjectSubs = this.userService.selectedAssociation$.subscribe(
       () => {
         this.onFetchUnits();
       }
