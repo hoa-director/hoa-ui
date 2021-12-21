@@ -20,7 +20,6 @@ export class RequestPasswordChangeComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    // this.requestToken(event;
     this.requestToken(this.requestPasswordChange.get("email").value);
   }
 
@@ -35,7 +34,7 @@ export class RequestPasswordChangeComponent implements OnInit {
         this.message = `An email will be sent to ${email} with a link to reset your password`;
         this.requestPasswordChange.disable();
         setTimeout(() => {
-          this.router.navigate(["/home"]);
+          this.router.navigate(["/landing"]);
         }, 5000);
       },
       (error) => {

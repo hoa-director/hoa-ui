@@ -3,13 +3,21 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
-  "author": "Dexter St Pierre <dexter.stpierre.dev@gmail.com>",
+  "contributors": [
+    "Dexter St Pierre <dexter.stpierre.dev@gmail.com>",
+    "John Gellert <gellertjm@gmail.com>"
+  ],
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "build-client-dev": "ng build",
     "build-client-watch": "ng build --watch",
-    "build-client": "ng build --prod",
-    "client": "ng serve",
-    "build": "npm run clean && npm run build-client",
+    "build-client-prod": "ng build --configuration=production",
+    "build-client-staging": "ng build --configuration=staging",
+    "build": "npm run clean && npm run build-client-prod",
+    "client-local": "ng serve",
+    "client-staging": "ng serve --configuration=staging",
     "clean": "rm -fR dist/",
     "dev": "npm run build-client-dev && npm run watch",
     "lint-client": "npx tslint -c tslint.json -p src/tsconfig.app.json"
