@@ -1,2 +1,7 @@
 [context.staging]
     command = "npm run build-client-staging"
+
+[[redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200
