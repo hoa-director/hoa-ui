@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { ResolutionCenterService } from '../resolution-center.service';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { UserService } from "../../services/user.service";
+import { ResolutionCenterService } from "../resolution-center.service";
 
 @Component({
-  selector: 'app-objection',
-  templateUrl: './objection.component.html',
-  styleUrls: ['./objection.component.css'],
+  selector: "app-objection",
+  templateUrl: "./objection.component.html",
+  styleUrls: ["./objection.component.css"],
 })
 export class ObjectionComponent implements OnInit {
-  message = '';
+  message = "";
   objectionId: number;
   objection: {};
   canVote = false;
@@ -18,7 +18,7 @@ export class ObjectionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private resolutionCenterService: ResolutionCenterService,
+    private resolutionCenterService: ResolutionCenterService
   ) {}
 
   ngOnInit() {
@@ -29,7 +29,7 @@ export class ObjectionComponent implements OnInit {
   }
 
   init() {
-    this.objectionId = +this.route.snapshot.paramMap.get('id');
+    this.objectionId = +this.route.snapshot.paramMap.get("id");
     this.resolutionCenterService
       .getObjection(this.objectionId)
       .subscribe(
@@ -37,7 +37,7 @@ export class ObjectionComponent implements OnInit {
           this.objection = response.objection;
           this.canVote = response.canVote;
           this.results = response.results;
-        },
+        }
       );
   }
 
@@ -50,11 +50,11 @@ export class ObjectionComponent implements OnInit {
       .subscribe(
         (response) => {
           this.canVote = false;
-          this.message = 'Your vote has been recorded. Thank you for voting';
+          this.message = "Your vote has been recorded. Thank you for voting";
         },
         (error) => {
-          this.message = 'A server error has occurred. Please try again later';
-        },
+          this.message = "A server error has occurred. Please try again later";
+        }
       );
   }
 }

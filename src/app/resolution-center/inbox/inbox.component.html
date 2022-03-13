@@ -1,29 +1,59 @@
-<table class="table table-striped table-hover">
-  <thead>
+<table mat-table [dataSource]="objections" class="mat-elevation-z8" #inboxTable>
+  <!-- Submitted By Column -->
+  <ng-container matColumnDef="submitted-by">
+    <th mat-header-cell *matHeaderCellDef>Submitted By</th>
+    <td mat-cell *matCellDef="let objection">
+      {{ objection.submittedByUser.units[0]?.addressLineOne }}
+    </td>
+  </ng-container>
+
+  <!-- Submitted Against Column -->
+  <ng-container matColumnDef="submitted-against">
+    <th mat-header-cell *matHeaderCellDef>Submitted Against</th>
+    <td mat-cell *matCellDef="let objection">
+      {{ objection.submittedAgainstUser.units[0]?.addressLineOne }}
+    </td>
+  </ng-container>
+
+  <!-- Submitted On Column -->
+  <ng-container matColumnDef="submitted-on">
+    <th mat-header-cell *matHeaderCellDef>Submitted On</th>
+    <td mat-cell *matCellDef="let objection">{{ objection.createdAt }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="vote-button">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let objection">
+      <button
+        [id]="objection.id"
+        mat-raised-button
+        color="accent"
+        class="btn btn-primary float-right"
+        type="submit"
+        (click)="selectObjection(objection)"
+      >
+        Vote
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  <!-- TODO: Update button to work with modal to vote and clean up commented code -->
+  <!-- <thead>
     <tr>
-      <th scope="col">Submitted By</th>
-      <th scope="col">Submitted Against</th>
-      <th scope="col">Submitted On</th>
       <th scope="col"></th>
     </tr>
   </thead>
-  <tbody>
-    <tr *ngFor="let objection of objections">
-      <td>{{objection.submittedBy.units[0]?.addressLineOne}}</td>
-      <td>{{objection.submittedAgainst.units[0]?.addressLineOne}}</td>
-      <td>
-        {{objection.createdAt | date:'short'}}
       </td>
-      <td>
-        <a routerLink="../objection/{{objection.id}}">View</a>
-      </td>
-      <!-- <td (click)="selectObjection(objection); htmlInsideModal.open()">
+        <td (click)="selectObjection(objection); htmlInsideModal.open()"></td>
         <button class="btn">
           Vote
         </button>
-      </td> -->
+      </td>
     </tr>
-  </tbody>
+  </tbody> -->
 </table>
 
 <!-- <app-modal #htmlInsideModal>
