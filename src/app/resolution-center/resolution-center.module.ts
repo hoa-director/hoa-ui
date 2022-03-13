@@ -19,6 +19,9 @@ import { MatTabsModule } from "@angular/material/tabs";
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from "@angular/material/button";
+
 export const ResolutionCenterRoutes: Routes = [
   {
     path: "resolution-center",
@@ -43,7 +46,9 @@ export const ResolutionCenterRoutes: Routes = [
     FormsModule,
     RouterModule.forChild(ResolutionCenterRoutes),
     MatTabsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatButtonModule
   ],
   declarations: [
     ResolutionCenterComponent,

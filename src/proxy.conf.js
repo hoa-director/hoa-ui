@@ -46,7 +46,11 @@ const PROXY_CONFIG = [
         "/users/forgotten",
         "/api/directory",
         "/api/documents",
-        "/api/rules",
+        "/api/objections",
+        "/api/inbox",
+        "/api/outbox",
+        "/api/vote",
+        "/api/units"
       ],
       target: "http://localhost:3000",
       secure: false,
