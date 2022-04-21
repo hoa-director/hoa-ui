@@ -1,41 +1,49 @@
-<div class="row justify-content-center">
-  <div class="col col-lg-10">
-    <div class="row">
-      <div class="col">
-        <div class="row">
-          <div class="col">
-            <h5>
-              File Objection
-            </h5>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="file-complaint row">
-              <form #complaintForm="ngForm" (ngSubmit)="submit(objection)" class="col">
-                <div class="form-group">
-                  <label for="against">Against
-                    <select name="against" id="against" [(ngModel)]="objection.against" #against="ngModel" required>
-                      <option value=""></option>
-                      <option *ngFor="let unit of units" value="{{unit.userId}}">{{unit.addressLineOne}}</option>
-                    </select>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label for="message">Comments
-                    <textarea placeholder="" class="form-control" name="message" required [(ngModel)]="objection.comment"
-                      #message="ngModel"></textarea>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-danger" type="reset">Cancel</button>
-                  <button class="btn btn-primary" type="submit" [disabled]="!complaintForm.form.valid">Submit</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="create-objection">
+  <form [formGroup]="createObjectionForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <mat-form-field appearance="fill" class="unit-select">
+        <mat-label>Against</mat-label>
+        <mat-select formControlName="againstControl">
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let unit of units" [value]="unit.userId">
+            {{ unit.addressLineOne }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="againstControl.hasError('required')"
+          >Please choose unit</mat-error
+        >
+        <mat-hint>{{ againstControl.value?.sound }}</mat-hint>
+      </mat-form-field>
     </div>
-  </div>
+    <div class="form-group">
+      <mat-form-field appearance="fill" class="comments-text-area">
+        <mat-label>Comments</mat-label>
+        <textarea
+          matInput
+          class="form-control"
+          formControlName="commentControl"
+        ></textarea>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <button
+        class="create-objection-cancel-button"
+        mat-stroked-button
+        color="primary"
+        type="reset"
+        (click)="onCancel()"
+      >
+        Cancel
+      </button>
+      <button
+        class="create-objection-submit-button"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!createObjectionForm.valid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
 </div>

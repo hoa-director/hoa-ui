@@ -39,6 +39,11 @@ import { MatTableModule } from "@angular/material/table";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatMenuModule } from "@angular/material/menu";
+import {
+  MatRadioModule,
+  MAT_RADIO_DEFAULT_OPTIONS,
+} from "@angular/material/radio";
+
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -116,12 +121,14 @@ import { NavBackDirective } from "./nav-back.directive";
     MatTableModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatMenuModule
+    MatMenuModule,
+    MatRadioModule,
   ],
   entryComponents: [DialogComponent],
   providers: [
     // provides the interceptor
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: { color: "accent" } },
   ],
   bootstrap: [AppComponent],
 })

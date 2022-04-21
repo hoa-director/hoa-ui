@@ -3,6 +3,8 @@ import { ResolutionCenterService } from "../resolution-center.service";
 import { UserService } from "../../services/user.service";
 import { Objection } from "../models/objection";
 import { MatTable } from "@angular/material/table";
+import { MatDialog } from "@angular/material/dialog";
+import { VoteDialogComponent } from "../vote-dialog/vote-dialog.component";
 
 @Component({
   selector: "app-inbox",
@@ -25,7 +27,8 @@ export class InboxComponent implements OnInit {
 
   constructor(
     private resolutionCenterService: ResolutionCenterService,
-    private userService: UserService
+    private userService: UserService,
+    public voteDialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -40,9 +43,6 @@ export class InboxComponent implements OnInit {
       .getInbox()
       .subscribe((response) => {
         this.objections = response.objections;
-      })
-      .add(() => {
-        this.inboxTable.renderRows();
       });
   }
 
@@ -50,12 +50,9 @@ export class InboxComponent implements OnInit {
     this.currentObjection = objection;
   }
 
-  vote(approved) {
-    this.resolutionCenterService
-      .submitVote({
-        approved,
-        objectionId: this.currentObjection.id,
-      })
-      .subscribe((response) => {});
+  openDialog(objection: Objection) {
+    const voteDialogRef = this.voteDialog.open(VoteDialogComponent, {
+      data: objection,
+    });
   }
 }
