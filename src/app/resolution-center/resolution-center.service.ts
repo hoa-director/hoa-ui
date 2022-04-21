@@ -29,15 +29,42 @@ export class ResolutionCenterService {
     });
   }
   public submitObjection(objection) {
-    return this.http.post("/api/objections", { objection });
+    return this.http.post(
+      "/api/objections",
+      { objection },
+      {
+        params: new HttpParams()
+          .set(
+            "associationId",
+            sessionStorage.getItem("associationId").toString()
+          )
+          .set("userId", sessionStorage.getItem("userId").toString()),
+      }
+    );
   }
 
-  public submitVote(vote) {
-    return this.http.post("/api/vote", { vote });
+  public submitVote(vote: number, objectionId: number) {
+    return this.http.post(
+      "/api/vote",
+      { vote: { vote, objectionId } },
+      {
+        params: new HttpParams().set(
+          "userId",
+          sessionStorage.getItem("userId").toString()
+        ),
+      }
+    );
   }
 
   public getOutbox(): Observable<{ objections: any[] }> {
-    return this.http.get<{ objections: any[] }>("/api/outbox");
+    return this.http.get<{ objections: any[] }>("/api/outbox", {
+      params: new HttpParams()
+        .set(
+          "associationId",
+          sessionStorage.getItem("associationId").toString()
+        )
+        .set("userId", sessionStorage.getItem("userId").toString()),
+    });
   }
 
   public getObjection(id) {
@@ -45,6 +72,19 @@ export class ResolutionCenterService {
   }
 
   public getPastObjections(): Observable<{ objections: any[] }> {
-    return this.http.get<{ objections: any[] }>("/api/objections/past");
+    return this.http.get<{ objections: any[] }>("/api/objections/past", {
+      params: new HttpParams().set(
+        "associationId",
+        sessionStorage.getItem("associationId").toString()
+      ),
+    });
+  }
+
+  private getUserIdParams(): void {
+    sessionStorage.getItem("userId").toString();
+  }
+
+  private getAssociationIdParams(): void {
+    sessionStorage.getItem("associationId").toString();
   }
 }

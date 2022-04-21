@@ -1,3 +1,23 @@
 label {
   min-width: 50%;
 }
+
+.create-objection {
+  font-size: 2rem;
+}
+
+.comments-text-area {
+  width: 50vw;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.unit-select {
+  min-width: 20vw
+}
+
+.create-objection-cancel-button {
+  margin-right: 2rem;
+}

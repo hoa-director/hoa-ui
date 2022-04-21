@@ -42,19 +42,14 @@ export class ObjectionComponent implements OnInit {
   }
 
   vote(approved) {
-    this.resolutionCenterService
-      .submitVote({
-        approved,
-        objectionId: this.objectionId,
-      })
-      .subscribe(
-        (response) => {
-          this.canVote = false;
-          this.message = "Your vote has been recorded. Thank you for voting";
-        },
-        (error) => {
-          this.message = "A server error has occurred. Please try again later";
-        }
-      );
+    this.resolutionCenterService.submitVote(1, 1).subscribe(
+      (response) => {
+        this.canVote = false;
+        this.message = "Your vote has been recorded. Thank you for voting";
+      },
+      (error) => {
+        this.message = "A server error has occurred. Please try again later";
+      }
+    );
   }
 }

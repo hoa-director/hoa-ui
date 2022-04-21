@@ -8,6 +8,5 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 export class BackFabComponent implements OnInit {
   constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

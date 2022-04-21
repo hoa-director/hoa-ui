@@ -18,11 +18,11 @@
   <!-- Submitted On Column -->
   <ng-container matColumnDef="submitted-on">
     <th mat-header-cell *matHeaderCellDef>Submitted On</th>
-    <td mat-cell *matCellDef="let objection">{{ objection.createdAt }}</td>
+    <td mat-cell *matCellDef="let objection">{{ objection.createdAt | date: 'medium' }}</td>
   </ng-container>
 
   <ng-container matColumnDef="vote-button">
-    <th mat-header-cell *matHeaderCellDef></th>
+    <th mat-header-cell *matHeaderCellDef>Vote</th>
     <td mat-cell *matCellDef="let objection">
       <button
         [id]="objection.id"
@@ -30,7 +30,7 @@
         color="accent"
         class="btn btn-primary float-right"
         type="submit"
-        (click)="selectObjection(objection)"
+        (click)="selectObjection(objection); openDialog(objection)"
       >
         Vote
       </button>
@@ -39,49 +39,4 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-  <!-- TODO: Update button to work with modal to vote and clean up commented code -->
-  <!-- <thead>
-    <tr>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-      </td>
-        <td (click)="selectObjection(objection); htmlInsideModal.open()"></td>
-        <button class="btn">
-          Vote
-        </button>
-      </td>
-    </tr>
-  </tbody> -->
 </table>
-
-<!-- <app-modal #htmlInsideModal>
-  <ng-template #modalBody>
-    <div class="row">
-      <div class="col">
-        <p>
-          {{currentObjection.comment}}
-        </p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="row">
-          <div class="col">
-            How would you like to vote on this
-          </div>
-        </div>
-        <button class="btn btn-danger" (click)="vote(0)">Disapprove</button>
-        <button class="btn btn-success" (click)="vote(1)">Approve</button>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template #modalFooter>
-    <div class="row">
-      <div class="col">
-        <button class="btn btn-primary" (click)="htmlInsideModal.close()">Close</button>
-      </div>
-    </div>
-  </ng-template>
-</app-modal> -->

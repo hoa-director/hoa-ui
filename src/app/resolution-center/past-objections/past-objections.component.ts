@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ResolutionCenterService } from '../resolution-center.service';
 import { UserService } from '../../services/user.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-past-objections',
@@ -11,9 +12,18 @@ import { UserService } from '../../services/user.service';
 export class PastObjectionsComponent implements OnInit {
   public objections;
 
+  public displayedColumns: string[] = [
+    "submitted-by",
+    "submitted-against",
+    "submitted-on",
+    "view-button",
+  ];
+
   constructor(
-    private resolutionCenterService: ResolutionCenterService, 
+    private resolutionCenterService: ResolutionCenterService,
     private userService: UserService,
+    private router: Router,
+    public route: ActivatedRoute
     ) {}
 
   ngOnInit() {
@@ -23,9 +33,16 @@ export class PastObjectionsComponent implements OnInit {
     });
   }
 
+   // <a routerLink="../objection/{{objection.id}}">View</a>
+   viewObjection(objectionId: number) {
+    this.router.navigate([`objection/${objectionId}`], {
+      relativeTo: this.route,
+    });
+  }
+
   private init() {
     this.resolutionCenterService.getPastObjections().subscribe((response) => {
       this.objections = response.objections;
-    });   
+    });
   }
 }

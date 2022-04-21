@@ -1,6 +1,9 @@
-
 .resolution-center-header {
-    font-size: 3rem;
-    margin-bottom: 5%;
-    margin-top: 2rem;
-  }
+  font-size: 3rem;
+  margin-bottom: 5%;
+  margin-top: 2rem;
+}
+
+nav {
+  margin-bottom: 2rem;
+}
