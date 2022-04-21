@@ -4,6 +4,15 @@
   </h3>
   <div class="rules-container">
     <mat-list role="list" #rule>
+      <mat-list-item role="listitem" selected>
+        <a
+          mat-raised-button
+          href="https://hastingsmn.municipalcodeonline.com/book?type=ordinances#name=PREFACE"
+          target="_blank"
+          class="rule-list-title"
+          >City Code
+        </a>
+      </mat-list-item>
       <mat-list-item role="listitem" selected *ngFor="let rule of rules">
         <a
           mat-raised-button
