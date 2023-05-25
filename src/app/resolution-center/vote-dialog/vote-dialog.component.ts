@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Objection } from "../models/objection";
 import { ResolutionCenterService } from "../resolution-center.service";
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-vote-dialog",
@@ -14,8 +14,8 @@ export class VoteDialogComponent implements OnInit {
 
 
 
-  voteForm = new FormGroup ({
-    voteControl: new FormControl(null, Validators.required)
+  voteForm = new UntypedFormGroup ({
+    voteControl: new UntypedFormControl(null, Validators.required)
   });
 
   constructor(
