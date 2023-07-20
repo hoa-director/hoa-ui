@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ResolutionCenterService } from "../resolution-center.service";
 import { UserService } from "../../services/user.service";
 import { Objection } from "../models/objection";
-import { MatTable } from "@angular/material/table";
-import { MatDialog } from "@angular/material/dialog";
+import { MatLegacyTable as MatTable } from "@angular/material/legacy-table";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 import { VoteDialogComponent } from "../vote-dialog/vote-dialog.component";
 
 @Component({
