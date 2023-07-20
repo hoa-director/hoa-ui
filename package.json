@@ -23,7 +23,7 @@
     "lint-client": "npx tslint -c tslint.json -p src/tsconfig.app.json"
   },
   "dependencies": {
-    "@angular-material-extensions/password-strength": "^6.0.0",
+    "@angular-material-extensions/password-strength": "^12.1.0",
     "@angular/animations": "^15.2.9",
     "@angular/cdk": "^14.2.7",
     "@angular/common": "^15.2.9",
