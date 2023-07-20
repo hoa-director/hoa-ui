@@ -19,7 +19,6 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { HomeComponent } from './home/home.component';
 
 import { ResolutionCenterRoutes } from "../app/resolution-center/resolution-center.module";
-import { componentFactoryName } from '@angular/compiler';
 
 export const routes: Routes = [
   {
@@ -115,7 +114,7 @@ export const routes: Routes = [
         runGuardsAndResolvers: 'always',
       },
       ...ResolutionCenterRoutes,
-    ] 
+    ]
   },
   {
     path: '**',
