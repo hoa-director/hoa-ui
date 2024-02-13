@@ -26,28 +26,26 @@ import { RequestPasswordChangeComponent } from "./request-password-change/reques
 import { AuthInterceptor } from "./services/auth-interceptor";
 import { DialogComponent } from "./app/dialog/dialog.component";
 
-import { MatInputModule } from "@angular/material/input";
-import { MatCardModule } from "@angular/material/card";
+import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input";
+import { MatLegacyCardModule as MatCardModule } from "@angular/material/legacy-card";
 import { MatGridListModule } from "@angular/material/grid-list";
-import { MatListModule } from "@angular/material/list";
-import { MatChipsModule } from "@angular/material/chips";
-import { MatDialogModule } from "@angular/material/dialog";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatLegacyListModule as MatListModule } from "@angular/material/legacy-list";
+import { MatLegacyChipsModule as MatChipsModule } from "@angular/material/legacy-chips";
+import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog";
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from "@angular/material/legacy-progress-spinner";
 import { MatIconModule } from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
-import { MatTableModule } from "@angular/material/table";
-import { MatSelectModule } from "@angular/material/select";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatMenuModule } from "@angular/material/menu";
+import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
+import { MatLegacyTableModule as MatTableModule } from "@angular/material/legacy-table";
+import { MatLegacySelectModule as MatSelectModule } from "@angular/material/legacy-select";
+import { MatLegacyFormFieldModule as MatFormFieldModule } from "@angular/material/legacy-form-field";
+import { MatLegacyMenuModule as MatMenuModule } from "@angular/material/legacy-menu";
 import {
-  MatRadioModule,
-  MAT_RADIO_DEFAULT_OPTIONS,
-} from "@angular/material/radio";
+  MatLegacyRadioModule as MatRadioModule,
+  MAT_LEGACY_RADIO_DEFAULT_OPTIONS as MAT_RADIO_DEFAULT_OPTIONS,
+} from "@angular/material/legacy-radio";
 
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
-import { PdfViewerModule } from "ng2-pdf-viewer";
 
 import { MatPasswordStrengthModule } from "@angular-material-extensions/password-strength";
 
@@ -66,70 +64,68 @@ import { BackFabComponent } from "./back-fab/back-fab.component";
 import { NavBackDirective } from "./nav-back.directive";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    LandingPageComponent,
-    DirectoryComponent,
-    RulesComponent,
-    FinancialsComponent,
-    DocumentsComponent,
-    ExteriorComponent,
-    InteriorComponent,
-    BoardComponent,
-    NotesComponent,
-    ProfileComponent,
-    MessageComponent,
-    ForgottenPasswordComponent,
-    RequestPasswordChangeComponent,
-    DialogComponent,
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-    AssociationSwitchComponent,
-    HomeComponent,
-    PhonePipe,
-    BackFabComponent,
-    NavBackDirective,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    ModalModule,
-    ResolutionCenterModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatGridListModule,
-    MatListModule,
-    MatChipsModule,
-    MatDialogModule,
-    MatIconModule,
-    PdfViewerModule,
-    ReactiveFormsModule,
-    MatPasswordStrengthModule.forRoot(),
-    FlexLayoutModule,
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatTableModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatMenuModule,
-    MatRadioModule,
-  ],
-  entryComponents: [DialogComponent],
-  providers: [
-    // provides the interceptor
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: { color: "accent" } },
-  ],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        LandingPageComponent,
+        DirectoryComponent,
+        RulesComponent,
+        FinancialsComponent,
+        DocumentsComponent,
+        ExteriorComponent,
+        InteriorComponent,
+        BoardComponent,
+        NotesComponent,
+        ProfileComponent,
+        MessageComponent,
+        ForgottenPasswordComponent,
+        RequestPasswordChangeComponent,
+        DialogComponent,
+        HeaderComponent,
+        FooterComponent,
+        SidebarComponent,
+        AssociationSwitchComponent,
+        HomeComponent,
+        PhonePipe,
+        BackFabComponent,
+        NavBackDirective,
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        ModalModule,
+        ResolutionCenterModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatCardModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatGridListModule,
+        MatListModule,
+        MatChipsModule,
+        MatDialogModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        MatPasswordStrengthModule.forRoot(),
+        FlexLayoutModule,
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatTableModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatMenuModule,
+        MatRadioModule,
+    ],
+    providers: [
+        // provides the interceptor
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        { provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: { color: "accent" } },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

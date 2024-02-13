@@ -3,7 +3,7 @@ import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation, OnDestroy
 import { UserService } from "../services/user.service";
 import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { response } from 'express';
 
@@ -20,8 +20,8 @@ export class ForgottenPasswordComponent implements OnInit, OnDestroy {
   public isSuccess: boolean = false;
   public noSuccess: boolean = false
 
-  resetPassword = new FormGroup({
-    password: new FormControl("", [Validators.required]),
+  resetPassword = new UntypedFormGroup({
+    password: new UntypedFormControl("", [Validators.required]),
   });
 
   constructor(
