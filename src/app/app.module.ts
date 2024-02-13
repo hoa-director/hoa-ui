@@ -47,8 +47,6 @@ import {
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { PdfViewerModule } from "ng2-pdf-viewer";
-
 import { MatPasswordStrengthModule } from "@angular-material-extensions/password-strength";
 
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -109,7 +107,6 @@ import { NavBackDirective } from "./nav-back.directive";
         MatChipsModule,
         MatDialogModule,
         MatIconModule,
-        PdfViewerModule,
         ReactiveFormsModule,
         MatPasswordStrengthModule.forRoot(),
         FlexLayoutModule,
