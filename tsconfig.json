@@ -3,26 +3,26 @@
 
   "compilerOptions": {
     "baseUrl": "src",
-
     "paths": {
-      "schemas": ["schema/schemas"]
+      "schemas": [
+        "schema/schemas"
+      ]
     },
     "outDir": "./dist/out-tsc",
-
     "sourceMap": true,
-
     "declaration": false,
-
     "moduleResolution": "node",
-
-    "emitDecoratorMetadata": true,
-
     "experimentalDecorators": true,
-
-    "typeRoots": ["node_modules/@types"],
-    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "target": "ES2022",
     "module": "es2020",
-    "lib": ["es2018", "dom"],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": false,

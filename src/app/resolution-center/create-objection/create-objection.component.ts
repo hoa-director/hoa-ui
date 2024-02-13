@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ResolutionCenterService } from "../resolution-center.service";
 import { UserService } from "../../services/user.service";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-create-objection",
@@ -11,9 +11,9 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 export class CreateObjectionComponent implements OnInit {
   units: any[];
 
-  createObjectionForm = new FormGroup({
-    againstControl: new FormControl(null, Validators.required),
-    commentControl: new FormControl("", Validators.required),
+  createObjectionForm = new UntypedFormGroup({
+    againstControl: new UntypedFormControl(null, Validators.required),
+    commentControl: new UntypedFormControl("", Validators.required),
   });
 
   constructor(

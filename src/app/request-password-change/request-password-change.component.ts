@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "../services/user.service";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { UntypedFormGroup, UntypedFormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
 @Component({
@@ -9,8 +9,8 @@ import { Router } from "@angular/router";
   styleUrls: ["./request-password-change.component.css"],
 })
 export class RequestPasswordChangeComponent implements OnInit {
-  requestPasswordChange = new FormGroup({
-    email: new FormControl("", [Validators.required, Validators.email]),
+  requestPasswordChange = new UntypedFormGroup({
+    email: new UntypedFormControl("", [Validators.required, Validators.email]),
   });
 
   message: string = "";
