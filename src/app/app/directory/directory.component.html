@@ -1,5 +1,17 @@
 <div>
-  <h3 class="directory-header">Neighborhood Directory</h3>
+  <div id="directory-header-container">
+    <h3 class="directory-header">Neighborhood Directory</h3>
+    <button
+      mat-button
+      (click)="openUnitModal()"
+      id="add-unit-button"
+      class="link-button"
+    >
+      Add Unit
+    </button>
+  </div>
+
+  <router-outlet></router-outlet>
   <div class="flex-container">
     <div *ngFor="let unit of units">
       <mat-card class="unit-card">
@@ -13,7 +25,7 @@
           }}</mat-card-title>
           <!-- <mat-card-subtitle></mat-card-subtitle> -->
         </mat-card-header>
-        <hr>
+        <hr />
         <!-- <img mat-card-image src="https://" alt=""> -->
         <mat-card-content class="person">
           <div class="contact-info">
@@ -32,7 +44,7 @@
             <br />
             <h4>Phone:</h4>
             <div *ngIf="unit.user" class="phone">
-              {{ unit.user.number | phone: 'US'}}
+              {{ unit.user.number | phone : "US" }}
             </div>
           </div>
         </mat-card-content>

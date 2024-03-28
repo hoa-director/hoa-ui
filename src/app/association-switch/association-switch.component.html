@@ -24,7 +24,9 @@
       change_circle
       </span>
   </mat-icon> -->
-  <button mat-button [matMenuTriggerFor]="menu">Switch Association</button>
+  <button class="association-switch-button" mat-button [matMenuTriggerFor]="menu">
+    Switch Association
+  </button>
   <mat-menu #menu="matMenu">
     <button
       *ngFor="let association of availableAssociations$ | async"

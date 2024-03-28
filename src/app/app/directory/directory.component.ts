@@ -4,6 +4,8 @@ import { UserService } from "../../services/user.service";
 import { Subscription } from "rxjs";
 import { Unit } from "./unit.model";
 import { isLoading } from "../../shared/isLoading";
+import { MatDialog } from "@angular/material/dialog";
+import { UnitModalComponent } from "../modal/unit-modal/unit-modal.component";
 
 @Component({
   selector: "app-directory",
@@ -19,6 +21,7 @@ export class DirectoryComponent implements OnInit, OnDestroy {
   constructor(
     private dataService: DataService,
     private userService: UserService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -46,4 +49,9 @@ export class DirectoryComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  openUnitModal() {
+    this.dialog.open(UnitModalComponent);
+  }
+
 }

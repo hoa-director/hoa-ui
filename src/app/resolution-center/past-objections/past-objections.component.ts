@@ -33,7 +33,7 @@ export class PastObjectionsComponent implements OnInit {
     });
   }
 
-   // <a routerLink="../objection/{{objection.id}}">View</a>
+   // <a [routerLink]="../objection/{{objection.id}}">View</a>
    viewObjection(objectionId: number) {
     this.router.navigate([`objection/${objectionId}`], {
       relativeTo: this.route,

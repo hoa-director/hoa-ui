@@ -8,13 +8,14 @@
 }
 
 /* Sidebar links */
-.sidebar a {
+.sidebar button {
   display: block;
   color: black;
   padding: 16px;
-  text-decoration: none;
   border-right: solid 1px rgba(0, 0, 0, 0.12);
   border-radius: unset;
+  width: 100%;
+  height: 5rem;
 }
 
 .nav-vertical-line {
@@ -23,7 +24,7 @@
 }
 
 /* Active/current link */
-.sidebar a.active {
+.sidebar button.active {
   /* background-color: #83b834; */
   /* background-color:#3779b7; */
   color: black;
@@ -31,7 +32,7 @@
 }
 
 /* Links on mouse-over */
-.sidebar a:hover:not(.active) {
+.sidebar button:hover:not(.active) {
   background-color: #3779b7;
   color: white;
 }

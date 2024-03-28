@@ -19,6 +19,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { HomeComponent } from './home/home.component';
 
 import { ResolutionCenterRoutes } from "../app/resolution-center/resolution-center.module";
+import { UnitModalComponent } from './app/modal/unit-modal/unit-modal.component';
 
 export const routes: Routes = [
   {
