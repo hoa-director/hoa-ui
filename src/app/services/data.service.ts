@@ -56,12 +56,12 @@ export class DataService {
 
 // -- this does fire 
   createTestRow(thing1: string, thing2: boolean, thing3: number) {
-    console.log(`createTestRow() EndPoint: ${BACKEND_URL}`+"/api/createRow2");
+    console.log(`createTestRow() EndPoint: ${BACKEND_URL}`+"/api/createRow1");
     const payload = {
       column1string: thing1, 
       column2boolean: thing2, 
       column3int: thing3}
-    return this.http.post(BACKEND_URL + "/api/createRow2", payload
+    return this.http.post(BACKEND_URL + "/api/createRow1", payload
     // {   // -- make sure front end is matches POST/GET/ETC
     //   // params: new HttpParams().set(
     //   //   "column3int", 123
