@@ -63,6 +63,7 @@ import { PhonePipe } from "./phone.pipe";
 import { BackFabComponent } from "./back-fab/back-fab.component";
 import { NavBackDirective } from "./nav-back.directive";
 import { UnitModalComponent } from "./app/modal/unit-modal/unit-modal.component";
+import { TestComponentComponent } from './app/test-component/test-component.component';
 
 @NgModule({
     declarations: [
@@ -91,6 +92,7 @@ import { UnitModalComponent } from "./app/modal/unit-modal/unit-modal.component"
         BackFabComponent,
         NavBackDirective,
         UnitModalComponent,
+        TestComponentComponent,
     ],
     imports: [
         BrowserModule,

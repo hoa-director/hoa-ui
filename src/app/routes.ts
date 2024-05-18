@@ -20,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 
 import { ResolutionCenterRoutes } from "../app/resolution-center/resolution-center.module";
 import { UnitModalComponent } from './app/modal/unit-modal/unit-modal.component';
+import { TestComponentComponent } from './app/test-component/test-component.component';
 
 export const routes: Routes = [
   {
@@ -111,6 +112,12 @@ export const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+        canActivate: [AuthGuardService],
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'test',
+        component: TestComponentComponent,
         canActivate: [AuthGuardService],
         runGuardsAndResolvers: 'always',
       },

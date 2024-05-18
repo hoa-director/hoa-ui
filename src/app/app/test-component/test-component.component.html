@@ -1,0 +1,33 @@
+<div>
+    <h3 class="test-header">Test Functions Page</h3>
+    <div class="test-rules-container">
+        <mat-list role="list" #document>
+            <mat-list-item role="listitem" selected *ngFor="let rule of rules">
+                <a 
+                    mat-raised-button
+                    [id]="rule.id"
+                    (click)="consoleLog(rule.title)"
+                    class="test-rule-list-title"
+                    >Rule: {{rule.title}}
+                </a>
+            </mat-list-item>
+        </mat-list>
+    </div>
+
+    <div class="test-rows-container">
+        <mat-list role="list" #document>
+            <mat-list-item role="listitem" selected *ngFor="let row of testRows">
+                <a 
+                    mat-raised-button
+                    [id]="row.id"
+                    (click)="consoleLog(row.title)"
+                    class="test-row-list-title"
+                    >Rule: {{row.title}}
+                </a>
+            </mat-list-item>
+        </mat-list>
+    </div>
+
+    <p>test-component works!</p>
+    <button (click)="consoleLog(rules)"> Add a Row</button>
+</div>
