@@ -62,12 +62,6 @@ export class DataService {
       column2boolean: thing2, 
       column3int: thing3}
     return this.http.post(BACKEND_URL + "/api/createRow1", payload
-    // {   // -- make sure front end is matches POST/GET/ETC
-    //   // params: new HttpParams().set(
-    //   //   "column3int", 123
-    //   //   // -- somehow this is sending the URL "column3int=123" as a query string
-    //   // ),
-    // }
   );
   }
 
