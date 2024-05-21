@@ -5,6 +5,8 @@ import { Subscription } from "rxjs";
 import { testRow } from "./testRows.model";
 import { Rule } from '../rules/rule.model';
 import { isLoading } from "../../shared/isLoading";
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-test-component',
@@ -18,6 +20,7 @@ import { isLoading } from "../../shared/isLoading";
 export class TestComponentComponent {
   testRows: testRow[] = [];
   rules: Rule[] = [];
+  addRow: testRow[] = [];
 
   private loadingListenerSubs: Subscription;
   private userSubjectSubs: Subscription;
@@ -26,6 +29,7 @@ export class TestComponentComponent {
   constructor(
     private dataService: DataService,
     private userService: UserService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -64,7 +68,7 @@ export class TestComponentComponent {
   onCreateTestRow() {
     isLoading(true);
     this.dataService
-    .createTestRow('API Call', true, 333) // -- this does fire 
+    .createTestRow('API Call Works!', false, 1138) // -- this does fire 
     .subscribe((responseData: any) => {
       console.log("createTestRow responseData:", responseData);
       this.testRows = [...responseData];})
@@ -79,6 +83,16 @@ export class TestComponentComponent {
     console.log(rule, 'CONSOLE LOG WORKS!');
     // this.onfetchTestRows();
   }
+
+  // openDialog() {
+  //   const dialogRef = this.dialog.open(DialogComponent, {
+  //     data: {
+  //       column1string: "thing go here",
+  //       column2boolean: false,
+  //       column3int: 888,
+  //     },
+  //   });
+  // }
 
 
 }
