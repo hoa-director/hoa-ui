@@ -47,6 +47,7 @@ export class TestComponentComponent {
       () => {
         this.onFetchRules();
         this.onCreateTestRow();
+        this.onUpdateRow();
       }
     );
   }
@@ -70,7 +71,20 @@ export class TestComponentComponent {
     this.dataService
     .createTestRow('API Call Works!', false, 1138) // -- this does fire 
     .subscribe((responseData: any) => {
-      console.log("createTestRow responseData:", responseData);
+      // console.log("createTestRow responseData:", responseData);
+      this.testRows = [responseData];
+    })
+      .add(() => {
+        isLoading(false);
+      });
+  };
+
+  onUpdateRow() {
+    isLoading(true);
+    this.dataService
+    .updateRow('API UPDATE Works!') // -- this does fire 
+    .subscribe((responseData: any) => {
+      console.log("UPDATE Row responseData:", responseData);
       this.testRows = [...responseData];})
       .add(() => {
         isLoading(false);

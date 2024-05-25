@@ -45,7 +45,7 @@ export class DataService {
   
   // -- this does fire 
     fetchRules() { 
-      console.log(`fetchRules() EndPoint: ${BACKEND_URL}`+"/api/rules");
+      // console.log(`fetchRules() EndPoint: ${BACKEND_URL}`+"/api/rules");
       return this.http.get(BACKEND_URL + "/api/rules", {
         params: new HttpParams().set(
           "associationId",
@@ -54,15 +54,28 @@ export class DataService {
       });
     }
 
-// -- this does fire 
+// -- THIS WORKS
   createTestRow(thing1: string, thing2: boolean, thing3: number) {
-    console.log(`createTestRow() EndPoint: ${BACKEND_URL}`+"/api/createRow1");
+    const endPoint = "/api/createRow"
+    // console.log(`createTestRow() EndPoint: ${BACKEND_URL}`+ endPoint);
     const payload = {
       column1string: thing1, 
       column2boolean: thing2, 
-      column3int: thing3}
-    return this.http.post(BACKEND_URL + "/api/createRow1", payload
-  );
+      column3int: thing3
+    }
+      return this.http.post(BACKEND_URL + "/api/createRow", payload
+    );
+  }
+
+  // -- THIS WORKS
+  updateRow(column1string: string ) { 
+    // console.log('update value"', column1string);
+    // console.log(`updateRow() EndPoint: ${BACKEND_URL}` + "/api/updateRow");
+    const payload = {
+      column1string: column1string, 
+    }
+    return this.http.post(BACKEND_URL + "/api/updateRow", payload
+    );
   }
 
 

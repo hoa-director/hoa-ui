@@ -34,7 +34,10 @@ export class UserService {
   public selectedAssociation$ = this.selectedAssociationSubject.asObservable();
 
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+  ) {}
 
   // allow other components to get the token from this service
   getToken() {
@@ -72,6 +75,7 @@ export class UserService {
       }>(BACKEND_URL + "/user/login", user)
       .subscribe(
         (response) => {
+          // console.log('loginUser() Response:', response);
           const token = response.token;
           this.token = token;
           if (token) {
