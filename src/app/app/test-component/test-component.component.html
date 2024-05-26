@@ -14,24 +14,12 @@
         </mat-list>
     </div>
 
-    <div class="test-rows-container">
-        <mat-list role="list" #document>
-            <mat-list-item role="listitem" selected *ngFor="let row of testRows">
-                <a 
-                    mat-raised-button
-                    [id]="row.id"
-                    (click)="consoleLog(row.title)"
-                    class="test-row-list-title"
-                    >Rule: {{row.title}}
-                </a>
-            </mat-list-item>
-        </mat-list>
-    </div>
-
-    <p>test-component works!</p>
-    <!-- <button (click)="openDialog()"> Add a Row</button> -->
+    <!-- <button (click)="openDialog()"> Open Dialogue</button>  -->
     <br>
-    <button (click)="consoleLog(rules)"> Console Log Test</button>
+    <button (click)="consoleLog(testRows)">Console Log Test</button>
+    <br>
+    <br>
+    <button (click)="onCreateTestRow()">Add Row</button>
 
     
 </div>

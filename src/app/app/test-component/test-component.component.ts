@@ -35,7 +35,6 @@ export class TestComponentComponent {
 
   ngOnInit() {
     this.ListenForEvents();
-    // this.onFetchRules();
       this.onFetchRows();
   }
   
@@ -44,11 +43,10 @@ export class TestComponentComponent {
   }
 
   ListenForEvents() {
-    this.userSubjectSubs = this.userService.selectedAssociation$.subscribe(
+    this.userSubjectSubs = this.userService.selectedAssociation$.subscribe( // - listen for Association change
       () => {
-        // this.onFetchRules();
-        this.onCreateTestRow();
-        this.onUpdateRow();
+        // this.onCreateTestRow(); // -- move this to a form 
+        // this.onUpdateRow();
         this.onFetchRows();
       }
     );
@@ -70,16 +68,15 @@ export class TestComponentComponent {
   };
 
 
-
+// -- WORKS
   onFetchRows() {
     isLoading(true);
     this.dataService
     .fetchRows() // -- this does fire 
     .subscribe((responseData: any) => {
-      console.log(" onFetchRules responseData", responseData);
       if(responseData){
         this.testRows = [...responseData];
-        console.log('testRows:', this.testRows)
+        // console.log('testRows:', this.testRows)
       }
     })
       .add(() => {
@@ -87,13 +84,13 @@ export class TestComponentComponent {
       });
   };
 
-// --  This works now!!! - First working API Call!!
+// -- WORKS
   onCreateTestRow() {
     isLoading(true);
     this.dataService
-    .createTestRow('API Call Works!', false, 1138) // -- this does fire 
+    .createTestRow('Adding a row', true, 1138) // -- this does fire 
     .subscribe((responseData: any) => {
-      // console.log("createTestRow responseData:", responseData);
+      console.log("createTestRow responseData:", responseData);
       this.testRows = [responseData];
     })
       .add(() => {
@@ -101,6 +98,7 @@ export class TestComponentComponent {
       });
   };
 
+// -- WORKS
   onUpdateRow() {
     isLoading(true);
     this.dataService
@@ -116,8 +114,8 @@ export class TestComponentComponent {
 
 
   // -- This works when button pressed
-  consoleLog(rule): void {
-    console.log(rule, 'CONSOLE LOG WORKS!');
+  consoleLog(row): void {
+    console.log('Row:', row);
     // this.onfetchTestRows();
   }
 
