@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DataService } from "../../services/data.service";
 import { UserService } from "../../services/user.service";
 import { Subscription } from "rxjs";
@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
 // -------- Test component gets list of rules and can console log individual rules.
 
 export class TestComponentComponent {
-  testRows: testRow[] = [];
+  testRows: Array<{ id: number, column1string: string }> = [];
   rules: Rule[] = [];
   addRow: testRow[] = [];
 
@@ -29,15 +29,16 @@ export class TestComponentComponent {
   constructor(
     private dataService: DataService,
     private userService: UserService,
+    private cdr: ChangeDetectorRef,
     public dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.ListenForEvents();
     // this.onFetchRules();
-    // this.onfetchTestRows();
-
+      this.onFetchRows();
   }
+  
   ngOnDestroy() {
     this.userSubjectSubs.unsubscribe();
   }
@@ -45,9 +46,10 @@ export class TestComponentComponent {
   ListenForEvents() {
     this.userSubjectSubs = this.userService.selectedAssociation$.subscribe(
       () => {
-        this.onFetchRules();
+        // this.onFetchRules();
         this.onCreateTestRow();
         this.onUpdateRow();
+        this.onFetchRows();
       }
     );
   }
@@ -59,7 +61,27 @@ export class TestComponentComponent {
     .fetchRules() // -- this does fire 
     .subscribe((responseData: any) => {
       console.log(" onFetchRules responseData", responseData);
-      this.rules = [...responseData];})
+      this.testRows = [...responseData];
+      this.cdr.detectChanges();
+    })
+      .add(() => {
+        isLoading(false);
+      });
+  };
+
+
+
+  onFetchRows() {
+    isLoading(true);
+    this.dataService
+    .fetchRows() // -- this does fire 
+    .subscribe((responseData: any) => {
+      console.log(" onFetchRules responseData", responseData);
+      if(responseData){
+        this.testRows = [...responseData];
+        console.log('testRows:', this.testRows)
+      }
+    })
       .add(() => {
         isLoading(false);
       });
@@ -85,7 +107,8 @@ export class TestComponentComponent {
     .updateRow('API UPDATE Works!') // -- this does fire 
     .subscribe((responseData: any) => {
       console.log("UPDATE Row responseData:", responseData);
-      this.testRows = [...responseData];})
+      this.testRows = [...responseData];
+    })
       .add(() => {
         isLoading(false);
       });

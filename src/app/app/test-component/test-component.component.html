@@ -2,13 +2,13 @@
     <h3 class="test-header">Test Functions Page</h3>
     <div class="test-rules-container">
         <mat-list role="list" #document>
-            <mat-list-item role="listitem" selected *ngFor="let rule of rules">
+            <mat-list-item role="listitem" selected *ngFor="let row of testRows">
                 <a 
                     mat-raised-button
-                    [id]="rule.id"
-                    (click)="consoleLog(rule.title)"
+                    [id]="row.id"
+                    (click)="consoleLog(row.column1string)"
                     class="test-rule-list-title"
-                    >Rule: {{rule.title}}
+                    >Row: {{row.column1string}}
                 </a>
             </mat-list-item>
         </mat-list>

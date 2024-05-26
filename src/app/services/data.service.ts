@@ -54,6 +54,12 @@ export class DataService {
       });
     }
 
+  // -- this does fire 
+    fetchRows() { 
+      // console.log(`fetchRules() EndPoint: ${BACKEND_URL}`+"/api/rules");
+      return this.http.get(BACKEND_URL + "/api/getTestRows");
+    }
+
 // -- THIS WORKS
   createTestRow(thing1: string, thing2: boolean, thing3: number) {
     const endPoint = "/api/createRow"
