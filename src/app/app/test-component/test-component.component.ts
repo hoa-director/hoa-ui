@@ -71,9 +71,7 @@ export class TestComponentComponent {
 // -- WORKS
   onFetchRows() {
     isLoading(true);
-    this.dataService
-    .fetchRows() // -- this does fire 
-    .subscribe((responseData: any) => {
+    this.dataService.fetchRows().subscribe((responseData: any) => {
       if(responseData){
         this.testRows = [...responseData];
         // console.log('testRows:', this.testRows)
@@ -90,10 +88,11 @@ export class TestComponentComponent {
     this.dataService
     .createTestRow('Adding a row', true, 1138) // -- this does fire 
     .subscribe((responseData: any) => {
-      console.log("createTestRow responseData:", responseData);
+      // console.log("createTestRow responseData:", responseData);
       this.testRows = [responseData];
     })
       .add(() => {
+        this.onFetchRows();
         isLoading(false);
       });
   };

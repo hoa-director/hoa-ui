@@ -43,7 +43,6 @@ export class DataService {
     });
   }
   
-  // -- this does fire 
     fetchRules() { 
       // console.log(`fetchRules() EndPoint: ${BACKEND_URL}`+"/api/rules");
       return this.http.get(BACKEND_URL + "/api/rules", {
@@ -54,7 +53,7 @@ export class DataService {
       });
     }
 
-  // -- this does fire 
+ // -- THIS WORKS
     fetchRows() { 
       // console.log(`fetchRules() EndPoint: ${BACKEND_URL}`+"/api/rules");
       return this.http.get(BACKEND_URL + "/api/getTestRows");
