@@ -8,7 +8,29 @@
                     [id]="row.id"
                     (click)="consoleLog(row.column1string)"
                     class="test-rule-list-title"
-                    >Row: {{row.column1string}}
+                    >Row ID:{{row.id}}, Column1: {{row.column1string}}
+                    <button (click)="consoleLog('EDIT btn')">              
+                        <mat-icon 
+                        [id]="row.id"
+                        aria-hidden="false" 
+                        aria-label="edit icon"
+                        mat-raised-button
+                        (click)="consoleLog('EDIT Icon')"
+                        >
+                        edit
+                        </mat-icon>
+                    </button>  
+                    <button (click)="consoleLog('Delete btn')">              
+                        <mat-icon 
+                        [id]="row.id"
+                        aria-hidden="false" 
+                        aria-label="Delete icon"
+                        mat-raised-button
+                        (click)="consoleLog('Delete icon', this.column1string)"
+                        >
+                        delete
+                        </mat-icon>
+                    </button>
                 </a>
             </mat-list-item>
         </mat-list>

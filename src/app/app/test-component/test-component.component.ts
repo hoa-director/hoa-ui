@@ -29,13 +29,13 @@ export class TestComponentComponent {
   constructor(
     private dataService: DataService,
     private userService: UserService,
-    private cdr: ChangeDetectorRef,
+    // private cdr: ChangeDetectorRef,
     public dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.ListenForEvents();
-      this.onFetchRows();
+    this.onFetchRows();
   }
   
   ngOnDestroy() {
@@ -51,21 +51,6 @@ export class TestComponentComponent {
       }
     );
   }
-
-// --  This works
-  onFetchRules() {
-    isLoading(true);
-    this.dataService
-    .fetchRules() // -- this does fire 
-    .subscribe((responseData: any) => {
-      console.log(" onFetchRules responseData", responseData);
-      this.testRows = [...responseData];
-      this.cdr.detectChanges();
-    })
-      .add(() => {
-        isLoading(false);
-      });
-  };
 
 
 // -- WORKS
