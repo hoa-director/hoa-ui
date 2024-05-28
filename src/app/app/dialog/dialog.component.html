@@ -12,7 +12,10 @@
     </ul>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button class="rule-close-button" mat-raised-button color="primary" mat-dialog-close>
+    <button class="rule-close-button" 
+      (click)="onCloseClick()"
+      mat-raised-button color="primary" 
+      mat-dialog-close>
       Close
     </button>
   </mat-dialog-actions>
