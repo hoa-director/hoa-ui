@@ -6,27 +6,27 @@
                 <a 
                     mat-raised-button
                     [id]="row.id"
-                    (click)="consoleLog(row.column1string)"
+                    (click)="consoleLog('column1string: ' + row.column1string)"
                     class="test-rule-list-title"
                     >Row ID:{{row.id}}, Column1: {{row.column1string}}
-                    <button (click)="consoleLog('EDIT btn')">              
+                    <button (click)="consoleLog(row.id + ' EDIT btn')">              
                         <mat-icon 
-                        [id]="row.id"
+                        [id]="row.id + '_edit'"
                         aria-hidden="false" 
                         aria-label="edit icon"
                         mat-raised-button
-                        (click)="consoleLog('EDIT Icon')"
+                   
                         >
                         edit
                         </mat-icon>
                     </button>  
-                    <button (click)="consoleLog('Delete btn')">              
+                    <button (click)="onDeleteRow(row.column1string)">              
                         <mat-icon 
-                        [id]="row.id"
+                        [id]="row.id + '_delete'"
                         aria-hidden="false" 
                         aria-label="Delete icon"
                         mat-raised-button
-                        (click)="consoleLog('Delete icon', this.column1string)"
+
                         >
                         delete
                         </mat-icon>

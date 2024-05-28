@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 export class TestComponentComponent {
   testRows: Array<{ id: number, column1string: string }> = [];
+  // deletedRows: Array<{ id: number, column1string: string }> = []; 
   rules: Rule[] = [];
   addRow: testRow[] = [];
 
@@ -35,6 +36,7 @@ export class TestComponentComponent {
 
   ngOnInit() {
     this.ListenForEvents();
+    // this.onDeleteRow();
     this.onFetchRows();
   }
   
@@ -66,6 +68,24 @@ export class TestComponentComponent {
         isLoading(false);
       });
   };
+
+  // -- WORKS -- ONLY Adds a 'deleted_at' value, doesn't actually delete.
+  onDeleteRow(deleteThis) {
+    isLoading(true);
+    this.dataService
+    .deleteRowAPI(deleteThis) // -- this does fire 
+    .subscribe((responseData: any) => {
+
+      console.log("createTestRow responseData:", responseData);
+      // this.deletedRows = [responseData];
+    })
+      .add(() => {
+        this.onFetchRows();
+        isLoading(false);
+      });
+  };
+
+
 
 // -- WORKS
   onCreateTestRow() {

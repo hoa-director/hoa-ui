@@ -59,6 +59,19 @@ export class DataService {
       return this.http.get(BACKEND_URL + "/api/getTestRows");
     }
 
+
+// -- TESTING
+  deleteRowAPI(thing1: string) {
+    // const endPoint = "/api/deleteRowAPI"
+    // console.log(`createTestRow() EndPoint: ${BACKEND_URL}`+ endPoint);
+    const payload = {
+      column1string: thing1
+    }
+      return this.http.post(BACKEND_URL + "/api/deleteRowAPI", payload
+    );
+  }
+
+
 // -- THIS WORKS
   createTestRow(thing1: string, thing2: boolean, thing3: number) {
     const endPoint = "/api/createRow"
