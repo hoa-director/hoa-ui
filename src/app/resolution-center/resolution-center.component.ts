@@ -12,19 +12,21 @@ export class ResolutionCenterComponent implements OnInit {
   constructor() {
     this.resolutionCenterLinks = [
       {
-        name: "Inbox",
+        name: "Open Motions (Inbox)",
         path: "inbox",
       },
+
+      // ---- REMOVING "Outbox" PAGE/COMPONENT ----
+      // {
+      //   name: "Open Motions (Outbox)",
+      //   path: "outbox",
+      // },
       {
-        name: "Outbox",
-        path: "outbox",
-      },
-      {
-        name: "Past Objections",
+        name: "Past Motions",
         path: "past",
       },
       {
-        name: "File Objection",
+        name: "File Motion",
         path: "objection/create",
       },
     ];

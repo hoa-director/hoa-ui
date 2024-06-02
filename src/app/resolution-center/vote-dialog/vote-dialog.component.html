@@ -1,36 +1,38 @@
-<h2 mat-dialog-title class="vote-dialog-title">
-  Vote on the following objection:
-</h2>
-<mat-dialog-content>
-  <p class="vote-description">{{ objectionData.comment }}</p>
-</mat-dialog-content>
-<form [formGroup]="voteForm" (ngSubmit)="onSubmit(objectionData.id)">
-  <mat-radio-group
-    formControlName="voteControl"
-    aria-label="Select an option"
-    class="vote-radio"
-  >
-    <mat-radio-button value="0">Disapprove</mat-radio-button>
-    <mat-radio-button value="1">Approve</mat-radio-button>
-  </mat-radio-group>
-  <mat-dialog-actions>
-    <button
-      class="vote-cancel-button"
-      mat-stroked-button
-      color="primary"
-      mat-dialog-close
+<div class="vote-main-div">
+  <h2 mat-dialog-title class="vote-dialog-title">
+    Vote on the following objection:
+  </h2>
+  <mat-dialog-content>
+    <p class="vote-description">{{ objectionData.comment }}</p>
+  </mat-dialog-content>
+  <form [formGroup]="voteForm" (ngSubmit)="onSubmit(objectionData.id)">
+    <mat-radio-group
+      formControlName="voteControl"
+      aria-label="Select an option"
+      class="vote-radio"
     >
-      Cancel
-    </button>
-    <button
-      class="vote-submit-button"
-      mat-raised-button
-      color="primary"
-      mat-dialog-close
-      type="submit"
-      [disabled]="!voteForm.valid"
-    >
-      Submit
-    </button>
-  </mat-dialog-actions>
-</form>
+      <mat-radio-button value="0">Disapprove</mat-radio-button>
+      <mat-radio-button value="1">Approve</mat-radio-button>
+    </mat-radio-group>
+    <mat-dialog-actions>
+      <button
+        class="vote-cancel-button"
+        mat-stroked-button
+        color="primary"
+        mat-dialog-close
+      >
+        Cancel
+      </button>
+      <button
+        class="vote-submit-button"
+        mat-raised-button
+        color="primary"
+        mat-dialog-close
+        type="submit"
+        [disabled]="!voteForm.valid"
+      >
+        Submit
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>
