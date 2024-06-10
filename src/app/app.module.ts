@@ -64,6 +64,7 @@ import { BackFabComponent } from "./back-fab/back-fab.component";
 import { NavBackDirective } from "./nav-back.directive";
 import { UnitModalComponent } from "./app/modal/unit-modal/unit-modal.component";
 import { TestComponentComponent } from './app/test-component/test-component.component';
+import { UsersComponent } from './app/users/users.component';
 
 @NgModule({
     declarations: [
@@ -93,6 +94,7 @@ import { TestComponentComponent } from './app/test-component/test-component.comp
         NavBackDirective,
         UnitModalComponent,
         TestComponentComponent,
+        UsersComponent,
     ],
     imports: [
         BrowserModule,

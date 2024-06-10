@@ -1,3 +1,68 @@
-<p>
-  unit-modal works!
-</p>
+<div class="new-unit-modal-outer-div">
+  <div class="new-unit-model-inner-div">
+    <h2 mat-dialog-title class="new-unit-dialog-title">Add New Unit</h2>
+  
+    <form [formGroup]="newUnitForm" (ngSubmit)="onSubmit()">
+      <mat-dialog-content>
+        <p class="new-unit-description"> Enter information to create a new User and Unit. </p>
+  
+        <label class="form-label" for="newUnitForm">Form Label 1</label>
+        <br>
+        <br>
+        <!-- <input type="text" id="input1" formcontrolname="input1" placeholder="Enter some text"> -->
+    
+        <mat-form-field>
+          <!-- <mat-label>mat-label</mat-label> -->
+          <input 
+            matInput
+            type="email"
+            placeholder="user email"
+            class="form-control"
+            name="email"
+            required
+          />
+        </mat-form-field>
+      </mat-dialog-content>
+
+
+
+
+      <mat-dialog-actions>
+        <button class="new-unit-close-button"
+        (click)="onCloseClick()"
+        mat-stroked-button
+        color="primary" 
+        mat-dialog-close>
+          Cancel
+        </button>
+  
+        <button
+          class="new-unit-submit-button"
+          mat-raised-button
+          color="primary"
+          mat-dialog-close
+          type="submit"
+          [disabled]="!newUnitForm.valid"
+        >
+          Submit
+        </button>
+      </mat-dialog-actions>
+    </form>
+
+    <button
+    class="test-new-unit-submit-button"
+    
+    mat-raised-button
+    color="primary"
+    mat-dialog-close
+    type="submit"
+  >
+    Add Test Unit
+  </button>
+
+  </div>
+
+
+
+  
+</div>

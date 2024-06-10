@@ -51,6 +51,7 @@ export class InboxComponent implements OnInit {
   }
 
   openDialog(objection: Objection) {
+    console.log('obj:', objection);
     const voteDialogRef = this.voteDialog.open(VoteDialogComponent, {
       data: objection,
     });
