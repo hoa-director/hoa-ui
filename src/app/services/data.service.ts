@@ -56,7 +56,8 @@ export class DataService {
  // -- THIS WORKS
     fetchRows() { 
       // console.log(`fetchRules() EndPoint: ${BACKEND_URL}`+"/api/rules");
-      return this.http.get(BACKEND_URL + "/api/getTestRows");
+      return this.http.get(BACKEND_URL + "/api/getTestRows"); 
+      // return this.http.get(BACKEND_URL + "/api/users");  // -- TESTING Get All Users
     }
 
 

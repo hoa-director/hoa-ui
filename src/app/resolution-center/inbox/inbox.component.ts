@@ -40,8 +40,7 @@ export class InboxComponent implements OnInit {
 
   private init() {
     this.resolutionCenterService
-      .getInbox()
-      .subscribe((response) => {
+      .getInbox().subscribe((response) => {
         this.objections = response.objections;
       });
   }

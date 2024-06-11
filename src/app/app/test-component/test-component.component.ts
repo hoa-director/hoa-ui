@@ -1,9 +1,15 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Subscription } from "rxjs";
+
+// -- SERVICES
 import { DataService } from "../../services/data.service";
 import { UserService } from "../../services/user.service";
-import { Subscription } from "rxjs";
+
+// --  MODELS
 import { testRow } from "./testRows.model";
 import { Rule } from '../rules/rule.model';
+
+// -- COMPONENTS
 import { isLoading } from "../../shared/isLoading";
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,7 +24,7 @@ import { MatDialog } from '@angular/material/dialog';
 // -------- Test component gets list of rules and can console log individual rules.
 
 export class TestComponentComponent {
-  testRows: Array<{ id: number, column1string: string }> = [];
+  testRows: Array<{ id: number, column1string: string }> = [];  // -- MODEL
   // deletedRows: Array<{ id: number, column1string: string }> = []; 
   rules: Rule[] = [];
   addRow: testRow[] = [];
@@ -28,8 +34,8 @@ export class TestComponentComponent {
   isLoading = false;
 
   constructor(
-    private dataService: DataService,
-    private userService: UserService,
+    private dataService: DataService,  // -- SERVICE
+    private userService: UserService, // -- SERVICE
     // private cdr: ChangeDetectorRef,
     public dialog: MatDialog
   ) {}
