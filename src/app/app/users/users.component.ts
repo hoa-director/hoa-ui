@@ -17,36 +17,48 @@ import { isLoading } from "app/shared/isLoading";
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  // @ViewChild("usersTable") usersTable: MatTable<any>;
+  @ViewChild("usersTable") usersTable: MatTable<any>;
 
 
   // -------- USER MODEL --------
   User: Array<{  
-    id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    role: number;
-    created_at: Date;
-    deleted_at: Date; 
-  }> = [];  
+            id: number;
+            first_name: string;
+            last_name: string;
+            email: string;
+            role: number;
+            created_at: Date;
+            deleted_at: Date; 
+          }> = [];  
 
+// public userRows = 
 public userRows: User[] = [];
+
+// [
+// { id: 1, first_name: 'John', last_name: 'Doe' },
+// { id: 2, first_name: 'Jane', last_name: 'Smith' },
+// ]
+
+// : User[] = [];
+;
+
+
 public currentUser;
 
-// public displayedColumns: string[] = [
-//   'id', 
-//   'first_name', 
-//   'last_name', 
-//   'email', 
-//   'role', 
-//   'created_at', 
-//   'deleted_at' 
-// ];
+public displayedColumns: string[] = [
+  'id', 
+  'first_name', 
+  'last_name', 
+  'email', 
+  'role', 
+  'created_at', 
+  'deleted_at',
+  'edit-button', 
+];
 
 constructor(
   private userService: UserService,  // -- for checking user authentication, I THINK..
-  public usersService: UsersService,
+  public usersService: UsersService, // -- SERVICE
 ) {}
 
   ngOnInit() {
@@ -62,7 +74,7 @@ constructor(
     isLoading(true);
     this.usersService.fetchUsers().subscribe((responseData: any) => {
       console.log('SUBSCRIBE'); // -- Console Log WORKS
-        this.userRows = [...responseData];
+        this.userRows = [...responseData]; // -- need to [...loop] to make the data structure iterable in the table component. 
         console.log('responseData:', responseData); // -- Console Log WORKS
         console.log('this.userRows:', this.userRows); // -- Console Log WORKS
     }, (error) => {
@@ -72,8 +84,13 @@ constructor(
   .add(() => {
     isLoading(false);
   });
-    // this.users.fetchUsers.subscribe((response) => { 
-    //   this.currentUser = response.currentUser;
-
   }
+
+  selectUser(user: User) {
+    this.currentUser = user;
+    console.log('user:', user);
+    // const userDialogueRef = this.userDiaolgue.open()
+  }
+
+
 }
