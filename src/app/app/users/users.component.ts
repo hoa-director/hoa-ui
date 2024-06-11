@@ -9,6 +9,7 @@ import { UsersService } from "../../services/users.service"  // -- SERVICE
 import { User } from "./user";  // -- MODEL
 
 import { isLoading } from "app/shared/isLoading";
+import { FormGroup } from "@angular/forms";
 
 
 @Component({
@@ -34,15 +35,6 @@ export class UsersComponent implements OnInit {
 // public userRows = 
 public userRows: User[] = [];
 
-// [
-// { id: 1, first_name: 'John', last_name: 'Doe' },
-// { id: 2, first_name: 'Jane', last_name: 'Smith' },
-// ]
-
-// : User[] = [];
-;
-
-
 public currentUser;
 
 public displayedColumns: string[] = [
@@ -55,6 +47,11 @@ public displayedColumns: string[] = [
   'deleted_at',
   'edit-button', 
 ];
+
+searchUsersForm: FormGroup;
+
+
+
 
 constructor(
   private userService: UserService,  // -- for checking user authentication, I THINK..
@@ -90,6 +87,10 @@ constructor(
     this.currentUser = user;
     console.log('user:', user);
     // const userDialogueRef = this.userDiaolgue.open()
+  }
+
+  onSearch(): void {
+    console.log('onSearch');
   }
 
 

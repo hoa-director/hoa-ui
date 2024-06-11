@@ -3,7 +3,34 @@
     <h3 class="users-header">Users Page</h3>
     <p>You can search, add, edit or delete association users on this page.</p>
 
-    <!-- First Column -->
+<form [formGroup]="searchUsersForm" (ngSubmit)="onSearch()">
+    <mat-dialog-content>
+        <!-- <label class="form-label" for="searchUsersForm">Search For a User</label> -->
+        <mat-form-field>
+            <input 
+            matInput
+            type="email"
+            placeholder="Search for a User"
+            class="form-control"
+            name="email"
+            required
+            />
+            </mat-form-field>    
+
+
+
+        </mat-dialog-content>
+        <button
+            class="search-users-submit-button"    
+            mat-raised-button
+            color="primary"
+            mat-dialog-close
+            type="submit"
+        >
+            Search
+        </button>
+    </form>
+<!-- First Column -->
     <table mat-table [dataSource]="userRows" class="mat-elevation-z8" #userTable>
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>User ID</th>
