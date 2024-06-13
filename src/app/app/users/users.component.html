@@ -4,34 +4,33 @@
     <p>You can search, add, edit or delete association users on this page.</p>
 
 <form [formGroup]="searchUsersForm" (ngSubmit)="onSearch()">
-    <mat-dialog-content>
         <!-- <label class="form-label" for="searchUsersForm">Search For a User</label> -->
         <mat-form-field>
             <input 
+            id="inputEmail"
             matInput
-            type="email"
-            placeholder="Search for a User"
             class="form-control"
-            name="email"
+            formControlName="inputText"
+            type="text"
+            placeholder="Search for a User"
             required
+            [(ngModel)]="inputName"
+            (ngModelChange)="onInputChange()"
             />
-            </mat-form-field>    
+        </mat-form-field>    
 
 
-
-        </mat-dialog-content>
         <button
             class="search-users-submit-button"    
             mat-raised-button
             color="primary"
-            mat-dialog-close
             type="submit"
         >
             Search
         </button>
     </form>
 <!-- First Column -->
-    <table mat-table [dataSource]="userRows" class="mat-elevation-z8" #userTable>
+    <table mat-table [dataSource]="userRows" class="mat-elevation-z8" #usersTable>
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>User ID</th>
             <td mat-cell *matCellDef="let user">{{user.id}}</td>
@@ -47,6 +46,11 @@
             <td mat-cell *matCellDef="let user">{{user.last_name}}</td>
         </ng-container>
         
+        <ng-container matColumnDef="unit">
+            <th mat-header-cell *matHeaderCellDef>Unit</th>
+            <td mat-cell *matCellDef="let user">{{user.units[0].unit}}</td>
+        </ng-container>
+
         <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef>Email</th>
             <td mat-cell *matCellDef="let user">{{user.email}}</td>
@@ -54,7 +58,7 @@
 
         <ng-container matColumnDef="role">
             <th mat-header-cell *matHeaderCellDef>Role</th>
-            <td mat-cell *matCellDef="let user">{{ user.role >= 99 ?  'President' : (user.role >= 50 ? 'Admin' : 'HOA Member') }}</td>
+            <td mat-cell *matCellDef="let user">{{ user.role >= 99 ?  'Master User' : (user.role >= 75 ?  'President' : (user.role >= 50 ? 'Admin' : 'HOA Member')) }}</td>
         </ng-container>
 
         <ng-container matColumnDef="created_at">
@@ -76,7 +80,7 @@
                 color="accent"
                 class="btn btn-primary float-right"
                 type="submit"
-                (click)="selectUser(user)"
+                (click)="selectUser(user.id)"
               >
                 Edit
               </button>

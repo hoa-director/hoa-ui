@@ -17,20 +17,33 @@ export class UsersService {
 
 
 
-  fetchUsers() { 
-    // console.log(`fetchRules() EndPoint: ${BACKEND_URL}`+"/api/rules");
-    return this.http.get(BACKEND_URL + "/api/users");
-    // return this.http.get(BACKEND_URL + "/api/users", {
-    //   params: new HttpParams().set(
-    //     "associationId",
-    //     sessionStorage.getItem("associationId").toString()
-    //   ),
-    // });
-    
+  fetchUsers(inputName: string) { 
+    const endPoint = "/api/fetchUsers"
+      // const params = new HttpParams()
+      // .set('associationId',sessionStorage.getItem("associationId").toString()) // -- get from session
+      // .set('associationId', associationId.toString())  // -- get from previous function
+      // console.log('inputName:', inputName );
+      const associationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+            associationId: [associationId], // -- associationIds MUST be un an array to work.
+            firstName: inputName
+          }
+          console.log('payload', payload);
+          console.log('firstName:', payload.firstName);
+    return this.http.post(BACKEND_URL + endPoint, payload );
   }
 
 
-
+// -- THIS WORKS
+// createTestRow(associationId: number) {
+//   const endPoint = "/api/getUsers"
+//   console.log(`createTestRow() EndPoint: ${BACKEND_URL}`+ endPoint);
+//   const payload = {
+//     associationId: associationId, 
+//   }
+//     return this.http.post(BACKEND_URL + endPoint, payload
+//   );
+// }
 
 
 
