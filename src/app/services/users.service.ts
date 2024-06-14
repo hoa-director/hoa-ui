@@ -17,19 +17,19 @@ export class UsersService {
 
 
 
-  fetchUsers(inputName: string) { 
+  fetchUsers(inputString: string) { 
     const endPoint = "/api/fetchUsers"
       // const params = new HttpParams()
       // .set('associationId',sessionStorage.getItem("associationId").toString()) // -- get from session
       // .set('associationId', associationId.toString())  // -- get from previous function
-      // console.log('inputName:', inputName );
+      // console.log('inputString:', inputString );
       const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {
             associationId: [associationId], // -- associationIds MUST be un an array to work.
-            firstName: inputName
+            inputString: inputString
           }
           console.log('payload', payload);
-          console.log('firstName:', payload.firstName);
+          console.log('inputString:', payload.inputString);
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
 

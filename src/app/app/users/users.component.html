@@ -3,30 +3,31 @@
     <h3 class="users-header">Users Page</h3>
     <p>You can search, add, edit or delete association users on this page.</p>
 
-<form [formGroup]="searchUsersForm" (ngSubmit)="onSearch()">
+<form [formGroup]="searchUsersForm" >
         <!-- <label class="form-label" for="searchUsersForm">Search For a User</label> -->
         <mat-form-field>
             <input 
-            id="inputEmail"
+            id="inputString"
             matInput
             class="form-control"
             formControlName="inputText"
             type="text"
-            placeholder="Search for a User"
-            required
-            [(ngModel)]="inputName"
+            placeholder="Search by name, email, or unit"
+
+            [(ngModel)]="inputString"
             (ngModelChange)="onInputChange()"
             />
         </mat-form-field>    
 
 
         <button
-            class="search-users-submit-button"    
+            class="search-users-clear-button"    
             mat-raised-button
-            color="primary"
-            type="submit"
+            color="secondary"
+            type="reset"
+            (click)="onReset()"
         >
-            Search
+            Clear
         </button>
     </form>
 <!-- First Column -->

@@ -33,25 +33,25 @@ export class UsersComponent implements OnInit {
   //           deleted_at: Date; 
   //         }> = [];  
 
+  public displayedColumns: string[] = [ // -- Table Columns
+    'id', 
+    'first_name', 
+    'last_name', 
+    'unit',
+    'email', 
+    'role', 
+    'created_at', 
+    'deleted_at',
+    'edit-button', 
+  ];
 
 public userRows: UserRow[] = []; // -- ALL Users (multiple)
 
 public currentUser;  // SINGLE User
 
-public displayedColumns: string[] = [
-  'id', 
-  'first_name', 
-  'last_name', 
-  'unit',
-  'email', 
-  'role', 
-  'created_at', 
-  'deleted_at',
-  'edit-button', 
-];
 
 searchUsersForm: FormGroup;
-inputName: string = '';
+inputString: string = '';
 
 
 
@@ -62,9 +62,6 @@ constructor(
   private fb: FormBuilder,
 
   ) {
-  //   this.searchUsersForm = new FormGroup({
-  //     email: new FormControl()
-  // });
   this.searchUsersForm = this.fb.group({
     inputText: ['']
   })
@@ -72,17 +69,17 @@ constructor(
 
   ngOnInit() {
     // const associationId = parseInt(sessionStorage.getItem('associationId'));
-    this.fetchUsers(this.inputName);
+    this.fetchUsers(this.inputString);
     // this.users.fetchUsers.subscribe(() => {
     //   this.init();
     // });
   }
 
-  fetchUsers(inputName) {
+  fetchUsers(inputString) {
     // console.log('associationId:', associationId );
     console.log('ngOnInit()/fetchUsers()'); // -- Console Log WORKS
     isLoading(true);
-    this.usersService.fetchUsers(inputName).subscribe((responseData: any) => {
+    this.usersService.fetchUsers(inputString || '').subscribe((responseData: any) => {
       console.log('SUBSCRIBE'); // -- Console Log WORKS
         this.userRows = [...responseData]; // -- need to [...loop] to make the data structure iterable in the table component. 
         console.log('responseData:', responseData); // -- Console Log WORKS
@@ -96,24 +93,28 @@ constructor(
   });
   }
 
-  selectUser(UserRow: UserRow) {
+  selectUser(UserRow: UserRow) { // -- Select one user
     this.currentUser = UserRow;
-    console.log('UserRow:', UserRow);
+    // console.log('UserRow:', UserRow);
     // const userDialogueRef = this.userDiaolgue.open()
   }
 
-  onInputChange() { // -- dynamically searches as you type
-    console.log('this.inputName:', this.inputName );
-      this.fetchUsers(this.inputName)
+  onInputChange() { // -- dynamically update inputString STATE, then Search.
+      this.fetchUsers(this.inputString)
+  }
+  
+  onReset(): void { // -- Clear Search Field Button
+    this.searchUsersForm.reset();
+    this.inputString = ''
+    this.fetchUsers('')
   }
 
-  onSearch(): void { // -- Only fires when Submit Button is clicked
-    if (this.searchUsersForm.valid) { 
-      this.fetchUsers(this.inputName)
-      } else {
-        alert('You did not enter anything to search for.')
-    }
-  }
+  // onSearch(): void {  // -- Just validate form. Might not be necessary..
+  //   if (this.searchUsersForm.valid) { 
+  //     this.fetchUsers(this.inputString)
+  //     }
+  // }
+
 
 
 }
