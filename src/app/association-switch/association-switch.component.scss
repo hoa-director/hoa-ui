@@ -1,0 +1,30 @@
+.association-switch-container {
+  height: 100%;
+}
+
+.mat-mdc-button {
+  color: unset !important;
+}
+
+.association-switch-button {
+  font-size: inherit;
+  font-weight: inherit;
+  margin-left: .5rem;
+  color: white;
+  border-radius: unset;
+  height: 4.5rem;
+  --mat-mdc-button-persistent-ripple-color: unset;
+
+  &:hover{
+    background-color: white !important;
+    color: rgba(38, 41, 84) !important;
+  }
+}
+
+
+
+
+.mat-menu-item:hover {
+  background-color: #3779b7;
+  color: white;
+}

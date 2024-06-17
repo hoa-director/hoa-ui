@@ -40,8 +40,7 @@ export class InboxComponent implements OnInit {
 
   private init() {
     this.resolutionCenterService
-      .getInbox()
-      .subscribe((response) => {
+      .getInbox().subscribe((response) => {
         this.objections = response.objections;
       });
   }
@@ -51,6 +50,7 @@ export class InboxComponent implements OnInit {
   }
 
   openDialog(objection: Objection) {
+    console.log('obj:', objection);
     const voteDialogRef = this.voteDialog.open(VoteDialogComponent, {
       data: objection,
     });

@@ -18,4 +18,8 @@ export class DialogComponent implements OnInit {
     this.rules = this.data.rules;
   }
 
+  onCloseClick(): void {
+    this.dialogRef.close('result'); // Close the dialog and pass 'result' as result
+  }
+
 }

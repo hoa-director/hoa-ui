@@ -1,6 +1,8 @@
 .main-container {
   display: grid;
-  grid-template-columns: 5% 20% auto 5%;
+  /* -- 'auto' Makes sidebar same size as children --  */
+  /* -- 'fr' Makes content always next to sidebar --  */
+  grid-template-columns: 5% auto 1fr 5%;  
   grid-template-rows: 15rem auto 15rem;
   grid-template-areas:
     "header header header header"
@@ -15,10 +17,12 @@
 
 .main-container__sidebar {
   grid-area: sidebar;
+  max-width: fit-content; /* -- Makes sidebar same size as children --  */
 }
 
 .main-container__content {
   grid-area: content;
+  margin-left: 10px;
 }
 
 .main-container__footer {

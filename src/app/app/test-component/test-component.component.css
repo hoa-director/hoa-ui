@@ -1,0 +1,16 @@
+.test-rules-container, .test-rows-container {
+    height: 100%;
+  }
+  
+  .test-rule-list-title, .test-row-list-title {
+    cursor: pointer;
+    width: 30vh;
+    text-align: left;
+  }
+  
+  .test-header {
+    font-size: 3rem;
+    margin-bottom: 5%;
+    margin-top: 2rem;
+  }
+  

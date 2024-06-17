@@ -1,0 +1,47 @@
+<div>
+    <h3 class="test-header">Test Functions Page</h3>
+    <div class="test-rules-container">
+        <mat-list role="list" #document>
+            <mat-list-item role="listitem" selected *ngFor="let row of testRows">
+                <a 
+                    mat-raised-button
+                    [id]="row.id"
+                    (click)="consoleLog('column1string: ' + row.column1string)"
+                    class="test-rule-list-title"
+                    >Row ID:{{row.id}}, Column1: {{row.column1string}}
+                    <button (click)="consoleLog(row.id + ' EDIT btn')">              
+                        <mat-icon 
+                        [id]="row.id + '_edit'"
+                        aria-hidden="false" 
+                        aria-label="edit icon"
+                        mat-raised-button
+                   
+                        >
+                        edit
+                        </mat-icon>
+                    </button>  
+                    <button (click)="onDeleteRow(row.column1string)">              
+                        <mat-icon 
+                        [id]="row.id + '_delete'"
+                        aria-hidden="false" 
+                        aria-label="Delete icon"
+                        mat-raised-button
+
+                        >
+                        delete
+                        </mat-icon>
+                    </button>
+                </a>
+            </mat-list-item>
+        </mat-list>
+    </div>
+
+    <!-- <button (click)="openDialog()"> Open Dialogue</button>  -->
+    <br>
+    <button (click)="consoleLog(testRows)">Console Log Test</button>
+    <br>
+    <br>
+    <button (click)="onCreateTestRow()">Add Row</button>
+
+    
+</div>

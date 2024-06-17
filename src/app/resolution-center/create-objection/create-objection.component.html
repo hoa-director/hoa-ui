@@ -1,33 +1,42 @@
-<div class="create-objection">
+<div class="create-objection border">
+
+
   <form [formGroup]="createObjectionForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <mat-form-field appearance="fill" class="unit-select">
-        <mat-label>Against</mat-label>
+
+    <div class="form-group border">
+      <mat-label class="mat-label border">Against</mat-label>
+      <br>
+      <mat-form-field appearance="fill" class="unit-select border">
+
         <mat-select formControlName="againstControl">
           <mat-option>--</mat-option>
           <mat-option *ngFor="let unit of units" [value]="unit.userId">
             {{ unit.addressLineOne }}
           </mat-option>
         </mat-select>
+
         <mat-error *ngIf="againstControl.hasError('required')"
           >Please choose unit</mat-error
         >
         <mat-hint>{{ againstControl.value?.sound }}</mat-hint>
       </mat-form-field>
     </div>
-    <div class="form-group">
-      <mat-form-field appearance="fill" class="comments-text-area">
-        <mat-label>Comments</mat-label>
+
+    <div class="form-group border">
+      <mat-label class="mat-label border">Comments</mat-label>
+      <br>
+      <mat-form-field appearance="fill" class="comments-text-area border">
         <textarea
           matInput
-          class="form-control"
+          class="form-control border"
           formControlName="commentControl"
         ></textarea>
       </mat-form-field>
     </div>
-    <div class="form-group">
+
+    <div class="form-group border">
       <button
-        class="create-objection-cancel-button"
+        class="create-objection-cancel-button border"
         mat-stroked-button
         color="primary"
         type="reset"
@@ -36,7 +45,7 @@
         Cancel
       </button>
       <button
-        class="create-objection-submit-button"
+        class="create-objection-submit-button border"
         mat-raised-button
         color="primary"
         type="submit"
@@ -45,5 +54,6 @@
         Submit
       </button>
     </div>
+
   </form>
 </div>

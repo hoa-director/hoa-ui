@@ -1,0 +1,27 @@
+
+/* table {
+    width: 100%;
+  } */
+  
+  .main-user-div{
+    margin: 2rem;
+  }
+  
+  .users-header{
+    margin-bottom: 2rem;
+  }
+  p {
+    margin-bottom: 2rem;
+  }
+
+  form {
+    /* background-color: aqua; */
+  }
+
+  
+  .mat-elevation-z8 {
+    box-shadow: none;
+    border: 1px solid black;
+  }
+
+  
