@@ -19,20 +19,22 @@ export class UsersService {
 
   fetchUsers(inputString: string) { 
     const endPoint = "/api/fetchUsers"
-      // const params = new HttpParams()
       // .set('associationId',sessionStorage.getItem("associationId").toString()) // -- get from session
       // .set('associationId', associationId.toString())  // -- get from previous function
-      // console.log('inputString:', inputString );
       const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {
             associationId: [associationId], // -- associationIds MUST be un an array to work.
             inputString: inputString
           }
-          console.log('payload', payload);
-          console.log('inputString:', payload.inputString);
+
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
 
+  createUser(userObj: object) {
+    // ---- ADD userObj{} HERE TO TEST ---- 
+    const payload = userObj
+    return this.http.post(BACKEND_URL + "/api/createUser", payload );
+  }
 
 // -- THIS WORKS
 

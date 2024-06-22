@@ -77,15 +77,13 @@ constructor(
 
   fetchUsers(inputString) {
     // console.log('associationId:', associationId );
-    console.log('ngOnInit()/fetchUsers()'); // -- Console Log WORKS
     isLoading(true);
     this.usersService.fetchUsers(inputString || '').subscribe((responseData: any) => {
-      console.log('SUBSCRIBE'); // -- Console Log WORKS
         this.userRows = [...responseData]; // -- need to [...loop] to make the data structure iterable in the table component. 
-        console.log('responseData:', responseData); // -- Console Log WORKS
-        console.log('this.userRows:', this.userRows); // -- Console Log WORKS
+        // console.log('responseData:', responseData); // -- Check RESPONSE  
+        // console.log('this.userRows:', this.userRows); // -- Check STATE 
     }, (error) => {
-      console.log('fetchUsers() CLIENT ERROR', error); // -- Console Log WORKS
+      console.log('fetchUsers() ERROR', error); // -- Console Log WORKS
     }
   )
   .add(() => {
@@ -109,11 +107,39 @@ constructor(
     this.fetchUsers('')
   }
 
-  // onSearch(): void {  // -- Just validate form. Might not be necessary..
-  //   if (this.searchUsersForm.valid) { 
-  //     this.fetchUsers(this.inputString)
-  //     }
-  // }
+  addUser(): void {
+    console.log('ADD-USER-BUTTON');
+    // ---- ADD userObj{} HERE TO TEST ---- 
+    const userObj =  {
+      // id: nextUserId,
+      email: 'test5@gmail.com',
+      password: 'test', 
+      number: 1,
+      role: 99,
+      firstName: 'dale15',
+      lastName: 'John',
+    }
+
+    this.usersService.createUser(userObj).subscribe((responseData: any) => {
+      console.log('addUser SUBSCRIBE');
+      console.log('responseData:', responseData); // -- Console Log WORKS
+      if(responseData){
+        console.log('IF responseData NOT Null');
+      } else {
+        console.log('ELSE responseData NULL');
+        alert('Unable to create User.')
+      }
+      }, (error) => {
+        console.log('ADD-USER ERROR:', error);
+      }
+    )
+    .add(() => {
+      isLoading(false);
+      // this.fetchUsers(this.inputString)
+    });
+  } 
+
+
 
 
 

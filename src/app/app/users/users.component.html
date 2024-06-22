@@ -3,7 +3,7 @@
     <h3 class="users-header">Users Page</h3>
     <p>You can search, add, edit or delete association users on this page.</p>
 
-<form [formGroup]="searchUsersForm" >
+    <form [formGroup]="searchUsersForm" >
         <!-- <label class="form-label" for="searchUsersForm">Search For a User</label> -->
         <mat-form-field>
             <input 
@@ -21,16 +21,29 @@
 
 
         <button
-            class="search-users-clear-button"    
+            class="add-user-button"    
             mat-raised-button
             color="secondary"
-            type="reset"
+  
             (click)="onReset()"
         >
             Clear
         </button>
     </form>
-<!-- First Column -->
+
+    <!-- ADD USER TEST BUTTON -->
+    <button
+        class="search-users-clear-button"    
+        mat-raised-button
+        color="secondary"
+        type="submit"
+        (click)="addUser()"
+        >
+        Add User
+    </button>
+    <br>
+
+    <!-- Table -->
     <table mat-table [dataSource]="userRows" class="mat-elevation-z8" #usersTable>
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>User ID</th>
