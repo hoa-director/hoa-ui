@@ -20,10 +20,14 @@ import { HomeComponent } from './home/home.component';
 
 import { ResolutionCenterRoutes } from "../app/resolution-center/resolution-center.module";
 import { UnitModalComponent } from './app/modal/unit-modal/unit-modal.component';
+
+import { UsersComponent } from './app/users-center/users-view/users.component'
+import { UsersCenterComponent } from './app/users-center/users-center.component';
 import { TestComponentComponent } from './app/test-component/test-component.component';
-import { UsersComponent } from './app/users/users.component'
+import { UsersCenterRoutes } from './app/users-center/users-center.module';
 
 export const routes: Routes = [
+  // -- ULR ROUTE LEVEL 1 -- //
   {
     path: '',
     redirectTo: '/landing',
@@ -56,6 +60,7 @@ export const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuardService],
     children: [
+        // -- ULR ROUTE LEVEL 2 (CHILDREN OF "home") -- //
       {
         path: 'directory',
         component: DirectoryComponent,
@@ -123,12 +128,19 @@ export const routes: Routes = [
         runGuardsAndResolvers: 'always',
       },
       {
-        path: 'users',
-        component: UsersComponent,
+        path: 'users-center',
+        component: UsersCenterComponent,
         canActivate: [AuthGuardService],
         runGuardsAndResolvers: 'always',
       },
+      // {
+      //   path: 'users',
+      //   component: UsersComponent,
+      //   canActivate: [AuthGuardService],
+      //   runGuardsAndResolvers: 'always',
+      // },
       ...ResolutionCenterRoutes,
+      ...UsersCenterRoutes,
     ]
   },
   {

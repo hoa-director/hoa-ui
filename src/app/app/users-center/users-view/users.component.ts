@@ -3,10 +3,10 @@ import { Subscription } from "rxjs";
 import { MatLegacyTable as MatTable } from "@angular/material/legacy-table";
 import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 
-import { UserService } from "../../services/user.service";  // -- SERVICE
-import { UsersService } from "../../services/users.service"  // -- SERVICE
+import { UserService } from "../../../services/user.service";  // -- SERVICE
+import { UsersService } from "../../../services/users.service"  // -- SERVICE
 
-import { UserRow } from "./userrow";  // -- MODEL
+import { UserRow } from "../userrow";  // -- MODEL
 
 import { isLoading } from "app/shared/isLoading";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -117,7 +117,7 @@ constructor(
       number: 1,
       role: 99,
       firstName: 'dale15',
-      lastName: 'John',
+      lastName: 'Earnhardt',
     }
 
     this.usersService.createUser(userObj).subscribe((responseData: any) => {
@@ -135,7 +135,7 @@ constructor(
     )
     .add(() => {
       isLoading(false);
-      // this.fetchUsers(this.inputString)
+      this.fetchUsers(this.inputString)
     });
   } 
 

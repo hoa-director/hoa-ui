@@ -64,7 +64,9 @@ import { BackFabComponent } from "./back-fab/back-fab.component";
 import { NavBackDirective } from "./nav-back.directive";
 import { UnitModalComponent } from "./app/modal/unit-modal/unit-modal.component";
 import { TestComponentComponent } from './app/test-component/test-component.component';
-import { UsersComponent } from './app/users/users.component';
+import { UsersCenterModule } from "./app/users-center/users-center.module";
+// import { UsersComponent } from './app/users-center/users-view/users.component';
+// import { UsersCenterComponent } from './app/users-center/users-center.component';
 
 @NgModule({
     declarations: [
@@ -94,7 +96,8 @@ import { UsersComponent } from './app/users/users.component';
         NavBackDirective,
         UnitModalComponent,
         TestComponentComponent,
-        UsersComponent,
+        // UsersComponent,
+        // UsersCenterComponent,
     ],
     imports: [
         BrowserModule,
@@ -126,6 +129,7 @@ import { UsersComponent } from './app/users/users.component';
         MatFormFieldModule,
         MatMenuModule,
         MatRadioModule,
+        UsersCenterModule,
     ],
     providers: [
         // provides the interceptor
