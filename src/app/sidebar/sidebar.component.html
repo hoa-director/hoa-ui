@@ -28,23 +28,13 @@
     >
       Association Documents
     </button>
-
     <button
       mat-button
-      [routerLink]="['users']"
-      routerLinkActive="active"
-      >
-      Users
-    </button>
-    <!-- === test sidebar link === -->
-    <button
-      mat-button
-      [routerLink]="['users-center']"
+      [routerLink]="['users-center/users']"
       routerLinkActive="active"
       >
       Users Center
     </button>
-  <!-- ====== -->
     <button mat-button (click)="onLogout()">
       Logout
     </button>

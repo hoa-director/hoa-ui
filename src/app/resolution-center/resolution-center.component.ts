@@ -10,6 +10,7 @@ export class ResolutionCenterComponent implements OnInit {
   activeLink: string;
 
   constructor() {
+    
     this.resolutionCenterLinks = [
       {
         name: "Open Motions (Inbox)",

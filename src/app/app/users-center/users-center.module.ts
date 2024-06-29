@@ -8,10 +8,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from 'app/services/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatLegacyTabsModule as MatTabsModule } from "@angular/material/legacy-tabs";
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,7 +22,6 @@ import { UsersCenterComponent } from './users-center.component';
 import { UsersComponent } from './users-view/users.component';
 
 import { UsersService } from 'app/services/users.service';
-import { MatRadioModule } from '@angular/material/radio';
 // import { TestComponentComponent } from '../test-component/test-component.component';
 
 
@@ -39,9 +39,9 @@ export const UsersCenterRoutes: Routes = [
       },
       { path: "users", component: UsersComponent },
       // { path: "test", component: TestComponentComponent },
-    ]
-  }
-]
+    ],
+  },
+];
 
 
 @NgModule({
@@ -68,6 +68,6 @@ export const UsersCenterRoutes: Routes = [
     UsersComponent,
     // TestComponentComponent
   ],
-  providers: [UsersService]
+  providers: [UsersService],
 })
 export class UsersCenterModule { }

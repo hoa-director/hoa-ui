@@ -18,13 +18,16 @@ import { AuthGuardService } from './services/auth-guard.service';
 
 import { HomeComponent } from './home/home.component';
 
+// --  Import children routes --
 import { ResolutionCenterRoutes } from "../app/resolution-center/resolution-center.module";
+import { UsersCenterRoutes } from './app/users-center/users-center.module';
+
 import { UnitModalComponent } from './app/modal/unit-modal/unit-modal.component';
 
+// -- import children components --
 import { UsersComponent } from './app/users-center/users-view/users.component'
 import { UsersCenterComponent } from './app/users-center/users-center.component';
 import { TestComponentComponent } from './app/test-component/test-component.component';
-import { UsersCenterRoutes } from './app/users-center/users-center.module';
 
 export const routes: Routes = [
   // -- ULR ROUTE LEVEL 1 -- //

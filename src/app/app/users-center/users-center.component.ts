@@ -23,7 +23,9 @@ export class UsersCenterComponent implements OnInit {
     ];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.activeLink = this.usersCenterLinks[0].name
+  }
 
 
 }
