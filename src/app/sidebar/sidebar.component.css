@@ -28,7 +28,9 @@
   /* background-color: #83b834; */
   /* background-color:#3779b7; */
   color: black;
-  border-right: solid 3px #3779b7;
+  border-right: solid 5px #3779b7;
+  /* border: solid 3px #3779b7; */
+  /* border-radius: 5px; */
 }
 
 /* Links on mouse-over */

@@ -132,15 +132,53 @@ $hoadirector-theme: mat.define-light-theme((
   ),
 ));
 
+
+// ---- Function to get specific color shades. ---- //
+@function get-color-shade($color-palette, $shade) {
+  @return map-get($color-palette, $shade);
+}
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($hoadirector-theme);
 
 
+$primary-color: #1976d2;
+$hover-color: #1565c0;
+$text-color: #000;
+$active-text-color: white;
+
 
 .general-page-header {
   font-size: 3rem;
   margin-bottom: 5%;
   margin-top: 2rem;
+}
+
+
+.sideways-nav-bar {  // -- only applies to nav bars with this class.
+  nav.mat-tab-nav-bar {  // specific to nav bar tabs
+    a.mat-tab-link {
+      color: $text-color;
+      padding: 10px 20px; // Adjust padding as needed
+      transition: background-color 0.3s, color 0.3s; // Smooth transition
+      font-weight: bold;
+      border-bottom: solid 5px get-color-shade($hoa-light-blue, 300 );
+  
+      &.active {
+        // background-color: $primary-color;
+        border-bottom: solid 5px $hover-color;
+        // color: $active-text-color;
+      }
+  
+      // &:focus, 
+      &:hover
+      {
+        border-bottom: solid 5px $hover-color;
+        background-color: $hover-color;
+        color: $active-text-color;
+      }
+    }
+  }
 }
