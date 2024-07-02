@@ -4,7 +4,7 @@ import { MatLegacyTable as MatTable } from "@angular/material/legacy-table";
 import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 
 import { UserService } from "../../../services/user.service";  // -- SERVICE
-import { UsersService } from "../../../services/users.service"  // -- SERVICE
+import { UsersService } from "../../../services/users.service";  // -- SERVICE
 
 import { UserRow } from "../userrow";  // -- MODEL
 
@@ -19,7 +19,6 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 })
 export class UsersComponent implements OnInit {
   @ViewChild("usersTable") usersTable: MatTable<any>;
-
 
   // -------- USER MODEL --------
   // User: Array<{  
@@ -46,18 +45,15 @@ export class UsersComponent implements OnInit {
   ];
 
 public userRows: UserRow[] = []; // -- ALL Users (multiple)
-
 public currentUser;  // SINGLE User
-
 
 searchUsersForm: FormGroup;
 inputString: string = '';
 
 
-
 constructor(
-  private userService: UserService,  // -- for checking user authentication, I THINK..
-  public usersService: UsersService, // -- SERVICE
+  private userService: UserService,  // -- for checking USER authentication, I THINK..
+  public usersService: UsersService, // -- USERS SERVICE
 
   private fb: FormBuilder,
 

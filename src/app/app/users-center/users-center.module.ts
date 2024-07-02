@@ -22,7 +22,7 @@ import { UsersCenterComponent } from './users-center.component';
 import { UsersComponent } from './users-view/users.component';
 
 import { UsersService } from 'app/services/users.service';
-// import { TestComponentComponent } from '../test-component/test-component.component';
+import { UsersAddComponent } from './users-add/users-add.component';
 
 
 
@@ -38,7 +38,7 @@ export const UsersCenterRoutes: Routes = [
         pathMatch: "full",
       },
       { path: "users", component: UsersComponent },
-      // { path: "test", component: TestComponentComponent },
+      { path: "add", component: UsersAddComponent },
     ],
   },
 ];
@@ -66,7 +66,7 @@ export const UsersCenterRoutes: Routes = [
   declarations: [
     UsersCenterComponent,
     UsersComponent,
-    // TestComponentComponent
+    UsersAddComponent,
   ],
   providers: [UsersService],
 })

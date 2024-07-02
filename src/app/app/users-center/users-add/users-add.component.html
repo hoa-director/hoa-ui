@@ -1,0 +1,81 @@
+
+<div class="main-user-add-div">
+    <p>Add a new user to you's association. User's will log in with their email address, so it must be unique.</p>
+
+    <div class="form-container">
+        <form>
+            <div class="form-grid">
+                <div class="form-div">
+                    <label for="inputEmail">User Email:</label>
+                    <mat-form-field>
+                        <input 
+                        id="inputEmail"
+                        matInput
+                        class="form-control"
+                        formControlName="inputText"
+                        type="text"
+                        placeholder="example@email.com"
+                        
+                        [(ngModel)]="userEmail"
+                        />
+                        <!-- (ngModelChange)="onInputChange()" -->
+                    </mat-form-field>
+                </div>
+              
+                <div class="form-div">
+                    <label for="inputFirstName">First Name:</label>
+                    <mat-form-field>
+                        <input 
+                        id="inputFirstName"
+                        matInput
+                        class="form-control"
+                        formControlName="inputText"
+                        type="text"
+                        placeholder="John"
+                        
+                        [(ngModel)]="userFirstName"
+                        />
+                    </mat-form-field>    
+                </div>
+         
+                <div class="form-div">
+                    <label for="inputEmail">Last Name:</label>
+                    <mat-form-field>
+                        <input 
+                        id="inputLastName"
+                        matInput
+                        class="form-control"
+                        formControlName="inputText"
+                        type="text"
+                        placeholder="Doe"
+            
+                        [(ngModel)]="userLastName"
+                        />
+                    </mat-form-field>    
+                </div>
+                <br>
+
+                <button
+                class="search-users-submit-button"    
+                mat-raised-button
+                color="primary"
+                type="submit"
+                (click)="addUser()"
+                >
+                Add User
+                </button>
+                <button
+                class="search-users-clear-button"    
+                mat-raised-button
+                color="secondary"
+                type="clear"
+                >
+                Clear
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+
+</div>

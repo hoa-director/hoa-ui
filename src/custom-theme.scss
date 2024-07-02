@@ -157,7 +157,7 @@ $active-text-color: white;
 }
 
 
-.sideways-nav-bar {  // -- only applies to nav bars with this class.
+.sideways-nav-bar {  // -- only applies to (sideways) nav bars with this class.
   nav.mat-tab-nav-bar {  // specific to nav bar tabs
     a.mat-tab-link {
       color: $text-color;
@@ -165,10 +165,10 @@ $active-text-color: white;
       transition: background-color 0.3s, color 0.3s; // Smooth transition
       font-weight: bold;
       border-bottom: solid 5px get-color-shade($hoa-light-blue, 300 );
-  
+      margin-bottom: 3rem;
       &.active {
         // background-color: $primary-color;
-        border-bottom: solid 5px $hover-color;
+        border-bottom: solid 3px $hover-color;
         // color: $active-text-color;
       }
   

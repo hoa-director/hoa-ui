@@ -15,11 +15,10 @@ export class UsersCenterComponent implements OnInit {
         name: "View Users",
         path: "users"
       },
-
-      // {
-      //   name: "Add User",
-      //   path: "test",
-      // }
+      {
+        name: "Add User",
+        path: "add",
+      }
     ];
   }
 

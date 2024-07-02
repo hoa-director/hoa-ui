@@ -1,0 +1,38 @@
+
+
+
+.form-container {
+    border: 2px solid red;
+    
+    /* display: grid; */
+    height: 90vh;
+    place-items: left;
+    padding: 1rem
+}
+
+.form-grid {
+    border: 2px solid blue;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.25rem;
+    max-width: 100%;
+    width:90;
+}
+
+.form-div {
+    border: 2px solid green;
+
+}
+
+.form-grid label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.625rem;
+    grid-column: 1 / 2;
+}
+
+mat-form-field {
+    display: grid;
+}
