@@ -3,6 +3,16 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { UserService } from 'app/services/user.service';
 import { UsersService } from "../../../services/users.service";  // -- SERVICE
+import { User } from "../../../../app/interfaces/user";
+
+// interface User {
+//   email: String;
+//   firstName: String | null;
+//   lastName: String | null;
+//   password: String;
+//   number: Number;
+//   role: Number | null;
+// }
 
 @Component({
   selector: 'app-users-add',
@@ -10,59 +20,83 @@ import { UsersService } from "../../../services/users.service";  // -- SERVICE
   styleUrls: ['./users-add.component.css']
 })
 export class UsersAddComponent implements OnInit {
-  public userEmail: String = ''; 
-  public userFirstName: String = ''; 
-  public userLastName: String = ''; 
+
+  // public email: String = ''; 
+  // public password: String = 'test'; // -- ADD DEFAULT -- TO NAME?
+  // public number: Number = 1; // -- ADD DEFAULT TO current association
+  // public role: Number = 25; // -- basic user role
+  // public firstName: String = ''; 
+  // public lastName: String = ''; 
+
   public currentUser;  // SINGLE User
   
-  addUsersForm: FormGroup;
-  inputString: string = '';  
-
-
-
-
-
+  addUserForm: FormGroup;
+  inputString: String = '';  
 
   constructor(
     // --  SERVICES
     private userService: UserService,
     private usersService: UsersService,
 
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
   ) {
     // this.addUsersForm = this.formBuilder.group({
     //   inputText: ['']
     // })
   }
 
-ngOnInit() {
+ngOnInit(): void {
   console.log('On Init');
+  this.addUserForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]], // Ensure Validators.email is included
+    firstName: [''],
+    lastName: [''],
+    password: [''], // -- ADD REQUIRED
+    number: [''], // -- ADD REQUIRED
+  });
 }
 
+// -- CLEAR FORM -- //
+onReset(): void { 
+  this.addUserForm.reset();
+  // this.email = ''
+
+}
+
+
+// -- ADD USER -- //
 addUser(): void { // -- WORKS 
-  console.log('Add user');
-  const userObj =  {
-    // id: nextUserId,
-    email: 'test5@gmail.com',
-    password: 'test', 
-    number: 1,
-    role: 99,
-    firstName: 'dale15',
-    lastName: 'Earnhardt',
+  console.log('Email:', this.addUserForm.value.email);
+  if (this.addUserForm.valid) {
+    console.log('ADD USER FORM VALID');
+    const formValues = this.addUserForm.value;
+    let user: User = {
+      email: formValues.email ? formValues.email : 'test1234@gmail.com',
+      firstName: formValues.firstName, // formValues.firstName,
+      lastName: formValues.lastName, // formValues.lastName,
+      password: 'test',  //formValues.password,
+      number: 1, //Number(formValues.number),
+      role: 25, //Number(formValues.role),
+    }
+    console.log('USER:', user);
+    this.usersService.createUser(user).subscribe((responseData: any) => {
+      console.log(responseData);
+      if(responseData){
+        console.log('IF responseData NOT Null');
+      } else {
+        console.log('ELSE responseData NULL');
+        alert('Unable to create User.')
+      }
+    }, (error) => {
+      console.log('ADD-USER ERROR:', error);
+    }
+  )
+  } else {
+    console.log('ADD USER FORM NOT VALID');
   }
 
-  this.usersService.createUser(userObj).subscribe((responseData: any) => {
-    console.log(responseData);
-    if(responseData){
-      console.log('IF responseData NOT Null');
-    } else {
-      console.log('ELSE responseData NULL');
-      alert('Unable to create User.')
-    }
-  }, (error) => {
-    console.log('ADD-USER ERROR:', error);
-  }
-)
+
+
 
 }
 

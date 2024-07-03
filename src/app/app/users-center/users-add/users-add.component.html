@@ -3,7 +3,7 @@
     <p>Add a new user to you's association. User's will log in with their email address, so it must be unique.</p>
 
     <div class="form-container">
-        <form>
+        <form [formGroup]="addUserForm" (ngSubmit)="addUser()">
             <div class="form-grid">
                 <div class="form-div">
                     <label for="inputEmail">User Email:</label>
@@ -12,12 +12,11 @@
                         id="inputEmail"
                         matInput
                         class="form-control"
-                        formControlName="inputText"
+                        formControlName="email"
                         type="text"
                         placeholder="example@email.com"
-                        
-                        [(ngModel)]="userEmail"
                         />
+                        <!-- [(ngModel)]="email" -->
                         <!-- (ngModelChange)="onInputChange()" -->
                     </mat-form-field>
                 </div>
@@ -29,13 +28,13 @@
                         id="inputFirstName"
                         matInput
                         class="form-control"
-                        formControlName="inputText"
+                        formControlName="firstName"
                         type="text"
                         placeholder="John"
-                        
-                        [(ngModel)]="userFirstName"
                         />
                     </mat-form-field>    
+                    
+                    <!-- [(ngModel)]="firstName" -->
                 </div>
          
                 <div class="form-div">
@@ -45,13 +44,13 @@
                         id="inputLastName"
                         matInput
                         class="form-control"
-                        formControlName="inputText"
+                        formControlName="lastName"
                         type="text"
                         placeholder="Doe"
-            
-                        [(ngModel)]="userLastName"
                         />
                     </mat-form-field>    
+                    
+                    <!-- [(ngModel)]="lastName" -->
                 </div>
                 <br>
 
