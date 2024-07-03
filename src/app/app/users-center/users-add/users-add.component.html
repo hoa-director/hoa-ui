@@ -16,6 +16,12 @@
                         type="text"
                         placeholder="example@email.com"
                         />
+                        <div *ngIf="addUserForm.get('email').errors?.required && addUserForm.get('email').touched">
+                            Email is required.
+                        </div>
+                        <div *ngIf="addUserForm.get('email').errors?.email && addUserForm.get('email').touched">
+                            Please enter a valid email address.
+                        </div>
                         <!-- [(ngModel)]="email" -->
                         <!-- (ngModelChange)="onInputChange()" -->
                     </mat-form-field>
@@ -38,7 +44,7 @@
                 </div>
          
                 <div class="form-div">
-                    <label for="inputEmail">Last Name:</label>
+                    <label for="inputLastName">Last Name:</label>
                     <mat-form-field>
                         <input 
                         id="inputLastName"
@@ -49,8 +55,20 @@
                         placeholder="Doe"
                         />
                     </mat-form-field>    
-                    
-                    <!-- [(ngModel)]="lastName" -->
+                </div>
+
+                <div class="form-div">
+                    <label for="inputPassword">Password:</label>
+                    <mat-form-field>
+                        <input 
+                        id="inputPassword"
+                        matInput
+                        class="form-control"
+                        formControlName="password"
+                        type="text"
+                        placeholder="Password"
+                        />
+                    </mat-form-field>
                 </div>
                 <br>
 

@@ -51,8 +51,9 @@ ngOnInit(): void {
     email: ['', [Validators.required, Validators.email]], // Ensure Validators.email is included
     firstName: [''],
     lastName: [''],
-    password: [''], // -- ADD REQUIRED
-    number: [''], // -- ADD REQUIRED
+    password: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], // -- ADD REQUIRED
+    // number: [''], // -- ADD REQUIRED
+    // role: [''], // -- ADD REQUIRED
   });
 }
 
@@ -63,24 +64,25 @@ onReset(): void {
 
 }
 
+//       test1234@gmail.com
 
 // -- ADD USER -- //
 addUser(): void { // -- WORKS 
-  console.log('Email:', this.addUserForm.value.email);
+  // console.log('addUserForm:', this.addUserForm.value); // -- Check form
   if (this.addUserForm.valid) {
     console.log('ADD USER FORM VALID');
     const formValues = this.addUserForm.value;
     let user: User = {
-      email: formValues.email ? formValues.email : 'test1234@gmail.com',
+      email: formValues.email,
       firstName: formValues.firstName, // formValues.firstName,
       lastName: formValues.lastName, // formValues.lastName,
-      password: 'test',  //formValues.password,
+      password: formValues.password,  //formValues.password,
       number: 1, //Number(formValues.number),
       role: 25, //Number(formValues.role),
     }
-    console.log('USER:', user);
+    console.log('USER Sent:', user);
     this.usersService.createUser(user).subscribe((responseData: any) => {
-      console.log(responseData);
+      // console.log(responseData);
       if(responseData){
         console.log('IF responseData NOT Null');
       } else {
