@@ -164,11 +164,11 @@ $active-text-color: white;
       padding: 10px 20px; // Adjust padding as needed
       transition: background-color 0.3s, color 0.3s; // Smooth transition
       font-weight: bold;
-      border-bottom: solid 5px get-color-shade($hoa-light-blue, 300 );
+      border-bottom: solid 3px get-color-shade($hoa-light-blue, 300 );
       margin-bottom: 3rem;
       &.active {
         // background-color: $primary-color;
-        border-bottom: solid 3px $hover-color;
+        border-bottom: solid 5px $hover-color;
         // color: $active-text-color;
       }
   

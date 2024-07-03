@@ -5,33 +5,13 @@ import { UserService } from 'app/services/user.service';
 import { UsersService } from "../../../services/users.service";  // -- SERVICE
 import { User } from "../../../../app/interfaces/user";
 
-// interface User {
-//   email: String;
-//   firstName: String | null;
-//   lastName: String | null;
-//   password: String;
-//   number: Number;
-//   role: Number | null;
-// }
-
 @Component({
   selector: 'app-users-add',
   templateUrl: './users-add.component.html',
   styleUrls: ['./users-add.component.css']
 })
-export class UsersAddComponent implements OnInit {
-
-  // public email: String = ''; 
-  // public password: String = 'test'; // -- ADD DEFAULT -- TO NAME?
-  // public number: Number = 1; // -- ADD DEFAULT TO current association
-  // public role: Number = 25; // -- basic user role
-  // public firstName: String = ''; 
-  // public lastName: String = ''; 
-
-  public currentUser;  // SINGLE User
-  
+export class UsersAddComponent implements OnInit {  
   addUserForm: FormGroup;
-  inputString: String = '';  
 
   constructor(
     // --  SERVICES
@@ -39,55 +19,61 @@ export class UsersAddComponent implements OnInit {
     private usersService: UsersService,
 
     private fb: FormBuilder,
-  ) {
-    // this.addUsersForm = this.formBuilder.group({
-    //   inputText: ['']
-    // })
-  }
+  ) {}
 
 ngOnInit(): void {
-  console.log('On Init');
+  // const userOrganizations: any = this.userService.getUserAssociations();
+  // if(userOrganizations && userOrganizations.length > 0 ){
+  //   const org = userOrganizations[0]
+  //   console.log('org', org);
+  // }
+  // console.log('userOrganizations', userOrganizations[0]);
+
   this.addUserForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]], // Ensure Validators.email is included
+    email: ['', [Validators.required, Validators.email]], 
     firstName: [''],
     lastName: [''],
-    password: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], // -- ADD REQUIRED
-    // number: [''], // -- ADD REQUIRED
-    // role: [''], // -- ADD REQUIRED
+    password: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], 
+    organization: [{value: '2', disabled: true}, [Validators.required] ], 
+    role: [{value: '25', disabled: false }, [Validators.required] ], 
   });
 }
 
 // -- CLEAR FORM -- //
 onReset(): void { 
-  this.addUserForm.reset();
-  // this.email = ''
-
+  this.addUserForm.reset({
+    organization: {value: '2', disabled: true}, 
+    role: {value: '25', disabled: false }
+  });
 }
 
 //       test1234@gmail.com
 
 // -- ADD USER -- //
 addUser(): void { // -- WORKS 
-  // console.log('addUserForm:', this.addUserForm.value); // -- Check form
+  console.log('addUserForm:', this.addUserForm.value); // -- Check form
   if (this.addUserForm.valid) {
-    console.log('ADD USER FORM VALID');
+    this.addUserForm.get('organization').enable();
+    // console.log('ADD USER FORM VALID');
     const formValues = this.addUserForm.value;
+    // console.log('this.addUserForm.value', this.addUserForm.value);
     let user: User = {
       email: formValues.email,
-      firstName: formValues.firstName, // formValues.firstName,
-      lastName: formValues.lastName, // formValues.lastName,
-      password: formValues.password,  //formValues.password,
-      number: 1, //Number(formValues.number),
-      role: 25, //Number(formValues.role),
+      firstName: formValues.firstName,
+      lastName: formValues.lastName,
+      password: formValues.password,  
+      number: formValues.organization, //Number(formValues.number),
+      role: formValues.role, //Number(formValues.role),
     }
-    console.log('USER Sent:', user);
+    this.addUserForm.get('organization').disable();
+    // console.log('USER Sent:', user);
     this.usersService.createUser(user).subscribe((responseData: any) => {
       // console.log(responseData);
       if(responseData){
-        console.log('IF responseData NOT Null');
+        // console.log('IF responseData NOT Null');
       } else {
-        console.log('ELSE responseData NULL');
-        alert('Unable to create User.')
+        // console.log('ELSE responseData NULL');
+        alert('User with that email already exist.')
       }
     }, (error) => {
       console.log('ADD-USER ERROR:', error);

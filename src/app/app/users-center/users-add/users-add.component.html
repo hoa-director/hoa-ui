@@ -7,7 +7,7 @@
             <div class="form-grid">
                 <div class="form-div">
                     <label for="inputEmail">User Email:</label>
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <input 
                         id="inputEmail"
                         matInput
@@ -16,20 +16,21 @@
                         type="text"
                         placeholder="example@email.com"
                         />
-                        <div *ngIf="addUserForm.get('email').errors?.required && addUserForm.get('email').touched">
-                            Email is required.
-                        </div>
-                        <div *ngIf="addUserForm.get('email').errors?.email && addUserForm.get('email').touched">
-                            Please enter a valid email address.
-                        </div>
+                        
                         <!-- [(ngModel)]="email" -->
                         <!-- (ngModelChange)="onInputChange()" -->
                     </mat-form-field>
+                    <div class="validatorMsg" *ngIf="addUserForm.get('email').errors?.required && addUserForm.get('email').touched">
+                        Email is required.
+                    </div>
+                    <div class="validatorMsg" *ngIf="addUserForm.get('email').errors?.email && addUserForm.get('email').touched">
+                        Please enter a valid email address.
+                    </div>
                 </div>
               
                 <div class="form-div">
                     <label for="inputFirstName">First Name:</label>
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <input 
                         id="inputFirstName"
                         matInput
@@ -45,7 +46,7 @@
          
                 <div class="form-div">
                     <label for="inputLastName">Last Name:</label>
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <input 
                         id="inputLastName"
                         matInput
@@ -59,7 +60,7 @@
 
                 <div class="form-div">
                     <label for="inputPassword">Password:</label>
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <input 
                         id="inputPassword"
                         matInput
@@ -70,6 +71,34 @@
                         />
                     </mat-form-field>
                 </div>
+
+                <div class="form-div">
+                    <label for="selectOrganization">Organization:</label>
+                    <mat-form-field>
+                        <mat-select 
+                        id="selectOrganization"
+                        formControlName="organization">
+                            <mat-option value="2">South pointe</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-div">
+                    <label for="selectRole">Role:</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select 
+                        id="selectRole"
+                         formControlName="role">
+                            <mat-option value="25">Unit Owner</mat-option>
+                            <mat-option value="50">Admin</mat-option>
+                            <mat-option value="75">President</mat-option>
+                            <mat-option value="99">Master User</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+
                 <br>
 
                 <button
@@ -81,11 +110,13 @@
                 >
                 Add User
                 </button>
+
                 <button
                 class="search-users-clear-button"    
                 mat-raised-button
                 color="secondary"
                 type="clear"
+                (click)="onReset()"
                 >
                 Clear
                 </button>
