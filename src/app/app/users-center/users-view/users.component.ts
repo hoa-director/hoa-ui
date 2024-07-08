@@ -72,10 +72,16 @@ constructor(
   }
 
   fetchUsers(inputString) {
-    // console.log('associationId:', associationId );
     isLoading(true);
     this.usersService.fetchUsers(inputString || '').subscribe((responseData: any) => {
-        this.userRows = [...responseData]; // -- need to [...loop] to make the data structure iterable in the table component. 
+        this.userRows = responseData.map(user => {
+          if (user.units.length === 0) { // <-- if units exits, but is empty array[], add default string
+            user.units = [{unit: "No Assigned Unit"}] 
+          }
+          return user;
+        }
+      )
+        // [...responseData]; // -- need to [...loop] to make the data structure iterable in the table component. 
         // console.log('responseData:', responseData); // -- Check RESPONSE  
         // console.log('this.userRows:', this.userRows); // -- Check STATE 
     }, (error) => {
@@ -107,7 +113,6 @@ constructor(
     console.log('ADD-USER-BUTTON');
     // ---- ADD userObj{} HERE TO TEST ---- 
     const userObj =  {
-      // id: nextUserId,
       email: 'test5@gmail.com',
       password: 'test', 
       number: 1,

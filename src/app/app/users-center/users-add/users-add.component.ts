@@ -33,7 +33,7 @@ ngOnInit(): void {
     email: ['', [Validators.required, Validators.email]], 
     firstName: [''],
     lastName: [''],
-    password: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], 
+    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], 
     organization: [{value: '2', disabled: true}, [Validators.required] ], 
     role: [{value: '25', disabled: false }, [Validators.required] ], 
   });
@@ -51,7 +51,7 @@ onReset(): void {
 
 // -- ADD USER -- //
 addUser(): void { // -- WORKS 
-  console.log('addUserForm:', this.addUserForm.value); // -- Check form
+  // console.log('addUserForm:', this.addUserForm.value); // -- Check form BEFORE validating.
   if (this.addUserForm.valid) {
     this.addUserForm.get('organization').enable();
     // console.log('ADD USER FORM VALID');
@@ -66,7 +66,7 @@ addUser(): void { // -- WORKS
       role: formValues.role, //Number(formValues.role),
     }
     this.addUserForm.get('organization').disable();
-    // console.log('USER Sent:', user);
+    // console.log('USER Sent:', user); // -- Check form BEFORE sending.
     this.usersService.createUser(user).subscribe((responseData: any) => {
       // console.log(responseData);
       if(responseData){

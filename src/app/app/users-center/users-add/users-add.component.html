@@ -70,6 +70,15 @@
                         placeholder="Password"
                         />
                     </mat-form-field>
+                    <div class="validatorMsg" *ngIf="addUserForm.get('password').errors?.required && addUserForm.get('password').touched">
+                        Password is required.
+                    </div>
+                    <div class="validatorMsg" *ngIf="addUserForm.get('password').errors?.pattern && addUserForm.get('password').touched">
+                        Make sure to include a special character, number, lowercase and uppercase letters.
+                    </div>
+                    <div class="validatorMsg" *ngIf="addUserForm.get('password').errors?.['minLength'] && addUserForm.get('password').touched">
+                        Make sure it's at least 8 characters long.
+                    </div>
                 </div>
 
                 <div class="form-div">
