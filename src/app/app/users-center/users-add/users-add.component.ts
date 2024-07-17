@@ -4,6 +4,9 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { UserService } from 'app/services/user.service';
 import { UsersService } from "../../../services/users.service";  // -- SERVICE
 import { User } from "../../../../app/interfaces/user";
+import { SuccessModalComponent } from 'app/app/success-modal/success-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-users-add',
@@ -17,8 +20,8 @@ export class UsersAddComponent implements OnInit {
     // --  SERVICES
     private userService: UserService,
     private usersService: UsersService,
-
     private fb: FormBuilder,
+    private dialog: MatDialog
   ) {}
 
 ngOnInit(): void {
@@ -67,10 +70,13 @@ addUser(): void { // -- WORKS
     }
     this.addUserForm.get('organization').disable();
     // console.log('USER Sent:', user); // -- Check form BEFORE sending.
+
     this.usersService.createUser(user).subscribe((responseData: any) => {
       // console.log(responseData);
       if(responseData){
         // console.log('IF responseData NOT Null');
+        this.openSuccessModal() // -- tell user it worked
+        this.onReset() // -- clear form
       } else {
         // console.log('ELSE responseData NULL');
         alert('User with that email already exist.')
@@ -82,14 +88,14 @@ addUser(): void { // -- WORKS
   } else {
     console.log('ADD USER FORM NOT VALID');
   }
-
-
-
-
 }
 
 
-
+openSuccessModal() {
+  this.dialog.open(SuccessModalComponent, {
+    data: { message: "User was created successfully." }
+  });
+}
 
 
 

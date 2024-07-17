@@ -65,6 +65,7 @@ import { NavBackDirective } from "./nav-back.directive";
 import { UnitModalComponent } from "./app/modal/unit-modal/unit-modal.component";
 import { TestComponentComponent } from './app/test-component/test-component.component';
 import { UsersCenterModule } from "./app/users-center/users-center.module";
+import { SuccessModalComponent } from './app/success-modal/success-modal.component';
 // import { UsersComponent } from './app/users-center/users-view/users.component';
 // import { UsersCenterComponent } from './app/users-center/users-center.component';
 
@@ -96,6 +97,7 @@ import { UsersCenterModule } from "./app/users-center/users-center.module";
         NavBackDirective,
         UnitModalComponent,
         TestComponentComponent,
+        SuccessModalComponent,
         // UsersComponent,
         // UsersCenterComponent,
     ],
