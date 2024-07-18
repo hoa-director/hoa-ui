@@ -30,22 +30,11 @@
             Clear
         </button>
     </form>
-
-    <!-- ADD USER TEST BUTTON -->
-    <button
-        class="search-users-clear-button"    
-        mat-raised-button
-        color="secondary"
-        type="submit"
-        (click)="addUser()"
-        >
-        Add User
-    </button>
     <br>
 
     <!-- Table -->
     <table mat-table [dataSource]="userRows" class="mat-elevation-z8" #usersTable>
-        <ng-container matColumnDef="id">
+        <ng-container matColumnDef="id" >
             <th mat-header-cell *matHeaderCellDef>User ID</th>
             <td mat-cell *matCellDef="let user">{{user.id}}</td>
         </ng-container>

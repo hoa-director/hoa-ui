@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit {
   //         }> = [];  
 
   public displayedColumns: string[] = [ // -- Table Columns
-    'id', 
+    // 'id', 
     'first_name', 
     'last_name', 
     'unit',
@@ -109,36 +109,38 @@ constructor(
     this.fetchUsers('')
   }
 
-  addUser(): void {
-    console.log('ADD-USER-BUTTON');
-    // ---- ADD userObj{} HERE TO TEST ---- 
-    const userObj =  {
-      email: 'test5@gmail.com',
-      password: 'test', 
-      number: 1,
-      role: 99,
-      firstName: 'dale15',
-      lastName: 'Earnhardt',
-    }
 
-    this.usersService.createUser(userObj).subscribe((responseData: any) => {
-      console.log('addUser SUBSCRIBE');
-      console.log('responseData:', responseData); // -- Console Log WORKS
-      if(responseData){
-        console.log('IF responseData NOT Null');
-      } else {
-        console.log('ELSE responseData NULL');
-        alert('Unable to create User.')
-      }
-      }, (error) => {
-        console.log('ADD-USER ERROR:', error);
-      }
-    )
-    .add(() => {
-      isLoading(false);
-      this.fetchUsers(this.inputString)
-    });
-  } 
+  
+  // addUser(): void {
+  //   console.log('ADD-USER-BUTTON');
+  //   // ---- ADD userObj{} HERE TO TEST ---- 
+  //   const userObj =  {
+  //     email: 'test5@gmail.com',
+  //     password: 'test', 
+  //     number: 1,
+  //     role: 99,
+  //     firstName: 'dale15',
+  //     lastName: 'Earnhardt',
+  //   }
+
+  //   this.usersService.createUser(userObj).subscribe((responseData: any) => {
+  //     console.log('addUser SUBSCRIBE');
+  //     console.log('responseData:', responseData); // -- Console Log WORKS
+  //     if(responseData){
+  //       console.log('IF responseData NOT Null');
+  //     } else {
+  //       console.log('ELSE responseData NULL');
+  //       alert('Unable to create User.')
+  //     }
+  //     }, (error) => {
+  //       console.log('ADD-USER ERROR:', error);
+  //     }
+  //   )
+  //   .add(() => {
+  //     isLoading(false);
+  //     this.fetchUsers(this.inputString)
+  //   });
+  // } 
 
 
 
