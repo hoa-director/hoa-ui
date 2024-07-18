@@ -48,6 +48,11 @@ onReset(): void {
     organization: {value: '2', disabled: true}, 
     role: {value: '25', disabled: false }
   });
+  Object.keys(this.addUserForm.controls).forEach(key => {
+    this.addUserForm.get(key)?.setErrors(null);
+    // this.addUserForm.get(key)?.markAsPristine();
+    // this.addUserForm.get(key)?.markAsUntouched();
+  });
 }
 
 //       test1234@gmail.com
