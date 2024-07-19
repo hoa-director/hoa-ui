@@ -1,0 +1,76 @@
+<div class="main-units-view-div">
+
+  <!-- <router-outlet></router-outlet> -->
+
+  <form [formGroup]="searchUnitsForm" >
+    <!-- <label class="form-label" for="searchUsersForm">Search For a User</label> -->
+    <mat-form-field>
+        <input 
+        id="inputString"
+        matInput
+        class="form-control"
+        formControlName="inputText"
+        type="text"
+        placeholder="Search by name, email, or unit"
+
+        [(ngModel)]="inputString"
+        (ngModelChange)="onInputChange()"
+        />
+    </mat-form-field>    
+
+
+    <button
+        class="add-user-button"    
+        mat-raised-button
+        color="secondary"
+
+        (click)="onReset()"
+    >
+        Clear
+    </button>
+</form>
+
+  <div class="flex-container">
+    <div *ngFor="let unit of units">
+      <mat-card class="unit-card">
+        <mat-card-header>
+          <!-- <div mat-card-avatar class="header-image"></div> -->
+          <!-- <mat-card-title class="unit-card-name" *ngIf="unit.user"> -->
+          <mat-card-title class="unit-card-name" >
+            <!-- {{ (unit.user.firstName?unit.user.firstName : "a" ) + " " + (unit.user.lastName ? unit.user.lastName : "a") }} -->
+            {{ (unit.user?.firstName || "")  + " " + (unit.user?.lastName || "") }}
+          </mat-card-title>
+          <!-- <mat-card-subtitle></mat-card-subtitle> -->
+        </mat-card-header>
+        <hr />
+        <!-- <img mat-card-image src="https://" alt=""> -->
+        <mat-card-content class="card-content">
+          <div class="contact-info">
+            <h4>Address:</h4>
+            <div class="address-line-1">
+              {{ unit.addressLineOne }}
+            </div>
+            <div class="address-line-2">
+              {{ unit.city }}, {{ unit.state }} {{ unit.zip }}
+            </div>
+            <br />
+            <h4>E-Mail:</h4>
+            <div *ngIf="unit.user" class="email">
+              {{ unit.user.email }}
+            </div>
+            <br />
+            <h4>Phone:</h4>
+            <!-- <div *ngIf="unit.user" class="phone">
+              {{ unit.user.number | phone : "US" }}
+            </div> -->
+          </div>
+        </mat-card-content>
+        <!-- <mat-card-actions>
+              TODO: if logged in user can edit their information
+              <button mat-button></button>
+              <button mat-button></button>
+            </mat-card-actions> -->
+      </mat-card>
+    </div>
+  </div>
+</div>

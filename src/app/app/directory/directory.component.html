@@ -1,59 +1,22 @@
-<div>
+<div class="main-directory-div">
   <div id="directory-header-container">
     <h3 class="directory-header">Neighborhood Directory</h3>
-    <button
-      mat-button
-      (click)="openUnitModal()"
-      id="add-unit-button"
-      class="link-button"
-    >
-      Add Unit
-    </button>
   </div>
 
-  <router-outlet></router-outlet>
-  <div class="flex-container">
-    <div *ngFor="let unit of units">
-      <mat-card class="unit-card">
-        <mat-card-header>
-          <!-- <div mat-card-avatar class="header-image"></div> -->
-          <mat-card-title class="unit-card-name" *ngIf="unit.user">{{
-            unit.user.firstName + " " + unit.user.lastName
-          }}</mat-card-title>
-          <mat-card-title class="unit-card-name" *ngIf="!unit.user">{{
-            unit.user.firstName + " " + unit.user.lastName
-          }}</mat-card-title>
-          <!-- <mat-card-subtitle></mat-card-subtitle> -->
-        </mat-card-header>
-        <hr />
-        <!-- <img mat-card-image src="https://" alt=""> -->
-        <mat-card-content class="person">
-          <div class="contact-info">
-            <h4>Address:</h4>
-            <div class="address-line-1">
-              {{ unit.addressLineOne }}
-            </div>
-            <div class="address-line-2">
-              {{ unit.city }}, {{ unit.state }} {{ unit.zip }}
-            </div>
-            <br />
-            <h4>E-Mail:</h4>
-            <div *ngIf="unit.user" class="email">
-              {{ unit.user.email }}
-            </div>
-            <br />
-            <h4>Phone:</h4>
-            <div *ngIf="unit.user" class="phone">
-              {{ unit.user.number | phone : "US" }}
-            </div>
-          </div>
-        </mat-card-content>
-        <!-- <mat-card-actions>
-              TODO: if logged in user can edit their information
-              <button mat-button></button>
-              <button mat-button></button>
-            </mat-card-actions> -->
-      </mat-card>
-    </div>
+  <div class="sideways-nav-bar">
+    <nav mat-tab-nav-bar color="primary">
+      <a mat-tab-link *ngFor="let link of directoryLinks"
+      (click)="activeLink = link.name"
+      [active]="activeLink == link.name"
+      routerLinkActive="active"
+      [routerLink]="[link.path]"
+      >
+        {{link.name}}
+      </a>
+    </nav>
   </div>
+  <p>You can search, add, edit or delete units on this page.</p>
+  <div>
+    <router-outlet></router-outlet>
+  </div>  
 </div>

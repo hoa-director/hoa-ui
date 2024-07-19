@@ -1,22 +1,3 @@
-.person {
-  margin: 20px;
-}
-
-.unit-card-name {
-  font-size: 1.8rem;
-  font-weight: 500;
-}
-
-.unit-card {
-  width: 37rem;
-  height: 24rem;
-  margin-right: 2rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
-  /* box-shadow: none; */
-  /* border: 1px solid black; */
-}
-
 .directory-header {
   font-size: 3rem;
   margin-bottom: 5%;
@@ -35,4 +16,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
+}
+
+p {
+  margin-bottom: 2rem;
 }

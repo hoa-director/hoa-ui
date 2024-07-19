@@ -66,6 +66,7 @@ import { UnitModalComponent } from "./app/modal/unit-modal/unit-modal.component"
 import { TestComponentComponent } from './app/test-component/test-component.component';
 import { UsersCenterModule } from "./app/users-center/users-center.module";
 import { SuccessModalComponent } from './app/success-modal/success-modal.component';
+import { DirectoryModule } from "./app/directory/directory.module";
 // import { UsersComponent } from './app/users-center/users-view/users.component';
 // import { UsersCenterComponent } from './app/users-center/users-center.component';
 
@@ -74,7 +75,6 @@ import { SuccessModalComponent } from './app/success-modal/success-modal.compone
         AppComponent,
         LoginComponent,
         LandingPageComponent,
-        DirectoryComponent,
         RulesComponent,
         FinancialsComponent,
         DocumentsComponent,
@@ -98,17 +98,18 @@ import { SuccessModalComponent } from './app/success-modal/success-modal.compone
         UnitModalComponent,
         TestComponentComponent,
         SuccessModalComponent,
-        // UsersComponent,
-        // UsersCenterComponent,
+        // DirectoryComponent, // -- Moved to the directory module.
+        // UsersComponent,  // -- Moved to the user-center module.
+        // UsersCenterComponent,  // -- Moved to the user-center module.
     ],
     imports: [
+        RouterModule,
+        CommonModule,
+        ModalModule,
         BrowserModule,
         FormsModule,
         HttpClientModule,
-        ModalModule,
-        ResolutionCenterModule,
         AppRoutingModule,
-        BrowserAnimationsModule,
         MatInputModule,
         MatCardModule,
         MatButtonModule,
@@ -121,16 +122,15 @@ import { SuccessModalComponent } from './app/success-modal/success-modal.compone
         ReactiveFormsModule,
         MatPasswordStrengthModule.forRoot(),
         FlexLayoutModule,
-        CommonModule,
-        RouterModule,
         FormsModule,
         BrowserAnimationsModule,
-        MatButtonModule,
         MatTableModule,
         MatSelectModule,
         MatFormFieldModule,
         MatMenuModule,
         MatRadioModule,
+        DirectoryModule,
+        ResolutionCenterModule,
         UsersCenterModule,
     ],
     providers: [
