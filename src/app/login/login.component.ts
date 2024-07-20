@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authErrorSubs.unsubscribe();
   }
 
+  // -- Passive listener for any login
   listenForEvents() {
     this.authListenerSubs = this.userService
       .getAuthStatusListener()
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
+  // -- intentional login
   login(user): void {
     this.userService.loginUser(user);
   }

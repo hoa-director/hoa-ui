@@ -1,0 +1,40 @@
+<div class="main-units-add-div">
+    <p>Add a new unit to your association.</p>
+
+    <div class="form-container">
+        <form [formGroup]="addUnitForm" (ngSubmit)="addUnit()">
+            <div class="form-grid">
+                
+                <div class="form-div">
+
+                    <label for="inputAssociationId">Association</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select
+                        id="associationId"
+                        matInputclass="form-control"
+                        formControlName="associationId"
+                        placeholder="South pointe"
+                        >
+                            <mat-option value="1">South pointe</mat-option>
+                            <mat-option value="2">North pointe</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <br>
+
+            <button
+            mat-button
+            (click)="addUnit()"
+            id="add-unit-button"
+            class="link-button"
+            >
+            Add Unit
+            </button>
+        </form>
+    </div>
+
+
+
+</div>

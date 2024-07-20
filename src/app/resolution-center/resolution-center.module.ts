@@ -15,7 +15,6 @@ import { VoteDialogComponent } from "./vote-dialog/vote-dialog.component";
 
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuardService } from "../services/auth-guard.service";
-
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { MatLegacyTabsModule as MatTabsModule } from "@angular/material/legacy-tabs";

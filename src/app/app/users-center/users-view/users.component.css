@@ -1,0 +1,30 @@
+
+/* table {
+    width: 100%;
+  } */
+  
+  .main-user-view-div{
+    margin: 2rem;
+  }
+  
+  .users-header{
+    margin-bottom: 2rem;
+  }
+  p {
+    margin-bottom: 2rem;
+  }
+
+  form {
+    /* background-color: aqua; */
+  }
+
+  .mat-elevation-z8 {
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: none;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
+    border: 1px solid black;
+
+  }
+
+  

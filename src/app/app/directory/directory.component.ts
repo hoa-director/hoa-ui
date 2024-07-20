@@ -4,46 +4,74 @@ import { UserService } from "../../services/user.service";
 import { Subscription } from "rxjs";
 import { Unit } from "./unit.model";
 import { isLoading } from "../../shared/isLoading";
+import { MatDialog } from "@angular/material/dialog";
+import { UnitModalComponent } from "../modal/unit-modal/unit-modal.component";
 
 @Component({
   selector: "app-directory",
   templateUrl: "./directory.component.html",
   styleUrls: ["./directory.component.css"],
 })
-export class DirectoryComponent implements OnInit, OnDestroy {
+export class DirectoryComponent    {
+  directoryLinks: any[];
+  activeLink: string;
   units: Unit[] = [];
 
   private userSubjectSubs: Subscription;
   isLoading = false;
 
   constructor(
-    private dataService: DataService,
-    private userService: UserService,
-  ) {}
+    // private dataService: DataService,
+    // private userService: UserService,
+    // private dialog: MatDialog,
 
-  ngOnInit() {
-    this.listenForEvents();
-    this.onFetchUnits();
+  ) {
+
+    this.directoryLinks = [
+      {
+        name: "Directory Home",
+        path: "units-view",
+      },
+      {
+        name: "Add Unit",
+        path: "units-add", // -- Need to create
+      },
+      // {
+      //   name: "Edit Unit",
+      //   path: "units-edit", // -- Need to create
+      // },
+    ];
+
   }
 
-  ngOnDestroy() {
-    this.userSubjectSubs.unsubscribe();
-  }
+  // ngOnInit() {
+  //   this.listenForEvents();
+  //   this.onFetchUnits();
+  // }
 
-  onFetchUnits() {
-    isLoading(true);
-    this.dataService.fetchUnits().subscribe((responseData: any) => {
-      this.units = [...responseData.units];
-    }).add(() => {
-      isLoading(false);
-    });
-  }
+  // ngOnDestroy() {
+  //   this.userSubjectSubs.unsubscribe();
+  // }
 
-  listenForEvents() {
-    this.userSubjectSubs = this.userService.selectedAssociation$.subscribe(
-      () => {
-        this.onFetchUnits();
-      }
-    );
-  }
+  // onFetchUnits() {
+  //   isLoading(true);
+  //   this.dataService.fetchUnits().subscribe((responseData: any) => {
+  //     this.units = [...responseData.units];
+  //   }).add(() => {
+  //     isLoading(false);
+  //   });
+  // }
+
+  // listenForEvents() {
+  //   this.userSubjectSubs = this.userService.selectedAssociation$.subscribe(
+  //     () => {
+  //       this.onFetchUnits();
+  //     }
+  //   );
+  // }
+
+  // openUnitModal() {
+  //   this.dialog.open(UnitModalComponent);
+  // }
+
 }

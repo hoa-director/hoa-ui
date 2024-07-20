@@ -1,0 +1,33 @@
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  /* align-content: center; */
+  justify-content: flex-start;
+  background-color: lightgrey;
+  border-radius: 5px;
+  /* padding: 1rem; */
+}  
+
+.unit-card {
+  width: 32rem;
+  /* height: 24rem; */
+  /* margin-right: 2rem; */
+  /* margin-left: 1rem; */
+  margin: 1rem;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
+}
+.unit-card-name {
+  font-size: 1.8rem;
+  font-weight: 500;
+  min-height: 1.8rem;
+  margin-bottom: .1rem;
+}
+.card-content {
+  margin: 1rem;
+}
+
+
+
+

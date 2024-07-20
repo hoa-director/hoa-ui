@@ -26,19 +26,19 @@ import { RequestPasswordChangeComponent } from "./request-password-change/reques
 import { AuthInterceptor } from "./services/auth-interceptor";
 import { DialogComponent } from "./app/dialog/dialog.component";
 
-import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input";
-import { MatLegacyCardModule as MatCardModule } from "@angular/material/legacy-card";
+import { MatInputModule } from "@angular/material/input";
+import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
-import { MatLegacyListModule as MatListModule } from "@angular/material/legacy-list";
-import { MatLegacyChipsModule as MatChipsModule } from "@angular/material/legacy-chips";
-import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog";
-import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from "@angular/material/legacy-progress-spinner";
+import { MatListModule } from "@angular/material/list";
+import { MatChipsModule } from "@angular/material/chips";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatIconModule } from "@angular/material/icon";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
-import { MatLegacyTableModule as MatTableModule } from "@angular/material/legacy-table";
-import { MatLegacySelectModule as MatSelectModule } from "@angular/material/legacy-select";
-import { MatLegacyFormFieldModule as MatFormFieldModule } from "@angular/material/legacy-form-field";
-import { MatLegacyMenuModule as MatMenuModule } from "@angular/material/legacy-menu";
+import { MatButtonModule } from "@angular/material/button";
+import { MatTableModule } from "@angular/material/table";
+import { MatSelectModule } from "@angular/material/select";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatMenuModule } from "@angular/material/menu";
 import {
   MatLegacyRadioModule as MatRadioModule,
   MAT_LEGACY_RADIO_DEFAULT_OPTIONS as MAT_RADIO_DEFAULT_OPTIONS,
@@ -62,13 +62,19 @@ import { HomeComponent } from "./home/home.component";
 import { PhonePipe } from "./phone.pipe";
 import { BackFabComponent } from "./back-fab/back-fab.component";
 import { NavBackDirective } from "./nav-back.directive";
+import { UnitModalComponent } from "./app/modal/unit-modal/unit-modal.component";
+import { TestComponentComponent } from './app/test-component/test-component.component';
+import { UsersCenterModule } from "./app/users-center/users-center.module";
+import { SuccessModalComponent } from './app/success-modal/success-modal.component';
+import { DirectoryModule } from "./app/directory/directory.module";
+// import { UsersComponent } from './app/users-center/users-view/users.component';
+// import { UsersCenterComponent } from './app/users-center/users-center.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
         LandingPageComponent,
-        DirectoryComponent,
         RulesComponent,
         FinancialsComponent,
         DocumentsComponent,
@@ -89,15 +95,21 @@ import { NavBackDirective } from "./nav-back.directive";
         PhonePipe,
         BackFabComponent,
         NavBackDirective,
+        UnitModalComponent,
+        TestComponentComponent,
+        SuccessModalComponent,
+        // DirectoryComponent, // -- Moved to the directory module.
+        // UsersComponent,  // -- Moved to the user-center module.
+        // UsersCenterComponent,  // -- Moved to the user-center module.
     ],
     imports: [
+        RouterModule,
+        CommonModule,
+        ModalModule,
         BrowserModule,
         FormsModule,
         HttpClientModule,
-        ModalModule,
-        ResolutionCenterModule,
         AppRoutingModule,
-        BrowserAnimationsModule,
         MatInputModule,
         MatCardModule,
         MatButtonModule,
@@ -110,16 +122,16 @@ import { NavBackDirective } from "./nav-back.directive";
         ReactiveFormsModule,
         MatPasswordStrengthModule.forRoot(),
         FlexLayoutModule,
-        CommonModule,
-        RouterModule,
         FormsModule,
         BrowserAnimationsModule,
-        MatButtonModule,
         MatTableModule,
         MatSelectModule,
         MatFormFieldModule,
         MatMenuModule,
         MatRadioModule,
+        DirectoryModule,
+        ResolutionCenterModule,
+        UsersCenterModule,
     ],
     providers: [
         // provides the interceptor

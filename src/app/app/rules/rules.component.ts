@@ -44,7 +44,7 @@ export class RulesComponent implements OnInit {
 
   onFetchRules() {
     isLoading(true);
-    this.dataService.fetchRules().subscribe((responseData: any) => {
+    this.dataService.fetchRules().subscribe((responseData: any) => { // -- Subscribe to fetchRules HERE
       this.rules = [...responseData];
     }).add(() => {
       isLoading(false);

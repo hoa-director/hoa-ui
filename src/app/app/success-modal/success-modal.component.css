@@ -1,0 +1,14 @@
+
+.success-title {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+} 
+.icon-done {
+    color: #00B31E;
+    margin-bottom: 0;
+    margin-top: 2rem;
+    margin-left: 0rem;
+}
+
+

@@ -2,16 +2,18 @@
   <h3 class="resolution-center-header">
     Resolution Center
   </h3>
-  <nav mat-tab-nav-bar color="primary">
-    <a mat-tab-link *ngFor="let link of resolutionCenterLinks"
-    (click)="activeLink = link.name"
-    [active]="activeLink == link.name"
-    routerLinkActive="active"
-    [routerLink]="[link.path]"
-    >
-      {{link.name}}
-    </a>
-  </nav>
+  <div class="sideways-nav-bar">
+    <nav mat-tab-nav-bar color="primary">
+      <a mat-tab-link *ngFor="let link of resolutionCenterLinks"
+      (click)="activeLink = link.name"
+      [active]="activeLink == link.name"
+      routerLinkActive="active"
+      [routerLink]="[link.path]"
+      >
+        {{link.name}}
+      </a>
+    </nav>
+  </div>
   <div>
     <router-outlet></router-outlet>
   </div>
