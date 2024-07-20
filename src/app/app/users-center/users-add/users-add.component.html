@@ -1,11 +1,12 @@
 
 <div class="main-user-add-div">
-    <p>Add a new user to you's association. User's will log in with their email address, so it must be unique.</p>
+    <p>Add a new user to your association. User's will log in with their email address, so it must be unique.</p>
 
     <div class="form-container">
         <form [formGroup]="addUserForm" (ngSubmit)="addUser()" >
             <div class="form-grid">
                 <div class="form-div">
+
                     <label for="inputEmail">User Email:</label>
                     <mat-form-field appearance="outline">
                         <input 
@@ -87,7 +88,7 @@
                         <mat-select 
                         id="selectOrganization"
                         formControlName="organization">
-                            <mat-option value="2">South pointe</mat-option>
+                            <mat-option value="1">South pointe</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>

@@ -24,6 +24,11 @@ export class DataService {
     });
   }
 
+  addUnit(unit: object) { 
+    const payload = unit
+    return this.http.post(BACKEND_URL + '/api/addUnit', payload ) 
+  }
+
   fetchDocuments() {
     return this.http.get(BACKEND_URL + "/api/documents", {
       params: new HttpParams().set(
@@ -68,8 +73,7 @@ export class DataService {
     const payload = {
       column1string: thing1
     }
-      return this.http.post(BACKEND_URL + "/api/deleteRowAPI", payload
-    );
+      return this.http.post(BACKEND_URL + "/api/deleteRowAPI", payload );
   }
 
 
@@ -82,8 +86,7 @@ export class DataService {
       column2boolean: thing2, 
       column3int: thing3
     }
-      return this.http.post(BACKEND_URL + "/api/createRow", payload
-    );
+      return this.http.post(BACKEND_URL + "/api/createRow", payload );
   }
 
   // -- THIS WORKS
@@ -93,8 +96,7 @@ export class DataService {
     const payload = {
       column1string: column1string, 
     }
-    return this.http.post(BACKEND_URL + "/api/updateRow", payload
-    );
+    return this.http.post(BACKEND_URL + "/api/updateRow", payload );
   }
 
 
