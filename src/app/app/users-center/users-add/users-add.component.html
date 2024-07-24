@@ -88,7 +88,9 @@
                         <mat-select 
                         id="selectOrganization"
                         formControlName="organization">
-                            <mat-option value="1">South pointe</mat-option>
+                        <mat-option *ngFor="let association of associations" [value]="association.id">
+                            {{association.associationName}}
+                        </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -125,7 +127,7 @@
                     class="search-users-clear-button"    
                     mat-raised-button
                     color="secondary"
-                    type="clear"
+                    type="button"
                     (click)="onReset()"
                 >
                 Clear

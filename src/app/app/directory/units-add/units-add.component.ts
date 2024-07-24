@@ -22,6 +22,14 @@ import { DataService } from "app/services/data.service";
 export class UnitsAddComponent implements OnInit, OnDestroy {
   // newUnit: Unit[] = [];
   addUnitForm: FormGroup;
+
+  associations = [
+    {
+      id: sessionStorage.getItem("associationId").toString(), 
+      associationName: sessionStorage.getItem("associationName").toString()
+    },
+  ];
+  
   isLoading = false;
 
   constructor(
@@ -32,8 +40,9 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // this.listenForEvents();
+    // console.log('this.associationId', this.associationId);
     this.addUnitForm = this.fb.group({
-      associationId: [{value: '1', disabled: true}, [Validators.required]], // required. Add get association
+      associationId: [{value: this.associations[0].id, disabled: true}, [Validators.required]], // required. Add get association
       addressLineOne: ['', [Validators.required]],
       addressLineTwo: [''],
       city: ['', [Validators.required]],
@@ -57,6 +66,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
     
     if (this.addUnitForm.valid) {
       isLoading(true);
+      this.addUnitForm.get('associationId').enable(); 
       const formValues = this.addUnitForm.value;
 
       let unit: Unit = {
@@ -71,6 +81,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
         // updatedAt: '2024-07-19 18:47:52.63-05',
         // createdAt: '2024-07-19 18:47:52.63-05',
       };
+      this.addUnitForm.get('associationId').disable(); 
       console.log("formValues", formValues);
       console.log("formValues.associationId", formValues.associationId);
 
@@ -99,13 +110,13 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
   onReset(): void {
     console.log('CLEAR BTN');
     this.addUnitForm.reset({
-      // associationId: [], // required
-      // addressLineOne: [""],
-      // addressLineTwo: [""],
-      // city: [""],
-      // state: [""],
-      // zip: [""],
-      // user: [""], // required
+      associationId: this.associations[0].id, // required
+      addressLineOne: [""],
+      addressLineTwo: [""],
+      city: [""],
+      state: [""],
+      zip: [""],
+      user: [""], // required
     });
   }
 

@@ -15,7 +15,13 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class UsersAddComponent implements OnInit {  
   addUserForm: FormGroup;
-
+  associations = [
+    {
+      id: sessionStorage.getItem("associationId").toString(), 
+      associationName: sessionStorage.getItem("associationName").toString()
+    },
+    {id: 2, associationName: 'test'}
+  ];
   constructor(
     // --  SERVICES
     private userService: UserService,
@@ -37,15 +43,15 @@ ngOnInit(): void {
     firstName: [''],
     lastName: [''],
     password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], 
-    organization: [{value: '2', disabled: true}, [Validators.required] ], 
-    role: [{value: '25', disabled: false }, [Validators.required] ], 
+    organization: [{value: this.associations[0].id, disabled: true}, [Validators.required] ], 
+    role: [{value: '50', disabled: false }, [Validators.required] ], 
   });
 }
 
 // -- CLEAR FORM -- //
 onReset(): void { 
   this.addUserForm.reset({
-    organization: {value: '2', disabled: true}, 
+    organization: {value: this.associations[0].id, disabled: true}, 
     role: {value: '25', disabled: false }
   });
   Object.keys(this.addUserForm.controls).forEach(key => {
@@ -60,7 +66,7 @@ onReset(): void {
 addUser(): void { // -- WORKS 
   // console.log('addUserForm:', this.addUserForm.value); // -- Check form BEFORE validating.
   if (this.addUserForm.valid) {
-    this.addUserForm.get('organization').enable();
+    this.addUserForm.get('organization').enable(); 
     // console.log('ADD USER FORM VALID');
     const formValues = this.addUserForm.value;
     // console.log('this.addUserForm.value', this.addUserForm.value);
@@ -72,7 +78,7 @@ addUser(): void { // -- WORKS
       number: formValues.organization, //Number(formValues.number),
       role: formValues.role, //Number(formValues.role),
     }
-    this.addUserForm.get('organization').disable();
+    this.addUserForm.get('organization').disable(); 
     // console.log('USER Sent:', user); // -- Check form BEFORE sending.
 
     this.usersService.createUser(user).subscribe((responseData: any) => {

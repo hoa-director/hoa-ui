@@ -8,16 +8,16 @@
                 
                 <div class="form-div">
 
-                    <label for="inputAssociationId">Association</label>
+                    <label for="inputAssociationId">Association: </label>
                     <mat-form-field appearance="outline">
                         <mat-select
-                        id="associationId"
+                        id="inputAssociationId"
                         matInputclass="form-control"
                         formControlName="associationId"
-                        placeholder="South pointe"
                         >
-                            <mat-option value="1">South pointe</mat-option>
-                            <mat-option value="2">North pointe</mat-option>
+                            <mat-option *ngFor="let association of associations" [value]="association.id">
+                            {{association.associationName}}
+                        </mat-option>
                         </mat-select>
                     </mat-form-field>
                     <div class="validatorMsg" *ngIf="addUnitForm.get('associationId').errors?.required && addUnitForm.get('associationId').touched">
@@ -123,8 +123,7 @@
                     id="Submit-addUnitForm-button"
                     class="button"
                     color="primary"
-                    type="submit"
-                    
+                    type="submit"       
                 >
                 Add Unit
                 </button>
@@ -134,7 +133,7 @@
                     id="clear-addUnitForm-button"
                     class="button"
                     color="secondary"
-                    type="reset"
+                    type="button"
                     (click)="onReset()"
                 >
                 Clear
