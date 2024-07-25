@@ -13,6 +13,8 @@ import { Unit } from ".././unit.model";
 // -- components
 import { UnitModalComponent } from "../../modal/unit-modal/unit-modal.component";
 import { DataService } from "app/services/data.service";
+import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
+import { FailureModalComponent } from "app/app/failure-modal/failure-modal.component";
 
 @Component({
   selector: "app-units-add",
@@ -89,19 +91,26 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
         .addUnit(unit)
         .subscribe(
           (responseData: any) => {
-            console.log("responseData", responseData);
-            return responseData;
+            if(responseData){ // -- If Response
+              console.log("There WAS a responseData:", responseData);
+              // return responseData;
+            } else { // -- If NO Response
+              console.log('NO RESPONSE MAKING UNIT');
+              this.openFailureModal('There was an error when trying to create a new unit.'); // -- tell user it did NOT work
+            }
           },
-          (error) => {
+          (error) => { // -- If Error
             console.log("unit-add ERROR", error);
           }
         )
         .add(() => {
           setTimeout(() => {
             isLoading(false);
+            this.openSuccessModal(); // -- tell user it worked
+            this.onReset(); // -- clear form
           }, 500);
         });
-    } else {
+    } else { // -- If FORM NOT VALID
       console.log('ADD UNIT FORM NOT VALID');
     }
 
@@ -118,6 +127,20 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
       zip: [""],
       user: [""], // required
     });
+  }
+
+  openSuccessModal() {
+    console.log('SUCCESS MODAL');
+    this.dialog.open(SuccessModalComponent, {
+      data: { message: 'Unit was created successfully.'}
+    })
+  }
+
+  openFailureModal(message) {
+    console.log('FAILURE MODAL');
+    this.dialog.open(FailureModalComponent, {
+      data: { message: message}
+    })
   }
 
 }

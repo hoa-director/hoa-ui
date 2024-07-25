@@ -67,6 +67,7 @@ import { TestComponentComponent } from './app/test-component/test-component.comp
 import { UsersCenterModule } from "./app/users-center/users-center.module";
 import { SuccessModalComponent } from './app/success-modal/success-modal.component';
 import { DirectoryModule } from "./app/directory/directory.module";
+import { FailureModalComponent } from './app/failure-modal/failure-modal.component';
 // import { UsersComponent } from './app/users-center/users-view/users.component';
 // import { UsersCenterComponent } from './app/users-center/users-center.component';
 
@@ -98,6 +99,7 @@ import { DirectoryModule } from "./app/directory/directory.module";
         UnitModalComponent,
         TestComponentComponent,
         SuccessModalComponent,
+        FailureModalComponent,
         // DirectoryComponent, // -- Moved to the directory module.
         // UsersComponent,  // -- Moved to the user-center module.
         // UsersCenterComponent,  // -- Moved to the user-center module.

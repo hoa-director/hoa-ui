@@ -6,6 +6,7 @@ import { UsersService } from "../../../services/users.service";  // -- SERVICE
 import { User } from "../../../../app/interfaces/user";
 import { SuccessModalComponent } from 'app/app/success-modal/success-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FailureModalComponent } from 'app/app/failure-modal/failure-modal.component';
 
 
 @Component({
@@ -81,32 +82,42 @@ addUser(): void { // -- WORKS
     this.addUserForm.get('organization').disable(); 
     // console.log('USER Sent:', user); // -- Check form BEFORE sending.
 
-    this.usersService.createUser(user).subscribe((responseData: any) => {
-      // console.log(responseData);
-      if(responseData){
-        // console.log('IF responseData NOT Null');
-        this.openSuccessModal() // -- tell user it worked
-        this.onReset() // -- clear form
-      } else {
-        // console.log('ELSE responseData NULL');
-        alert('User with that email already exist.')
+    this.usersService
+    .createUser(user)
+    .subscribe(
+      (responseData: any) => {
+        console.log('SUBSCRIBE');
+      if(responseData){ // -- If Response
+        console.log('IF responseData NOT Null:', responseData);
+        this.openSuccessModal(); // -- tell user it worked
+        this.onReset(); // -- clear form
+      } else { // -- If NO Response
+        console.log('ELSE responseData NULL:', responseData);
+        this.openFailureModal('There was an error when trying to create a new user.'); // -- tell user it did NOT work
+        // alert('User with that email already exist.')
       }
-    }, (error) => {
+    }, (error) => { // -- If Error
       console.log('ADD-USER ERROR:', error);
     }
   )
-  } else {
+  } else { // -- If FORM NOT VALID
     console.log('ADD USER FORM NOT VALID');
   }
 }
 
 
 openSuccessModal() {
+  console.log('SUCCESS MODAL');
   this.dialog.open(SuccessModalComponent, {
     data: { message: "User was created successfully." }
   });
 }
 
-
+openFailureModal(message) {
+  console.log('FAILURE MODAL');
+  this.dialog.open(FailureModalComponent, {
+    data: { message: message }
+  })
+}
 
 }
