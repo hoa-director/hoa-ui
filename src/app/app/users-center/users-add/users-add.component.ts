@@ -93,11 +93,12 @@ addUser(): void { // -- WORKS
         this.onReset(); // -- clear form
       } else { // -- If NO Response
         console.log('ELSE responseData NULL:', responseData);
-        this.openFailureModal('There was an error when trying to create a new user.'); // -- tell user it did NOT work
+        this.openFailureModal('User already exists.'); // -- tell user it did NOT work
         // alert('User with that email already exist.')
       }
     }, (error) => { // -- If Error
       console.log('ADD-USER ERROR:', error);
+      this.openFailureModal('There was an error when trying to create a new user.'); // -- tell user it did NOT work
     }
   )
   } else { // -- If FORM NOT VALID
@@ -107,14 +108,12 @@ addUser(): void { // -- WORKS
 
 
 openSuccessModal() {
-  console.log('SUCCESS MODAL');
   this.dialog.open(SuccessModalComponent, {
     data: { message: "User was created successfully." }
   });
 }
 
 openFailureModal(message) {
-  console.log('FAILURE MODAL');
   this.dialog.open(FailureModalComponent, {
     data: { message: message }
   })

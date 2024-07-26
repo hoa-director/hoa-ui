@@ -85,59 +85,53 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
       };
       this.addUnitForm.get('associationId').disable(); 
       console.log("formValues", formValues);
-      console.log("formValues.associationId", formValues.associationId);
 
       this.dataService
         .addUnit(unit)
         .subscribe(
           (responseData: any) => {
-            if(responseData){ // -- If Response
-              console.log("There WAS a responseData:", responseData);
-              // return responseData;
-            } else { // -- If NO Response
-              console.log('NO RESPONSE MAKING UNIT');
-              this.openFailureModal('There was an error when trying to create a new unit.'); // -- tell user it did NOT work
+            if(responseData.status === 'success'){ // -- If Response
+              console.log("SUCCESS responseData:", responseData);
+              setTimeout(() => {
+                this.openSuccessModal(); // -- tell user it worked
+                this.onReset(); // -- clear form
+              }, 500);
+            } else if (responseData.status === 'failure') { // -- If NO Response
+              console.log('FAIL responseData:', responseData);
+              this.openFailureModal('Unit already exists in that Organization.'); // -- tell user it did NOT work
             }
           },
           (error) => { // -- If Error
+            this.openFailureModal('There was an error when trying to create a new unit.'); // -- tell user it did NOT work
             console.log("unit-add ERROR", error);
           }
         )
-        .add(() => {
-          setTimeout(() => {
-            isLoading(false);
-            this.openSuccessModal(); // -- tell user it worked
-            this.onReset(); // -- clear form
-          }, 500);
-        });
     } else { // -- If FORM NOT VALID
       console.log('ADD UNIT FORM NOT VALID');
     }
-
+    isLoading(false);
   }
 
   onReset(): void {
     console.log('CLEAR BTN');
     this.addUnitForm.reset({
       associationId: this.associations[0].id, // required
-      addressLineOne: [""],
-      addressLineTwo: [""],
-      city: [""],
-      state: [""],
-      zip: [""],
-      user: [""], // required
+      addressLineOne: '',
+      // addressLineTwo: '',
+      // city: '',
+      // state: '',
+      // zip: '',
+      user: '', // required
     });
   }
 
   openSuccessModal() {
-    console.log('SUCCESS MODAL');
     this.dialog.open(SuccessModalComponent, {
       data: { message: 'Unit was created successfully.'}
     })
   }
 
   openFailureModal(message) {
-    console.log('FAILURE MODAL');
     this.dialog.open(FailureModalComponent, {
       data: { message: message}
     })
