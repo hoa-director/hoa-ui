@@ -19,6 +19,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
 
   private userSubjectSubs: Subscription;
   isLoading = false;
+
   searchUnitsForm: FormGroup;
   inputString: string = '';
   
@@ -35,22 +36,22 @@ constructor(
 
   ngOnInit() {
     this.listenForEvents();
-    this.onFetchUnits();
+    this.onFetchUnits(this.inputString);
   }
 
   ngOnDestroy() {
     this.userSubjectSubs.unsubscribe();
   }
 
-  onFetchUnits() {
+  onFetchUnits(inputString: string) {
     isLoading(true);
-    this.dataService.fetchUnits()
+    this.dataService.fetchUnits(inputString)
     .subscribe((responseData: any) => {
       this.users = [...responseData];
-      console.log('this.users', this.users);
-      console.log('this.users[0]', this.users[0]);
-      console.log('this.users[0].email', this.users[0].email);
-      console.log('this.users[0].units[0].state', this.users[0].units[0].state);
+      // console.log('this.users', this.users);
+      // console.log('this.users[0]', this.users[0]);
+      // console.log('this.users[0].email', this.users[0].email);
+      // console.log('this.users[0].units[0]', this.users[0].units[0]);
     }).add(() => {
       isLoading(false);
     });
@@ -59,20 +60,19 @@ constructor(
   listenForEvents() {
     this.userSubjectSubs = this.userService.selectedAssociation$.subscribe(
       () => {
-        this.onFetchUnits();
+        this.onFetchUnits(this.inputString);
       }
     );
   }
 
   onInputChange() { // -- dynamically update inputString STATE, then Search.
-    // this.onFetchUnits(this.inputString)
-    console.log('Input Changed');
+    this.onFetchUnits(this.inputString)
   }
 
   onReset(): void {
     this.searchUnitsForm.reset();
     this.inputString = '';
-    this.onFetchUnits();
+    this.onFetchUnits(this.inputString);
   }
 
 }

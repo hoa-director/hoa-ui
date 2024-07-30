@@ -15,13 +15,20 @@ export class DataService {
     private http: HttpClient,
   ) {}
 
-  fetchUnits() {
-    return this.http.get(BACKEND_URL + "/api/directory", {
-      params: new HttpParams().set(
-        "associationId",
-        sessionStorage.getItem("associationId").toString()
-      ),
-    });
+  fetchUnits(inputString: string) {
+    // return this.http.get(BACKEND_URL + "/api/directory", {
+    //   params: new HttpParams().set(
+    //     "associationId",
+    //     sessionStorage.getItem("associationId").toString()
+    //   ),
+    // });
+    const associationId = sessionStorage.getItem("associationId").toString()
+    const payload = {
+      associationId: associationId,
+      inputString: inputString
+    }
+    console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + "/api/directory", payload)
   }
 
   addUnit(unit: object) { 
