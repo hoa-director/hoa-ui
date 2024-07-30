@@ -15,7 +15,8 @@ import { Unit } from ".././unit.model";
 })
 export class UnitsViewComponent implements OnInit, OnDestroy {
   units: Unit[] = [];
-  
+  users: any[] = [];
+
   private userSubjectSubs: Subscription;
   isLoading = false;
   searchUnitsForm: FormGroup;
@@ -45,9 +46,11 @@ constructor(
     isLoading(true);
     this.dataService.fetchUnits()
     .subscribe((responseData: any) => {
-      this.units = [...responseData];
-      console.log('this.units', this.units);
-      console.log('this.units[0]', this.units[0]);
+      this.users = [...responseData];
+      console.log('this.users', this.users);
+      console.log('this.users[0]', this.users[0]);
+      console.log('this.users[0].email', this.users[0].email);
+      console.log('this.users[0].units[0].state', this.users[0].units[0].state);
     }).add(() => {
       isLoading(false);
     });

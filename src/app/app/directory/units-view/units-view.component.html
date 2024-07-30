@@ -31,13 +31,14 @@
 </form>
 
   <div class="flex-container">
-    <div *ngFor="let unit of units">
+    <div *ngFor="let user of users">
       <mat-card class="unit-card">
         <mat-card-header>
           <!-- <div mat-card-avatar class="header-image"></div> -->
           <!-- <mat-card-title class="unit-card-name" *ngIf="unit.user"> -->
           <mat-card-title class="unit-card-name" >
-            {{ (unit.user.firstName?unit.user.firstName : "a" ) + " " + (unit.user.lastName ? unit.user.lastName : "a") }}
+            <!-- {{ (unit.user.firstName?unit.user.firstName : "a" ) + " " + (unit.user.lastName ? unit.user.lastName : "a") }} -->
+            {{(user.first_name ? user.first_name : '') + " " + (user.last_name ? user.last_name : '')}}
             <!-- {{ (unit.first_name || "")  + " " + (unit.last_name || "") }} -->
           </mat-card-title>
           <!-- <mat-card-subtitle></mat-card-subtitle> -->
@@ -48,15 +49,20 @@
           <div class="contact-info">
             <h4>Address:</h4>
             <div class="address-line-1">
-              {{ unit.addressLineOne }}
+              <!-- {{ unit.user.units[0].address_line_one }} -->
             </div>
-            <div class="address-line-2">
-              {{ unit.city }}, {{ unit.state }} {{ unit.zip }}
+            <div  *ngFor="let unit of user.units" class="address-line-2">
+              {{unit.city ? unit.city : ''}}, 
+              {{unit.state ? unit.state : ''}}
+              {{unit.zip ? unit.zip : ''}}
+              <!-- {{ unit.city }},  -->
+              <!-- {{ unit.state }} 
+              {{ unit.zip }} -->
             </div>
             <br />
             <h4>E-Mail:</h4>
-            <div *ngIf="unit.user" class="email">
-              {{ unit.user.email }}
+            <div *ngIf="user" class="email">
+              {{ user.email }}
             </div>
             <br />
             <h4>Phone:</h4>
