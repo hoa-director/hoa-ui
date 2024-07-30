@@ -37,8 +37,8 @@
           <!-- <div mat-card-avatar class="header-image"></div> -->
           <!-- <mat-card-title class="unit-card-name" *ngIf="unit.user"> -->
           <mat-card-title class="unit-card-name" >
-            <!-- {{ (unit.user.firstName?unit.user.firstName : "a" ) + " " + (unit.user.lastName ? unit.user.lastName : "a") }} -->
-            {{ (unit.user?.firstName || "")  + " " + (unit.user?.lastName || "") }}
+            {{ (unit.user.firstName?unit.user.firstName : "a" ) + " " + (unit.user.lastName ? unit.user.lastName : "a") }}
+            <!-- {{ (unit.first_name || "")  + " " + (unit.last_name || "") }} -->
           </mat-card-title>
           <!-- <mat-card-subtitle></mat-card-subtitle> -->
         </mat-card-header>

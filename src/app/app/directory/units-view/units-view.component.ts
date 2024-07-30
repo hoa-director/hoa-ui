@@ -43,9 +43,11 @@ constructor(
 
   onFetchUnits() {
     isLoading(true);
-    this.dataService.fetchUnits().subscribe((responseData: any) => {
-      this.units = [...responseData.units];
-      console.log('units.units', this.units);
+    this.dataService.fetchUnits()
+    .subscribe((responseData: any) => {
+      this.units = [...responseData];
+      console.log('this.units', this.units);
+      console.log('this.units[0]', this.units[0]);
     }).add(() => {
       isLoading(false);
     });
