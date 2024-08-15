@@ -82,7 +82,7 @@ constructor(
         }
       )
         // [...responseData]; // -- need to [...loop] to make the data structure iterable in the table component. 
-        // console.log('responseData:', responseData); // -- Check RESPONSE  
+        console.log('responseData:', responseData); // -- Check RESPONSE  
         // console.log('this.userRows:', this.userRows); // -- Check STATE 
     }, (error) => {
       console.log('fetchUsers() ERROR', error); // -- Console Log WORKS

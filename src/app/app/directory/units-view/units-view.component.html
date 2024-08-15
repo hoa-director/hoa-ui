@@ -30,15 +30,15 @@
 </form>
 
   <div class="flex-container">
-    <div *ngFor="let user of users">
+    <div *ngFor="let unit of units">
       <mat-card class="unit-card">
         <mat-card-header>
           <!-- <div mat-card-avatar class="header-image"></div> -->
             <div class="header-content">
               <mat-card-title class="unit-card-name" >
-                <!-- {{ (unit.user.firstName?unit.user.firstName : "a" ) + " " + (unit.user.lastName ? unit.user.lastName : "a") }} -->
-                {{(user.first_name ? user.first_name : '') + " " + (user.last_name ? user.last_name : '')}}
-                <!-- {{ (unit.first_name || "")  + " " + (unit.last_name || "") }} -->
+                <!-- {{(unit.firstName ? unit.firstName : 'no first name')}}
+                {{(unit.lastName ? unit.lastName : 'no last name')}} -->
+                {{ (unit.user ? (unit.user.firstName ? unit.user.firstName : '')  + " " + (unit.user.lastName ? unit.user.lastName : '' ) : "No User (Vacant)." ) }}
               </mat-card-title>
               <mat-card-actions>
                 <button 
@@ -55,10 +55,10 @@
         <mat-card-content class="card-content">
           <div class="contact-info">
             <h4>Address:</h4>
-            <div *ngFor="let unit of user.units" class="address-line-1">
-              {{ unit.address_line_one ? unit.address_line_one: '' }},
+            <div class="address-line-1">
+              {{ unit.addressLineOne ? unit.addressLineOne: '' }},
               <br>
-              {{ unit.address_line_two ? unit.address_line_two: '' }}
+              {{ unit.addressLineTwo ? unit.addressLineTwo: '' }}
               <br>
               {{unit.city ? unit.city : ''}}, 
               {{unit.state ? unit.state : ''}},
@@ -66,15 +66,16 @@
             </div>
             <br />
             <h4>E-Mail:</h4>
-            <div *ngIf="user" class="email">
-              {{ user.email }}
+            <div *ngIf="unit" class="email">
+              <!-- {{ user.email }} -->
+              {{ (unit.user?unit.user.email : "No Email." ) }}
             </div>
             <br />
             <h4>Phone:</h4>
-            <div *ngIf="user.number" class="phone">
-              {{ user.number | phone : "US" }}
+            <div *ngIf="unit" class="phone">
+              <!-- {{ unit.number | phone : "US" }} -->
+                <!-- {{ unit.number ? unit.number : 'No Phone Number'}} -->
             </div>
-            123-123-1234
           </div>
         </mat-card-content>
       </mat-card>

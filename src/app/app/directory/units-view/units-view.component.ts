@@ -33,46 +33,51 @@ constructor(
     inputText: ['']
   })
 }
+ngOnInit() {
+  console.log('OnINIT');
+  this.listenForEvents();
+  // this.onFetchUnits(this.inputString); //  I don't think this is needed cause its in listenForEvents
+}
 
-  ngOnInit() {
-    this.listenForEvents();
-    this.onFetchUnits(this.inputString);
-  }
+ngOnDestroy() {
+  this.userSubjectSubs.unsubscribe();
+}
 
-  ngOnDestroy() {
-    this.userSubjectSubs.unsubscribe();
-  }
-
+// ----------------------- Doe something with this code to fix:  [(ngModel)]="inputString" ------------------ 
   onFetchUnits(inputString: string) {
+    console.log('IN_FETCH_UNITS');
     isLoading(true);
-    this.dataService.fetchUnits(inputString)
+    this.dataService.fetchUnits(inputString || '')
     .subscribe((responseData: any) => {
-      this.users = [...responseData];
-      // console.log('this.users', this.users);
-      // console.log('this.users[0]', this.users[0]);
-      // console.log('this.users[0].email', this.users[0].email);
-      // console.log('this.users[0].units[0]', this.users[0].units[0]);
+      console.log('RESPONSE.DATA:', responseData);
+      this.units = [...responseData];
+      // console.log('this.units:', this.units);
     }).add(() => {
       isLoading(false);
     });
   }
 
   listenForEvents() {
-    this.userSubjectSubs = this.userService.selectedAssociation$.subscribe(
+    console.log('LISTEN_FRO_EVENTS');
+    this.userSubjectSubs = this.userService.selectedAssociation$.subscribe( // if association changes. Load when ever Directory is selected
       () => {
-        this.onFetchUnits(this.inputString);
+        console.log('EVENT_TRIGGERED');
+        // this.onFetchUnits(this.inputString); 
       }
     );
   }
 
   onInputChange() { // -- dynamically update inputString STATE, then Search.
+    console.log('INPUT_CHANGED');
     this.onFetchUnits(this.inputString)
   }
 
   onReset(): void {
+    console.log('OnREST');
     this.searchUnitsForm.reset();
     this.inputString = '';
-    this.onFetchUnits(this.inputString);
+    // this.onFetchUnits(this.inputString);
+    console.log('this.inputString', this.inputString);
   }
 
 }
