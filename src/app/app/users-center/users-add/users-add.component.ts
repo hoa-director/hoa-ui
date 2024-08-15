@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserService } from 'app/services/user.service';
-import { UsersService } from "../../../services/users.service";  // -- SERVICE
+import { UsersCenterService } from "../../../services/users-center.service";  // -- SERVICE
 import { User } from "../../../../app/interfaces/user";
 import { SuccessModalComponent } from 'app/app/success-modal/success-modal.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -26,7 +26,7 @@ export class UsersAddComponent implements OnInit {
   constructor(
     // --  SERVICES
     private userService: UserService,
-    private usersService: UsersService,
+    private UsersCenterService: UsersCenterService,
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {}
@@ -82,7 +82,7 @@ addUser(): void { // -- WORKS
     this.addUserForm.get('organization').disable(); 
     // console.log('USER Sent:', user); // -- Check form BEFORE sending.
 
-    this.usersService
+    this.UsersCenterService
     .createUser(user)
     .subscribe(
       (responseData: any) => {

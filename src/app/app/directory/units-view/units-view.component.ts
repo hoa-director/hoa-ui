@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { DataService } from "../../../services/data.service";
 import { UserService } from "../../../services/user.service";
+import { DataService } from "../../../services/data.service";
+import { UsersCenterService } from "../../../services/users-center.service";
 import { Subscription } from "rxjs";
 // css
 import { isLoading } from "../../../shared/isLoading";
@@ -21,29 +22,32 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   isLoading = false;
 
   searchUnitsForm: FormGroup;
-  inputString: string = '';
+  inputStringUnit: string = '';
+  inputStringUser: string = '';
   
 constructor(
   private dataService: DataService,
   private userService: UserService,
+  private userCenterService: UsersCenterService,
   private fb: FormBuilder,
   
 ) {
   this.searchUnitsForm = this.fb.group({
-    inputText: ['']
+    inputTextUnit: [''],
+    inputTextUser: ['']
   })
 }
 ngOnInit() {
   console.log('OnINIT');
   this.listenForEvents();
-  // this.onFetchUnits(this.inputString); //  I don't think this is needed cause its in listenForEvents
+  // this.onFetchUnits(this.inputStringUnit); //  I don't think this is needed cause its in listenForEvents
 }
 
 ngOnDestroy() {
   this.userSubjectSubs.unsubscribe();
 }
 
-// ----------------------- Doe something with this code to fix:  [(ngModel)]="inputString" ------------------ 
+// ----------------------- Doe something with this code to fix:  [(ngModel)]="inputStringUnit" ------------------ 
   onFetchUnits(inputString: string) {
     console.log('IN_FETCH_UNITS');
     isLoading(true);
@@ -67,17 +71,22 @@ ngOnDestroy() {
     );
   }
 
-  onInputChange() { // -- dynamically update inputString STATE, then Search.
-    console.log('INPUT_CHANGED');
-    this.onFetchUnits(this.inputString)
+  onInputChangeUnit() { // -- dynamically update inputString STATE, then Search.
+    console.log('INPUT_CHANGED_UNIT');
+    this.onFetchUnits(this.inputStringUnit)
+  }
+  onInputChangeUser() { // -- dynamically update inputString STATE, then Search.
+    console.log('INPUT_CHANGED_USER');
+    this.onFetchUnits(this.inputStringUnit)
   }
 
   onReset(): void {
     console.log('OnREST');
-    this.searchUnitsForm.reset();
-    this.inputString = '';
-    // this.onFetchUnits(this.inputString);
-    console.log('this.inputString', this.inputString);
+    // this.searchUnitsForm.reset();  // did commenting this out fix the double firing issue???
+  
+    this.inputStringUnit = '';
+    // this.onFetchUnits(this.inputStringUnit);
+    console.log('this.inputStringUnit', this.inputStringUnit);
   }
 
 }

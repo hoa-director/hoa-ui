@@ -8,7 +8,7 @@ const BACKEND_URL = environment.apiUrl;
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class UsersCenterService {
 
   constructor(
     private http: HttpClient,

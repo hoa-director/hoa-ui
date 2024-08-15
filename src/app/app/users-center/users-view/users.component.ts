@@ -4,7 +4,7 @@ import { MatLegacyTable as MatTable } from "@angular/material/legacy-table";
 import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 
 import { UserService } from "../../../services/user.service";  // -- SERVICE
-import { UsersService } from "../../../services/users.service";  // -- SERVICE
+import { UsersCenterService } from "../../../services/users-center.service";  // -- SERVICE
 
 import { UserRow } from "../userrow";  // -- MODEL
 
@@ -53,7 +53,7 @@ inputString: string = '';
 
 constructor(
   private userService: UserService,  // -- for checking USER authentication, I THINK..
-  public usersService: UsersService, // -- USERS SERVICE
+  public UsersCenterService: UsersCenterService, // -- USERS SERVICE
   private fb: FormBuilder,
 
   ) {
@@ -72,7 +72,7 @@ constructor(
 
   fetchUsers(inputString) {
     isLoading(true);
-    this.usersService.fetchUsers(inputString || '')
+    this.UsersCenterService.fetchUsers(inputString || '')
     .subscribe((responseData: any) => {
         this.userRows = responseData.map(user => {
           if (user.units.length === 0) { // <-- if units exits, but is empty array[], add default string
@@ -123,7 +123,7 @@ constructor(
   //     lastName: 'Earnhardt',
   //   }
 
-  //   this.usersService.createUser(userObj).subscribe((responseData: any) => {
+  //   this.UsersCenterService.createUser(userObj).subscribe((responseData: any) => {
   //     console.log('addUser SUBSCRIBE');
   //     console.log('responseData:', responseData); // -- Console Log WORKS
   //     if(responseData){

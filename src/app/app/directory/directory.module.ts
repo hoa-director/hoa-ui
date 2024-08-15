@@ -22,7 +22,7 @@ import { DirectoryComponent } from './directory.component';
 import { UnitsViewComponent } from './units-view/units-view.component';
 import { UnitsAddComponent } from './units-add/units-add.component';
 // -- services 
-import { UsersService } from 'app/services/users.service';
+import { UsersCenterService } from 'app/services/users-center.service';
 import { MatCardModule } from '@angular/material/card';
 import { ModalModule } from 'angular-custom-modal';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -86,6 +86,6 @@ export const DirectoryRoutes: Routes = [
     MatRadioModule,
     MatSelectModule,
   ],
-  providers: [UsersService]
+  providers: [UsersCenterService]
 })
 export class DirectoryModule { }

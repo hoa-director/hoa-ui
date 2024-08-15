@@ -9,12 +9,37 @@
         id="inputString"
         matInput
         class="form-control"
-        formControlName="inputText"
+        formControlName="inputTextUnit"
         type="text"
-        placeholder="Search by unit or owner info"
+        placeholder="Search by unit info"
 
-        [(ngModel)]="inputString"
-        (ngModelChange)="onInputChange()"
+        [(ngModel)]="inputStringUnit"
+        (ngModelChange)="onInputChangeUnit()"
+        />
+    </mat-form-field>    
+
+    <button
+        class="add-user-button"    
+        mat-raised-button
+        color="secondary"
+
+        (click)="onReset()"
+    >
+        Clear
+    </button>
+
+
+    <mat-form-field>
+        <input 
+        id="inputStringUser"
+        matInput
+        class="form-control"
+        formControlName="inputTextUser"
+        type="text"
+        placeholder="Search by owner info"
+
+        [(ngModel)]="inputStringUser"
+        (ngModelChange)="onInputChangeUser()"
         />
     </mat-form-field>    
 

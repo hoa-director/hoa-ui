@@ -22,7 +22,7 @@ import { UsersCenterComponent } from './users-center.component';
 import { UsersComponent } from './users-view/users.component';
 import { UsersAddComponent } from './users-add/users-add.component';
 // -- services 
-import { UsersService } from 'app/services/users.service';
+import { UsersCenterService } from 'app/services/users-center.service';
 
 
 
@@ -69,6 +69,6 @@ export const UsersCenterRoutes: Routes = [
     UsersComponent,
     UsersAddComponent,
   ],
-  providers: [UsersService],
+  providers: [UsersCenterService],
 })
 export class UsersCenterModule { }
