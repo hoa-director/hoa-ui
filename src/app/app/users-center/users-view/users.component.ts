@@ -104,9 +104,9 @@ constructor(
   }
   
   onReset(): void { // -- Clear Search Field Button
-    this.searchUsersForm.reset();
+    // this.searchUsersForm.reset(); // did commenting this out fix the double firing issue???
     this.inputString = ''
-    this.fetchUsers('')
+    // this.fetchUsers('') // did commenting this out fix the double firing issue???
   }
 
 
@@ -123,7 +123,7 @@ constructor(
   //     lastName: 'Earnhardt',
   //   }
 
-  //   this.UsersCenterService.createUser(userObj).subscribe((responseData: any) => {
+  //   this.usersService.createUser(userObj).subscribe((responseData: any) => {
   //     console.log('addUser SUBSCRIBE');
   //     console.log('responseData:', responseData); // -- Console Log WORKS
   //     if(responseData){
