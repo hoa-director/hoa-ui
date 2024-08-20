@@ -76,7 +76,7 @@ constructor(
     .subscribe((responseData: any) => {
         this.userRows = responseData.map(user => {
           if (user.units.length === 0) { // <-- if units exits, but is empty array[], add default string
-            user.units = [{unit: "No Assigned Unit"}] 
+            user.units = [{addressLineOne: "No Assigned Unit"}] 
           }
           return user;
         }

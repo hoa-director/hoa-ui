@@ -39,6 +39,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import {
   MatLegacyRadioModule as MatRadioModule,
   MAT_LEGACY_RADIO_DEFAULT_OPTIONS as MAT_RADIO_DEFAULT_OPTIONS,
@@ -68,6 +69,7 @@ import { UsersCenterModule } from "./app/users-center/users-center.module";
 import { SuccessModalComponent } from './app/success-modal/success-modal.component';
 import { DirectoryModule } from "./app/directory/directory.module";
 import { FailureModalComponent } from './app/failure-modal/failure-modal.component';
+
 // import { UsersComponent } from './app/users-center/users-view/users.component';
 // import { UsersCenterComponent } from './app/users-center/users-center.component';
 
@@ -130,10 +132,14 @@ import { FailureModalComponent } from './app/failure-modal/failure-modal.compone
         MatSelectModule,
         MatFormFieldModule,
         MatMenuModule,
+        MatSlideToggleModule,
         MatRadioModule,
         DirectoryModule,
         ResolutionCenterModule,
         UsersCenterModule,
+    ],
+    exports: [
+        MatSlideToggleModule
     ],
     providers: [
         // provides the interceptor

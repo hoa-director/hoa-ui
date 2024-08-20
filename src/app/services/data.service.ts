@@ -15,13 +15,8 @@ export class DataService {
     private http: HttpClient,
   ) {}
 
+  // -- UNITS API ENDPOINT
   fetchUnits(inputString: string) {
-    // return this.http.get(BACKEND_URL + "/api/directory", {
-    //   params: new HttpParams().set(
-    //     "associationId",
-    //     sessionStorage.getItem("associationId").toString()
-    //   ),
-    // });
     const associationId = sessionStorage.getItem("associationId").toString()
     const payload = {
       associationId: associationId,
@@ -30,6 +25,23 @@ export class DataService {
     console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + "/api/directory", payload)
   }
+
+  // -- USERS API ENDPOINT
+  fetchUnitsByUserAPI(inputString: string) { 
+    const endPoint = "/api/directoryByUser"
+      // .set('associationId',sessionStorage.getItem("associationId").toString()) // -- get from session
+      // .set('associationId', associationId.toString())  // -- get from previous function
+      const associationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+            associationId: [associationId], // -- associationIds MUST be un an array to work.
+            inputString: inputString
+          }
+          console.log('PAYLOAD_USER:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload );
+  }
+
+
+
 
   addUnit(unit: object) { 
     const payload = unit

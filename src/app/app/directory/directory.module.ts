@@ -31,6 +31,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 
 export const DirectoryRoutes: Routes = [
@@ -85,6 +87,7 @@ export const DirectoryRoutes: Routes = [
     MatTabsModule,
     MatRadioModule,
     MatSelectModule,
+    MatSlideToggleModule,
   ],
   providers: [UsersCenterService]
 })
