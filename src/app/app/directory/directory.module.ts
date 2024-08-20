@@ -32,6 +32,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { UnitsEditComponent } from './units-edit/units-edit/units-edit.component';
 
 
 
@@ -49,7 +50,7 @@ export const DirectoryRoutes: Routes = [
       },
       { path: "units-view", component: UnitsViewComponent },
       { path: "units-add", component: UnitsAddComponent },
-      // -- Directory - Units-Edit
+      { path: "units-edit", component: UnitsEditComponent },
     ],
   },
 ]
@@ -57,8 +58,8 @@ export const DirectoryRoutes: Routes = [
   declarations: [
     DirectoryComponent, // -- actually "directory-home"
     UnitsViewComponent, 
-    UnitsAddComponent,
-    // -- ADD "Directory Unit-Edit"
+    UnitsAddComponent, 
+    UnitsEditComponent, // Delete Unit is in Edit Page
   ],
   imports: [
     RouterModule.forChild(DirectoryRoutes),

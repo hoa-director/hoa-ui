@@ -1,0 +1,60 @@
+<div class="main-units-edit-div">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit Unit</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+                margin: auto;
+                background-color: #f4f4f4;
+            }
+            form {
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+            }
+            input[type="text"] {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 16px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            button {
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Edit Unit</h2>
+        <form>
+            <label for="unitNumber">Unit Number</label>
+            <input type="text" id="unitNumber" name="unitNumber" placeholder="Enter unit number">
+    
+            <label for="floor">Floor</label>
+            <input type="text" id="floor" name="floor" placeholder="Enter floor number">
+    
+            <label for="squareFeet">Square Feet</label>
+            <input type="text" id="squareFeet" name="squareFeet" placeholder="Enter square feet">
+    
+            <button type="submit">Save</button>
+        </form>
+    </body>
+</div>
+

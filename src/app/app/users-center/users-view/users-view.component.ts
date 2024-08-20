@@ -14,10 +14,10 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 
 @Component({
   selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  templateUrl: './users-view.component.html',
+  styleUrls: ['./users-view.component.css']
 })
-export class UsersComponent implements OnInit {
+export class UsersViewComponent implements OnInit {
   @ViewChild("usersTable") usersTable: MatTable<any>;
 
   // -------- USER MODEL --------
