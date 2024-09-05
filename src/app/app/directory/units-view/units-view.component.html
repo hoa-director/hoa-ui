@@ -65,78 +65,58 @@
 
   <div class="flex-container">
     <div *ngFor="let unit of units">
-      <mat-card class="unit-card">
-        <mat-card-header>
-          <!-- <div mat-card-avatar class="header-image"></div> -->
-            <div class="header-content">
-              <mat-card-title class="unit-card-name" >
-                {{ !unit.user && !unit.unit ? 'Vacant': ''}}
-                {{ (unit ? (unit.first_name ? unit.first_name : '')  + " " + (unit.last_name ? unit.last_name : '' ) : '' ) }}
-                {{ (unit.user ? (unit.user.firstName ? unit.user.firstName : '')  + " " + (unit.user.lastName ? unit.user.lastName : '' ) : '' ) }}
-              </mat-card-title>
-              <mat-card-actions>
-                <button 
-                class="edit-button"
-                mat-raised-button
-                color="secondary"
-                >Edit</button>
-              </mat-card-actions>
-            </div>
-          <!-- <mat-card-subtitle>Owner</mat-card-subtitle> -->
-        </mat-card-header>
-        <hr />
-        <!-- <img mat-card-image src="https://www.bankrate.com/2015/06/19095912/low-apprasials-and-condo-associations-can-trip-up-mortgages.jpg" alt=""> -->
-        <mat-card-content class="card-content">
-          <div class="contact-info">
-            <h4>Address:</h4>
-            <div class="address-line-1">
-              <!-- searching by USERS -->
-              {{ unit.units ? (unit.units[0].addressLineOne ? unit.units[0].addressLineOne : '') : (unit.addressLineOne ? unit.addressLineOne : '') }} 
-              
-              <!-- {{ unit.units}} -->
-              <!-- {{ unit.units.length > 0 ? unit.units[0].addressLineOne : ''}} -->
-              <!-- searching by UNITS -->
-              <!-- {{ unit.addressLineOne ? unit.addressLineOne: '' }}  -->
-              ,
-              
-              <br>
-              {{ unit.units ? (unit.units[0].addressLineTwo ? unit.units[0].addressLineTwo : '') : (unit.addressLineTwo ? unit.addressLineTwo : '') }} 
-              ,
-              <!-- {{ unit.units.length > 0 ? unit.units[0].addressLineTwo : ''}} -->
-              <!-- {{ unit.addressLineTwo ? unit.addressLineTwo: '' }} -->
-              
-              <br>
-              {{ unit.units ? (unit.units[0].city ? unit.units[0].city : '') : (unit.city ? unit.city : '') }} 
-              <!-- {{unit.units.length > 0 ? unit.units[0].city : ''}} -->
-              <!-- {{unit.city ? unit.city : ''}} -->
-              , 
+      <!-- <ng-container *ngIf="unit"> -->
+        <mat-card class="unit-card">
+          <mat-card-header>
+            <!-- <div mat-card-avatar class="header-image"></div> -->
+              <div class="header-content">
+                <mat-card-title class="unit-card-name" >
+                    {{ unit.user.firstName.length < 1 && unit.user.lastName.length < 1 ? 'Vacant'  :  (unit.user.firstName + ' ' + unit.user.lastName) }}
+                </mat-card-title>
+                <mat-card-actions>
+                  <button 
+                  class="edit-button"
+                  mat-raised-button
+                  color="secondary"
+                  (click)="editUnit(unit.unit.unitId)"
+                  >Edit</button>
+                </mat-card-actions>
+              </div>
+            <!-- <mat-card-subtitle>Owner</mat-card-subtitle> -->
+          </mat-card-header>
+          <hr />
+          <!-- <img mat-card-image src="https://www.bankrate.com/2015/06/19095912/low-apprasials-and-condo-associations-can-trip-up-mortgages.jpg" alt=""> -->
+          <mat-card-content class="card-content">
+            <div class="contact-info">
+              <h4>Address:</h4>
+              <div class="address-line-1">
+                  {{ unit.unit.addressLineOne ? unit.unit.addressLineOne + ', ' : '' }} 
+                <br>
+                {{ unit.unit.addressLineTwo ? unit.unit.addressLineTwo: '' }}
+                <br>
+                {{unit.unit.city ? unit.unit.city : ''}}
+                , 
+                {{unit.unit.state ? unit.unit.state : ''}}
+                ,
+                {{unit.unit.zip ? unit.unit.zip : ''}} 
+              </div>
 
-              {{ unit.units ? (unit.units.length > 0 ? unit.units[0].state : '') : (unit.state ? unit.state : '') }} 
-              <!-- {{unit.units.length > 0 ? unit.units[0].state : ''}}  -->
-              <!-- {{unit.state ? unit.state : ''}} -->
-              ,
-              
-              {{unit.units ? (unit.units.length > 0 ? unit.units[0].zip : '') : (unit.zip ? unit.zip : '') }} 
-              <!-- {{unit.units.length > 0 ? unit.units[0].zip : ''}}  -->
-              <!-- {{unit.zip ? unit.zip : ''}}  -->
-            </div>
+              <br>
+              <h4>E-Mail:</h4>
+              <div class="email">
+                {{ unit.user.email ? unit.user.email : ''}}
 
-            <br>
-            <h4>E-Mail:</h4>
-            <div *ngIf="unit" class="email">
-              <!-- {{ user.email }} -->
-              <!-- {{ (unit.email?unit.email : "" ) }}
-              {{ (unit.user?unit.user.email : "" ) }} -->
+              </div>
+              <br />
+              <h4>Phone:</h4>
+              <div class="phone">
+                <!-- {{ unit.unit.number | phone : "US" }} -->
+                {{ unit.unit.number ? unit.unit.number : 'No Phone Number'}}
+              </div>
             </div>
-            <br />
-            <h4>Phone:</h4>
-            <div *ngIf="unit" class="phone">
-              <!-- {{ unit.number | phone : "US" }} -->
-                <!-- {{ unit.number ? unit.number : 'No Phone Number'}} -->
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
+          </mat-card-content>
+        </mat-card>
+      <!-- </ng-container> -->
     </div>
   </div>
 </div>

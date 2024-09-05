@@ -3,6 +3,9 @@ import { UserService } from "../../../services/user.service";
 import { DataService } from "../../../services/data.service";
 import { UsersCenterService } from "../../../services/users-center.service";
 import { Subscription } from "rxjs";
+import { ChangeDetectorRef } from '@angular/core';
+import { Router } from "@angular/router";
+
 // css
 import { isLoading } from "../../../shared/isLoading";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -29,11 +32,13 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   searchByUserInfo: boolean = false; 
   
 constructor(
+  private router: Router,
   private dataService: DataService,
   private userService: UserService,
   private userCenterService: UsersCenterService,
   private fb: FormBuilder,
-  
+  private cdr: ChangeDetectorRef
+
 ) {
   this.searchUnitsForm = this.fb.group({
     inputTextUnit: [''],  // UNITS
@@ -57,9 +62,10 @@ onFetchUnits(inputString: string) {
   isLoading(true);
   this.dataService.fetchUnits(inputString || '')
   .subscribe((responseData: any) => {
-    console.log('RESPONSE.DATA:', responseData);
+    // console.log('RESPONSE.DATA:', responseData);
     this.units = [...responseData];
-    // console.log('this.units:', this.units);
+    console.log('this.units:', this.units);
+    this.cdr.detectChanges();
   }).add(() => {
     isLoading(false);
   });
@@ -125,6 +131,15 @@ fetchUnitsByUser(inputString: string) {
     this.inputStringUser = '';
     // this.onFetchUnits(this.inputStringUnit);
     console.log('this.inputStringUnit', this.inputStringUnit);
+  }
+
+  editUnit(unitId: number) {
+    if(unitId){
+      this.router.navigate(['/home/directory/units-edit', unitId]); // Navigate to the edit page with unitId
+    } else {
+      console.log('EDIT-NO-UNITID', unitId);
+      this.router.navigate(['/home/directory/units-edit']); // Navigate to the edit page with unitId
+    }
   }
 
 }

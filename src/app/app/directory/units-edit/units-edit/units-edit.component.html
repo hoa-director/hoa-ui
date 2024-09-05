@@ -1,60 +1,163 @@
 <div class="main-units-edit-div">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Edit Unit</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                padding: 20px;
-                margin: auto;
-                background-color: #f4f4f4;
-            }
-            form {
-                background: white;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
-            label {
-                display: block;
-                margin-bottom: 8px;
-                font-weight: bold;
-            }
-            input[type="text"] {
-                width: 100%;
-                padding: 8px;
-                margin-bottom: 16px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
-            button {
-                padding: 10px 20px;
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-            button:hover {
-                background-color: #45a049;
-            }
-        </style>
-    </head>
-    <body>
-        <h2>Edit Unit</h2>
-        <form>
-            <label for="unitNumber">Unit Number</label>
-            <input type="text" id="unitNumber" name="unitNumber" placeholder="Enter unit number">
+    <div class="main-units-add-div">
+        <p>You can edit a unit's information. Select a unit to start</p>
     
-            <label for="floor">Floor</label>
-            <input type="text" id="floor" name="floor" placeholder="Enter floor number">
+        <!-- FORM -->
+        <div class="form-container">
+            <form [formGroup]="editUnitForm" (ngSubmit)="addUnit()">
+                <div class="form-grid">
+                    
+                    <div class="form-div">
+                        <label for="inputUnitId">Unit: </label>
+                        <mat-form-field appearance="outline">
+                            <mat-select
+                            id="inputUnitId"
+                            matInputclass="form-control"
+                            formControlName="unitId"
+                            >
+                            <mat-option value="1">Unit 1</mat-option>
+                            <mat-option value="2">Unit 2</mat-option>
+                            <mat-option value="3">Unit 3</mat-option>
+                                <!-- <mat-option *ngFor="let association of associations" [value]="association.id">{{association.associationName}}</mat-option> -->
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <div class="validatorMsg" *ngIf="editUnitForm.get('associationId').errors?.required && editUnitForm.get('associationId').touched">
+                            Organization is required
+                        </div> -->
+                    </div>
+                    <div class="form-div">
+                        <label for="inputAssociationId">Association: </label>
+                        <mat-form-field appearance="outline">
+                            <mat-select
+                            id="inputAssociationId"
+                            matInputclass="form-control"
+                            formControlName="associationId"
+                            >
+                                <mat-option *ngFor="let association of associations" [value]="association.id">
+                                {{association.associationName}}
+                            </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <div class="validatorMsg" *ngIf="editUnitForm.get('associationId').errors?.required && editUnitForm.get('associationId').touched">
+                            Organization is required
+                        </div> -->
+                    </div>
+                    <div class="form-div">
+                        <label for="inputAddressLineOne">Address Line One:</label>
+                        <mat-form-field appearance="outline">
+                            <input 
+                                id="inputAddressLineOne"
+                                matInput
+                                class="form-control"
+                                formControlName="addressLineOne"
+                                type="text"
+                                placeholder="1234 Hennepin Ave S"
+                                />
+                        </mat-form-field>
+                    </div>
+                    <div class="form-div">
+                        <label for="inputAddressLineTewo">Address Line Two:</label>
+                        <mat-form-field appearance="outline">
+                            <input 
+                            id="inputAddressLineTewo"
+                            matInput
+                            class="form-control"
+                            formControlName="addressLineTwo"
+                            type="text"
+                            placeholder="Unit 14"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="form-div">
+                        <label for="inputCity">City:</label>
+                        <mat-form-field appearance="outline">
+                            <input 
+                            id="inputCity"
+                            matInput
+                            class="form-control"
+                            formControlName="city"
+                            type="text"
+                            placeholder="Hastings"
+                            />
+                        </mat-form-field>
+                        <div class="validatorMsg" *ngIf="editUnitForm.get('city').errors?.required && editUnitForm.get('city').touched">
+                            City is required
+                        </div>
+                    </div>
+                    <div class="form-div">
+                        <label for="inputState">State:</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select
+                            id="inputState"
+                            matInput
+                            class="form-control"
+                            formControlName="state"
+                            placeholder="MN"
+                            >
+                                <mat-option value="MN">MN</mat-option>
+                                <mat-option value="WI">WI</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="validatorMsg" *ngIf="editUnitForm.get('state').errors?.required && editUnitForm.get('state').touched">
+                            State is required
+                        </div>
+                    </div>
+                    <div class="form-div">
+                        <label for="inputZip">Zip Code:</label>
+                        <mat-form-field appearance="outline">
+                            <input 
+                            id="inputZip"
+                            matInput
+                            class="form-control"
+                            formControlName="zip"
+                            type="text"
+                            placeholder="55401"
+                            />
+                        </mat-form-field>
+                        <div class="validatorMsg" *ngIf="editUnitForm.get('zip').errors?.required && editUnitForm.get('zip').touched">
+                            Zip Code is required
+                        </div>
+                    </div>
+                    <div class="form-div">
+                        <label for="inputUser">Unit Owner</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select
+                            id="inputUser"
+                            matInputclass="form-control"
+                            formControlName="user"
+                            placeholder="John Doe"
+                            >
+                                <mat-option value="7">Nate (test)</mat-option>
+                                <mat-option value="2">Sally (test)</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                        <div class="buttons-div">
+                            <button
+                            mat-raised-button
+                            id="Submit-editUnitForm-button"
+                            class="button"
+                            color="primary"
+                            type="submit"       
+                            >
+                            Save Changes
+                        </button>
+                        
+                        <button
+                        mat-raised-button
+                        id="clear-editUnitForm-button"
+                        class="button"
+                        color="secondary"
+                        type="button"
+                        (click)="onReset()"
+                        >
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
     
-            <label for="squareFeet">Square Feet</label>
-            <input type="text" id="squareFeet" name="squareFeet" placeholder="Enter square feet">
-    
-            <button type="submit">Save</button>
-        </form>
-    </body>
 </div>
 

@@ -50,6 +50,7 @@ export const DirectoryRoutes: Routes = [
       },
       { path: "units-view", component: UnitsViewComponent },
       { path: "units-add", component: UnitsAddComponent },
+      { path: "units-edit/:unitId", component: UnitsEditComponent },
       { path: "units-edit", component: UnitsEditComponent },
     ],
   },

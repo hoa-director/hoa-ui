@@ -15,6 +15,7 @@ export class DataService {
     private http: HttpClient,
   ) {}
 
+  // ---------------- VIEW UNITS PAGE ---------------- //
   // -- UNITS API ENDPOINT
   fetchUnits(inputString: string) {
     const associationId = sessionStorage.getItem("associationId").toString()
@@ -41,6 +42,18 @@ export class DataService {
   }
 
 
+  // ---------------- EDIT UNIT PAGE ---------------- //
+    // -- GET ONE UNIT
+    fetchOneUnit(unitId: number) { 
+      const endPoint = "/api/getUnit"
+        const associationId = sessionStorage.getItem("associationId").toString()
+        const payload = {
+              associationId: associationId, // -- HARDCODED TESTw, // -- associationIds MUST be un an array to work.
+              unitId: unitId 
+            }
+            console.log('PAYLOAD_USER:', payload);
+      return this.http.post(BACKEND_URL + endPoint, payload );
+    }
 
 
   addUnit(unit: object) { 
@@ -48,6 +61,8 @@ export class DataService {
     return this.http.post(BACKEND_URL + '/api/addUnit', payload ) 
   }
 
+
+   // ---------------- DOCUMENTS PAGE ---------------- //
   fetchDocuments() {
     return this.http.get(BACKEND_URL + "/api/documents", {
       params: new HttpParams().set(
