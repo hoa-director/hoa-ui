@@ -1,63 +1,142 @@
-<div class="main-users-edit-div">
-    <p>You can a edit users' info and active status on this page.</p>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Edit User</title>
-        <br>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                padding: 20px;
-                margin: auto;
-                background-color: #f4f4f4;
-            }
-            form {
-                background: white;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
-            label {
-                display: block;
-                margin-bottom: 8px;
-                font-weight: bold;
-            }
-            input[type="text"] {
-                width: 100%;
-                padding: 8px;
-                margin-bottom: 16px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
-            button {
-                padding: 10px 20px;
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-            button:hover {
-                background-color: #45a049;
-            }
-        </style>
-    </head>
-    <body>
-        <h2>Edit User</h2>
-        <form>
-            <label for="userNumber">User Number</label>
-            <input type="text" id="userNumber" name="userNumber" placeholder="Enter user number">
-    
-            <label for="floor">First Name</label>
-            <input type="text" id="floor" name="floor" placeholder="Enter floor number">
-    
-            <label for="squareFeet">Last Name</label>
-            <input type="text" id="squareFeet" name="squareFeet" placeholder="Enter square feet">
-    
-            <button type="submit">Save</button>
+<div class="main-user-edit-div">
+    <p>Add a new user to your association. User's will log in with their email address, so it must be unique.</p>
+
+    <div class="form-container">
+        <form [formGroup]="editUserForm" (ngSubmit)="updateUser()" >
+            <div class="form-grid">
+
+                <div class="form-div">
+                    <label for="inputUserId">Select User: </label>
+                    <mat-form-field appearance="outline">
+                        <mat-select
+                        id="inputUserId"
+                        matInputclass="form-control"
+                        formControlName="userId"
+                        >
+                        <mat-option value="1">User 1</mat-option>
+                        <mat-option value="4">User 4</mat-option>
+                        <mat-option value="130">User 130</mat-option>
+                            <!-- <mat-option *ngFor="let association of associations" [value]="association.id">{{association.associationName}}</mat-option> -->
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- <div class="validatorMsg" *ngIf="editUnitForm.get('associationId').errors?.required && editUnitForm.get('associationId').touched">
+                        Organization is required
+                    </div> -->
+                </div>
+
+                <div class="form-div">
+                    <label for="inputEmail">User Email:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                        id="inputEmail"
+                        matInput
+                        class="form-control"
+                        formControlName="email"
+                        type="text"
+                        placeholder="example@email.com"
+                        />
+                        
+                        <!-- [(ngModel)]="email" -->
+                        <!-- (ngModelChange)="onInputChange()" -->
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('email').errors?.required && editUserForm.get('email').touched">
+                        Email is required.
+                    </div>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('email').errors?.email && editUserForm.get('email').touched">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+              
+                <div class="form-div">
+                    <label for="inputFirstName">First Name:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                        id="inputFirstName"
+                        matInput
+                        class="form-control"
+                        formControlName="firstName"
+                        type="text"
+                        placeholder="John"
+                        />
+                    </mat-form-field>    
+                    
+                    <!-- [(ngModel)]="firstName" -->
+                </div>
+         
+                <div class="form-div">
+                    <label for="inputLastName">Last Name:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                        id="inputLastName"
+                        matInput
+                        class="form-control"
+                        formControlName="lastName"
+                        type="text"
+                        placeholder="Doe"
+                        />
+                    </mat-form-field>    
+                </div>
+
+
+
+                <div class="form-div">
+                    <label for="selectOrganization">Organization:</label>
+                    <mat-form-field>
+                        <mat-select 
+                        id="selectOrganization"
+                        formControlName="organization">
+                        <mat-option *ngFor="let association of associations" [value]="association.id">
+                            {{association.associationName}}
+                        </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-div">
+                    <label for="selectRole">Role:</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select 
+                        id="selectRole"
+                         formControlName="role">
+                         <mat-option *ngFor="let role of roles" [value]="role.role">
+                            {{role.roleName}}
+                         </mat-option>
+                            <!-- <mat-option value="25">Unit Owner</mat-option>
+                            <mat-option value="50">Admin</mat-option>
+                            <mat-option value="75">President</mat-option>
+                            <mat-option value="99">Master User</mat-option> -->
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+
+                <br>
+                <div class="buttons-div">
+                    <button
+                        class="search-users-submit-button"    
+                        mat-raised-button
+                        color="primary"
+                        type="submit"
+                        >
+                        Add User
+                    </button>
+
+                    <button
+                        class="search-users-cancel-button"    
+                        mat-raised-button
+                        color="secondary"
+                        type="button"
+                        (click)="onReset()"
+                        >
+                        Clear
+                    </button>
+                </div>
+            </div>
         </form>
-    </body>
-</div>
+    </div>
+    
 
+
+</div>

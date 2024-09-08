@@ -43,17 +43,30 @@ export class DataService {
 
 
   // ---------------- EDIT UNIT PAGE ---------------- //
-    // -- GET ONE UNIT
-    fetchOneUnit(unitId: number) { 
-      const endPoint = "/api/getUnit"
-        const associationId = sessionStorage.getItem("associationId").toString()
-        const payload = {
-              associationId: associationId, // -- HARDCODED TESTw, // -- associationIds MUST be un an array to work.
-              unitId: unitId 
-            }
-            console.log('PAYLOAD_USER:', payload);
-      return this.http.post(BACKEND_URL + endPoint, payload );
-    }
+
+  // --User Dropdown -- // --  COME BACK TO THIS
+
+  // fetchAvailableUsers(){
+  //   const endPoint = "/api/fetchUsers"
+  //   const associationId = sessionStorage.getItem("association").toString()
+  //   const payload = {
+  //     associationId: associationId,
+  //   }
+  //   return this.http.post(BACKEND_URL + endPoint, payload);
+  // }
+
+
+  // -- GET ONE UNIT
+  fetchOneUnit(unitId: number) { 
+    const endPoint = "/api/getUnit"
+      const associationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+            associationId: associationId, 
+            unitId: unitId 
+          }
+          console.log('PAYLOAD_USER:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload );
+  }
 
 
   addUnit(unit: object) { 

@@ -1,23 +1,28 @@
 <div class="main-units-edit-div">
-    <div class="main-units-add-div">
-        <p>You can edit a unit's information. Select a unit to start</p>
+    <div class="main-units-edit-div">
+        <p>You can edit a unit's information. </p>
     
         <!-- FORM -->
         <div class="form-container">
-            <form [formGroup]="editUnitForm" (ngSubmit)="addUnit()">
+            <form [formGroup]="editUnitForm" (ngSubmit)="updateUnit()">
                 <div class="form-grid">
                     
                     <div class="form-div">
-                        <label for="inputUnitId">Unit: </label>
+                        <label for="inputUnitId">Select Unit: </label>
                         <mat-form-field appearance="outline">
                             <mat-select
                             id="inputUnitId"
                             matInputclass="form-control"
                             formControlName="unitId"
                             >
-                            <mat-option value="1">Unit 1</mat-option>
+                            <mat-option *ngFor="let unit of allUnits" [value]="unit.unit.unitId">
+                                {{unit.unit.addressLineOne}}, 
+                                {{unit.unit.addressLineTwo}} 
+                            </mat-option>
+
+                            <!-- <mat-option value="1">Unit 1</mat-option>
                             <mat-option value="2">Unit 2</mat-option>
-                            <mat-option value="3">Unit 3</mat-option>
+                            <mat-option value="3">Unit 3</mat-option> -->
                                 <!-- <mat-option *ngFor="let association of associations" [value]="association.id">{{association.associationName}}</mat-option> -->
                             </mat-select>
                         </mat-form-field>
@@ -25,8 +30,9 @@
                             Organization is required
                         </div> -->
                     </div>
+
                     <div class="form-div">
-                        <label for="inputAssociationId">Association: </label>
+                        <label for="inputAssociationId">Organization: </label>
                         <mat-form-field appearance="outline">
                             <mat-select
                             id="inputAssociationId"
@@ -133,8 +139,8 @@
                         </mat-form-field>
                     </div>
                 </div>
-                        <div class="buttons-div">
-                            <button
+                    <div class="buttons-div">
+                        <button
                             mat-raised-button
                             id="Submit-editUnitForm-button"
                             class="button"
@@ -143,18 +149,17 @@
                             >
                             Save Changes
                         </button>
-                        
                         <button
-                        mat-raised-button
-                        id="clear-editUnitForm-button"
-                        class="button"
-                        color="secondary"
-                        type="button"
-                        (click)="onReset()"
-                        >
-                        Cancel
-                    </button>
-                </div>
+                            mat-raised-button
+                            id="clear-editUnitForm-button"
+                            class="button"
+                            color="secondary"
+                            type="button"
+                            (click)="onReset()"
+                            >
+                            Cancel
+                        </button>
+                    </div>
             </form>
         </div>
     </div>

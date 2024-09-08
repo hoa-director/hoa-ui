@@ -15,7 +15,7 @@ export class UsersCenterService {
   ) { }
 
 
-
+  // ---------------- VIEW USERS PAGE ---------------- //
 
   fetchUsers(inputString: string) { 
     const endPoint = "/api/fetchUsers"
@@ -26,15 +26,28 @@ export class UsersCenterService {
             associationId: [associationId], // -- associationIds MUST be un an array to work.
             inputString: inputString
           }
-
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
+
 
   createUser(userObj: object) {
     // ---- ADD userObj{} HERE TO TEST ---- 
     const payload = userObj
     return this.http.post(BACKEND_URL + "/api/createUser", payload );
   }
+
+ // ---------------- EDIT USER PAGE ---------------- //
+    // -- GET ONE USER
+    fetchOneUser(userId: number) { 
+      const endPoint = "/api/getUser"
+        const associationId = sessionStorage.getItem("associationId").toString()
+        const payload = {
+              associationId: associationId, 
+              userId: userId
+            }
+      return this.http.post(BACKEND_URL + endPoint, payload );
+    }
+
 
 // -- THIS WORKS
 

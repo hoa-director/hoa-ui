@@ -1,11 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+// -- services
 import { UserService } from 'app/services/user.service';
 import { UsersCenterService } from "../../../services/users-center.service";  // -- SERVICE
+// -- models
+
+// -- interfaces
 import { User } from "../../../../app/interfaces/user";
-import { SuccessModalComponent } from 'app/app/success-modal/success-modal.component';
+// -- css & Components
+import { isLoading } from "../../../shared/isLoading";
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { SuccessModalComponent } from 'app/app/success-modal/success-modal.component';
 import { FailureModalComponent } from 'app/app/failure-modal/failure-modal.component';
 
 

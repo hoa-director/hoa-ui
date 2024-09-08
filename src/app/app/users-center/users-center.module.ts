@@ -40,6 +40,7 @@ export const UsersCenterRoutes: Routes = [
       },
       { path: "users-view", component: UsersViewComponent },
       { path: "users-add", component: UsersAddComponent },
+      { path: "users-edit/:userId", component: UsersEditComponent },
       { path: "users-edit", component: UsersEditComponent },
     ],
   },

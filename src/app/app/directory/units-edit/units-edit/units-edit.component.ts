@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from "../../../../services/user.service";
 import { DataService } from "app/services/data.service";
-import { Subscription } from "rxjs";
-// models
+import { ActivatedRoute } from '@angular/router';
+// -- models
 import { Unit } from "../../unit.model";
 // -- css & Components
 import { isLoading } from "../../../../shared/isLoading";
@@ -10,7 +10,6 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { MatDialog } from "@angular/material/dialog";
 import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
 import { FailureModalComponent } from "app/app/failure-modal/failure-modal.component";
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-units-edit',
@@ -18,10 +17,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./units-edit.component.css']
 })
 export class UnitsEditComponent {
-  private userSubjectSubs: Subscription;
   unitId: number; // pass unit ID in here
   currentUnit: Unit;
   editUnitForm: FormGroup;
+  allUnits: any;
   isLoading = false;
   associations = [
     {
@@ -42,13 +41,29 @@ ngOnInit() {
   // this.listenForEvents();
   this.getParams();
   this.initEditUnitForm();
+  this.getAllUnits();
 
-  this.editUnitForm.get('unitId')?.valueChanges.subscribe(value => { // -- Listen for Unit selection changes
+  this.editUnitForm.get('unitId')?.valueChanges.subscribe(value => { // -- Listen for Unit Dropdown selection changes
+    console.log('this.unitId', this.unitId);
     this.unitId = value;
     this.getUnit(this.unitId) 
   });
 }
 
+// --  GET ALL UNITS FOR DROPDOWN -- //
+getAllUnits(){
+    console.log('IN_FETCH_UNITS');
+    isLoading(true);
+    this.dataService.fetchUnits('')
+    .subscribe((responseData: any) => {
+      // console.log('RESPONSE.DATA:', responseData);
+      this.allUnits = [...responseData];
+      console.log('this.allUnits:', this.allUnits);
+      // this.cdr.detectChanges();
+    }).add(() => {
+      isLoading(false);
+    });
+}
 // -- GET PARAMS (IF THEY EXIST)
 getParams(){
   this.route.paramMap.subscribe(params => {
@@ -62,7 +77,7 @@ getParams(){
 // -- INIT EDIT FORM
 initEditUnitForm() {
   this.editUnitForm = this.fb.group({
-    unitId: [{value: this.unitId, disabled: false}, [Validators.required]], // required. Add get association
+    unitId: [{value: this.unitId, disabled: false}, [Validators.required]], 
     associationId: [{value: this.associations[0].id, disabled: true}, [Validators.required]], // required. Add get association
     addressLineOne: [''],
     addressLineTwo: [''],
@@ -102,11 +117,12 @@ updateEditUnitForm(unit: any) {
 }
 
 
-// -- SUBMIT
-addUnit(){
-  console.log('ADD UNIT!');
+// -- SUBMIT UNIT
+updateUnit(){
+  console.log('UPDATE UNIT!');
   this.getUnit(this.unitId)
 }
+
 // -- CANCEL
 onReset(): void {
   console.log('CANCEL');

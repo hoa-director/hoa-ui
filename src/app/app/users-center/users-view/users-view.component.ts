@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MatLegacyTable as MatTable } from "@angular/material/legacy-table";
 import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
-
 import { UserService } from "../../../services/user.service";  // -- SERVICE
 import { UsersCenterService } from "../../../services/users-center.service";  // -- SERVICE
+import { Router } from "@angular/router";
 
 import { UserRow } from "../userrow";  // -- MODEL
 
@@ -52,6 +52,7 @@ inputString: string = '';
 
 
 constructor(
+  private router: Router,
   private userService: UserService,  // -- for checking USER authentication, I THINK..
   public UsersCenterService: UsersCenterService, // -- USERS SERVICE
   private fb: FormBuilder,
@@ -110,7 +111,14 @@ constructor(
   }
 
 
-  
+  editUser(userId: number) {
+    if(userId){
+      this.router.navigate(['/home/users-center/users-edit', userId]); // Navigate to the edit page with unitId
+    } else {
+      console.log('EDIT-NO-UNITID', userId);
+      this.router.navigate(['/home/users-center/users-edit']); // Navigate to the edit page with unitId
+    }
+  }
   // addUser(): void {
   //   console.log('ADD-USER-BUTTON');
   //   // ---- ADD userObj{} HERE TO TEST ---- 
