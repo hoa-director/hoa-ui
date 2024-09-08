@@ -14,9 +14,13 @@
                         matInputclass="form-control"
                         formControlName="userId"
                         >
-                        <mat-option value="1">User 1</mat-option>
+                        <mat-option *ngFor="let user of allUsers" [value]="user.id">
+                            {{user.firstName}} 
+                            {{user.lastName}} 
+                        </mat-option>
+                        <!-- <mat-option value="1">User 1</mat-option>
                         <mat-option value="4">User 4</mat-option>
-                        <mat-option value="130">User 130</mat-option>
+                        <mat-option value="130">User 130</mat-option> -->
                             <!-- <mat-option *ngFor="let association of associations" [value]="association.id">{{association.associationName}}</mat-option> -->
                         </mat-select>
                     </mat-form-field>

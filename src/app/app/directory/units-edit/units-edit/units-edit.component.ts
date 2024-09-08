@@ -52,7 +52,6 @@ ngOnInit() {
 
 // --  GET ALL UNITS FOR DROPDOWN -- //
 getAllUnits(){
-    console.log('IN_FETCH_UNITS');
     isLoading(true);
     this.dataService.fetchUnits('')
     .subscribe((responseData: any) => {
@@ -64,6 +63,7 @@ getAllUnits(){
       isLoading(false);
     });
 }
+
 // -- GET PARAMS (IF THEY EXIST)
 getParams(){
   this.route.paramMap.subscribe(params => {

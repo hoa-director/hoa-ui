@@ -34,8 +34,8 @@ export class UsersViewComponent implements OnInit {
 
   public displayedColumns: string[] = [ // -- Table Columns
     // 'id', 
-    'first_name', 
-    'last_name', 
+    'firstName', 
+    'lastName', 
     'unit',
     'email', 
     'role', 

@@ -23,6 +23,7 @@ export class UsersEditComponent {
   userId: number; // pass unit ID in here
   currentUser: any;
   editUserForm: FormGroup;
+  allUsers: any;
   isLoading = false;
   associations = [
     {
@@ -52,10 +53,25 @@ ngOnInit() {
 
   this.getParams();
   this.initEditUnitForm();
+  this.getAllUsers();
 
   this.editUserForm.get('userId')?.valueChanges.subscribe(value => { // -- Listen for User Dropdown selection changes
     this.userId = value;
     this.getUser(this.userId) 
+  });
+}
+
+// --  GET ALL UNITS FOR DROPDOWN -- //
+getAllUsers(){
+  isLoading(true);
+  this.UsersCenterService.fetchUsers('')
+  .subscribe((responseData: any) => {
+    // console.log('RESPONSE.DATA:', responseData);
+    this.allUsers = [...responseData];
+    console.log('this.allUsers:', this.allUsers);
+    // this.cdr.detectChanges();
+  }).add(() => {
+    isLoading(false);
   });
 }
 
