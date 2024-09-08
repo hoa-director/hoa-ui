@@ -24,6 +24,7 @@ export class UsersEditComponent {
   currentUser: any;
   editUserForm: FormGroup;
   allUsers: any;
+  allRoles: any;
   isLoading = false;
   associations = [
     {
@@ -31,13 +32,6 @@ export class UsersEditComponent {
       associationName: sessionStorage.getItem("associationName").toString()
     },
   ]; 
-  roles = [
-    {role: 25, roleName: 'Unit Owner',},
-    {role: 50, roleName: 'Admin'},
-    {role: 75, roleName: 'President'},
-    {role: 100,roleName: 'Master User'},
-    {role: 125,roleName: 'TEST Role'},
-  ]
 
 constructor(
   private UsersCenterService: UsersCenterService,
@@ -54,11 +48,28 @@ ngOnInit() {
   this.getParams();
   this.initEditUnitForm();
   this.getAllUsers();
+  this.getOrganizationRoles();
 
   this.editUserForm.get('userId')?.valueChanges.subscribe(value => { // -- Listen for User Dropdown selection changes
     this.userId = value;
     this.getUser(this.userId) 
   });
+}
+
+// --  GET ALL UNITS FOR DROPDOWN -- //
+getOrganizationRoles() {
+  this.UsersCenterService.fetchOrganizationRoles()
+    .subscribe(
+      (responseData: any) => {
+        console.log('RESPONSE.DATA.ROLES:', responseData);
+        this.allRoles = [...responseData];
+        console.log('this.allRoles:', this.allRoles);
+        // this.cdr.detectChanges();
+      },
+      (error) => {
+        console.error('Error fetching roles:', error);
+      }
+    );
 }
 
 // --  GET ALL UNITS FOR DROPDOWN -- //
@@ -68,7 +79,7 @@ getAllUsers(){
   .subscribe((responseData: any) => {
     // console.log('RESPONSE.DATA:', responseData);
     this.allUsers = [...responseData];
-    console.log('this.allUsers:', this.allUsers);
+    // console.log('this.allUsers:', this.allUsers);
     // this.cdr.detectChanges();
   }).add(() => {
     isLoading(false);
@@ -99,11 +110,12 @@ initEditUnitForm() {
 
 // -- GET USER
 getUser(userId: number) {
-  console.log('this.userId', userId);
+  // console.log('this.userId', userId);
+  this.getOrganizationRoles();
   isLoading(true);
   this.UsersCenterService.fetchOneUser(userId)
   .subscribe((responseData: any) => {
-    console.log('RESPONSE.DATA:', responseData);
+    // console.log('RESPONSE.DATA:', responseData);
     this.currentUser = responseData;
     console.log('this.currentUser after API:', this.currentUser);
     if (this.currentUser){

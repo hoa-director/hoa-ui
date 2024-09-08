@@ -103,8 +103,13 @@
                         <mat-select 
                         id="selectRole"
                          formControlName="role">
-                         <mat-option *ngFor="let role of roles" [value]="role.role">
-                            {{role.roleName}}
+                         <mat-option *ngFor="let role of allRoles" [value]="role.id">
+                            <div class="roleTitleDiv">
+                                {{role.title}}
+                            </div>
+                            <div class="roleDescriptionDiv">
+                                ({{role.description}})
+                            </div>
                          </mat-option>
                             <!-- <mat-option value="25">Unit Owner</mat-option>
                             <mat-option value="50">Admin</mat-option>

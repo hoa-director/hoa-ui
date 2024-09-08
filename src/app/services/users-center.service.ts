@@ -17,6 +17,20 @@ export class UsersCenterService {
 
   // ---------------- VIEW USERS PAGE ---------------- //
 
+  // -- GET ORGANIZATION ROLES
+  fetchOrganizationRoles() { 
+    const endPoint = "/api/getRoles"
+
+      const organizationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+        organizationId: organizationId, // -- associationIds MUST be un an array to work.
+      }
+      console.log('PAYLOAD RULES:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload );
+  }
+  
+
+  // --  GET ALL USERS
   fetchUsers(inputString: string) { 
     const endPoint = "/api/fetchUsers"
       // .set('associationId',sessionStorage.getItem("associationId").toString()) // -- get from session
