@@ -11,13 +11,46 @@
 }  
 
 .unit-card {
-  width: 32rem;
+  width: 28rem;
   /* height: 24rem; */
   /* margin-right: 2rem; */
   /* margin-left: 1rem; */
   margin: 1rem;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
 }
+
+mat-card-header {
+  padding-top: 0rem;
+  padding-bottom: 0px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.header-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* Horizontal Space */
+  align-items: center; /* Vertical */
+  /* border: 1px dashed red; */
+}
+mat-card-title {
+  /* border: 1px solid red; */
+}
+mat-card-actions {
+  /* border: 1px solid red; */
+}
+.edit-button {
+  border: 1px solid black;
+  box-shadow: 0px 0px 0px;
+  transition: box-shadow 0.3s ease; /* Add transition effect */
+}
+.edit-button:hover {
+  border: 1px solid blue;
+  box-shadow: 0px 0px 4px rgba(33, 44, 255, 0.669);
+}
+.edit-button:active {
+  box-shadow: 0px 0px 6px rgb(0, 255, 13);
+}
+
 .unit-card-name {
   font-size: 1.8rem;
   font-weight: 500;
@@ -25,9 +58,16 @@
   margin-bottom: .1rem;
 }
 .card-content {
+  /* border: 1px solid green; */
   margin: 1rem;
+  padding-left: 0rem;
+  padding-right: 0rem;
+  padding-bottom: 0px;
 }
-
-
-
-
+.mat-mdc-card-content:last-child {
+  padding-bottom: 0px;
+}
+.contact-info {
+  /* border: 1px solid green; */
+  margin-bottom: 0px;
+}

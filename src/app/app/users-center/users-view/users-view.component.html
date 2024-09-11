@@ -19,7 +19,6 @@
             />
         </mat-form-field>    
 
-
         <button
             class="add-user-button"    
             mat-raised-button
@@ -39,19 +38,19 @@
             <td mat-cell *matCellDef="let user">{{user.id}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="first_name">
+        <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef>First Name</th>
-            <td mat-cell *matCellDef="let user">{{user.first_name}}</td>
+            <td mat-cell *matCellDef="let user">{{user.firstName}}</td>
         </ng-container>
         
-        <ng-container matColumnDef="last_name">
+        <ng-container matColumnDef="lastName">
             <th mat-header-cell *matHeaderCellDef>Last Name</th>
-            <td mat-cell *matCellDef="let user">{{user.last_name}}</td>
+            <td mat-cell *matCellDef="let user">{{user.lastName}}</td>
         </ng-container>
         
         <ng-container matColumnDef="unit">
             <th mat-header-cell *matHeaderCellDef>Unit</th>
-            <td mat-cell *matCellDef="let user">{{user.units[0].unit}}</td>
+            <td mat-cell *matCellDef="let user">{{user.units[0].addressLineOne}}</td>
         </ng-container>
 
         <ng-container matColumnDef="email">
@@ -83,7 +82,7 @@
                 color="accent"
                 class="btn btn-primary float-right"
                 type="submit"
-                (click)="selectUser(user.id)"
+                (click)="editUser(user.id)"
               >
                 Edit
               </button>

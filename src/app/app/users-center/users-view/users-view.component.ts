@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MatLegacyTable as MatTable } from "@angular/material/legacy-table";
 import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
-
 import { UserService } from "../../../services/user.service";  // -- SERVICE
-import { UsersService } from "../../../services/users.service";  // -- SERVICE
+import { UsersCenterService } from "../../../services/users-center.service";  // -- SERVICE
+import { Router } from "@angular/router";
 
 import { UserRow } from "../userrow";  // -- MODEL
 
@@ -14,10 +14,10 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 
 @Component({
   selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  templateUrl: './users-view.component.html',
+  styleUrls: ['./users-view.component.css']
 })
-export class UsersComponent implements OnInit {
+export class UsersViewComponent implements OnInit {
   @ViewChild("usersTable") usersTable: MatTable<any>;
 
   // -------- USER MODEL --------
@@ -34,8 +34,8 @@ export class UsersComponent implements OnInit {
 
   public displayedColumns: string[] = [ // -- Table Columns
     // 'id', 
-    'first_name', 
-    'last_name', 
+    'firstName', 
+    'lastName', 
     'unit',
     'email', 
     'role', 
@@ -52,8 +52,9 @@ inputString: string = '';
 
 
 constructor(
+  private router: Router,
   private userService: UserService,  // -- for checking USER authentication, I THINK..
-  public usersService: UsersService, // -- USERS SERVICE
+  public UsersCenterService: UsersCenterService, // -- USERS SERVICE
   private fb: FormBuilder,
 
   ) {
@@ -72,17 +73,17 @@ constructor(
 
   fetchUsers(inputString) {
     isLoading(true);
-    this.usersService.fetchUsers(inputString || '')
+    this.UsersCenterService.fetchUsers(inputString || '')
     .subscribe((responseData: any) => {
         this.userRows = responseData.map(user => {
           if (user.units.length === 0) { // <-- if units exits, but is empty array[], add default string
-            user.units = [{unit: "No Assigned Unit"}] 
+            user.units = [{addressLineOne: "No Assigned Unit"}] 
           }
           return user;
         }
       )
         // [...responseData]; // -- need to [...loop] to make the data structure iterable in the table component. 
-        // console.log('responseData:', responseData); // -- Check RESPONSE  
+        console.log('responseData:', responseData); // -- Check RESPONSE  
         // console.log('this.userRows:', this.userRows); // -- Check STATE 
     }, (error) => {
       console.log('fetchUsers() ERROR', error); // -- Console Log WORKS
@@ -104,13 +105,20 @@ constructor(
   }
   
   onReset(): void { // -- Clear Search Field Button
-    this.searchUsersForm.reset();
+    // this.searchUsersForm.reset(); // did commenting this out fix the double firing issue???
     this.inputString = ''
-    this.fetchUsers('')
+    // this.fetchUsers('') // did commenting this out fix the double firing issue???
   }
 
 
-  
+  editUser(userId: number) {
+    if(userId){
+      this.router.navigate(['/home/users-center/users-edit', userId]); // Navigate to the edit page with unitId
+    } else {
+      console.log('EDIT-NO-UNITID', userId);
+      this.router.navigate(['/home/users-center/users-edit']); // Navigate to the edit page with unitId
+    }
+  }
   // addUser(): void {
   //   console.log('ADD-USER-BUTTON');
   //   // ---- ADD userObj{} HERE TO TEST ---- 

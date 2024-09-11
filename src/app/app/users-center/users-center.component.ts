@@ -13,11 +13,15 @@ export class UsersCenterComponent implements OnInit {
     this.usersCenterLinks = [
       {
         name: "View Users",
-        path: "users"
+        path: "users-view"
       },
       {
         name: "Add User",
-        path: "add",
+        path: "users-add",
+      },
+      {
+        name: "Edit User",
+        path: "users-edit",
       }
     ];
   }

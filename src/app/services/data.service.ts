@@ -15,20 +15,67 @@ export class DataService {
     private http: HttpClient,
   ) {}
 
-  fetchUnits() {
-    return this.http.get(BACKEND_URL + "/api/directory", {
-      params: new HttpParams().set(
-        "associationId",
-        sessionStorage.getItem("associationId").toString()
-      ),
-    });
+  // ---------------- VIEW UNITS PAGE ---------------- //
+  // -- UNITS API ENDPOINT
+  fetchUnits(inputString: string) {
+    const associationId = sessionStorage.getItem("associationId").toString()
+    const payload = {
+      associationId: associationId,
+      inputString: inputString
+    }
+    console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + "/api/directory", payload)
   }
+
+  // -- USERS API ENDPOINT
+  fetchUnitsByUserAPI(inputString: string) { 
+    const endPoint = "/api/directoryByUser"
+      // .set('associationId',sessionStorage.getItem("associationId").toString()) // -- get from session
+      // .set('associationId', associationId.toString())  // -- get from previous function
+      const associationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+            associationId: [associationId], // -- associationIds MUST be un an array to work.
+            inputString: inputString
+          }
+          console.log('PAYLOAD_USER:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload );
+  }
+
+
+  // ---------------- EDIT UNIT PAGE ---------------- //
+
+  // --User Dropdown -- // --  COME BACK TO THIS
+
+  // fetchAvailableUsers(){
+  //   const endPoint = "/api/fetchUsers"
+  //   const associationId = sessionStorage.getItem("association").toString()
+  //   const payload = {
+  //     associationId: associationId,
+  //   }
+  //   return this.http.post(BACKEND_URL + endPoint, payload);
+  // }
+
+
+  // -- GET ONE UNIT
+  fetchOneUnit(unitId: number) { 
+    const endPoint = "/api/getUnit"
+      const associationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+            associationId: associationId, 
+            unitId: unitId 
+          }
+          console.log('PAYLOAD_USER:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload );
+  }
+
 
   addUnit(unit: object) { 
     const payload = unit
     return this.http.post(BACKEND_URL + '/api/addUnit', payload ) 
   }
 
+
+   // ---------------- DOCUMENTS PAGE ---------------- //
   fetchDocuments() {
     return this.http.get(BACKEND_URL + "/api/documents", {
       params: new HttpParams().set(

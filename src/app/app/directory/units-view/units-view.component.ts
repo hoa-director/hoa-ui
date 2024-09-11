@@ -1,7 +1,11 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { DataService } from "../../../services/data.service";
 import { UserService } from "../../../services/user.service";
+import { DataService } from "../../../services/data.service";
+import { UsersCenterService } from "../../../services/users-center.service";
 import { Subscription } from "rxjs";
+import { ChangeDetectorRef } from '@angular/core';
+import { Router } from "@angular/router";
+
 // css
 import { isLoading } from "../../../shared/isLoading";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -15,59 +19,127 @@ import { Unit } from ".././unit.model";
 })
 export class UnitsViewComponent implements OnInit, OnDestroy {
   units: Unit[] = [];
-  
+  users: any[] = [];
+
   private userSubjectSubs: Subscription;
-  isLoading = false;
+  isLoading = true;
+
   searchUnitsForm: FormGroup;
-  inputString: string = '';
+  inputStringUnit: string = '';
+  inputStringUser: string = '';
+
+  // searchByUserInfo: boolean = false; //  True = Search by UNIT Info. False = search by USER Info
+  searchByUserInfo: boolean = false; 
   
 constructor(
+  private router: Router,
   private dataService: DataService,
   private userService: UserService,
+  // private userCenterService: UsersCenterService,
   private fb: FormBuilder,
-  
+  private cdr: ChangeDetectorRef
+
 ) {
   this.searchUnitsForm = this.fb.group({
-    inputText: ['']
+    inputTextUnit: [''],  // UNITS
+    inputTextUser: ['']   // USERS
   })
 }
+ngOnInit() {
+  console.log('OnINIT');
+  this.listenForEvents();
+  // this.onFetchUnits(this.inputStringUnit); //  I don't think this is needed cause its in listenForEvents
+}
 
-  ngOnInit() {
-    this.listenForEvents();
-    this.onFetchUnits();
-  }
+ngOnDestroy() {
+  this.userSubjectSubs.unsubscribe();
+}
 
-  ngOnDestroy() {
-    this.userSubjectSubs.unsubscribe();
-  }
+// ----------------------- Doe something with this code to fix:  [(ngModel)]="inputStringUnit" ------------------ 
+// -- UNIT SEARCH
+onFetchUnits(inputString: string) {
+  console.log('IN_FETCH_UNITS');
+  isLoading(true);
+  this.dataService.fetchUnits(inputString || '')
+  .subscribe((responseData: any) => {
+    // console.log('RESPONSE.DATA:', responseData);
+    this.units = [...responseData];
+    console.log('this.units:', this.units);
+    this.cdr.detectChanges();
+  }).add(() => {
+    isLoading(false);
+  });
+}
 
-  onFetchUnits() {
+// -- USER SEARCH
+fetchUnitsByUser(inputString: string) {
+    console.log('IN_FETCH_USERS');
+    console.log('INPUT_STRING', inputString);
     isLoading(true);
-    this.dataService.fetchUnits().subscribe((responseData: any) => {
-      this.units = [...responseData.units];
-      console.log('units.units', this.units);
+    this.dataService.fetchUnitsByUserAPI(inputString || '')
+    .subscribe((responseData: any) => {
+      console.log('RESPONSE.DATA:', responseData);
+      this.units = [...responseData];
+      // console.log('this.units:', this.units);
     }).add(() => {
       isLoading(false);
     });
   }
 
   listenForEvents() {
-    this.userSubjectSubs = this.userService.selectedAssociation$.subscribe(
+    console.log('LISTEN_FRO_EVENTS');
+    this.userSubjectSubs = this.userService.selectedAssociation$.subscribe( // if association changes. Load when ever Directory is selected
       () => {
-        this.onFetchUnits();
+        console.log('EVENT_TRIGGERED');
+        // this.onFetchUnits(this.inputString); 
       }
     );
   }
 
-  onInputChange() { // -- dynamically update inputString STATE, then Search.
-    // this.onFetchUnits(this.inputString)
-    console.log('Input Changed');
+  // --  UNIT INPUT
+  onInputChangeUnit() { // -- dynamically update inputString STATE, then Search.
+    console.log('INPUT_CHANGED_UNIT');
+    if (this.inputStringUnit.length > 0){
+      this.searchByUserInfo = false;
+    }
+    if(this.searchByUserInfo === false){
+      this.inputStringUser = ''
+      this.onFetchUnits(this.inputStringUnit)
+    }
+    // console.log('searchByUserInfo =', this.searchByUserInfo);
+    console.log('searchByUserInfo =', this.searchByUserInfo);
+  }
+
+  // --  USER INPUT
+  onInputChangeUser() { // -- dynamically update inputString STATE, then Search.
+    console.log('INPUT_CHANGED_USER');
+    if (this.inputStringUser.length > 0){
+      this.searchByUserInfo = true;
+    }
+    if(this.searchByUserInfo === true){
+      this.inputStringUnit = '';
+    this.fetchUnitsByUser(this.inputStringUser)
+  }
+  console.log('searchByUserInfo =', this.searchByUserInfo);
+  console.log('this.inputStringUser =', this.inputStringUser);
   }
 
   onReset(): void {
-    this.searchUnitsForm.reset();
-    this.inputString = '';
-    this.onFetchUnits();
+    console.log('OnREST');
+    // this.searchUnitsForm.reset();  // did commenting this out fix the double firing issue???
+    this.inputStringUnit = '';
+    this.inputStringUser = '';
+    // this.onFetchUnits(this.inputStringUnit);
+    console.log('this.inputStringUnit', this.inputStringUnit);
+  }
+
+  editUnit(unitId: number) {
+    if(unitId){
+      this.router.navigate(['/home/directory/units-edit', unitId]); // Navigate to the edit page with unitId
+    } else {
+      console.log('EDIT-NO-UNITID', unitId);
+      this.router.navigate(['/home/directory/units-edit']); // Navigate to the edit page with unitId
+    }
   }
 
 }

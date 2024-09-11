@@ -19,10 +19,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 // -- components
 import { UsersCenterComponent } from './users-center.component';
-import { UsersComponent } from './users-view/users.component';
+import { UsersViewComponent } from './users-view/users-view.component';
 import { UsersAddComponent } from './users-add/users-add.component';
 // -- services 
-import { UsersService } from 'app/services/users.service';
+import { UsersCenterService } from 'app/services/users-center.service';
+import { UsersEditComponent } from './users-edit/users-edit/users-edit.component';
 
 
 
@@ -34,11 +35,13 @@ export const UsersCenterRoutes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "home/users-center/users",
+        redirectTo: "home/users-center/users-view",
         pathMatch: "full",
       },
-      { path: "users", component: UsersComponent },
-      { path: "add", component: UsersAddComponent },
+      { path: "users-view", component: UsersViewComponent },
+      { path: "users-add", component: UsersAddComponent },
+      { path: "users-edit/:userId", component: UsersEditComponent },
+      { path: "users-edit", component: UsersEditComponent },
     ],
   },
 ];
@@ -66,9 +69,10 @@ export const UsersCenterRoutes: Routes = [
   ],
   declarations: [
     UsersCenterComponent,
-    UsersComponent,
+    UsersViewComponent,
     UsersAddComponent,
+    UsersEditComponent,
   ],
-  providers: [UsersService],
+  providers: [UsersCenterService],
 })
 export class UsersCenterModule { }

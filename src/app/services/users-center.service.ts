@@ -8,15 +8,29 @@ const BACKEND_URL = environment.apiUrl;
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class UsersCenterService {
 
   constructor(
     private http: HttpClient,
   ) { }
 
 
+  // ---------------- VIEW USERS PAGE ---------------- //
 
+  // -- GET ORGANIZATION ROLES
+  fetchOrganizationRoles() { 
+    const endPoint = "/api/getRoles"
 
+      const organizationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+        organizationId: organizationId, // -- associationIds MUST be un an array to work.
+      }
+      console.log('PAYLOAD RULES:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload );
+  }
+  
+
+  // --  GET ALL USERS
   fetchUsers(inputString: string) { 
     const endPoint = "/api/fetchUsers"
       // .set('associationId',sessionStorage.getItem("associationId").toString()) // -- get from session
@@ -26,15 +40,28 @@ export class UsersService {
             associationId: [associationId], // -- associationIds MUST be un an array to work.
             inputString: inputString
           }
-
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
+
 
   createUser(userObj: object) {
     // ---- ADD userObj{} HERE TO TEST ---- 
     const payload = userObj
     return this.http.post(BACKEND_URL + "/api/createUser", payload );
   }
+
+ // ---------------- EDIT USER PAGE ---------------- //
+    // -- GET ONE USER
+    fetchOneUser(userId: number) { 
+      const endPoint = "/api/getUser"
+        const associationId = sessionStorage.getItem("associationId").toString()
+        const payload = {
+              associationId: associationId, 
+              userId: userId
+            }
+      return this.http.post(BACKEND_URL + endPoint, payload );
+    }
+
 
 // -- THIS WORKS
 

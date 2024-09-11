@@ -1,23 +1,56 @@
 <div class="main-units-view-div">
 
   <!-- <router-outlet></router-outlet> -->
+  <h4>Search by:</h4>
+  <br>
+  <p><mat-slide-toggle 
+    color="primary" 
+    labelPosition="before" 
+    [(ngModel)]="searchByUserInfo"
+    >Unit Info</mat-slide-toggle> User Info</p> 
+  <br>
 
   <form [formGroup]="searchUnitsForm" >
     <!-- <label class="form-label" for="searchUsersForm">Search For a User</label> -->
+
     <mat-form-field>
         <input 
         id="inputString"
         matInput
         class="form-control"
-        formControlName="inputText"
+        formControlName="inputTextUnit"
         type="text"
-        placeholder="Search by name, email, or unit"
+        placeholder="Search by unit info"
 
-        [(ngModel)]="inputString"
-        (ngModelChange)="onInputChange()"
+        [(ngModel)]="inputStringUnit"
+        (ngModelChange)="onInputChangeUnit()"
         />
     </mat-form-field>    
 
+    <button
+        class="add-user-button"    
+        mat-raised-button
+        color="secondary"
+
+        (click)="onReset()"
+    >
+        Clear
+    </button>
+
+
+    <mat-form-field [formGroup]="searchUnitsForm">
+        <input 
+        id="inputStringUser"
+        matInput
+        class="form-control"
+        formControlName="inputTextUser"
+        type="text"
+        placeholder="Search by owner info"
+
+        [(ngModel)]="inputStringUser"
+        (ngModelChange)="onInputChangeUser()"
+        />
+    </mat-form-field>    
 
     <button
         class="add-user-button"    
@@ -32,45 +65,58 @@
 
   <div class="flex-container">
     <div *ngFor="let unit of units">
-      <mat-card class="unit-card">
-        <mat-card-header>
-          <!-- <div mat-card-avatar class="header-image"></div> -->
-          <!-- <mat-card-title class="unit-card-name" *ngIf="unit.user"> -->
-          <mat-card-title class="unit-card-name" >
-            <!-- {{ (unit.user.firstName?unit.user.firstName : "a" ) + " " + (unit.user.lastName ? unit.user.lastName : "a") }} -->
-            {{ (unit.user?.firstName || "")  + " " + (unit.user?.lastName || "") }}
-          </mat-card-title>
-          <!-- <mat-card-subtitle></mat-card-subtitle> -->
-        </mat-card-header>
-        <hr />
-        <!-- <img mat-card-image src="https://" alt=""> -->
-        <mat-card-content class="card-content">
-          <div class="contact-info">
-            <h4>Address:</h4>
-            <div class="address-line-1">
-              {{ unit.addressLineOne }}
+      <!-- <ng-container *ngIf="unit"> -->
+        <mat-card class="unit-card">
+          <mat-card-header>
+            <!-- <div mat-card-avatar class="header-image"></div> -->
+              <div class="header-content">
+                <mat-card-title class="unit-card-name" >
+                    {{ unit.user.firstName.length < 1 && unit.user.lastName.length < 1 ? 'Vacant'  :  (unit.user.firstName + ' ' + unit.user.lastName) }}
+                </mat-card-title>
+                <mat-card-actions>
+                  <button 
+                  class="edit-button"
+                  mat-raised-button
+                  color="secondary"
+                  (click)="editUnit(unit.unit.unitId)"
+                  >Edit</button>
+                </mat-card-actions>
+              </div>
+            <!-- <mat-card-subtitle>Owner</mat-card-subtitle> -->
+          </mat-card-header>
+          <hr />
+          <!-- <img mat-card-image src="https://www.bankrate.com/2015/06/19095912/low-apprasials-and-condo-associations-can-trip-up-mortgages.jpg" alt=""> -->
+          <mat-card-content class="card-content">
+            <div class="contact-info">
+              <h4>Address:</h4>
+              <div class="address-line-1">
+                  {{ unit.unit.addressLineOne ? unit.unit.addressLineOne + ', ' : '' }} 
+                <br>
+                {{ unit.unit.addressLineTwo ? unit.unit.addressLineTwo: '' }}
+                <br>
+                {{unit.unit.city ? unit.unit.city : ''}}
+                , 
+                {{unit.unit.state ? unit.unit.state : ''}}
+                ,
+                {{unit.unit.zip ? unit.unit.zip : ''}} 
+              </div>
+
+              <br>
+              <h4>E-Mail:</h4>
+              <div class="email">
+                {{ unit.user.email ? unit.user.email : ''}}
+
+              </div>
+              <br />
+              <h4>Phone:</h4>
+              <div class="phone">
+                <!-- {{ unit.unit.number | phone : "US" }} -->
+                {{ unit.unit.number ? unit.unit.number : 'No Phone Number'}}
+              </div>
             </div>
-            <div class="address-line-2">
-              {{ unit.city }}, {{ unit.state }} {{ unit.zip }}
-            </div>
-            <br />
-            <h4>E-Mail:</h4>
-            <div *ngIf="unit.user" class="email">
-              {{ unit.user.email }}
-            </div>
-            <br />
-            <h4>Phone:</h4>
-            <!-- <div *ngIf="unit.user" class="phone">
-              {{ unit.user.number | phone : "US" }}
-            </div> -->
-          </div>
-        </mat-card-content>
-        <!-- <mat-card-actions>
-              TODO: if logged in user can edit their information
-              <button mat-button></button>
-              <button mat-button></button>
-            </mat-card-actions> -->
-      </mat-card>
+          </mat-card-content>
+        </mat-card>
+      <!-- </ng-container> -->
     </div>
   </div>
 </div>

@@ -22,7 +22,7 @@ import { DirectoryComponent } from './directory.component';
 import { UnitsViewComponent } from './units-view/units-view.component';
 import { UnitsAddComponent } from './units-add/units-add.component';
 // -- services 
-import { UsersService } from 'app/services/users.service';
+import { UsersCenterService } from 'app/services/users-center.service';
 import { MatCardModule } from '@angular/material/card';
 import { ModalModule } from 'angular-custom-modal';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -31,6 +31,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { UnitsEditComponent } from './units-edit/units-edit/units-edit.component';
+
 
 
 export const DirectoryRoutes: Routes = [
@@ -47,7 +50,8 @@ export const DirectoryRoutes: Routes = [
       },
       { path: "units-view", component: UnitsViewComponent },
       { path: "units-add", component: UnitsAddComponent },
-      // -- Directory - Units-Edit
+      { path: "units-edit/:unitId", component: UnitsEditComponent },
+      { path: "units-edit", component: UnitsEditComponent },
     ],
   },
 ]
@@ -55,8 +59,8 @@ export const DirectoryRoutes: Routes = [
   declarations: [
     DirectoryComponent, // -- actually "directory-home"
     UnitsViewComponent, 
-    UnitsAddComponent,
-    // -- ADD "Directory Unit-Edit"
+    UnitsAddComponent, 
+    UnitsEditComponent, // Delete Unit is in Edit Page
   ],
   imports: [
     RouterModule.forChild(DirectoryRoutes),
@@ -85,7 +89,8 @@ export const DirectoryRoutes: Routes = [
     MatTabsModule,
     MatRadioModule,
     MatSelectModule,
+    MatSlideToggleModule,
   ],
-  providers: [UsersService]
+  providers: [UsersCenterService]
 })
 export class DirectoryModule { }

@@ -11,6 +11,7 @@
     "node": "16.x"
   },
   "scripts": {
+    "watch": "ng serve --watch",
     "build-client-dev": "ng build",
     "build-client-watch": "ng build --watch",
     "build-client-prod": "ng build --configuration=production",
@@ -20,8 +21,7 @@
     "client-staging": "ng serve --configuration=staging",
     "clean": "rm -fR dist/",
     "dev": "npm run build-client-dev && npm run watch",
-    "lint-client": "npx tslint -c tslint.json -p src/tsconfig.app.json",
-    "watch": "ng serve --watch"
+    "lint-client": "npx tslint -c tslint.json -p src/tsconfig.app.json"
   },
   "dependencies": {
     "@angular-material-extensions/password-strength": "^12.1.0",

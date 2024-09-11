@@ -36,10 +36,10 @@ export class DirectoryComponent    {
         name: "Add Unit",
         path: "units-add", // -- Need to create
       },
-      // {
-      //   name: "Edit Unit",
-      //   path: "units-edit", // -- Need to create
-      // },
+      {
+        name: "Edit Unit",
+        path: "units-edit", // -- Need to create
+      },
     ];
 
   }
