@@ -13,6 +13,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { MatDialog } from "@angular/material/dialog";
 import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
 import { FailureModalComponent } from "app/app/failure-modal/failure-modal.component";
+import { error } from 'console';
 
 @Component({
   selector: 'app-users-edit',
@@ -130,7 +131,7 @@ getUser(userId: number) {
 // -- UPDATE EDIT FORM  ----- CHANGE TO USER FIELDS
 updateEditUserForm(user: any) {
   this.editUserForm.patchValue({
-    // userId: user.userId || '',
+    userId: user.userId || '',
     email: user.email || '',
     firstName: user.firstName || '',
     lastName: user.lastName || '',
@@ -140,10 +141,38 @@ updateEditUserForm(user: any) {
 }
 
 
-// -- SUBMIT USER
-updateUser(){
-  console.log('ADD UNIT!');
+// -- SUBMIT USER CHANGES
+saveUserChanges(){
+  console.log('Save User Changes!');
+  console.log('this.currentUser', this.currentUser);
   // this.getUser(this.userId)
+
+  if(this.editUserForm.valid){
+    const formValues = this.editUserForm.value
+    console.log('formValues.userId:', formValues.userId,);
+    const userObj = {
+      userId: formValues.userId,
+      email: formValues.email,
+      firstName: formValues.firstName,
+      lastName: formValues.lastName,
+      number: formValues.number,
+      role: formValues.role,
+    } 
+    this.UsersCenterService
+    .updateUser(userObj)
+    .subscribe(
+      (responseData: any) => {
+        console.log('response subscribe');
+        if (responseData.status === 'success') {
+          console.log('RESPONSE:', responseData);
+          this.openSuccessModal(); // -- need to import to use
+        } else if (responseData.status === 'failure') {
+          console.log('RESPONSE', responseData);
+          this.openFailureModal('User update failed.'); // Handle failure
+        }
+      }
+    );
+  }
 }
 
 // -- CANCEL
@@ -160,10 +189,17 @@ onReset(): void {
   // });
 }
 
+openSuccessModal() {
+  this.dialog.open(SuccessModalComponent, {
+    data: { message: "User was updated successfully." }
+  });
+}
 
-
-
-
+openFailureModal(message) {
+  this.dialog.open(FailureModalComponent, {
+    data: { message: message }
+  })
+}
 
 
 

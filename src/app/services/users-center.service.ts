@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 import { environment } from "../../environments/environment";
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError } from "rxjs/operators";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -20,12 +21,10 @@ export class UsersCenterService {
   // -- GET ORGANIZATION ROLES
   fetchOrganizationRoles() { 
     const endPoint = "/api/getRoles"
-
       const organizationId = sessionStorage.getItem("associationId").toString()
       const payload = {
         organizationId: organizationId, // -- associationIds MUST be un an array to work.
       }
-      console.log('PAYLOAD RULES:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
   
@@ -61,6 +60,25 @@ export class UsersCenterService {
             }
       return this.http.post(BACKEND_URL + endPoint, payload );
     }
+
+    updateUser(userObj: any){
+      console.log('USEROBJ:', userObj);
+      const endPoint = "/api/updateUser"
+      const associationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+            associationId: associationId, 
+            userId: userObj.userId,
+            userUpdates: userObj
+          }
+          console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
+      catchError((error) => {
+        console.error('Update User API failed.', error);
+        return throwError(error);
+      })
+    );
+    }
+
 
 
 // -- THIS WORKS

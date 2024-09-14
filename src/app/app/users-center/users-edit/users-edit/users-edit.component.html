@@ -3,7 +3,7 @@
     <p>Add a new user to your association. User's will log in with their email address, so it must be unique.</p>
 
     <div class="form-container">
-        <form [formGroup]="editUserForm" (ngSubmit)="updateUser()" >
+        <form [formGroup]="editUserForm" (ngSubmit)="saveUserChanges()" >
             <div class="form-grid">
 
                 <div class="form-div">
@@ -129,7 +129,7 @@
                         color="primary"
                         type="submit"
                         >
-                        Add User
+                        Save Changes
                     </button>
 
                     <button
