@@ -117,10 +117,40 @@ updateEditUnitForm(unit: any) {
 }
 
 
-// -- SUBMIT UNIT
-updateUnit(){
-  console.log('UPDATE UNIT!');
-  this.getUnit(this.unitId)
+// -- SUBMIT UNIT CHANGES
+saveUnitChanges(){
+  console.log('Save Unit Changes!');
+  console.log('this.currentUnit', this.currentUnit);
+  // this.getUnit(this.unitId)
+
+  if(this.editUnitForm.valid){
+    const formValues = this.editUnitForm.value
+    console.log('formValues.userId:', formValues.userId,);
+    const unitObj = {
+      unitId: formValues.unitId,
+      // associationId: formValues.associationId, //  dont send for now. 
+      addressLineOne: formValues.addressLineOne,
+      addressLineTwo: formValues.addressLineTwo,
+      city: formValues.city,
+      state: formValues.state,
+      zip: formValues.zip,
+      user: formValues.user,
+    } 
+    this.dataService
+    .updateUnit(unitObj)
+    .subscribe(
+      (responseData: any) => {
+        console.log('response subscribe');
+        if (responseData.status === 'success') {
+          console.log('RESPONSE:', responseData);
+          this.openSuccessModal(); // -- need to import to use
+        } else if (responseData.status === 'failure') {
+          console.log('RESPONSE', responseData);
+          this.openFailureModal('User update failed.'); // Handle failure
+        }
+      }
+    );
+  }
 }
 
 // -- CANCEL
@@ -135,6 +165,18 @@ onReset(): void {
   //   // zip: '',
   //   user: '', // required
   // });
+}
+
+openSuccessModal() {
+  this.dialog.open(SuccessModalComponent, {
+    data: { message: "User was updated successfully." }
+  });
+}
+
+openFailureModal(message) {
+  this.dialog.open(FailureModalComponent, {
+    data: { message: message }
+  })
 }
 
 }

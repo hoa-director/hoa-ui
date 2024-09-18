@@ -53,14 +53,16 @@ export class UsersCenterService {
     // -- GET ONE USER
     fetchOneUser(userId: number) { 
       const endPoint = "/api/getUser"
-        const associationId = sessionStorage.getItem("associationId").toString()
-        const payload = {
-              associationId: associationId, 
-              userId: userId
-            }
+      const associationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+        associationId: associationId, 
+        userId: userId
+      }
+      console.log('Payload:', payload);
       return this.http.post(BACKEND_URL + endPoint, payload );
     }
 
+     // -- UPDATE USER INFO
     updateUser(userObj: any){
       console.log('USEROBJ:', userObj);
       const endPoint = "/api/updateUser"

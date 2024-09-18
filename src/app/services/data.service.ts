@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
-import { Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError } from "rxjs/operators";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -73,6 +74,28 @@ export class DataService {
     const payload = unit
     return this.http.post(BACKEND_URL + '/api/addUnit', payload ) 
   }
+
+
+     // -- UPDATE UNIT INFO
+     updateUnit(unitObj: any){
+      console.log('USEOBJ:', unitObj);
+      const endPoint = "/api/updateUnit"
+      const associationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+            associationId: associationId, 
+            unitId: unitObj.unitId,
+            unitUpdates: unitObj
+          }
+          console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
+      catchError((error) => {
+        console.error('Update User API failed.', error);
+        return throwError(error);
+      })
+    );
+    }
+
+
 
 
    // ---------------- DOCUMENTS PAGE ---------------- //

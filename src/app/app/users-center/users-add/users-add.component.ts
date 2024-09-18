@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 // -- services
 import { UserService } from 'app/services/user.service';
-import { UsersCenterService } from "../../../services/users-center.service";  // -- SERVICE
+import { UsersCenterService } from "../../../services/users-center.service";  
 // -- models
 
 // -- interfaces
@@ -21,6 +21,7 @@ import { FailureModalComponent } from 'app/app/failure-modal/failure-modal.compo
 })
 export class UsersAddComponent implements OnInit {  
   addUserForm: FormGroup;
+  allRoles: any;
   associations = [
     {
       id: sessionStorage.getItem("associationId").toString(), 
@@ -43,7 +44,8 @@ ngOnInit(): void {
   //   console.log('org', org);
   // }
   // console.log('userOrganizations', userOrganizations[0]);
-
+  this.getOrganizationRoles();
+  
   this.addUserForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]], 
     firstName: [''],
@@ -53,6 +55,24 @@ ngOnInit(): void {
     role: [{value: '50', disabled: false }, [Validators.required] ], 
   });
 }
+
+
+// --  GET ALL ORGANIZATION ROLES  -- //
+getOrganizationRoles() {
+  this.UsersCenterService.fetchOrganizationRoles()
+    .subscribe(
+      (responseData: any) => {
+        console.log('RESPONSE.DATA.ROLES:', responseData);
+        this.allRoles = [...responseData];
+        console.log('this.allRoles:', this.allRoles);
+        // this.cdr.detectChanges();
+      },
+      (error) => {
+        console.error('Error fetching roles:', error);
+      }
+    );
+}
+
 
 // -- CLEAR FORM -- //
 onReset(): void { 

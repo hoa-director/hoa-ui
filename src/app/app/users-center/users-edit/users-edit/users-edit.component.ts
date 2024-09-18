@@ -57,7 +57,30 @@ ngOnInit() {
   });
 }
 
-// --  GET ALL UNITS FOR DROPDOWN -- //
+// -- GET PARAMS (IF THEY EXIST)
+getParams(){
+  this.route.paramMap.subscribe(params => {
+    this.userId = +params.get('userId'); // Convert to number
+    if (this.userId) {
+      this.getUser(this.userId)
+    }
+  });
+}
+
+// -- INIT EDIT FORM ----- CHANGE TO USER FIELDS
+initEditUnitForm() {
+  this.editUserForm = this.fb.group({
+    userId: [{value: this.userId, disabled: false}, [Validators.required]], 
+    email: ['', [Validators.required, Validators.email]], 
+    firstName: [''],
+    lastName: [''],
+    organization: [{value: this.associations[0].id, disabled: true}, [Validators.required] ], 
+    role: [{disabled: false }, [Validators.required] ], 
+  });
+}
+
+
+// --  GET ALL ORGANIZATION ROLES  -- //
 getOrganizationRoles() {
   this.UsersCenterService.fetchOrganizationRoles()
     .subscribe(
@@ -87,27 +110,6 @@ getAllUsers(){
   });
 }
 
-// -- GET PARAMS (IF THEY EXIST)
-getParams(){
-  this.route.paramMap.subscribe(params => {
-    this.userId = +params.get('userId'); // Convert to number
-    if (this.userId) {
-      this.getUser(this.userId)
-    }
-  });
-}
-
-// -- INIT EDIT FORM ----- CHANGE TO USER FIELDS
-initEditUnitForm() {
-  this.editUserForm = this.fb.group({
-    userId: [{value: this.userId, disabled: false}, [Validators.required]], 
-    email: ['', [Validators.required, Validators.email]], 
-    firstName: [''],
-    lastName: [''],
-    organization: [{value: this.associations[0].id, disabled: true}, [Validators.required] ], 
-    role: [{disabled: false }, [Validators.required] ], 
-  });
-}
 
 // -- GET USER
 getUser(userId: number) {
@@ -118,7 +120,7 @@ getUser(userId: number) {
   .subscribe((responseData: any) => {
     // console.log('RESPONSE.DATA:', responseData);
     this.currentUser = responseData;
-    console.log('this.currentUser after API:', this.currentUser);
+    // console.log('this.currentUser after API:', this.currentUser);
     if (this.currentUser){
       this.updateEditUserForm(this.currentUser)
     }
@@ -131,7 +133,7 @@ getUser(userId: number) {
 // -- UPDATE EDIT FORM  ----- CHANGE TO USER FIELDS
 updateEditUserForm(user: any) {
   this.editUserForm.patchValue({
-    userId: user.userId || '',
+    // userId: user.userId || '', //  DON'T Set this here.
     email: user.email || '',
     firstName: user.firstName || '',
     lastName: user.lastName || '',
@@ -143,10 +145,8 @@ updateEditUserForm(user: any) {
 
 // -- SUBMIT USER CHANGES
 saveUserChanges(){
-  console.log('Save User Changes!');
-  console.log('this.currentUser', this.currentUser);
+  // console.log('this.currentUser', this.currentUser);
   // this.getUser(this.userId)
-
   if(this.editUserForm.valid){
     const formValues = this.editUserForm.value
     console.log('formValues.userId:', formValues.userId,);
