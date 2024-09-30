@@ -1,0 +1,144 @@
+
+<div class="main-user-add-div">
+    <p>Add a new user to your association. User's will log in with their email address, so it must be unique.</p>
+
+    <div class="form-container">
+        <form [formGroup]="addUserForm" (ngSubmit)="addUser()" >
+            <div class="form-grid">
+                <div class="form-div">
+
+                    <label for="inputEmail">User Email:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                        id="inputEmail"
+                        matInput
+                        class="form-control"
+                        formControlName="email"
+                        type="text"
+                        placeholder="example@email.com"
+                        />
+                        
+                        <!-- [(ngModel)]="email" -->
+                        <!-- (ngModelChange)="onInputChange()" -->
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="addUserForm.get('email').errors?.required && addUserForm.get('email').touched">
+                        Email is required.
+                    </div>
+                    <div class="validatorMsg" *ngIf="addUserForm.get('email').errors?.email && addUserForm.get('email').touched">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+              
+                <div class="form-div">
+                    <label for="inputFirstName">First Name:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                        id="inputFirstName"
+                        matInput
+                        class="form-control"
+                        formControlName="firstName"
+                        type="text"
+                        placeholder="John"
+                        />
+                    </mat-form-field>    
+                    
+                    <!-- [(ngModel)]="firstName" -->
+                </div>
+         
+                <div class="form-div">
+                    <label for="inputLastName">Last Name:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                        id="inputLastName"
+                        matInput
+                        class="form-control"
+                        formControlName="lastName"
+                        type="text"
+                        placeholder="Doe"
+                        />
+                    </mat-form-field>    
+                </div>
+
+                <div class="form-div">
+                    <label for="inputPassword">Password:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                        id="inputPassword"
+                        matInput
+                        class="form-control"
+                        formControlName="password"
+                        type="text"
+                        placeholder="Password"
+                        />
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="addUserForm.get('password').errors?.required && addUserForm.get('password').touched">
+                        Password is required.
+                    </div>
+                    <div class="validatorMsg" *ngIf="addUserForm.get('password').errors?.pattern && addUserForm.get('password').touched">
+                        Make sure to include a special character, number, lowercase and uppercase letters.
+                    </div>
+                    <div class="validatorMsg" *ngIf="addUserForm.get('password').errors?.['minLength'] && addUserForm.get('password').touched">
+                        Make sure it's at least 8 characters long.
+                    </div>
+                </div>
+
+                <div class="form-div">
+                    <label for="selectOrganization">Organization:</label>
+                    <mat-form-field>
+                        <mat-select 
+                        id="selectOrganization"
+                        formControlName="organization">
+                        <mat-option *ngFor="let association of associations" [value]="association.id">
+                            {{association.associationName}}
+                        </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-div">
+                    <label for="selectRole">Role:</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select 
+                        id="selectRole"
+                         formControlName="role">
+                            <mat-option *ngFor="let role of allRoles" [value]="role.id">
+                                <div class="roleTitleDiv">
+                                    {{role.title}}
+                                </div>
+                                <div class="roleDescriptionDiv">
+                                    ({{role.description}})
+                                </div>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+
+                <br>
+
+                <button
+                    class="search-users-submit-button"    
+                    mat-raised-button
+                    color="primary"
+                    type="submit"
+                >
+                Add User
+                </button>
+
+                <button
+                    class="search-users-clear-button"    
+                    mat-raised-button
+                    color="secondary"
+                    type="button"
+                    (click)="onReset()"
+                >
+                Clear
+                </button>
+            </div>
+        </form>
+    </div>
+    
+
+
+</div>

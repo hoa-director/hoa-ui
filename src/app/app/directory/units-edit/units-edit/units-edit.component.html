@@ -1,0 +1,168 @@
+<div class="main-units-edit-div">
+    <div class="main-units-edit-div">
+        <p>You can edit a unit's information. </p>
+    
+        <!-- FORM -->
+        <div class="form-container">
+            <form [formGroup]="editUnitForm" (ngSubmit)="saveUnitChanges()">
+                <div class="form-grid">
+                    
+                    <div class="form-div">
+                        <label for="inputUnitId">Select Unit: </label>
+                        <mat-form-field appearance="outline">
+                            <mat-select
+                            id="inputUnitId"
+                            matInputclass="form-control"
+                            formControlName="unitId"
+                            >
+                            <mat-option *ngFor="let unit of allUnits" [value]="unit.unit.unitId">
+                                {{unit.unit.addressLineOne}}, 
+                                {{unit.unit.addressLineTwo}} 
+                            </mat-option>
+
+                            <!-- <mat-option value="1">Unit 1</mat-option>
+                            <mat-option value="2">Unit 2</mat-option>
+                            <mat-option value="3">Unit 3</mat-option> -->
+                                <!-- <mat-option *ngFor="let association of associations" [value]="association.id">{{association.associationName}}</mat-option> -->
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <div class="validatorMsg" *ngIf="editUnitForm.get('associationId').errors?.required && editUnitForm.get('associationId').touched">
+                            Organization is required
+                        </div> -->
+                    </div>
+
+                    <div class="form-div">
+                        <label for="inputAssociationId">Organization: </label>
+                        <mat-form-field appearance="outline">
+                            <mat-select
+                            id="inputAssociationId"
+                            matInputclass="form-control"
+                            formControlName="associationId"
+                            >
+                                <mat-option *ngFor="let association of associations" [value]="association.id">
+                                {{association.associationName}}
+                            </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <div class="validatorMsg" *ngIf="editUnitForm.get('associationId').errors?.required && editUnitForm.get('associationId').touched">
+                            Organization is required
+                        </div> -->
+                    </div>
+                    <div class="form-div">
+                        <label for="inputAddressLineOne">Address Line One:</label>
+                        <mat-form-field appearance="outline">
+                            <input 
+                                id="inputAddressLineOne"
+                                matInput
+                                class="form-control"
+                                formControlName="addressLineOne"
+                                type="text"
+                                placeholder="1234 Hennepin Ave S"
+                                />
+                        </mat-form-field>
+                    </div>
+                    <div class="form-div">
+                        <label for="inputAddressLineTewo">Address Line Two:</label>
+                        <mat-form-field appearance="outline">
+                            <input 
+                            id="inputAddressLineTewo"
+                            matInput
+                            class="form-control"
+                            formControlName="addressLineTwo"
+                            type="text"
+                            placeholder="Unit 14"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="form-div">
+                        <label for="inputCity">City:</label>
+                        <mat-form-field appearance="outline">
+                            <input 
+                            id="inputCity"
+                            matInput
+                            class="form-control"
+                            formControlName="city"
+                            type="text"
+                            placeholder="Hastings"
+                            />
+                        </mat-form-field>
+                        <div class="validatorMsg" *ngIf="editUnitForm.get('city').errors?.required && editUnitForm.get('city').touched">
+                            City is required
+                        </div>
+                    </div>
+                    <div class="form-div">
+                        <label for="inputState">State:</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select
+                            id="inputState"
+                            matInput
+                            class="form-control"
+                            formControlName="state"
+                            placeholder="MN"
+                            >
+                                <mat-option value="MN">MN</mat-option>
+                                <mat-option value="WI">WI</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="validatorMsg" *ngIf="editUnitForm.get('state').errors?.required && editUnitForm.get('state').touched">
+                            State is required
+                        </div>
+                    </div>
+                    <div class="form-div">
+                        <label for="inputZip">Zip Code:</label>
+                        <mat-form-field appearance="outline">
+                            <input 
+                            id="inputZip"
+                            matInput
+                            class="form-control"
+                            formControlName="zip"
+                            type="text"
+                            placeholder="55401"
+                            />
+                        </mat-form-field>
+                        <div class="validatorMsg" *ngIf="editUnitForm.get('zip').errors?.required && editUnitForm.get('zip').touched">
+                            Zip Code is required
+                        </div>
+                    </div>
+                    <div class="form-div">
+                        <label for="inputUser">Unit Owner</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select
+                            id="inputUser"
+                            matInputclass="form-control"
+                            formControlName="user"
+                            placeholder="John Doe"
+                            >
+                                <mat-option value="7">Nate (test)</mat-option>
+                                <mat-option value="2">Sally (test)</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                    <div class="buttons-div">
+                        <button
+                            mat-raised-button
+                            id="Submit-editUnitForm-button"
+                            class="button"
+                            color="primary"
+                            type="submit"       
+                            >
+                            Save Changes
+                        </button>
+                        <button
+                            mat-raised-button
+                            id="clear-editUnitForm-button"
+                            class="button"
+                            color="secondary"
+                            type="button"
+                            (click)="onReset()"
+                            >
+                            Cancel
+                        </button>
+                    </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
+

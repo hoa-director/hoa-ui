@@ -1,24 +1,43 @@
 <div class="sidebar">
   <div *ngIf="userIsAuthenticated" class="nav-pills">
-    <a mat-button class="link-button" [routerLink]="['directory']" routerLinkActive="active">
+    <button
+      mat-button
+      [routerLink]="['directory/units-view']"
+      routerLinkActive="active"
+    >
       Neighborhood Directory
-    </a>
-    <a mat-button [routerLink]="['rules']" routerLinkActive="active">
+    </button>
+    <button
+      mat-button
+      [routerLink]="['rules']"
+      routerLinkActive="active"
+    >
       Rules & Regulations
-    </a>
-    <a
+    </button>
+    <button
       mat-button
       [routerLink]="['resolution-center/inbox']"
       routerLinkActive="active"
     >
       Resolution Center
-    </a>
-    <a mat-button [routerLink]="['documents']" routerLinkActive="active">
+    </button>
+    <button
+      mat-button
+      [routerLink]="['documents']"
+      routerLinkActive="active"
+    >
       Association Documents
-    </a>
-    <a mat-button (click)="onLogout()">
+    </button>
+    <button
+      mat-button
+      [routerLink]="['users-center/users-view']"
+      routerLinkActive="active"
+      >
+      Users Center
+    </button>
+    <button mat-button (click)="onLogout()">
       Logout
-    </a>
+    </button>
     <div class="nav-vertical-line"></div>
   </div>
 </div>

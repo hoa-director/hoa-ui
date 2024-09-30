@@ -2,6 +2,10 @@
   cursor: pointer;
   width: 30vh;
   text-align: left;
+    /* box-shadow: none; */
+    border: 1px solid black;
+    /* border-radius: 5px; */
+    /* box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19); */
 }
 
 .association-documents-header {

@@ -11,6 +11,7 @@
     "node": "16.x"
   },
   "scripts": {
+    "watch": "ng serve --watch",
     "build-client-dev": "ng build",
     "build-client-watch": "ng build --watch",
     "build-client-prod": "ng build --configuration=production",

@@ -11,7 +11,8 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit() {}
 
-  onHomeLogin() {
-    this.router.navigateByUrl('login');
-  }
+  // this code is redundant
+  // onHomeLogin() {
+  //   this.router.navigateByUrl('login');
+  // }
 }

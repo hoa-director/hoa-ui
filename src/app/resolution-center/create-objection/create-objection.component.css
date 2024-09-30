@@ -21,3 +21,51 @@ label {
 .create-objection-cancel-button {
   margin-right: 2rem;
 }
+
+/* ---- LABELS ---- */
+.mat-label {
+  margin-bottom: 10px; 
+}
+
+
+/* ---- BORDER COLORS ---- */
+.border {
+  /* border: 3px solid red;
+  border-radius: 5px; */
+}
+
+
+/* ---- OTHER ELEMENTS ---- */
+.create-objection {
+  /* border: 3px solid black; */
+  /* border-radius: 5px; */
+}
+.form-group {
+  /* border: 3px solid blue; */
+  /* border-radius: 5px; */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.form-control {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.unit-select {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+
+/* ---- MAT-OPTIONS ---- */
+.mat-option {
+  background-color: #f0f0f0 !important; 
+}
+.mat-option:hover, .mat-option.mat-selected {
+  background-color: lightblue !important; 
+}
+.mat-form-field {
+  /* border: 3px solid purple;
+  border-radius: 5px; */
+  margin-top: 16px; 
+  margin-bottom: 16px; 
+}

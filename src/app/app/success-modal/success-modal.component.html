@@ -1,0 +1,10 @@
+<div id="success-title" class="success-title">
+    <h2 mat-dialog-title>Success</h2>
+    <mat-icon aria-hidden="false" aria-label="Succuss icon" class="icon-done" >check_circle_outline</mat-icon>
+</div>
+<mat-dialog-content>
+    <p>{{ data.message }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onClose()">OK</button>
+</mat-dialog-actions>

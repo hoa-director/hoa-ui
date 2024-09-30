@@ -1,0 +1,151 @@
+
+<div class="main-user-edit-div">
+    <p>Add a new user to your association. User's will log in with their email address, so it must be unique.</p>
+
+    <div class="form-container">
+        <form [formGroup]="editUserForm" (ngSubmit)="saveUserChanges()" >
+            <div class="form-grid">
+
+                <div class="form-div">
+                    <label for="inputUserId">Select User: </label>
+                    <mat-form-field appearance="outline">
+                        <mat-select
+                        id="inputUserId"
+                        matInputclass="form-control"
+                        formControlName="userId"
+                        >
+                        <mat-option *ngFor="let user of allUsers" [value]="user.id">
+                            {{user.firstName}} 
+                            {{user.lastName}} 
+                        </mat-option>
+                        <!-- <mat-option value="1">User 1</mat-option>
+                        <mat-option value="4">User 4</mat-option>
+                        <mat-option value="130">User 130</mat-option> -->
+                            <!-- <mat-option *ngFor="let association of associations" [value]="association.id">{{association.associationName}}</mat-option> -->
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- <div class="validatorMsg" *ngIf="editUnitForm.get('associationId').errors?.required && editUnitForm.get('associationId').touched">
+                        Organization is required
+                    </div> -->
+                </div>
+
+                <div class="form-div">
+                    <label for="inputEmail">User Email:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                        id="inputEmail"
+                        matInput
+                        class="form-control"
+                        formControlName="email"
+                        type="text"
+                        placeholder="example@email.com"
+                        />
+                        
+                        <!-- [(ngModel)]="email" -->
+                        <!-- (ngModelChange)="onInputChange()" -->
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('email').errors?.required && editUserForm.get('email').touched">
+                        Email is required.
+                    </div>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('email').errors?.email && editUserForm.get('email').touched">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+              
+                <div class="form-div">
+                    <label for="inputFirstName">First Name:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                        id="inputFirstName"
+                        matInput
+                        class="form-control"
+                        formControlName="firstName"
+                        type="text"
+                        placeholder="John"
+                        />
+                    </mat-form-field>    
+                    
+                    <!-- [(ngModel)]="firstName" -->
+                </div>
+         
+                <div class="form-div">
+                    <label for="inputLastName">Last Name:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                        id="inputLastName"
+                        matInput
+                        class="form-control"
+                        formControlName="lastName"
+                        type="text"
+                        placeholder="Doe"
+                        />
+                    </mat-form-field>    
+                </div>
+
+
+
+                <div class="form-div">
+                    <label for="selectOrganization">Organization:</label>
+                    <mat-form-field>
+                        <mat-select 
+                        id="selectOrganization"
+                        formControlName="organization">
+                        <mat-option *ngFor="let association of associations" [value]="association.id">
+                            {{association.associationName}}
+                        </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-div">
+                    <label for="selectRole">Role:</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select 
+                        id="selectRole"
+                         formControlName="role">
+                         <mat-option *ngFor="let role of allRoles" [value]="role.id">
+                            <div class="roleTitleDiv">
+                                {{role.title}}
+                            </div>
+                            <div class="roleDescriptionDiv">
+                                ({{role.description}})
+                            </div>
+                         </mat-option>
+                            <!-- <mat-option value="25">Unit Owner</mat-option>
+                            <mat-option value="50">Admin</mat-option>
+                            <mat-option value="75">President</mat-option>
+                            <mat-option value="99">Master User</mat-option> -->
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+
+                <br>
+                <div class="buttons-div">
+                    <button
+                        class="search-users-submit-button"    
+                        mat-raised-button
+                        color="primary"
+                        type="submit"
+                        >
+                        Save Changes
+                    </button>
+
+                    <button
+                        class="search-users-cancel-button"    
+                        mat-raised-button
+                        color="secondary"
+                        type="button"
+                        (click)="onReset()"
+                        >
+                        Clear
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+
+
+</div>

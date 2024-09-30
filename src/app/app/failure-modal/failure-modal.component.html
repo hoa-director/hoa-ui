@@ -1,0 +1,10 @@
+<div id="failure-title" class="failure-title">
+    <h2 mat-dialog-title>Error</h2>
+    <mat-icon aria-hidden="false" aria-label="failure icon" class="icon-error_outline" >error_outline </mat-icon>
+</div>
+<mat-dialog-content>
+    <p>{{data.message}}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onClose()">OK</button>
+</mat-dialog-actions>
