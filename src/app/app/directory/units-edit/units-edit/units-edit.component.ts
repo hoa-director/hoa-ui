@@ -21,6 +21,7 @@ export class UnitsEditComponent {
   currentUnit: Unit;
   editUnitForm: FormGroup;
   allUnits: any;
+  availableUsers: any;
   isLoading = false;
   associations = [
     {
@@ -42,6 +43,7 @@ ngOnInit() {
   this.getParams();
   this.initEditUnitForm();
   this.getAllUnits();
+  this.getAvailableUsers();
 
   this.editUnitForm.get('unitId')?.valueChanges.subscribe(value => { // -- Listen for Unit Dropdown selection changes
     console.log('this.unitId', this.unitId);
@@ -50,14 +52,29 @@ ngOnInit() {
   });
 }
 
-// --  GET ALL UNITS FOR DROPDOWN -- //
+// --  GET ALL UNITS DROPDOWN -- //
 getAllUnits(){
     isLoading(true);
     this.dataService.fetchUnits('')
     .subscribe((responseData: any) => {
-      // console.log('RESPONSE.DATA:', responseData);
+      console.log('RESPONSE.DATA:', responseData);
       this.allUnits = [...responseData];
       console.log('this.allUnits:', this.allUnits);
+      // this.cdr.detectChanges();
+    }).add(() => {
+      isLoading(false);
+    });
+}
+
+// --  GET AVAILABLE USERS DROPDOWN -- //
+getAvailableUsers(){
+  console.log('getAvailableUsers');
+    isLoading(true);
+    this.dataService.getAvailableUsers()
+    .subscribe((responseData: any) => {
+      console.log('RESPONSE.DATA:', responseData);
+      this.availableUsers = [...responseData];
+      console.log('AVAILABLE USERS:', this.availableUsers);
       // this.cdr.detectChanges();
     }).add(() => {
       isLoading(false);
@@ -84,7 +101,8 @@ initEditUnitForm() {
     city: ['', [Validators.required]],
     state: ['', [Validators.required]],
     zip: ['', [Validators.required]],
-    user: [''], // required
+    user: [''], 
+    // availableUsers: [{value: this.availableUsers}],  --  turned off for testing
   });
 }
 
@@ -128,7 +146,7 @@ saveUnitChanges(){
     console.log('formValues.userId:', formValues.userId,);
     const unitObj = {
       unitId: formValues.unitId,
-      // associationId: formValues.associationId, //  dont send for now. 
+      // associationId: formValues.associationId, //  don't send for now. 
       addressLineOne: formValues.addressLineOne,
       addressLineTwo: formValues.addressLineTwo,
       city: formValues.city,

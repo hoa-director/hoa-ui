@@ -96,6 +96,23 @@ export class DataService {
     }
 
 
+     // -- AVAILABLE USERS DROPDOWN 
+     getAvailableUsers(){
+      const endPoint = "/api/getAvailableUsers"
+      const associationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+            associationId: associationId, 
+          }
+          console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
+      catchError((error) => {
+        console.error('availableUsers API failed.', error);
+        return throwError(error);
+      })
+    );
+    }
+
+
 
 
    // ---------------- DOCUMENTS PAGE ---------------- //
