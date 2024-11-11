@@ -23,11 +23,16 @@ export class UnitsEditComponent {
   allUnits: any;
   availableUsers: any;
   isLoading = false;
+  formIsDisabled: boolean = false
   associations = [
     {
       id: sessionStorage.getItem("associationId").toString(), 
       associationName: sessionStorage.getItem("associationName").toString()
     },
+  ];
+  allUnitStatuses = [
+    { id: 0, name: 'Inactive', description: 'Unit is inactive' },
+    { id: 1, name: 'Active', description: 'Unit is active' },
   ];
 
 constructor(
@@ -44,11 +49,13 @@ ngOnInit() {
   this.initEditUnitForm();
   this.getAllUnits();
   this.getAvailableUsers();
+  this.disableForm();
 
   this.editUnitForm.get('unitId')?.valueChanges.subscribe(value => { // -- Listen for Unit Dropdown selection changes
     console.log('this.unitId', this.unitId);
     this.unitId = value;
     this.getUnit(this.unitId) 
+    this.disableForm();
   });
 }
 
@@ -102,6 +109,7 @@ initEditUnitForm() {
     state: ['', [Validators.required]],
     zip: ['', [Validators.required]],
     user: [''], 
+    // unitStatus: [{disabled: false }, [Validators.required] ], // NEED TO ADD TO HTML
     // availableUsers: [{value: this.availableUsers}],  --  turned off for testing
   });
 }
@@ -122,6 +130,29 @@ getUnit(unitId: number) {
     isLoading(false);
   });
 }
+
+// -- DISABLE/ENABLE FORM -- On INIT and user dropdown selection change
+disableForm(){ 
+  // --  Don't enable organization dropdown
+  if (!this.unitId) {
+    this.editUnitForm.get('addressLineOne')?.disable();
+    this.editUnitForm.get('addressLineTwo')?.disable();
+    this.editUnitForm.get('city')?.disable();
+    this.editUnitForm.get('state')?.disable();
+    this.editUnitForm.get('zip')?.disable();
+    this.editUnitForm.get('user')?.disable();
+    this.formIsDisabled= true;
+  } else {
+    this.editUnitForm.get('addressLineOne')?.enable();
+    this.editUnitForm.get('addressLineTwo')?.enable();
+    this.editUnitForm.get('city')?.enable();
+    this.editUnitForm.get('state')?.enable();
+    this.editUnitForm.get('zip')?.enable();
+    this.editUnitForm.get('user')?.enable();
+    this.formIsDisabled = false;
+  }
+}
+
 // -- UPDATE EDIT FORM
 updateEditUnitForm(unit: any) {
   this.editUnitForm.patchValue({
