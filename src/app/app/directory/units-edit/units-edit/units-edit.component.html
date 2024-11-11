@@ -146,7 +146,8 @@
                             id="Submit-editUnitForm-button"
                             class="button"
                             color="primary"
-                            type="submit"       
+                            type="submit"
+                            [disabled]="formIsDisabled"       
                             >
                             Save Changes
                         </button>
@@ -156,6 +157,7 @@
                             class="button"
                             color="secondary"
                             type="button"
+                            [disabled]="formIsDisabled"
                             (click)="onReset()"
                             >
                             Cancel

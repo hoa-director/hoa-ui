@@ -27,12 +27,17 @@ export class UsersEditComponent {
   allUsers: any;
   allRoles: any;
   isLoading = false;
+  formIsDisabled: boolean = false
   associations = [
     {
       id: sessionStorage.getItem("associationId").toString(), 
       associationName: sessionStorage.getItem("associationName").toString()
     },
   ]; 
+  allUserStatuses = [
+    { id: 0, name: 'Inactive', description: 'User is inactive' },
+    { id: 1, name: 'Active', description: 'User is active' },
+  ];
 
 constructor(
   private UsersCenterService: UsersCenterService,
@@ -50,10 +55,12 @@ ngOnInit() {
   this.initEditUnitForm();
   this.getAllUsers();
   this.getOrganizationRoles();
+  this.disableForm();
 
   this.editUserForm.get('userId')?.valueChanges.subscribe(value => { // -- Listen for User Dropdown selection changes
     this.userId = value;
-    this.getUser(this.userId) 
+    this.getUser(this.userId); 
+    this.disableForm();
   });
 }
 
@@ -76,9 +83,31 @@ initEditUnitForm() {
     lastName: [''],
     organization: [{value: this.associations[0].id, disabled: true}, [Validators.required] ], 
     role: [{disabled: false }, [Validators.required] ], 
+    status: [{disabled: false }, [Validators.required] ], 
   });
 }
 
+// -- DISABLE/ENABLE FORM -- On INIT and user dropdown selection change
+disableForm(){
+   // --  Don't enable organization dropdown
+  if (!this.userId) {
+    console.log('NO');  
+    this.editUserForm.get('email')?.disable();
+    this.editUserForm.get('firstName')?.disable();
+    this.editUserForm.get('lastName')?.disable();
+    this.editUserForm.get('role')?.disable();
+    this.editUserForm.get('status')?.disable();
+    this.formIsDisabled= true;
+  } else {
+    console.log('YES');  
+    this.editUserForm.get('email')?.enable();
+    this.editUserForm.get('firstName')?.enable();
+    this.editUserForm.get('lastName')?.enable();
+    this.editUserForm.get('role')?.enable();
+    this.editUserForm.get('status')?.enable();
+    this.formIsDisabled = false;
+  }
+}
 
 // --  GET ALL ORGANIZATION ROLES  -- //
 getOrganizationRoles() {
@@ -157,7 +186,11 @@ saveUserChanges(){
       lastName: formValues.lastName,
       number: formValues.number,
       role: formValues.role,
+      status: formValues.status,
     } 
+
+    console.log('formValues.status:', formValues.status);
+
     this.UsersCenterService
     .updateUser(userObj)
     .subscribe(
