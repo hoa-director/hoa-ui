@@ -28,6 +28,13 @@
     }
 }
 
+.buttons-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Default to two columns */
+    gap: 1rem; /* Optional: add some space between buttons */
+    width: 100%;
+}
+
 .form-div {
     /* border: 2px solid green; */
     margin-bottom: 0;
