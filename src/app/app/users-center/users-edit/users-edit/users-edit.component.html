@@ -28,7 +28,7 @@
                         Organization is required
                     </div> -->
                 </div>
-
+            
                 <div class="form-div">
                     <label for="inputEmail">User Email:</label>
                     <mat-form-field appearance="outline">
@@ -118,23 +118,6 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="form-div">
-                    <label for="selectStatus">Active/Inactive:</label>
-                    <mat-form-field appearance="outline">
-                        <mat-select 
-                        id="selectStatus"
-                         formControlName="role"
-                         >
-                            <mat-option *ngFor="let status of allUserStatuses" [value]="status.id">
-                                <div class="statusNameDiv">
-                                    {{status.name}}
-                                </div>
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-
-
 
                 <br>
                 <div class="buttons-div">
@@ -161,6 +144,19 @@
                 </div>
             </div>
         </form>
+        
+        <h4>User Status:</h4>
+        <br>
+        <div>
+            <mat-slide-toggle 
+              color="primary" 
+              labelPosition="before" 
+              [(ngModel)]="userStatus"
+              (ngModelChange)="onToggleChangeUser()"
+              >Inactive
+            </mat-slide-toggle> 
+            Active            
+        </div>
     </div>
     
 
