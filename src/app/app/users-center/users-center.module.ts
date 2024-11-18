@@ -24,7 +24,7 @@ import { UsersAddComponent } from './users-add/users-add.component';
 // -- services 
 import { UsersCenterService } from 'app/services/users-center.service';
 import { UsersEditComponent } from './users-edit/users-edit/users-edit.component';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 export const UsersCenterRoutes: Routes = [
@@ -66,6 +66,7 @@ export const UsersCenterRoutes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatSlideToggleModule,
   ],
   declarations: [
     UsersCenterComponent,
