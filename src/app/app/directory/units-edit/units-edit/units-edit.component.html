@@ -133,19 +133,21 @@
                             formControlName="user"
                             placeholder="John Doe"
                             >
-                                <mat-option value="7">Nate (test)</mat-option>
-                                <mat-option value="2">Sally (test)</mat-option>
+                                <mat-option *ngFor="let unit of availableUsers" [value]="unit.id">
+                                    {{unit.firstName}} 
+                                    {{unit.lastName}}, 
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
-                </div>
                     <div class="buttons-div">
                         <button
                             mat-raised-button
                             id="Submit-editUnitForm-button"
                             class="button"
                             color="primary"
-                            type="submit"       
+                            type="submit"
+                            [disabled]="formIsDisabled"       
                             >
                             Save Changes
                         </button>
@@ -155,11 +157,13 @@
                             class="button"
                             color="secondary"
                             type="button"
+                            [disabled]="formIsDisabled"
                             (click)="onReset()"
                             >
                             Cancel
                         </button>
                     </div>
+                </div>
             </form>
         </div>
     </div>

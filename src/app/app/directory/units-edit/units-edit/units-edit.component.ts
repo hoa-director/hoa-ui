@@ -21,12 +21,18 @@ export class UnitsEditComponent {
   currentUnit: Unit;
   editUnitForm: FormGroup;
   allUnits: any;
+  availableUsers: any;
   isLoading = false;
+  formIsDisabled: boolean = false
   associations = [
     {
       id: sessionStorage.getItem("associationId").toString(), 
       associationName: sessionStorage.getItem("associationName").toString()
     },
+  ];
+  allUnitStatuses = [
+    { id: 0, name: 'Inactive', description: 'Unit is inactive' },
+    { id: 1, name: 'Active', description: 'Unit is active' },
   ];
 
 constructor(
@@ -42,22 +48,40 @@ ngOnInit() {
   this.getParams();
   this.initEditUnitForm();
   this.getAllUnits();
+  this.getAvailableUsers();
+  this.disableForm();
 
   this.editUnitForm.get('unitId')?.valueChanges.subscribe(value => { // -- Listen for Unit Dropdown selection changes
     console.log('this.unitId', this.unitId);
     this.unitId = value;
     this.getUnit(this.unitId) 
+    this.disableForm();
   });
 }
 
-// --  GET ALL UNITS FOR DROPDOWN -- //
+// --  GET ALL UNITS DROPDOWN -- //
 getAllUnits(){
     isLoading(true);
     this.dataService.fetchUnits('')
     .subscribe((responseData: any) => {
-      // console.log('RESPONSE.DATA:', responseData);
+      console.log('RESPONSE.DATA:', responseData);
       this.allUnits = [...responseData];
       console.log('this.allUnits:', this.allUnits);
+      // this.cdr.detectChanges();
+    }).add(() => {
+      isLoading(false);
+    });
+}
+
+// --  GET AVAILABLE USERS DROPDOWN -- //
+getAvailableUsers(){
+  console.log('getAvailableUsers');
+    isLoading(true);
+    this.dataService.getAvailableUsers()
+    .subscribe((responseData: any) => {
+      console.log('RESPONSE.DATA:', responseData);
+      this.availableUsers = [...responseData];
+      console.log('AVAILABLE USERS:', this.availableUsers);
       // this.cdr.detectChanges();
     }).add(() => {
       isLoading(false);
@@ -84,7 +108,9 @@ initEditUnitForm() {
     city: ['', [Validators.required]],
     state: ['', [Validators.required]],
     zip: ['', [Validators.required]],
-    user: [''], // required
+    user: [''], 
+    // unitStatus: [{disabled: false }, [Validators.required] ], // NEED TO ADD TO HTML
+    // availableUsers: [{value: this.availableUsers}],  --  turned off for testing
   });
 }
 
@@ -104,6 +130,29 @@ getUnit(unitId: number) {
     isLoading(false);
   });
 }
+
+// -- DISABLE/ENABLE FORM -- On INIT and user dropdown selection change
+disableForm(){ 
+  // --  Don't enable organization dropdown
+  if (!this.unitId) {
+    this.editUnitForm.get('addressLineOne')?.disable();
+    this.editUnitForm.get('addressLineTwo')?.disable();
+    this.editUnitForm.get('city')?.disable();
+    this.editUnitForm.get('state')?.disable();
+    this.editUnitForm.get('zip')?.disable();
+    this.editUnitForm.get('user')?.disable();
+    this.formIsDisabled= true;
+  } else {
+    this.editUnitForm.get('addressLineOne')?.enable();
+    this.editUnitForm.get('addressLineTwo')?.enable();
+    this.editUnitForm.get('city')?.enable();
+    this.editUnitForm.get('state')?.enable();
+    this.editUnitForm.get('zip')?.enable();
+    this.editUnitForm.get('user')?.enable();
+    this.formIsDisabled = false;
+  }
+}
+
 // -- UPDATE EDIT FORM
 updateEditUnitForm(unit: any) {
   this.editUnitForm.patchValue({
@@ -128,7 +177,7 @@ saveUnitChanges(){
     console.log('formValues.userId:', formValues.userId,);
     const unitObj = {
       unitId: formValues.unitId,
-      // associationId: formValues.associationId, //  dont send for now. 
+      // associationId: formValues.associationId, //  don't send for now. 
       addressLineOne: formValues.addressLineOne,
       addressLineTwo: formValues.addressLineTwo,
       city: formValues.city,

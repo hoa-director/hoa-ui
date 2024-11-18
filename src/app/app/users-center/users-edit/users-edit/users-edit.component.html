@@ -28,7 +28,7 @@
                         Organization is required
                     </div> -->
                 </div>
-
+            
                 <div class="form-div">
                     <label for="inputEmail">User Email:</label>
                     <mat-form-field appearance="outline">
@@ -103,23 +103,21 @@
                         <mat-select 
                         id="selectRole"
                          formControlName="role">
-                         <mat-option *ngFor="let role of allRoles" [value]="role.id">
-                            <div class="roleTitleDiv">
-                                {{role.title}}
-                            </div>
-                            <div class="roleDescriptionDiv">
-                                ({{role.description}})
-                            </div>
-                         </mat-option>
-                            <!-- <mat-option value="25">Unit Owner</mat-option>
-                            <mat-option value="50">Admin</mat-option>
-                            <mat-option value="75">President</mat-option>
-                            <mat-option value="99">Master User</mat-option> -->
+                            <mat-option *ngFor="let role of allRoles" [value]="role.id">
+                                <div class="roleTitleDiv">
+                                    {{role.title}}
+                                </div>
+                                <div class="roleDescriptionDiv">
+                                    ({{role.description}})
+                                </div>
+                            </mat-option>
+                                <!-- <mat-option value="25">Unit Owner</mat-option>
+                                <mat-option value="50">Admin</mat-option>
+                                <mat-option value="75">President</mat-option>
+                                <mat-option value="99">Master User</mat-option> -->
                         </mat-select>
                     </mat-form-field>
                 </div>
-
-
 
                 <br>
                 <div class="buttons-div">
@@ -128,6 +126,7 @@
                         mat-raised-button
                         color="primary"
                         type="submit"
+                        [disabled]="formIsDisabled"
                         >
                         Save Changes
                     </button>
@@ -137,6 +136,7 @@
                         mat-raised-button
                         color="secondary"
                         type="button"
+                        [disabled]="formIsDisabled"
                         (click)="onReset()"
                         >
                         Clear
@@ -144,6 +144,19 @@
                 </div>
             </div>
         </form>
+        
+        <h4>User Status:</h4>
+        <br>
+        <div>
+            <mat-slide-toggle 
+              color="primary" 
+              labelPosition="before" 
+              [(ngModel)]="userStatus"
+              (ngModelChange)="onToggleChangeUser()"
+              >Inactive
+            </mat-slide-toggle> 
+            Active            
+        </div>
     </div>
     
 

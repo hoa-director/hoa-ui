@@ -62,6 +62,26 @@ export class UsersCenterService {
       return this.http.post(BACKEND_URL + endPoint, payload );
     }
 
+    // --UPDATE USER STATUS
+    updateUserStatus(currentUserId: number, userStatus: boolean){
+      console.log('currentUser:', currentUserId);
+      const endPoint = "/api/updateUserStatus"
+      const associationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+            associationId: associationId, 
+            currentUserId: currentUserId,
+            userStatus: userStatus
+          }
+          console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
+      catchError((error) => {
+        console.error('Update User Status API failed.', error);
+        return throwError(error);
+      })
+    );
+    }
+    
+
      // -- UPDATE USER INFO
     updateUser(userObj: any){
       console.log('USEROBJ:', userObj);
