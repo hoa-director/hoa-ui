@@ -191,10 +191,11 @@ getUser(userId: number) {
   .subscribe((responseData: any) => {
     // console.log('RESPONSE.DATA:', responseData);
     this.currentUser = responseData;
-    // console.log('this.currentUser after API:', this.currentUser);
+    console.log('this.currentUser after API:', this.currentUser);
     if (this.currentUser){
       this.updateEditUserForm(this.currentUser)
       this.userStatus = this.currentUser.deletedAt ? false : true
+      console.log('this_currentUser_deletedAt', this.currentUser.deletedAt);
       console.log('userStatus', this.userStatus);
       this.disableEnableForm();
       if(!this.userStatus){
@@ -236,7 +237,7 @@ saveUserChanges(){
       lastName: formValues.lastName,
       number: formValues.number,
       role: formValues.role,
-      status: formValues.status === 'true' ? true : (formValues.status === 'false' ? false : undefined), //  true/false
+      status: formValues.status === 'true' ? true : (formValues.status === 'false' ? false : null), //  true/false
     } 
 
     console.log('formValues.status:', formValues.status);

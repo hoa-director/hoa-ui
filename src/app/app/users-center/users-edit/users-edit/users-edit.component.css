@@ -12,7 +12,6 @@
     place-items: left;
     padding: 1rem;
 }
-
 .form-grid {
     /* border: 2px solid blue; */
     display: grid;
@@ -47,14 +46,7 @@
         width: 100%;
     }
 }
-.user-toggle-div {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 1.25rem;
-    row-gap: 3rem;
-    max-width: 100%;
-    width: 100%;
-}
+
 .form-div {
     /* border: 2px solid green; */
     margin-bottom: 0;
@@ -67,6 +59,14 @@
     justify-content: flex-start;
     padding: 0.625rem;
     grid-column: 1 / 2;
+}
+.user-toggle-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1.25rem;
+    row-gap: 3rem;
+    max-width: 100%;
+    width: 100%;
 }
 .flex-toggle-div-enabled {
     width: 100%;

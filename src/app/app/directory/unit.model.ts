@@ -7,6 +7,7 @@ export interface Unit {
     city: string;
     state: string;
     zip: number;
+    deletedAt?: boolean;
     // email?: string | null
     // user: User;
   }  

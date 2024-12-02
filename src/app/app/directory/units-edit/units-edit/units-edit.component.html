@@ -1,7 +1,27 @@
 <div class="main-units-edit-div">
     <div class="main-units-edit-div">
-        <p>You can edit a unit's information. </p>
-    
+        <p>You can edit a unit's information. (ngModelChange)="onToggleChangeUnit()"</p>
+        <br>
+        <div class="form-container-unitToggle" id="toggleUnitactive">
+            <div class="form-grid">
+                <div class="form-div-unitToggle">
+                    <label>Unit Status:</label>
+                    <div [ngClass]="!currentUnit ? 'flex-toggle-div-disabled' : 'flex-toggle-div-enabled '">
+                        <div class="flex-toggle-inner-div" >
+                            Inactive
+                            <mat-slide-toggle color="primary" 
+                                labelPosition="before" 
+                                [disabled]="!currentUnit" 
+                                [(ngModel)]="unitStatus"
+                                (ngModelChange)="onToggleChangeUnit()"
+                                >
+                            </mat-slide-toggle>
+                            Active
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- FORM -->
         <div class="form-container">
             <form [formGroup]="editUnitForm" (ngSubmit)="saveUnitChanges()">

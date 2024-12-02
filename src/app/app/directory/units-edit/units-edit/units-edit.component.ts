@@ -18,12 +18,13 @@ import { FailureModalComponent } from "app/app/failure-modal/failure-modal.compo
 })
 export class UnitsEditComponent {
   unitId: number; // pass unit ID in here
-  currentUnit: Unit;
+  currentUnit: any; //Unit;
   editUnitForm: FormGroup;
   allUnits: any;
   availableUsers: any;
   isLoading = false;
   formIsDisabled: boolean = false
+  unitStatus: boolean = false; 
   associations = [
     {
       id: sessionStorage.getItem("associationId").toString(), 
@@ -57,6 +58,34 @@ ngOnInit() {
     this.getUnit(this.unitId) 
     this.disableForm();
   });
+}
+
+
+
+// --  ACTIVATE/DEACTIVATE UNIT
+onToggleChangeUnit(): void {
+  console.log('Unit status changed to:', this.unitStatus);
+  if(this.currentUnit){
+    // console.log('CURRENT USER this.currentUser.id:', this.currentUint.id);
+    this.dataService.updateUnitStatus(this.currentUnit.id, this.unitStatus)
+    .subscribe(
+      (responseData: any) => {
+        console.log('response subscribe');
+        if (responseData.status === 'success') {
+          console.log('RESPONSE:', responseData);
+          this.openSuccessModal(); // -- need to import to use
+          this.getUnit(this.unitId)
+          // this.disableEnableForm(); // --------------------------come back to this
+        } else if (responseData.status === 'failure') {
+          console.log('RESPONSE', responseData);
+          this.openFailureModal('User update failed.'); // Handle failure
+        }
+      }
+    );
+    
+  } else {
+    console.log('NO_CURRENT_USER_SELECTED');
+  }
 }
 
 // --  GET ALL UNITS DROPDOWN -- //
@@ -109,6 +138,7 @@ initEditUnitForm() {
     state: ['', [Validators.required]],
     zip: ['', [Validators.required]],
     user: [''], 
+    status: [{disabled: false }, [Validators.required] ],
     // unitStatus: [{disabled: false }, [Validators.required] ], // NEED TO ADD TO HTML
     // availableUsers: [{value: this.availableUsers}],  --  turned off for testing
   });
@@ -124,7 +154,16 @@ getUnit(unitId: number) {
     this.currentUnit = responseData;
     console.log('this.currentUnit after API:', this.currentUnit);
     if (this.currentUnit){
+      console.log('this_currentUnit', this.currentUnit);
       this.updateEditUnitForm(this.currentUnit)
+      this.unitStatus = this.currentUnit.deletedAt ? false : true
+      console.log('this_currentUnit_deletedAt', this.currentUnit.deletedAt);
+      console.log('unitStatus', this.unitStatus);
+      this.disableEnableForm(); 
+      if(!this.unitStatus){
+        console.log('YES_UNIT_STATUS:', this.unitStatus);
+        this.disableForm();
+      }
     }
   }).add(() => {
     isLoading(false);
@@ -132,9 +171,22 @@ getUnit(unitId: number) {
 }
 
 // -- DISABLE/ENABLE FORM -- On INIT and user dropdown selection change
+disableEnableForm(){
+  console.log('INSIDE_this.disableEnableForm();');
+  if (!this.unitId) {
+    console.log('NO_disable');  
+    this.disableForm();
+  } else {
+    console.log('YES_enable');  
+    if(this.unitStatus){
+      this.enableForm();
+    }
+  }
+}
+// -- DISABLE/ENABLE FORM -- On INIT and user dropdown selection change
 disableForm(){ 
   // --  Don't enable organization dropdown
-  if (!this.unitId) {
+  console.log('disable_form');  
     this.editUnitForm.get('addressLineOne')?.disable();
     this.editUnitForm.get('addressLineTwo')?.disable();
     this.editUnitForm.get('city')?.disable();
@@ -142,15 +194,16 @@ disableForm(){
     this.editUnitForm.get('zip')?.disable();
     this.editUnitForm.get('user')?.disable();
     this.formIsDisabled= true;
-  } else {
-    this.editUnitForm.get('addressLineOne')?.enable();
-    this.editUnitForm.get('addressLineTwo')?.enable();
-    this.editUnitForm.get('city')?.enable();
-    this.editUnitForm.get('state')?.enable();
-    this.editUnitForm.get('zip')?.enable();
-    this.editUnitForm.get('user')?.enable();
-    this.formIsDisabled = false;
-  }
+}
+enableForm(){
+  console.log('enable_form');  
+  this.editUnitForm.get('addressLineOne')?.enable();
+  this.editUnitForm.get('addressLineTwo')?.enable();
+  this.editUnitForm.get('city')?.enable();
+  this.editUnitForm.get('state')?.enable();
+  this.editUnitForm.get('zip')?.enable();
+  this.editUnitForm.get('user')?.enable();
+  this.formIsDisabled = false;
 }
 
 // -- UPDATE EDIT FORM
@@ -174,9 +227,9 @@ saveUnitChanges(){
 
   if(this.editUnitForm.valid){
     const formValues = this.editUnitForm.value
-    console.log('formValues.userId:', formValues.userId,);
+    console.log('this.currentUnit.id', this.currentUnit.id,);
     const unitObj = {
-      unitId: formValues.unitId,
+      unitId: this.currentUnit.id,
       // associationId: formValues.associationId, //  don't send for now. 
       addressLineOne: formValues.addressLineOne,
       addressLineTwo: formValues.addressLineTwo,
@@ -184,6 +237,7 @@ saveUnitChanges(){
       state: formValues.state,
       zip: formValues.zip,
       user: formValues.user,
+      status: formValues.status === 'true' ? true : (formValues.status === 'false' ? false : null), //  true/false
     } 
     this.dataService
     .updateUnit(unitObj)

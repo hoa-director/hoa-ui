@@ -75,9 +75,27 @@ export class DataService {
     return this.http.post(BACKEND_URL + '/api/addUnit', payload ) 
   }
 
+    // --UPDATE USER STATUS
+    updateUnitStatus(currentUnitId: number, unitStatus: boolean){
+      console.log('currentUnitId:', currentUnitId);
+      const endPoint = "/api/updateUnitStatus"
+      const associationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+            associationId: associationId, 
+            currentUnitId: currentUnitId,
+            unitStatus: unitStatus
+          }
+          console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
+      catchError((error) => {
+        console.error('Update Unit Status API failed.', error);
+        return throwError(error);
+      })
+    );
+    }
 
      // -- UPDATE UNIT INFO
-     updateUnit(unitObj: any){
+     updateUnit(unitObj: any, ){
       console.log('USEOBJ:', unitObj);
       const endPoint = "/api/updateUnit"
       const associationId = sessionStorage.getItem("associationId").toString()
