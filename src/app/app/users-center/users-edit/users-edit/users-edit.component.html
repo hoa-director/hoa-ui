@@ -1,6 +1,26 @@
 
 <div class="main-user-edit-div">
     <p>Add a new user to your association. User's will log in with their email address, so it must be unique.</p>
+    <br>
+    <div class="form-container-userToggle" id="toggleUseractive">
+        <div class="form-grid">
+            <div class="form-div">
+                <label>User Status:</label>
+                <div [ngClass]="!currentUser ? 'flex-toggle-div-disabled' : 'flex-toggle-div-enabled '">
+                    <div class="flex-toggle-inner-div" >
+                        Inactive
+                        <mat-slide-toggle color="primary" 
+                            labelPosition="before" 
+                            [disabled]="!currentUser" 
+                            [(ngModel)]="userStatus"
+                            (ngModelChange)="onToggleChangeUser()">
+                        </mat-slide-toggle>
+                        Active
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="form-container">
         <form [formGroup]="editUserForm" (ngSubmit)="saveUserChanges()" >
@@ -14,21 +34,13 @@
                         matInputclass="form-control"
                         formControlName="userId"
                         >
-                        <mat-option *ngFor="let user of allUsers" [value]="user.id">
-                            {{user.firstName}} 
-                            {{user.lastName}} 
-                        </mat-option>
-                        <!-- <mat-option value="1">User 1</mat-option>
-                        <mat-option value="4">User 4</mat-option>
-                        <mat-option value="130">User 130</mat-option> -->
-                            <!-- <mat-option *ngFor="let association of associations" [value]="association.id">{{association.associationName}}</mat-option> -->
+                            <mat-option *ngFor="let user of allUsers" [value]="user.id">
+                                {{user.firstName}} 
+                                {{user.lastName}} 
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <!-- <div class="validatorMsg" *ngIf="editUnitForm.get('associationId').errors?.required && editUnitForm.get('associationId').touched">
-                        Organization is required
-                    </div> -->
-                </div>
-            
+                </div>  
                 <div class="form-div">
                     <label for="inputEmail">User Email:</label>
                     <mat-form-field appearance="outline">
@@ -145,18 +157,7 @@
             </div>
         </form>
         
-        <h4>User Status:</h4>
-        <br>
-        <div>
-            <mat-slide-toggle 
-              color="primary" 
-              labelPosition="before" 
-              [(ngModel)]="userStatus"
-              (ngModelChange)="onToggleChangeUser()"
-              >Inactive
-            </mat-slide-toggle> 
-            Active            
-        </div>
+
     </div>
     
 
