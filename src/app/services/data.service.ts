@@ -24,7 +24,6 @@ export class DataService {
       associationId: associationId,
       inputString: inputString
     }
-    console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + "/api/directory", payload)
   }
 
@@ -38,7 +37,6 @@ export class DataService {
             associationId: [associationId], // -- associationIds MUST be un an array to work.
             inputString: inputString
           }
-          console.log('PAYLOAD_USER:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
 
@@ -65,7 +63,6 @@ export class DataService {
             associationId: associationId, 
             unitId: unitId 
           }
-          console.log('PAYLOAD_USER:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
 
@@ -85,7 +82,6 @@ export class DataService {
             currentUnitId: currentUnitId,
             unitStatus: unitStatus
           }
-          console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
       catchError((error) => {
         console.error('Update Unit Status API failed.', error);
@@ -104,7 +100,6 @@ export class DataService {
             unitId: unitObj.unitId,
             unitUpdates: unitObj
           }
-          console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
       catchError((error) => {
         console.error('Update User API failed.', error);
@@ -121,7 +116,6 @@ export class DataService {
       const payload = {
             associationId: associationId, 
           }
-          console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
       catchError((error) => {
         console.error('availableUsers API failed.', error);

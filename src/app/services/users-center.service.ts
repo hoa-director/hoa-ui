@@ -58,13 +58,11 @@ export class UsersCenterService {
         associationId: associationId, 
         userId: userId
       }
-      console.log('Payload:', payload);
       return this.http.post(BACKEND_URL + endPoint, payload );
     }
 
     // --UPDATE USER STATUS
     updateUserStatus(currentUserId: number, userStatus: boolean){
-      console.log('currentUser:', currentUserId);
       const endPoint = "/api/updateUserStatus"
       const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {
@@ -72,7 +70,6 @@ export class UsersCenterService {
             currentUserId: currentUserId,
             userStatus: userStatus
           }
-          console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
       catchError((error) => {
         console.error('Update User Status API failed.', error);
@@ -84,7 +81,6 @@ export class UsersCenterService {
 
      // -- UPDATE USER INFO
     updateUser(userObj: any){
-      console.log('USEROBJ:', userObj);
       const endPoint = "/api/updateUser"
       const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {
@@ -92,7 +88,6 @@ export class UsersCenterService {
             userId: userObj.userId,
             userUpdates: userObj
           }
-          console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
       catchError((error) => {
         console.error('Update User API failed.', error);

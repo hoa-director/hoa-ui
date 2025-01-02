@@ -75,15 +75,14 @@ constructor(
     isLoading(true);
     this.UsersCenterService.fetchUsers(inputString || '')
     .subscribe((responseData: any) => {
-        this.userRows = responseData.map(user => {
-          if (user.units.length === 0) { // <-- if units exits, but is empty array[], add default string
-            user.units = [{addressLineOne: "No Assigned Unit"}] 
-          }
-          return user;
+      this.userRows = responseData.map(user => {
+        if (user.units.length === 0) { // <-- if units exits, but is empty array[], add default string
+          user.units = [{addressLineOne: "No Assigned Unit"}] 
         }
+        return user;
+      }
       )
         // [...responseData]; // -- need to [...loop] to make the data structure iterable in the table component. 
-        console.log('responseData:', responseData); // -- Check RESPONSE  
         // console.log('this.userRows:', this.userRows); // -- Check STATE 
     }, (error) => {
       console.log('fetchUsers() ERROR', error); // -- Console Log WORKS
