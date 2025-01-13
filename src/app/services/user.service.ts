@@ -117,6 +117,9 @@ export class UserService {
     if (!authInformation) return;
     const now = new Date();
     // check to see if expiration date is in the future, if greater than now
+
+    // ADD THIS LATER ------ Check if user Role in jwt matches database. If not, logout. ------ ADD THIS LATER  
+
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
     if (expiresIn > 0) {
       this.token = authInformation.token;
@@ -139,7 +142,7 @@ export class UserService {
 
   getLoggedInUser(): void {
     this.http
-      .get<{ userFirstName: string }>(BACKEND_URL + "/user/loggedInUser", {
+      .get<{ userFirstName: string, userRole: number }>(BACKEND_URL + "/user/loggedInUser", {
         params: new HttpParams().set(
           "userId",
           sessionStorage.getItem("userId").toString()
