@@ -53,14 +53,27 @@ ngOnInit() {
   this.disableForm();
 
   this.editUnitForm.get('unitId')?.valueChanges.subscribe(value => { // -- Listen for Unit Dropdown selection changes
-    console.log('this.unitId', this.unitId);
+    // console.log('on_Init_VALUE', value);
     this.unitId = value;
+    // console.log('on_Init_this.unitId', this.unitId);
     this.getUnit(this.unitId) 
     this.disableForm();
   });
 }
 
-
+// -- GET PARAMS (IF THEY EXIST)
+getParams(){
+  // console.log('IN_PARAMS_FUNCTION');
+  this.route.paramMap.subscribe(params => {
+    this.unitId = +params.get('unitId'); // Convert to number
+    if (this.unitId) {
+      // console.log('UNIT_PARAMS_EXIST_unitId:', this.unitId);
+      this.getUnit(this.unitId)
+    } else {
+      // console.log('NO_PARAMS');
+    }
+  });
+}
 
 // --  ACTIVATE/DEACTIVATE UNIT
 onToggleChangeUnit(): void {
@@ -70,6 +83,7 @@ onToggleChangeUnit(): void {
     .subscribe(
       (responseData: any) => {
         if (responseData.status === 'success') {
+          // console.log('ToggleChangeunit responseData:', responseData);
           this.openSuccessModal(); // -- need to import to use
           this.getUnit(this.unitId)
           // this.disableEnableForm(); // --------------------------come back to this
@@ -78,9 +92,9 @@ onToggleChangeUnit(): void {
         }
       }
     );
-    
-  } else {
-    console.log('NO_CURRENT_USER_SELECTED');
+  } else { // this code should never fire. It's just incase.
+    console.error('No current unit selected');
+    alert('No Unit Selected');
   }
 }
 
@@ -98,7 +112,6 @@ getAllUnits(){
 
 // --  GET AVAILABLE USERS DROPDOWN -- //
 getAvailableUsers(){
-  console.log('getAvailableUsers');
     isLoading(true);
     this.dataService.getAvailableUsers()
     .subscribe((responseData: any) => {
@@ -109,15 +122,6 @@ getAvailableUsers(){
     });
 }
 
-// -- GET PARAMS (IF THEY EXIST)
-getParams(){
-  this.route.paramMap.subscribe(params => {
-    this.unitId = +params.get('unitId'); // Convert to number
-    if (this.unitId) {
-      this.getUnit(this.unitId)
-    }
-  });
-}
 
 // -- INIT EDIT FORM
 initEditUnitForm() {
@@ -143,6 +147,7 @@ getUnit(unitId: number) {
   .subscribe((responseData: any) => {
     this.currentUnit = responseData;
     if (this.currentUnit){
+      // console.log('GET_UNIT_CURRENT_unit:', this.currentUnit );
       this.updateEditUnitForm(this.currentUnit)
       this.unitStatus = this.currentUnit.deletedAt ? false : true
       this.disableEnableForm(); 
