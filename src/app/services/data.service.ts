@@ -17,7 +17,7 @@ export class DataService {
   ) {}
 
   // ---------------- VIEW UNITS PAGE ---------------- //
-  // -- UNITS API ENDPOINT
+  // -- UNITS API ENDPOINT -- default when page opens
   fetchUnits(inputString: string) {
     const associationId = sessionStorage.getItem("associationId").toString()
     const payload = {

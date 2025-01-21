@@ -117,7 +117,7 @@ fetchUnitsByUser(inputString: string) {
   }
 
   editUnit(unitId: number) {
-    if(unitId){
+    if(unitId && this.canEditUnit === true ){
       this.router.navigate(['/home/directory/units-edit', unitId]); // Navigate to the edit page with unitId
     } else {
       console.log('EDIT-NO-UNITID', unitId);

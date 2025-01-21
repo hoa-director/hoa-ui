@@ -103,7 +103,7 @@ getAllUnits(){
     isLoading(true);
     this.dataService.fetchUnits('')
     .subscribe((responseData: any) => {
-      this.allUnits = [...responseData];
+      this.allUnits = [...responseData.directory];
       // this.cdr.detectChanges();
     }).add(() => {
       isLoading(false);
