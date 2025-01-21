@@ -27,6 +27,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   searchUnitsForm: FormGroup;
   inputStringUnit: string = '';
   inputStringUser: string = '';
+  canEditUnit: boolean = false;
 
   // searchByUserInfo: boolean = false; //  True = Search by UNIT Info. False = search by USER Info
   searchByUserInfo: boolean = false; 
@@ -60,7 +61,7 @@ onFetchUnits(inputString: string) {
   isLoading(true);
   this.dataService.fetchUnits(inputString || '')
   .subscribe((responseData: any) => {
-    this.units = [...responseData];
+    this.units = [...responseData.directory];
     this.cdr.detectChanges();
   }).add(() => {
     isLoading(false);

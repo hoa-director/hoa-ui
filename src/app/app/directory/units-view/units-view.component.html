@@ -78,7 +78,7 @@
                 <mat-card-title class="unit-card-name" >
                     {{ unit.user.firstName.length < 1 && unit.user.lastName.length < 1 ? 'Vacant'  :  (unit.user.firstName + ' ' + unit.user.lastName) }}
                 </mat-card-title>
-                <mat-card-actions>
+                <mat-card-actions *ngIf="canEditUnit">
                   <button 
                   class="edit-button"
                   mat-raised-button
