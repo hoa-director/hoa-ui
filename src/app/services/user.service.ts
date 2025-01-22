@@ -88,9 +88,10 @@ export class UserService {
               now.getTime() + expiresInDuration * 1000
             );
             this.saveAuthData(token, expirationDate);
-            this.saveUserData(response.user.id);
+            // this.saveUserData(response.user.id); // -- don't save userID
+            this.saveUserData(response.user.name);  // -- save users firstName instead
             this.getLoggedInUser();
-            // this.setSelectedAssociation({id: response.associationId, name: response.});
+            // this.setSelectedAssociation({id: response.associationId, name: response.a});
             this.saveUserAssociationData(response.association.id, response.association.name);
             this.setSelectedAssociationSubject(response.association.name);
             this.router.navigate(["/home", "directory", "units-view"]); // -- First page after login
@@ -117,6 +118,9 @@ export class UserService {
     if (!authInformation) return;
     const now = new Date();
     // check to see if expiration date is in the future, if greater than now
+
+    // ADD THIS LATER ------ Check if user Role in jwt matches database. If not, logout. ------ ADD THIS LATER  
+
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
     if (expiresIn > 0) {
       this.token = authInformation.token;
@@ -137,15 +141,20 @@ export class UserService {
     this.router.navigateByUrl("/landing");
   }
 
+  // -- For Frontend Header Element
   getLoggedInUser(): void {
     this.http
-      .get<{ userFirstName: string }>(BACKEND_URL + "/user/loggedInUser", {
-        params: new HttpParams().set(
-          "userId",
-          sessionStorage.getItem("userId").toString()
-        ),
-      })
+      .get<{ userFirstName: string, userRole: number }>(BACKEND_URL + "/user/loggedInUser", 
+      // -- turned off 1/18/25 ---------
+      //   {
+      //   params: new HttpParams().set(
+      //     // "userId", sessionStorage.getItem("userId").toString()  // -- Don't save user Id to storage
+      //     "tokenParam",this.token // change to this, send token instead(in the header)
+      //   ),
+      // }
+    )
       .subscribe((response) => {
+        // console.log('getLoggedInUser:', response);
         this.setUser(response.userFirstName);
       });
   }
@@ -177,8 +186,9 @@ export class UserService {
     };
   }
 
-  private saveUserData(userId: string) {
-    sessionStorage.setItem("userId", userId);
+  private saveUserData(userName: string) {
+    // sessionStorage.setItem("userId", userId); // -- don't use this. Don't save User ID like this.
+    sessionStorage.setItem("userName", userName ); // -- use this. Use firstName instead (don't send or save User Id)
   }
 
   private saveUserAssociationData(associationId: number, associationName: string) {
@@ -194,13 +204,16 @@ export class UserService {
     this.selectedAssociationSubject.next(associationName);
   }
 
+  // -- For FrontEnd Header Element -- 
   getUserAssociations() {
     this.http
       .get<any>(
         BACKEND_URL +
-          `/user/associations?userId=${sessionStorage.getItem("userId")}`
+          // `/user/associations?userId=${sessionStorage.getItem("userId")}` // -- Don't send userId in API url
+          `/user/associations`
       )
       .subscribe((response) => {
+        // console.log('getUserAssociations_res:', response);
         this.availableAssociationsSubject.next(response.associations);
       });
   }
@@ -228,3 +241,4 @@ export class UserService {
     );
   }
 }
+

@@ -27,6 +27,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   searchUnitsForm: FormGroup;
   inputStringUnit: string = '';
   inputStringUser: string = '';
+  canEditUnit: boolean = false;
 
   // searchByUserInfo: boolean = false; //  True = Search by UNIT Info. False = search by USER Info
   searchByUserInfo: boolean = false; 
@@ -46,7 +47,6 @@ constructor(
   })
 }
 ngOnInit() {
-  console.log('OnINIT');
   this.listenForEvents();
   // this.onFetchUnits(this.inputStringUnit); //  I don't think this is needed cause its in listenForEvents
 }
@@ -58,13 +58,10 @@ ngOnDestroy() {
 // ----------------------- Doe something with this code to fix:  [(ngModel)]="inputStringUnit" ------------------ 
 // -- UNIT SEARCH
 onFetchUnits(inputString: string) {
-  console.log('IN_FETCH_UNITS');
   isLoading(true);
   this.dataService.fetchUnits(inputString || '')
   .subscribe((responseData: any) => {
-    // console.log('RESPONSE.DATA:', responseData);
-    this.units = [...responseData];
-    console.log('this.units:', this.units);
+    this.units = [...responseData.directory];
     this.cdr.detectChanges();
   }).add(() => {
     isLoading(false);
@@ -73,24 +70,18 @@ onFetchUnits(inputString: string) {
 
 // -- USER SEARCH
 fetchUnitsByUser(inputString: string) {
-    console.log('IN_FETCH_USERS');
-    console.log('INPUT_STRING', inputString);
     isLoading(true);
     this.dataService.fetchUnitsByUserAPI(inputString || '')
     .subscribe((responseData: any) => {
-      console.log('RESPONSE.DATA:', responseData);
       this.units = [...responseData];
-      // console.log('this.units:', this.units);
     }).add(() => {
       isLoading(false);
     });
   }
 
   listenForEvents() {
-    console.log('LISTEN_FRO_EVENTS');
     this.userSubjectSubs = this.userService.selectedAssociation$.subscribe( // if association changes. Load when ever Directory is selected
       () => {
-        console.log('EVENT_TRIGGERED');
         // this.onFetchUnits(this.inputString); 
       }
     );
@@ -98,7 +89,6 @@ fetchUnitsByUser(inputString: string) {
 
   // --  UNIT INPUT
   onInputChangeUnit() { // -- dynamically update inputString STATE, then Search.
-    console.log('INPUT_CHANGED_UNIT');
     if (this.inputStringUnit.length > 0){
       this.searchByUserInfo = false;
     }
@@ -106,13 +96,10 @@ fetchUnitsByUser(inputString: string) {
       this.inputStringUser = ''
       this.onFetchUnits(this.inputStringUnit)
     }
-    // console.log('searchByUserInfo =', this.searchByUserInfo);
-    console.log('searchByUserInfo =', this.searchByUserInfo);
   }
 
   // --  USER INPUT
   onInputChangeUser() { // -- dynamically update inputString STATE, then Search.
-    console.log('INPUT_CHANGED_USER');
     if (this.inputStringUser.length > 0){
       this.searchByUserInfo = true;
     }
@@ -120,21 +107,17 @@ fetchUnitsByUser(inputString: string) {
       this.inputStringUnit = '';
     this.fetchUnitsByUser(this.inputStringUser)
   }
-  console.log('searchByUserInfo =', this.searchByUserInfo);
-  console.log('this.inputStringUser =', this.inputStringUser);
   }
 
   onReset(): void {
-    console.log('OnREST');
     // this.searchUnitsForm.reset();  // did commenting this out fix the double firing issue???
     this.inputStringUnit = '';
     this.inputStringUser = '';
     // this.onFetchUnits(this.inputStringUnit);
-    console.log('this.inputStringUnit', this.inputStringUnit);
   }
 
   editUnit(unitId: number) {
-    if(unitId){
+    if(unitId && this.canEditUnit === true ){
       this.router.navigate(['/home/directory/units-edit', unitId]); // Navigate to the edit page with unitId
     } else {
       console.log('EDIT-NO-UNITID', unitId);

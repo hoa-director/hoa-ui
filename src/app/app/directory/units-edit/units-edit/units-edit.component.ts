@@ -53,38 +53,48 @@ ngOnInit() {
   this.disableForm();
 
   this.editUnitForm.get('unitId')?.valueChanges.subscribe(value => { // -- Listen for Unit Dropdown selection changes
-    console.log('this.unitId', this.unitId);
+    // console.log('on_Init_VALUE', value);
     this.unitId = value;
+    // console.log('on_Init_this.unitId', this.unitId);
     this.getUnit(this.unitId) 
     this.disableForm();
   });
 }
 
-
+// -- GET PARAMS (IF THEY EXIST)
+getParams(){
+  // console.log('IN_PARAMS_FUNCTION');
+  this.route.paramMap.subscribe(params => {
+    this.unitId = +params.get('unitId'); // Convert to number
+    if (this.unitId) {
+      // console.log('UNIT_PARAMS_EXIST_unitId:', this.unitId);
+      this.getUnit(this.unitId)
+    } else {
+      // console.log('NO_PARAMS');
+    }
+  });
+}
 
 // --  ACTIVATE/DEACTIVATE UNIT
 onToggleChangeUnit(): void {
-  console.log('Unit status changed to:', this.unitStatus);
   if(this.currentUnit){
     // console.log('CURRENT USER this.currentUser.id:', this.currentUint.id);
     this.dataService.updateUnitStatus(this.currentUnit.id, this.unitStatus)
     .subscribe(
       (responseData: any) => {
-        console.log('response subscribe');
         if (responseData.status === 'success') {
-          console.log('RESPONSE:', responseData);
+          // console.log('ToggleChangeunit responseData:', responseData);
           this.openSuccessModal(); // -- need to import to use
           this.getUnit(this.unitId)
           // this.disableEnableForm(); // --------------------------come back to this
         } else if (responseData.status === 'failure') {
-          console.log('RESPONSE', responseData);
           this.openFailureModal('User update failed.'); // Handle failure
         }
       }
     );
-    
-  } else {
-    console.log('NO_CURRENT_USER_SELECTED');
+  } else { // this code should never fire. It's just incase.
+    console.error('No current unit selected');
+    alert('No Unit Selected');
   }
 }
 
@@ -93,9 +103,7 @@ getAllUnits(){
     isLoading(true);
     this.dataService.fetchUnits('')
     .subscribe((responseData: any) => {
-      console.log('RESPONSE.DATA:', responseData);
-      this.allUnits = [...responseData];
-      console.log('this.allUnits:', this.allUnits);
+      this.allUnits = [...responseData.directory];
       // this.cdr.detectChanges();
     }).add(() => {
       isLoading(false);
@@ -104,28 +112,16 @@ getAllUnits(){
 
 // --  GET AVAILABLE USERS DROPDOWN -- //
 getAvailableUsers(){
-  console.log('getAvailableUsers');
     isLoading(true);
     this.dataService.getAvailableUsers()
     .subscribe((responseData: any) => {
-      console.log('RESPONSE.DATA:', responseData);
       this.availableUsers = [...responseData];
-      console.log('AVAILABLE USERS:', this.availableUsers);
       // this.cdr.detectChanges();
     }).add(() => {
       isLoading(false);
     });
 }
 
-// -- GET PARAMS (IF THEY EXIST)
-getParams(){
-  this.route.paramMap.subscribe(params => {
-    this.unitId = +params.get('unitId'); // Convert to number
-    if (this.unitId) {
-      this.getUnit(this.unitId)
-    }
-  });
-}
 
 // -- INIT EDIT FORM
 initEditUnitForm() {
@@ -146,22 +142,16 @@ initEditUnitForm() {
 
 // -- GET UNIT
 getUnit(unitId: number) {
-  console.log('this.UnitId', unitId);
   isLoading(true);
   this.dataService.fetchOneUnit(unitId)
   .subscribe((responseData: any) => {
-    console.log('RESPONSE.DATA:', responseData);
     this.currentUnit = responseData;
-    console.log('this.currentUnit after API:', this.currentUnit);
     if (this.currentUnit){
-      console.log('this_currentUnit', this.currentUnit);
+      // console.log('GET_UNIT_CURRENT_unit:', this.currentUnit );
       this.updateEditUnitForm(this.currentUnit)
       this.unitStatus = this.currentUnit.deletedAt ? false : true
-      console.log('this_currentUnit_deletedAt', this.currentUnit.deletedAt);
-      console.log('unitStatus', this.unitStatus);
       this.disableEnableForm(); 
       if(!this.unitStatus){
-        console.log('YES_UNIT_STATUS:', this.unitStatus);
         this.disableForm();
       }
     }
@@ -172,12 +162,9 @@ getUnit(unitId: number) {
 
 // -- DISABLE/ENABLE FORM -- On INIT and user dropdown selection change
 disableEnableForm(){
-  console.log('INSIDE_this.disableEnableForm();');
   if (!this.unitId) {
-    console.log('NO_disable');  
     this.disableForm();
   } else {
-    console.log('YES_enable');  
     if(this.unitStatus){
       this.enableForm();
     }
@@ -186,7 +173,6 @@ disableEnableForm(){
 // -- DISABLE/ENABLE FORM -- On INIT and user dropdown selection change
 disableForm(){ 
   // --  Don't enable organization dropdown
-  console.log('disable_form');  
     this.editUnitForm.get('addressLineOne')?.disable();
     this.editUnitForm.get('addressLineTwo')?.disable();
     this.editUnitForm.get('city')?.disable();
@@ -196,7 +182,6 @@ disableForm(){
     this.formIsDisabled= true;
 }
 enableForm(){
-  console.log('enable_form');  
   this.editUnitForm.get('addressLineOne')?.enable();
   this.editUnitForm.get('addressLineTwo')?.enable();
   this.editUnitForm.get('city')?.enable();
@@ -221,13 +206,9 @@ updateEditUnitForm(unit: any) {
 
 // -- SUBMIT UNIT CHANGES
 saveUnitChanges(){
-  console.log('Save Unit Changes!');
-  console.log('this.currentUnit', this.currentUnit);
   // this.getUnit(this.unitId)
-
   if(this.editUnitForm.valid){
     const formValues = this.editUnitForm.value
-    console.log('this.currentUnit.id', this.currentUnit.id,);
     const unitObj = {
       unitId: this.currentUnit.id,
       // associationId: formValues.associationId, //  don't send for now. 
@@ -243,12 +224,9 @@ saveUnitChanges(){
     .updateUnit(unitObj)
     .subscribe(
       (responseData: any) => {
-        console.log('response subscribe');
         if (responseData.status === 'success') {
-          console.log('RESPONSE:', responseData);
           this.openSuccessModal(); // -- need to import to use
         } else if (responseData.status === 'failure') {
-          console.log('RESPONSE', responseData);
           this.openFailureModal('User update failed.'); // Handle failure
         }
       }
@@ -258,7 +236,7 @@ saveUnitChanges(){
 
 // -- CANCEL
 onReset(): void {
-  console.log('CANCEL');
+  console.log('onReset() - CANCEL');
   // this.editUnitForm.reset({
   //   associationId: this.associations[0].id, // required
   //   addressLineOne: '',
