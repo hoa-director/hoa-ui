@@ -16,6 +16,44 @@ export class DataService {
     private http: HttpClient,
   ) {}
 
+  // -- GET ORGANIZATION ROLES
+  fetchOrganizationRoles() { 
+    const endPoint = "/api/getRoles"
+      const organizationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+        organizationId: organizationId, // -- associationIds MUST be un an array to work.
+      }
+      console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload );
+  }
+
+  // -- GET ONE ORGANIZATION ROLE ------ NOT BEING USED YET???
+  fetchOneOrganizationRole() { 
+    const endPoint = "/api/getOneRole"
+    const organizationId = 1// sessionStorage.getItem("associationId").toString()
+    const payload = {
+      organizationId: 1, // -- associationIds MUST be un an array to work.
+    }
+    console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload );
+  }
+  
+  // -- GET ONE ORGANIZATION ROLE ------ NOT BEING USED YET???
+  fetchCurrentUserPermission() { 
+    const endPoint = "/api/currentUserPermission"
+    const organizationId = 1// sessionStorage.getItem("associationId").toString()
+    const payload = {
+      organizationId: 1, // -- associationIds MUST be un an array to work.
+    }
+    console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload );
+  }
+  
+
+
+
+
+
   // ---------------- VIEW UNITS PAGE ---------------- //
   // -- UNITS API ENDPOINT -- default when page opens
   fetchUnits(inputString: string) {
