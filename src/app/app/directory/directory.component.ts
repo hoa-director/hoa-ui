@@ -26,7 +26,7 @@ export class DirectoryComponent    {
   constructor(
     private dataService: DataService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
     // private dialog: MatDialog,
 
   ) {
@@ -65,9 +65,9 @@ export class DirectoryComponent    {
 
   }
 
-  getCurrentUrl(): string {
-    return this.router.url; // Returns the current URL as a string
-  }
+  // getCurrentUrl(): string { // -- not using 
+  //   return this.router.url; // Returns the current URL as a string
+  // }
 
 
   ngOnInit() {
