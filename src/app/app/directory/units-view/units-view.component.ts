@@ -49,6 +49,11 @@ constructor(
     inputTextUser: ['']   // USERS
   })
 }
+
+getCurrentUrl(): string {
+  return this.router.url; // Returns the current URL as a string
+}
+
 ngOnInit() {
   this.listenForEvents();
   // this.onFetchUnits(this.inputStringUnit); //  I don't think this is needed cause its in listenForEvents
@@ -85,10 +90,14 @@ ngOnDestroy() {
     }
   }
 }
-
+// -- Check is user has unit editing permissions
 checkCurrentUserPermissions() {
   isLoading(true);
-  this.dataService.fetchCurrentUserPermission().subscribe((Response: any) => {
+  // const pageURL = this.getCurrentUrl().split('/').pop(); 
+  const parts = this.getCurrentUrl().split('/'); // Split the URL by '/'
+  const pageURL = parts[parts.length - 2]; 
+  console.log('new_pageURL', pageURL);
+  this.dataService.fetchCurrentUserPermission('unit-center').subscribe((Response: any) => { // -- MUST match database!
     console.log('response', Response);
     this.checkPermissionsObject(Response);
   }).add(() => {

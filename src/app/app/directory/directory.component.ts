@@ -6,6 +6,7 @@ import { Unit } from "./unit.model";
 import { isLoading } from "../../shared/isLoading";
 import { MatDialog } from "@angular/material/dialog";
 import { UnitModalComponent } from "../modal/unit-modal/unit-modal.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-directory",
@@ -25,12 +26,12 @@ export class DirectoryComponent    {
   constructor(
     private dataService: DataService,
     private userService: UserService,
+    private router: Router
     // private dialog: MatDialog,
 
   ) {
 
-    this.directoryLinks = [
-    ];
+    this.directoryLinks = [];
     // this.directoryLinks2 = [
     //   {
     //     name: "Directory Home",
@@ -64,6 +65,11 @@ export class DirectoryComponent    {
 
   }
 
+  getCurrentUrl(): string {
+    return this.router.url; // Returns the current URL as a string
+  }
+
+
   ngOnInit() {
     this.directoryLinks = [];
     this.listenForEvents();
@@ -84,10 +90,10 @@ export class DirectoryComponent    {
   //   });
   // }
 
-  // -- Loop through Permission Object, add each permission to the directoryLink array
+  // -- Loop through Permission Object, add each Navbar Link to the array, based on user permissions
   checkPermissionsObject(obj: Record<string, any>): void {
     for (const [key, value] of Object.entries(obj)) {
-      
+
       if(key.toString() === 'can_view') {
         if (value === true) {
         this.directoryLinks.push(
@@ -114,9 +120,13 @@ export class DirectoryComponent    {
     // console.log('directoryLinks1', this.directoryLinks);
   }
 
+
+  // -- Get list of Directory/Unit-center Navbar Links/permissions. (Not the same as the units grid)
   checkCurrentUserPermissions() {
     isLoading(true);
-    this.dataService.fetchCurrentUserPermission().subscribe((Response: any) => {
+    // const pageURL = this.getCurrentUrl().split('/').pop(); 
+    // this.dataService.fetchCurrentUserPermission('directory').subscribe((Response: any) => {
+    this.dataService.fetchCurrentUserPermission('unit-center').subscribe((Response: any) => { // -- MUST match database!
       console.log('response', Response);
       this.checkPermissionsObject(Response);
     }).add(() => {

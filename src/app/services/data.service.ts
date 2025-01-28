@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -14,8 +15,15 @@ export class DataService {
 
   constructor(
     private http: HttpClient,
+      private router: Router,
+    
   ) {}
 
+
+  getCurrentUrl(): string {
+    return this.router.url; // Returns the current URL as a string
+  }
+  
   // -- GET ORGANIZATION ROLES
   fetchOrganizationRoles() { 
     const endPoint = "/api/getRoles"
@@ -38,12 +46,16 @@ export class DataService {
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
   
-  // -- GET ONE ORGANIZATION ROLE ------ NOT BEING USED YET???
-  fetchCurrentUserPermission() { 
+  // -- Get Current Users Permissions for hiding front-end UI elements ONLY
+  fetchCurrentUserPermission(pageURLink: string) { 
     const endPoint = "/api/currentUserPermission"
-    // const organizationId = sessionStorage.getItem("associationId").toString()
+
+    // const parts = this.getCurrentUrl().split('/'); 
+    // const pageURL = parts[parts.length - 2 ]; 
+    console.log('new_pageURL', pageURLink);
     const payload = {
       organizationId: sessionStorage.getItem("associationId").toString(), // -- associationIds MUST be un an array to work.
+      pageURL: pageURLink,
     }
     console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload );
@@ -60,7 +72,7 @@ export class DataService {
     const associationId = sessionStorage.getItem("associationId").toString()
     const payload = {
       associationId: associationId,
-      inputString: inputString
+      inputString: inputString // -- MUST match database!
     }
     return this.http.post(BACKEND_URL + "/api/directory", payload)
   }
