@@ -29,6 +29,7 @@
       Association Documents
     </button>
     <button
+      *ngIf="userCenterVisible"
       mat-button
       [routerLink]="['users-center/users-view']"
       routerLinkActive="active"

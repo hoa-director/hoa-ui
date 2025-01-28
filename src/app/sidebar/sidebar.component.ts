@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { UsersCenterService } from '../services/users-center.service';
+
 import { Subscription } from "rxjs";
 
 @Component({
@@ -10,6 +12,8 @@ import { Subscription } from "rxjs";
 export class SidebarComponent implements OnInit, OnDestroy {
   userIsAuthenticated = true;
   private authListenerSubs: Subscription;
+  
+  userCenterVisible = true
 
   links: Array<{ path: string; label: string; active: boolean }> = [
     {
@@ -44,7 +48,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     },
     {
       path: 'interior',
-      label: 'Interior Mainenance',
+      label: 'Interior Maintenance',
       active: false,
     },
     {
