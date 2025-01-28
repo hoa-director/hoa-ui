@@ -120,7 +120,6 @@ export class DirectoryComponent    {
     // console.log('directoryLinks1', this.directoryLinks);
   }
 
-
   // -- Get list of Directory/Unit-center Navbar Links/permissions. (Not the same as the units grid)
   checkCurrentUserPermissions() {
     isLoading(true);
