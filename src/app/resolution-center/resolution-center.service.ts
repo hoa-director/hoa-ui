@@ -24,31 +24,20 @@ export class ResolutionCenterService {
     });
   }
 
+  // -- POST Route 
   public submitObjection(objection) {
     console.log('OBJECTION:', objection);
-    return this.http.post(
-      "/api/objections", // 
-      { objection },
-      {
-        params: new HttpParams()
-          .set(
-            "associationId", sessionStorage.getItem("associationId").toString()
-          )
-          .set("userId", 1 // -- CHANGE TO SEND VIA TOKEN --- // sessionStorage.getItem("userId").toString()
-        ),
-      }
-    );
+    return this.http.post( "/api/objections", { objection },);
+      // { params: new HttpParams() .set( "associationId", sessionStorage.getItem("associationId").toString()) .set( "userId", 1 ),} 
   }
 
   public submitVote(vote: number, objectionId: number) {
     return this.http.post(
       "/api/vote",
       { vote: { vote, objectionId } },
-      {
-        params: new HttpParams().set(
+      { params: new HttpParams().set(
           "userId",
-          sessionStorage.getItem("userId").toString()
-        ),
+          sessionStorage.getItem("userId").toString()),
       }
     );
   }
@@ -61,7 +50,7 @@ export class ResolutionCenterService {
   }
 
 
-
+  // -- GET Route
   public getObjection(id) {
     return this.http.get("/api/objections/" + id);
   }
