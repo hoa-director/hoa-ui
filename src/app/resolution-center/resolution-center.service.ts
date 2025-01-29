@@ -19,9 +19,8 @@ export class ResolutionCenterService {
   }
 
   public getUnits(): Observable<{ units: any[] }> { // -- Get list of units to file motion against
-    return this.http.get<{ units: any[] }>("/api/units", {
-      params: new HttpParams().set( "associationId", sessionStorage.getItem("associationId").toString()),
-    });
+    return this.http.get<{ units: any[] }>("/api/units" );
+    // params: new HttpParams().set( "associationId", sessionStorage.getItem("associationId").toString()),
   }
 
   // -- POST Route 

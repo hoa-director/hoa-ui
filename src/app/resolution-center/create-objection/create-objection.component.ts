@@ -39,6 +39,7 @@ export class CreateObjectionComponent implements OnInit {
   private init() {
     this.resolutionCenterService.getUnits().subscribe((response) => {
       this.units = response.units;
+      console.log('this.units:', this.units);
     });
   }
 
