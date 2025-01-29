@@ -125,27 +125,21 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
+    this.hideSidebarLinks()
   }
 
-  // -- Loop through Permission Object, add each Navbar Link to the array, based on user permissions
-    // checkPermissionsObject(obj: Record<string, any>): void {
-    //   for (const [key, value] of Object.entries(obj)) {
-    //     if(key.toString() === 'can_view') {
-    //       if (value === true) {
-    //       this.links.push(
-    //         { label: "Directory Home", path: "units-view", active: true },
-    //       );
-    //     }
-    //   }
-    //     console.log('Adding:', key.toString());
-    //   }
-    //   // console.log('directoryLinks1', this.directoryLinks);
-    // }
-  
+  hideSidebarLinks() {
+    this.showNeighborhoodDirectory = false;
+    this.showRulesAndRegulations = false;
+    this.showResolutionCenter = false;
+    this.showAssociationDocuments = false;
+    this.showUsersCenter = false; 
+  }
 
     // -- Get list of sidebar Links
     checkCurrentUserSideBarPermissions() {
       // isLoading(true);
+      console.log('console to test merge');
       this.dataService.fetchCurrentUserSideBarPermission()
       .subscribe((response: any) => { // -- MUST match database!
         console.log('responseSideBar:', response);
@@ -169,7 +163,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(
       (isAuthenticated: boolean) => {
         this.userIsAuthenticated = isAuthenticated;
-        this.checkCurrentUserSideBarPermissions()
+        // this.checkCurrentUserSideBarPermissions()
         // if(!isAuthenticated) return;
       }
     );

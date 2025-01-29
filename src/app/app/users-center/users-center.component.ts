@@ -46,6 +46,11 @@ export class UsersCenterComponent implements OnInit {
     this.listenForEvents();
     // this.activeLink = this.usersCenterLinks[0].name
   }
+  
+  ngOnDestroy() {
+    this.userSubjectSubs.unsubscribe();
+    this.usersCenterLinks = [];
+  }
 
       // -- Loop through Permission Object, add each Navbar Link to the array, based on user permissions
     checkPermissionsObject(obj: Record<string, any>): void {
