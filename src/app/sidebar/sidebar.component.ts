@@ -146,6 +146,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     // -- Get list of sidebar Links
     checkCurrentUserSideBarPermissions() {
       // isLoading(true);
+      console.log('console to test merge');
       this.dataService.fetchCurrentUserSideBarPermission()
       .subscribe((response: any) => { // -- MUST match database!
         console.log('responseSideBar:', response);
