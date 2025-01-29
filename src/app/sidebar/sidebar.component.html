@@ -1,6 +1,7 @@
 <div class="sidebar">
   <div *ngIf="userIsAuthenticated" class="nav-pills">
     <button
+      *ngIf="showNeighborhoodDirectory"
       mat-button
       [routerLink]="['directory/units-view']"
       routerLinkActive="active"
@@ -8,6 +9,7 @@
       Neighborhood Directory
     </button>
     <button
+      *ngIf="showRulesAndRegulations"
       mat-button
       [routerLink]="['rules']"
       routerLinkActive="active"
@@ -15,6 +17,7 @@
       Rules & Regulations
     </button>
     <button
+      *ngIf="showResolutionCenter"
       mat-button
       [routerLink]="['resolution-center/inbox']"
       routerLinkActive="active"
@@ -22,6 +25,7 @@
       Resolution Center
     </button>
     <button
+      *ngIf="showAssociationDocuments"
       mat-button
       [routerLink]="['documents']"
       routerLinkActive="active"
@@ -29,6 +33,7 @@
       Association Documents
     </button>
     <button
+      *ngIf="showUsersCenter"
       mat-button
       [routerLink]="['users-center/users-view']"
       routerLinkActive="active"

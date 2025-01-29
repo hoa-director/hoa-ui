@@ -43,6 +43,7 @@ export class CreateObjectionComponent implements OnInit {
   }
 
   public submit(objection) {
+    console.log('SUBMIT:', objection);
     this.resolutionCenterService
       .submitObjection(objection)
       .subscribe((response) => {});
@@ -53,7 +54,7 @@ export class CreateObjectionComponent implements OnInit {
       against: this.againstControl.value,
       comment: this.commentControl.value,
     };
-    this.resetForm();
+    // this.resetForm();
     this.resolutionCenterService
       .submitObjection(objection)
       .subscribe((response) => {});

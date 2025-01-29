@@ -29,14 +29,14 @@ export class UsersCenterService {
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
 
-  // -- GET ONE ORGANIZATION ROLE
+  // -- GET ONE ORGANIZATION ROLE ------ NOT BEING USED YET???
   fetchOneOrganizationRole() { 
     const endPoint = "/api/getOneRole"
-      const organizationId = sessionStorage.getItem("associationId").toString()
-      const payload = {
-        organizationId: organizationId, // -- associationIds MUST be un an array to work.
-      }
-      console.log('PAYLOAD:', payload);
+    // const organizationId =  sessionStorage.getItem("associationId").toString()
+    const payload = {
+      organizationId: sessionStorage.getItem("associationId").toString() // -- associationIds MUST be un an array to work.
+    }
+    console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
   

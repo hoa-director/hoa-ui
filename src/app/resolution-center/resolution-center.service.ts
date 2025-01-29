@@ -20,7 +20,7 @@ export class ResolutionCenterService {
     });
   }
 
-  public getUnits(): Observable<{ units: any[] }> {
+  public getUnits(): Observable<{ units: any[] }> { // -- Get list of units to file motion against
     return this.http.get<{ units: any[] }>("/api/units", {
       params: new HttpParams().set(
         "associationId",
@@ -29,16 +29,17 @@ export class ResolutionCenterService {
     });
   }
   public submitObjection(objection) {
+    console.log('OBJECTION:', objection);
     return this.http.post(
-      "/api/objections",
+      "/api/objections", // 
       { objection },
       {
         params: new HttpParams()
           .set(
-            "associationId",
-            sessionStorage.getItem("associationId").toString()
+            "associationId", sessionStorage.getItem("associationId").toString()
           )
-          .set("userId", sessionStorage.getItem("userId").toString()),
+          .set("userId", 1 // -- CHANGE TO SEND VIA TOKEN --- // sessionStorage.getItem("userId").toString()
+        ),
       }
     );
   }

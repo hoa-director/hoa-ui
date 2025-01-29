@@ -27,11 +27,14 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   searchUnitsForm: FormGroup;
   inputStringUnit: string = '';
   inputStringUser: string = '';
-  canEditUnit: boolean = false;
-
+  canEditUnit: boolean = true;
   // searchByUserInfo: boolean = false; //  True = Search by UNIT Info. False = search by USER Info
   searchByUserInfo: boolean = false; 
   
+  private usersCenterService: UsersCenterService;
+  // userPermission: object | null
+  // userCenterVisible = false
+
 constructor(
   private router: Router,
   private dataService: DataService,
@@ -46,14 +49,63 @@ constructor(
     inputTextUser: ['']   // USERS
   })
 }
+
+getCurrentUrl(): string {
+  return this.router.url; // Returns the current URL as a string
+}
+
 ngOnInit() {
   this.listenForEvents();
   // this.onFetchUnits(this.inputStringUnit); //  I don't think this is needed cause its in listenForEvents
+  this.checkCurrentUserPermissions();
+  // this.usersCenterService.fetchOneOrganizationRole()
 }
 
 ngOnDestroy() {
   this.userSubjectSubs.unsubscribe();
 }
+
+
+// getCurrentUserRole(){
+//   this.dataService.fetchOneOrganizationRole()
+//   .subscribe((responseData: any) => {
+//       this.role = responseData;
+//       console.log('this.role;', this.role);
+//       console.log('responseData_roles_else:', responseData);    
+//   }).add(() => {
+//     // isLoading(false);
+//   });
+// } 
+
+ // -- Loop through Permission Object, Turn the Edit Button on or off
+ checkPermissionsObject(obj: Record<string, any>): void {
+  for (const [key, value] of Object.entries(obj)) {
+    if(key.toString() === 'can_edit') {
+      // console.log('Can_edit_found and is:', value);
+      if (value === true) {
+        this.canEditUnit = true
+      } else {
+        this.canEditUnit = false
+      }
+    }
+  }
+}
+// -- Check is user has unit editing permissions
+checkCurrentUserPermissions() {
+  isLoading(true);
+  // const pageURL = this.getCurrentUrl().split('/').pop(); 
+  const parts = this.getCurrentUrl().split('/'); // Split the URL by '/'
+  const pageURL = parts[parts.length - 2]; 
+  // console.log('new_pageURL', pageURL);
+  this.dataService.fetchCurrentUserPermission('unit-center').subscribe((Response: any) => { // -- MUST match database!
+    // console.log('response', Response);
+    this.checkPermissionsObject(Response);
+  }).add(() => {
+    isLoading(false);
+  });
+}
+
+
 
 // ----------------------- Doe something with this code to fix:  [(ngModel)]="inputStringUnit" ------------------ 
 // -- UNIT SEARCH
@@ -62,6 +114,7 @@ onFetchUnits(inputString: string) {
   this.dataService.fetchUnits(inputString || '')
   .subscribe((responseData: any) => {
     this.units = [...responseData.directory];
+    console.log('response:', responseData);
     this.cdr.detectChanges();
   }).add(() => {
     isLoading(false);
