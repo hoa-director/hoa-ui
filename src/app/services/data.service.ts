@@ -52,12 +52,23 @@ export class DataService {
 
     // const parts = this.getCurrentUrl().split('/'); 
     // const pageURL = parts[parts.length - 2 ]; 
-    console.log('new_pageURL', pageURLink);
+    // console.log('new_pageURL', pageURLink);
     const payload = {
       organizationId: sessionStorage.getItem("associationId").toString(), // -- associationIds MUST be un an array to work.
       pageURL: pageURLink,
     }
-    console.log('PAYLOAD:', payload);
+    // console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload );
+  }
+
+
+  // -- Get Current Users Permissions for hiding front-end SIDEBAR LINKS
+  fetchCurrentUserSideBarPermission() { 
+    const endPoint = "/api/currentUserSideBarPermission"
+    const payload = {
+      organizationId: sessionStorage.getItem("associationId").toString(), // -- associationIds MUST be un an array to work.
+    }
+    // console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
   

@@ -81,7 +81,7 @@ ngOnDestroy() {
  checkPermissionsObject(obj: Record<string, any>): void {
   for (const [key, value] of Object.entries(obj)) {
     if(key.toString() === 'can_edit') {
-      console.log('Can_edit_found and is:', value);
+      // console.log('Can_edit_found and is:', value);
       if (value === true) {
         this.canEditUnit = true
       } else {
@@ -96,9 +96,9 @@ checkCurrentUserPermissions() {
   // const pageURL = this.getCurrentUrl().split('/').pop(); 
   const parts = this.getCurrentUrl().split('/'); // Split the URL by '/'
   const pageURL = parts[parts.length - 2]; 
-  console.log('new_pageURL', pageURL);
+  // console.log('new_pageURL', pageURL);
   this.dataService.fetchCurrentUserPermission('unit-center').subscribe((Response: any) => { // -- MUST match database!
-    console.log('response', Response);
+    // console.log('response', Response);
     this.checkPermissionsObject(Response);
   }).add(() => {
     isLoading(false);
@@ -114,6 +114,7 @@ onFetchUnits(inputString: string) {
   this.dataService.fetchUnits(inputString || '')
   .subscribe((responseData: any) => {
     this.units = [...responseData.directory];
+    console.log('response:', responseData);
     this.cdr.detectChanges();
   }).add(() => {
     isLoading(false);

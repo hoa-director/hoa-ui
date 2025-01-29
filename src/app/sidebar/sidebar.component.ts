@@ -21,10 +21,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   showResolutionCenter: boolean = false;
   showAssociationDocuments: boolean = false;
   showUsersCenter: boolean = false; // Example: Hidden by default
-  showLogoutButton: boolean = true;
 
 
-  links: Array<{ path: string; label: string; active: boolean }> = []
+  // links: Array<{ path: string; label: string; active: boolean }> = []
   // links: Array<{ path: string; label: string; active: boolean }> = [
   //   {
   //     path: 'directory',
@@ -118,10 +117,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
   // }
 
   ngOnInit() {
-    this.links = [];
-
     this.userIsAuthenticated = this.userService.getIsAuthenticated();
     this.listenForEvents();
+    this.checkCurrentUserSideBarPermissions();
+
   }
 
   ngOnDestroy() {
@@ -129,53 +128,48 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   // -- Loop through Permission Object, add each Navbar Link to the array, based on user permissions
-    checkPermissionsObject(obj: Record<string, any>): void {
-      for (const [key, value] of Object.entries(obj)) {
+    // checkPermissionsObject(obj: Record<string, any>): void {
+    //   for (const [key, value] of Object.entries(obj)) {
+    //     if(key.toString() === 'can_view') {
+    //       if (value === true) {
+    //       this.links.push(
+    //         { label: "Directory Home", path: "units-view", active: true },
+    //       );
+    //     }
+    //   }
+    //     console.log('Adding:', key.toString());
+    //   }
+    //   // console.log('directoryLinks1', this.directoryLinks);
+    // }
   
-        if(key.toString() === 'can_view') {
-          if (value === true) {
-          this.links.push(
-            { label: "Directory Home", path: "units-view", active: true },
-          );
-        }
-      }
-        if(key.toString() === 'can_add') {
-          if (value === true) {
-            this.links.push(
-              { label: "Add Unit", path: "units-add", active: true  },
-            );
-          }
-        }
-        if(key.toString() === 'can_edit') {
-          if (value === true) {
-            this.links.push(
-              { label: "Edit Unit", path: "units-edit", active: true  },
-            );
-          }
-        }
-        // console.log('Adding:',key.toString());
-      }
-      // console.log('directoryLinks1', this.directoryLinks);
-    }
-  
-    // -- Get list of Directory/Unit-center Navbar Links/permissions. (Not the same as the units grid)
-    checkCurrentUserPermissions() {
+
+    // -- Get list of sidebar Links
+    checkCurrentUserSideBarPermissions() {
       // isLoading(true);
-      // const pageURL = this.getCurrentUrl().split('/').pop(); 
-      // this.dataService.fetchCurrentUserPermission('directory').subscribe((Response: any) => {
-      this.dataService.fetchCurrentUserPermission('unit-center').subscribe((Response: any) => { // -- MUST match database!
-        console.log('response', Response);
-        this.checkPermissionsObject(Response);
+      this.dataService.fetchCurrentUserSideBarPermission()
+      .subscribe((response: any) => { // -- MUST match database!
+        console.log('responseSideBar:', response);
+        this.setSidebarLinkVisibility(response)
       }).add(() => {
         // isLoading(false);
       });
     }
 
+    //  -- Turn on sidebar links user has access to
+    setSidebarLinkVisibility(response){ 
+      if (response.unitCenter){ this.showNeighborhoodDirectory = response.unitCenter;} 
+      if (response.rules){ this.showRulesAndRegulations = response.rules;} 
+      if (response.resolutionCenter){ this.showResolutionCenter = response.resolutionCenter;} 
+      if (response.documents){ this.showAssociationDocuments = response.documents;} 
+      if (response.usersCenter){ this.showUsersCenter = response.usersCenter;} 
+    }
+
+
   listenForEvents() {
     this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(
       (isAuthenticated: boolean) => {
         this.userIsAuthenticated = isAuthenticated;
-        this.checkCurrentUserPermissions()
+        this.checkCurrentUserSideBarPermissions()
         // if(!isAuthenticated) return;
       }
     );
