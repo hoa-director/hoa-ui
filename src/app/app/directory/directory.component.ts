@@ -76,9 +76,10 @@ export class DirectoryComponent    {
     // this.onFetchUnits();
   }
 
-  // ngOnDestroy() {
-  //   this.userSubjectSubs.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.userSubjectSubs.unsubscribe();
+    this.directoryLinks = [];
+  }
 
   // onFetchUnits() {
   //   isLoading(true);
