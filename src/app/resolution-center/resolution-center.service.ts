@@ -10,24 +10,20 @@ export class ResolutionCenterService {
   constructor(private http: HttpClient) {}
 
   public getInbox(): Observable<{ objections: Objection[] }> {
-    return this.http.get<{ objections: Objection[] }>("/api/inbox", {
-      params: new HttpParams()
-        .set(
-          "associationId",
-          sessionStorage.getItem("associationId").toString()
-        )
-        .set("userId", sessionStorage.getItem("userId").toString()),
-    });
+    return this.http.get<{ objections: Objection[] }>("/api/inbox")  //, {
+    //   params: new HttpParams()
+    //     .set( "associationId", sessionStorage.getItem("associationId").toString())
+    //     // .set("userId", 4), //sessionStorage.getItem("userId").toString()),
+    // }
+  // );
   }
 
   public getUnits(): Observable<{ units: any[] }> { // -- Get list of units to file motion against
     return this.http.get<{ units: any[] }>("/api/units", {
-      params: new HttpParams().set(
-        "associationId",
-        sessionStorage.getItem("associationId").toString()
-      ),
+      params: new HttpParams().set( "associationId", sessionStorage.getItem("associationId").toString()),
     });
   }
+
   public submitObjection(objection) {
     console.log('OBJECTION:', objection);
     return this.http.post(
@@ -59,26 +55,20 @@ export class ResolutionCenterService {
 
   public getOutbox(): Observable<{ objections: any[] }> {
     return this.http.get<{ objections: any[] }>("/api/outbox", {
-      params: new HttpParams()
-        .set(
-          "associationId",
-          sessionStorage.getItem("associationId").toString()
-        )
-        .set("userId", sessionStorage.getItem("userId").toString()),
+      params: new HttpParams() .set( "associationId", sessionStorage.getItem("associationId").toString())
+      .set("userId", 4), //sessionStorage.getItem("userId").toString()),
     });
   }
+
+
 
   public getObjection(id) {
     return this.http.get("/api/objections/" + id);
   }
 
   public getPastObjections(): Observable<{ objections: any[] }> {
-    return this.http.get<{ objections: any[] }>("/api/objections/past", {
-      params: new HttpParams().set(
-        "associationId",
-        sessionStorage.getItem("associationId").toString()
-      ),
-    });
+    return this.http.get<{ objections: any[] }>("/api/objections/past");
+    // params: new HttpParams().set( "associationId", sessionStorage.getItem("associationId").toString() ),
   }
 
   private getUserIdParams(): void {

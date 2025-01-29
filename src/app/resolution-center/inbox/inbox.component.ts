@@ -38,6 +38,7 @@ export class InboxComponent implements OnInit {
     });
   }
 
+    // --  Get list of Open objections - works
   private init() {
     this.resolutionCenterService
       .getInbox().subscribe((response) => {
