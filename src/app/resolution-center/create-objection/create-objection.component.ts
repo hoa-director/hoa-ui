@@ -51,7 +51,9 @@ export class CreateObjectionComponent implements OnInit {
   }
 
   onSubmit() {
+    // -- Everything we are passing to the backend
     var objection = {
+      organizationId: sessionStorage.getItem("associationId"),
       against: this.againstControl.value,
       comment: this.commentControl.value,
     };
