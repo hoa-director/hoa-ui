@@ -125,7 +125,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
-    this.hideSidebarLinks()
+    // this.hideSidebarLinks() // -- testing off. sometimes hides on reload
   }
 
   hideSidebarLinks() {

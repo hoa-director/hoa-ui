@@ -39,6 +39,7 @@ export class CreateObjectionComponent implements OnInit {
   private init() {
     this.resolutionCenterService.getUnits().subscribe((response) => {
       this.units = response.units;
+      console.log('this.units:', this.units);
     });
   }
 
@@ -50,7 +51,9 @@ export class CreateObjectionComponent implements OnInit {
   }
 
   onSubmit() {
+    // -- Everything we are passing to the backend
     var objection = {
+      organizationId: sessionStorage.getItem("associationId"),
       against: this.againstControl.value,
       comment: this.commentControl.value,
     };
