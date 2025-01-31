@@ -40,8 +40,10 @@ export class PastObjectionsComponent implements OnInit {
     });
   }
 
+  // --  Get list of past objections - works
   private init() {
     this.resolutionCenterService.getPastObjections().subscribe((response) => {
+      console.log('getPastObjections_response:', response.objections);
       this.objections = response.objections;
     });
   }
