@@ -26,6 +26,7 @@ export class VoteDialogComponent implements OnInit {
 
   ngOnInit() {
     this.objectionData = this.objVoteData;
+    console.log('objectionData:', this.objectionData);
     this.voteForm.statusChanges.subscribe(() => {
       console.log(this.voteForm.get("voteControl").value);
     })
@@ -35,6 +36,8 @@ export class VoteDialogComponent implements OnInit {
   }
 
   onSubmit(objectionId: number) {
+    console.log('OnSubmit!');
+    console.log('objectionId:', objectionId);
     var vote = this.voteForm.get("voteControl").value;
     this.resolutionCenterService
       .submitVote(

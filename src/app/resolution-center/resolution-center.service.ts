@@ -34,10 +34,7 @@ export class ResolutionCenterService {
     return this.http.post(
       "/api/vote",
       { vote: { vote, objectionId } },
-      { params: new HttpParams().set(
-          "userId",
-          sessionStorage.getItem("userId").toString()),
-      }
+      // { params: new HttpParams().set( "userId", sessionStorage.getItem("userId").toString()),}
     );
   }
 

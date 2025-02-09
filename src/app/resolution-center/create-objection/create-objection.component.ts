@@ -12,7 +12,7 @@ export class CreateObjectionComponent implements OnInit {
   units: any[];
 
   createObjectionForm = new UntypedFormGroup({
-    againstControl: new UntypedFormControl(null, Validators.required),
+    againstControl: new UntypedFormControl(null),
     commentControl: new UntypedFormControl("", Validators.required),
   });
 
