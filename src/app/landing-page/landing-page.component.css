@@ -47,7 +47,8 @@
 }
 
 .heading-primary {
-  color: #fff;
+  /* color: #fff; */
+  color: red;
   text-transform: uppercase;
   backface-visibility: hidden;
   margin-bottom: 6rem;
