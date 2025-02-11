@@ -17,8 +17,11 @@ export class ResolutionCenterService {
     
   ) {}
 
-  public getInboxOLD(): Observable<{ objections: Objection[] }> {
-    return this.http.get<{ objections: Objection[] }>("/api/inbox")  //, {
+
+  // ---- DON'T USE THIS FUNCTION SET UP. DOESN'T WORK. YOU NEED TO SET THE BACKEND_URL ---- //
+  public getInbox(): Observable<{ objections: Objection[] }> {
+    const endPoint = "/api/inbox"
+    return this.http.get<{ objections: Objection[] }>(BACKEND_URL + endPoint )  //, {
     //   params: new HttpParams()
     //     .set( "associationId", sessionStorage.getItem("associationId").toString())
     //     // .set("userId", 4), //sessionStorage.getItem("userId").toString()),
@@ -27,7 +30,7 @@ export class ResolutionCenterService {
   }
 
 
-  public getInbox() { 
+  public getInboxTEST() { 
     const endPoint = "/api/inbox"
       // const organizationId = sessionStorage.getItem("associationId").toString()
       // const payload = {
