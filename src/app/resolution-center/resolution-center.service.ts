@@ -3,20 +3,39 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Objection } from "./models/objection";
 
+// -- ADDED 2/10/25 - NEED FOR DEPLOYING. CONFIGURES NETLIFY TO HEROKU CONNECTIONS
+import { environment } from "../../environments/environment";
+
+const BACKEND_URL = environment.apiUrl;
+
 @Injectable({
   providedIn: "root",
 })
 export class ResolutionCenterService {
   constructor(private http: HttpClient) {}
 
-  public getInbox(): Observable<{ objections: Objection[] }> {
-    return this.http.get<{ objections: Objection[] }>("/api/inbox")  //, {
-    //   params: new HttpParams()
-    //     .set( "associationId", sessionStorage.getItem("associationId").toString())
-    //     // .set("userId", 4), //sessionStorage.getItem("userId").toString()),
-    // }
-  // );
+  // public getInboxOLD(): Observable<{ objections: Objection[] }> {
+  //   return this.http.get<{ objections: Objection[] }>("/api/inbox")  //, {
+  //   //   params: new HttpParams()
+  //   //     .set( "associationId", sessionStorage.getItem("associationId").toString())
+  //   //     // .set("userId", 4), //sessionStorage.getItem("userId").toString()),
+  //   // }
+  // // );
+  // }
+
+
+  public getInbox() { 
+    const endPoint = "/api/inbox"
+      // const organizationId = sessionStorage.getItem("associationId").toString()
+      const payload = {
+        organizationId: 1, // -- associationIds MUST be un an array to work.
+      }
+      console.log('PAYLOAD:', payload);
+    return this.http.post(BACKEND_URL + endPoint, payload );
   }
+
+
+
 
   public getUnits(): Observable<{ units: any[] }> { // -- Get list of units to file motion against
     return this.http.get<{ units: any[] }>("/api/units" );
