@@ -16,7 +16,7 @@ export class InboxComponent implements OnInit {
 
   public objections: Objection[] = [];
 
-  public currentObjection;
+  public currentObjection: any;
 
   public displayedColumns: string[] = [
     "submitted-by",
@@ -42,8 +42,8 @@ export class InboxComponent implements OnInit {
   private init() {
     this.resolutionCenterService
       .getInbox().subscribe((response) => {
-        console.log('response:', response);
-        console.log('response.objections:', response.objections);
+        // console.log('response:', response);
+        // console.log('response.objections:', response.objections);
 
         this.objections = response.objections;
       });
