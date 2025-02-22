@@ -17,15 +17,15 @@ import { RouterModule, Routes } from "@angular/router";
 import { AuthGuardService } from "../services/auth-guard.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { MatLegacyTabsModule as MatTabsModule } from "@angular/material/legacy-tabs";
-import { MatLegacyTableModule as MatTableModule } from "@angular/material/legacy-table";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
-import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog";
-import { MatLegacyRadioModule as MatRadioModule } from "@angular/material/legacy-radio";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatTableModule } from "@angular/material/table";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from "@angular/material/icon";
-import { MatLegacySelectModule as MatSelectModule } from "@angular/material/legacy-select";
-import { MatLegacyFormFieldModule as MatFormFieldModule } from "@angular/material/legacy-form-field";
-import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input";
+import { MatSelectModule } from "@angular/material/select";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 
 export const ResolutionCenterRoutes: Routes = [
   {

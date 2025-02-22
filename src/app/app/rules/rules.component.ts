@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { DataService } from "../../services/data.service";
 import { UserService } from "../../services/user.service";
-import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { DialogComponent } from "../dialog/dialog.component";
 import { Subscription } from "rxjs";
 import { Rule } from "./rule.model";
