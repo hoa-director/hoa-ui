@@ -58,5 +58,8 @@ export class InboxComponent implements OnInit {
     const voteDialogRef = this.voteDialog.open(VoteDialogComponent, {
       data: objection,
     });
+    voteDialogRef.afterClosed().subscribe(() => {
+      this.init();
+    });
   }
 }
