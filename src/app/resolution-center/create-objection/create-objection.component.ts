@@ -43,13 +43,6 @@ export class CreateObjectionComponent implements OnInit {
     });
   }
 
-  public submit(objection) {
-    console.log('SUBMIT:', objection);
-    this.resolutionCenterService
-      .submitObjection(objection)
-      .subscribe((response) => {});
-  }
-
   onSubmit() {
     // -- Everything we are passing to the backend
     var objection = {
@@ -60,7 +53,9 @@ export class CreateObjectionComponent implements OnInit {
     // this.resetForm();
     this.resolutionCenterService
       .submitObjection(objection)
-      .subscribe((response) => {});
+      .subscribe((response) => {
+        this.resetForm();
+      });
   }
 
   onCancel() {
