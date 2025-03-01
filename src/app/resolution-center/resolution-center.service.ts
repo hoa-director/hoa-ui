@@ -56,12 +56,13 @@ export class ResolutionCenterService {
   }
 
   // -- POST Route 
-  public submitObjection(objection) {
+  public submitObjection(objection: any) {
     const endpoint = "/api/objections"
-
-    console.log('OBJECTION:', objection);
-    return this.http.post( BACKEND_URL + endpoint, { objection },);
-      // { params: new HttpParams() .set( "associationId", sessionStorage.getItem("associationId").toString()) .set( "userId", 1 ),} 
+    // console.log('objection:', objection); // organizationId, against, comment
+    return this.http.post( 
+      BACKEND_URL + endpoint, 
+      { objection }
+    );
   }
 
   public submitVote(vote: number, objectionId: number) {
