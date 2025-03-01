@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ResolutionCenterService } from "../resolution-center.service";
 import { UserService } from "../../services/user.service";
 import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-create-objection",
@@ -18,7 +19,8 @@ export class CreateObjectionComponent implements OnInit {
 
   constructor(
     private resolutionCenterService: ResolutionCenterService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
   ) {}
 
   get againstControl() {
@@ -50,11 +52,12 @@ export class CreateObjectionComponent implements OnInit {
       against: this.againstControl.value,
       comment: this.commentControl.value,
     };
-    // this.resetForm();
+
     this.resolutionCenterService
       .submitObjection(objection)
       .subscribe((response) => {
         this.resetForm();
+        this.router.navigate(['/home/resolution-center/inbox']);
       });
   }
 
