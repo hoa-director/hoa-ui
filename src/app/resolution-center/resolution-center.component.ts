@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { DataService } from "../services/data.service";
 import { UserService } from "../services/user.service";
 import { Subscription } from "rxjs";
@@ -18,7 +18,8 @@ export class ResolutionCenterComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.resolutionCenterLinks = [];
     // this.resolutionCenterLinks = [
@@ -45,6 +46,24 @@ export class ResolutionCenterComponent implements OnInit {
   ngOnInit() {
     this.resolutionCenterLinks = [];
     this.listenForEvents();
+
+    // set active tab based on url
+    this.router.events.subscribe(() => {
+      switch (this.getCurrentUrl()) {
+        case "/home/resolution-center/inbox":
+          this.activeLink = "Open Motions (Inbox)";
+          break;
+        case "/home/resolution-center/past":
+          this.activeLink = "Past Motions";
+          break;
+        case "/home/resolution-center/objection/create":
+          this.activeLink = "File Motion";
+          break;
+        default:
+          this.activeLink = "";
+          break;
+      }
+    })
   }
 
   getCurrentUrl(): string {
