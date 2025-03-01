@@ -77,11 +77,14 @@ export class ResolutionCenterService {
     );
   }
 
+  // function is unused
   public getOutbox(): Observable<{ objections: any[] }> {
     const endpoint = "/api/outbox"
+    console.log('getOutbox() runs');
     return this.http.get<{ objections: any[] }>( BACKEND_URL + endpoint, {
-      params: new HttpParams() .set( "associationId", sessionStorage.getItem("associationId").toString())
-      .set("userId", 4), //sessionStorage.getItem("userId").toString()),
+      params: new HttpParams()
+        .set("associationId", sessionStorage.getItem("associationId"))
+        .set("userId", sessionStorage.getItem("userId"))
     });
   }
 
