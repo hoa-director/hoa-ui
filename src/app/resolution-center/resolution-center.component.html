@@ -3,7 +3,7 @@
     Resolution Center
   </h3>
   <div class="sideways-nav-bar">
-    <nav mat-tab-nav-bar color="primary">
+    <nav mat-tab-nav-bar color="primary" [tabPanel]="tabPanel">
       <a mat-tab-link *ngFor="let link of resolutionCenterLinks"
       (click)="activeLink = link.name"
       [active]="activeLink == link.name"
@@ -13,8 +13,8 @@
         {{link.name}}
       </a>
     </nav>
-  </div>
-  <div>
-    <router-outlet></router-outlet>
+    <mat-tab-nav-panel #tabPanel>
+      <router-outlet></router-outlet>
+    </mat-tab-nav-panel>
   </div>
 </div>

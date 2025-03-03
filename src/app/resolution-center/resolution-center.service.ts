@@ -56,12 +56,13 @@ export class ResolutionCenterService {
   }
 
   // -- POST Route 
-  public submitObjection(objection) {
+  public submitObjection(objection: any) {
     const endpoint = "/api/objections"
-
-    console.log('OBJECTION:', objection);
-    return this.http.post( BACKEND_URL + endpoint, { objection },);
-      // { params: new HttpParams() .set( "associationId", sessionStorage.getItem("associationId").toString()) .set( "userId", 1 ),} 
+    // console.log('objection:', objection); // organizationId, against, comment
+    return this.http.post( 
+      BACKEND_URL + endpoint, 
+      { objection }
+    );
   }
 
   public submitVote(vote: number, objectionId: number) {
@@ -76,11 +77,14 @@ export class ResolutionCenterService {
     );
   }
 
+  // function is unused
   public getOutbox(): Observable<{ objections: any[] }> {
     const endpoint = "/api/outbox"
+    console.log('getOutbox() runs');
     return this.http.get<{ objections: any[] }>( BACKEND_URL + endpoint, {
-      params: new HttpParams() .set( "associationId", sessionStorage.getItem("associationId").toString())
-      .set("userId", 4), //sessionStorage.getItem("userId").toString()),
+      params: new HttpParams()
+        .set("associationId", sessionStorage.getItem("associationId"))
+        .set("userId", sessionStorage.getItem("userId"))
     });
   }
 

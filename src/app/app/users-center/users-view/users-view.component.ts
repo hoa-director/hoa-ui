@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Subscription } from "rxjs";
-import { MatLegacyTable as MatTable } from "@angular/material/legacy-table";
-import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { MatTable } from "@angular/material/table";
+import { MatDialog } from "@angular/material/dialog";
 import { UserService } from "../../../services/user.service";  // -- SERVICE
 import { UsersCenterService } from "../../../services/users-center.service";  // -- SERVICE
 import { Router } from "@angular/router";

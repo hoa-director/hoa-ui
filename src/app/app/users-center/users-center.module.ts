@@ -8,7 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from 'app/services/auth-guard.service';
 // -- css elements
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatLegacyTabsModule as MatTabsModule } from "@angular/material/legacy-tabs";
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';

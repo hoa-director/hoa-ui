@@ -40,10 +40,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import {
-  MatLegacyRadioModule as MatRadioModule,
-  MAT_LEGACY_RADIO_DEFAULT_OPTIONS as MAT_RADIO_DEFAULT_OPTIONS,
-} from "@angular/material/legacy-radio";
+import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 
 // added with angular material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";

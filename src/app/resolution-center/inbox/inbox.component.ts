@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ResolutionCenterService } from "../resolution-center.service";
 import { UserService } from "../../services/user.service";
 import { Objection } from "../models/objection";
-import { MatLegacyTable as MatTable } from "@angular/material/legacy-table";
-import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { MatTable } from "@angular/material/table";
+import { MatDialog } from "@angular/material/dialog";
 import { VoteDialogComponent } from "../vote-dialog/vote-dialog.component";
+import { ObjectionDetailsComponent } from "../objection-details/objection-details.component";
 
 @Component({
   selector: "app-inbox",
@@ -16,7 +17,7 @@ export class InboxComponent implements OnInit {
 
   public objections: Objection[] = [];
 
-  public currentObjection;
+  public currentObjection: any;
 
   public displayedColumns: string[] = [
     "submitted-by",
@@ -28,7 +29,8 @@ export class InboxComponent implements OnInit {
   constructor(
     private resolutionCenterService: ResolutionCenterService,
     private userService: UserService,
-    public voteDialog: MatDialog
+    public voteDialog: MatDialog,
+    public detailDialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -42,11 +44,10 @@ export class InboxComponent implements OnInit {
   private init() {
     this.resolutionCenterService
       .getInbox().subscribe((response) => {
-        console.log('response:', response);
-        console.log('response.objections:', response.objections);
+        // console.log('response:', response);
+        // console.log('response.objections:', response.objections);
 
         this.objections = response.objections;
-        // this.objections = response;
       });
   }
 
@@ -55,9 +56,30 @@ export class InboxComponent implements OnInit {
   }
 
   openDialog(objection: Objection) {
-    console.log('obj:', objection);
+    // console.log('obj:', objection);
     const voteDialogRef = this.voteDialog.open(VoteDialogComponent, {
       data: objection,
     });
+    voteDialogRef.afterClosed().subscribe(() => {
+      this.init();
+    });
+  }
+
+  openDetails(objection: any): void {
+    // console.log('objection:', objection);
+    if (objection.votes[0]?.objection_id > 0) {
+      const detailDialogRef = this.detailDialog.open(ObjectionDetailsComponent, {
+        width: '800px',
+        data: { 
+          objection: objection,
+          source: 'inbox'
+        },
+      });
+      detailDialogRef.afterClosed().subscribe(() => {
+        this.init();
+      });
+    } else {
+      return;
+    }
   }
 }
