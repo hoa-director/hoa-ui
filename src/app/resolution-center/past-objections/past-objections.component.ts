@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ResolutionCenterService } from '../resolution-center.service';
 import { UserService } from '../../services/user.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ObjectionDetailsComponent } from '../objection-details/objection-details.component';
 
 @Component({
   selector: 'app-past-objections',
@@ -23,7 +24,8 @@ export class PastObjectionsComponent implements OnInit {
     private resolutionCenterService: ResolutionCenterService,
     private userService: UserService,
     private router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public detailDialog: MatDialog
     ) {}
 
   ngOnInit() {
@@ -34,9 +36,14 @@ export class PastObjectionsComponent implements OnInit {
   }
 
    // <a [routerLink]="../objection/{{objection.id}}">View</a>
-   viewObjection(objectionId: number) {
-    this.router.navigate([`objection/${objectionId}`], {
-      relativeTo: this.route,
+   openDetails(objection: any): void {
+    // console.log('past-objections component, objection:', objection);
+    this.detailDialog.open(ObjectionDetailsComponent, {
+      width: '800px',
+      data: {
+        objection: objection, 
+        source: 'past-objections'
+      }
     });
   }
 

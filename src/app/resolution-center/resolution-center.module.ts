@@ -12,6 +12,7 @@ import { OutboxComponent } from "./outbox/outbox.component";
 import { ResolutionCenterService } from "./resolution-center.service";
 import { PastObjectionsComponent } from "./past-objections/past-objections.component";
 import { VoteDialogComponent } from "./vote-dialog/vote-dialog.component";
+import { ObjectionDetailsComponent } from "./objection-details/objection-details.component";
 
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuardService } from "../services/auth-guard.service";
@@ -74,6 +75,7 @@ export const ResolutionCenterRoutes: Routes = [
     OutboxComponent,
     PastObjectionsComponent,
     VoteDialogComponent,
+    ObjectionDetailsComponent,
   ],
   providers: [ResolutionCenterService],
 })
