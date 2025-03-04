@@ -18,7 +18,7 @@
   <!-- Submitted On Column -->
   <ng-container matColumnDef="submitted-on">
     <th mat-header-cell *matHeaderCellDef>Submitted On</th>
-    <td mat-cell *matCellDef="let objection">{{ objection.createdAt | date: 'medium' }}</td>
+    <td mat-cell *matCellDef="let objection">{{ objection.createdAt | date: 'MMM d, y, h:mm a' }}</td>
   </ng-container>
 
   <ng-container matColumnDef="view-button">
