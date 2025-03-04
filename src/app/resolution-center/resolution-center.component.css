@@ -22,6 +22,22 @@ a:-webkit-any-link.mdc-tab--active {
   font-weight: bold;
 }
 
+::ng-deep .mat-mdc-header-cell {
+  font-size: 1.3rem !important;
+}
+
+::ng-deep .mat-mdc-cell {
+  font-size: 1.3rem !important;
+}
+
+::ng-deep .cdk-column-vote-button {
+  text-align: center !important;
+}
+
+::ng-deep .cdk-column-view-button {
+  text-align: center !important;
+}
+
 nav {
   margin-bottom: 2rem;
 }
