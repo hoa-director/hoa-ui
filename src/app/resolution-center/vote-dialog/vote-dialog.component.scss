@@ -1,10 +1,14 @@
+::ng-deep body {
+  display: flex !important;
+  flex-direction: column;
+}
+
 .vote-main-div {
   background-color: white;
-  padding: 5rem;
+  padding: 2.5rem;
   border: 1px solid black;
   border-radius: 10px;
   margin: -10px; // remove whitespace in corners around border
-  text-align: center;
 }
 
 .vote-dialog-title {
@@ -12,22 +16,27 @@
   color: black;
 }
 
-// add space between label and next radio button
-mat-radio-button:first-child {
-  margin-right: 4rem;
+.vote-description {
+  color: black;
+  font-size: 2.1rem;
+  margin: 3rem 0 0 0;
+  flex-grow: 1;
+  line-height: 2.3rem;
+}
+
+mat-radio-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 mat-radio-button {
   font-size: 2rem;
 }
 
-.vote-description {
-  color: #272954;
-  font-size: 2.4rem;
-}
-
-.vote-description {
-  margin: 3rem 0;
+// add space between label and next radio button
+mat-radio-button:first-child {
+  margin-right: 4rem;
 }
 
 // buttons
