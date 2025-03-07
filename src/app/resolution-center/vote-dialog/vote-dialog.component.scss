@@ -3,22 +3,18 @@
   padding: 5rem;
   border: 1px solid black;
   border-radius: 10px;
+  margin: -10px; // remove whitespace in corners around border
+  text-align: center;
 }
 
 .vote-dialog-title {
-  font-size: 3rem;
+  font-size: 1.8rem;
+  color: black;
 }
 
-mat-dialog-content {
-  font-size: 2rem;
-}
-
-mat-dialog-actions {
-  margin: 2rem 2rem;
-}
-
+// add space between label and next radio button
 mat-radio-button:first-child {
-  margin-right: 2rem;
+  margin-right: 4rem;
 }
 
 mat-radio-button {
@@ -26,14 +22,19 @@ mat-radio-button {
 }
 
 .vote-description {
-  margin-bottom: 2rem;
+  color: #272954;
+  font-size: 2.4rem;
 }
 
-.vote-descriptions {
-  margin-left: 4rem;
-  margin-bottom: 4rem;
-}
-.vote-list-item {
-  margin: 2rem
+.vote-description {
+  margin: 3rem 0;
 }
 
+// buttons
+.mat-mdc-dialog-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-top: 2.5rem;
+}

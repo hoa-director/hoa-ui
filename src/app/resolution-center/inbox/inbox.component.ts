@@ -58,6 +58,7 @@ export class InboxComponent implements OnInit {
   openDialog(objection: Objection) {
     // console.log('obj:', objection);
     const voteDialogRef = this.voteDialog.open(VoteDialogComponent, {
+      width: '500px',
       data: objection,
     });
     voteDialogRef.afterClosed().subscribe(() => {
@@ -69,7 +70,7 @@ export class InboxComponent implements OnInit {
     // console.log('objection:', objection);
     if (objection.votes[0]?.objection_id > 0) {
       const detailDialogRef = this.detailDialog.open(ObjectionDetailsComponent, {
-        width: '800px',
+        width: '500px',
         data: { 
           objection: objection,
           source: 'inbox'
