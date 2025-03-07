@@ -17,7 +17,7 @@ export class ObjectionDetailsComponent {
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.headerText = data.source === 'inbox'
-        ? 'You have already voted' 
+        ? 'You have already voted on:' 
         : 'Resolved Motion';
 
         this.resultText = data.objection.closedAt === null

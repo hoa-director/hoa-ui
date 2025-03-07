@@ -1,13 +1,13 @@
 <div class="objection-details-main-div">
     <h2 mat-dialog-title>{{ headerText }}</h2>
     <mat-dialog-content>
-        <p><strong>Submitted by:</strong> {{ data.objection.submittedByUser?.units[0]?.addressLineOne }}</p>
-        <p><strong>Submitted against:</strong> {{ data.objection.submittedAgainstUser?.units[0]?.addressLineOne || 'N/A' }}</p>
-        <p><strong>Comment:</strong> {{ data.objection.comment }}</p>
-        <p><strong>Result:</strong> {{ resultText }}</p>
-        <p><strong>{{ closeLabel }}</strong> {{ closeDate | date: 'medium' }}</p>
+        <p class="comment">{{ data.objection.comment }}</p>
+        <p class="detail">Submitted by: {{ data.objection.submittedByUser?.units[0]?.addressLineOne }}</p>
+        <p class="detail">Submitted against: {{ data.objection.submittedAgainstUser?.units[0]?.addressLineOne || 'N/A' }}</p>
+        <p class="detail">Result: {{ resultText }}</p>
+        <p class="detail">{{ closeLabel }} {{ closeDate | date: 'MMM d, y, h:mm a' }}</p>
     </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button mat-button (click)="close()">Close</button>
+    <mat-dialog-actions align="center">
+        <button mat-button (click)="close()" color="primary">Close</button>
     </mat-dialog-actions>
 </div>

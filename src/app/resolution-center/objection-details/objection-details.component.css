@@ -1,0 +1,26 @@
+::ng-deep body, p {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+.objection-details-main-div {
+    padding: 1rem;
+}
+
+h2.mat-mdc-dialog-title {
+    font-size: 1.8rem;
+}
+
+.comment {
+    color: black;
+    font-size: 2.1rem;
+    padding: 2rem 0 3rem 0;
+    flex-grow: 1;
+    line-height: 2.2rem;
+}
+
+.detail {
+    color: black;
+    font-size: 1.8rem;
+    padding: 0.2rem 0;
+}
