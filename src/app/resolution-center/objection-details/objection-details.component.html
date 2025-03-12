@@ -3,7 +3,7 @@
     <mat-dialog-content>
         <p class="comment">{{ data.objection.comment }}</p>
         <p class="detail">Submitted by: {{ data.objection.submittedByUser?.units[0]?.addressLineOne }}</p>
-        <p class="detail">Submitted against: {{ data.objection.submittedAgainstUser?.units[0]?.addressLineOne || 'N/A' }}</p>
+        <p class="detail">Submitted against: {{ data.objection.submittedAgainstUser?.units[0]?.addressLineOne || 'General' }}</p>
         <p class="detail">Result: {{ resultText }}</p>
         <p class="detail">{{ closeLabel }} {{ closeDate | date: 'MMM d, y, h:mm a' }}</p>
     </mat-dialog-content>
