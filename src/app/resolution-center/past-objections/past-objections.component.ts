@@ -39,7 +39,7 @@ export class PastObjectionsComponent implements OnInit {
    openDetails(objection: any): void {
     // console.log('past-objections component, objection:', objection);
     this.detailDialog.open(ObjectionDetailsComponent, {
-      width: '800px',
+      width: '500px',
       data: {
         objection: objection, 
         source: 'past-objections'
