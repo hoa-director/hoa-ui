@@ -106,6 +106,13 @@ export class ResolutionCenterService {
     // params: new HttpParams().set( "associationId", sessionStorage.getItem("associationId").toString() ),
   }
 
+  public getVoteCountPres(objectionId: number): any {
+    const endpoint = "/api/getVoteCountPresident";
+    return this.http.get(BACKEND_URL + endpoint, {
+      params: new HttpParams().set("objectionId", objectionId.toString()),
+    });
+  }
+
   private getUserIdParams(): void {
     sessionStorage.getItem("userId").toString();
   }
