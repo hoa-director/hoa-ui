@@ -51,7 +51,7 @@ export class ResolutionCenterComponent implements OnInit {
     this.router.events.subscribe(() => {
       switch (this.getCurrentUrl()) {
         case "/home/resolution-center/inbox":
-          this.activeLink = "Open Motions (Inbox)";
+          this.activeLink = "Open Motions";
           break;
         case "/home/resolution-center/past":
           this.activeLink = "Past Motions";
@@ -78,7 +78,7 @@ export class ResolutionCenterComponent implements OnInit {
         if (value === true) {
           this.resolutionCenterLinks.push(
             // -- Open Motions
-            { name: "Open Motions (Inbox)", path: "inbox" }
+            { name: "Open Motions", path: "inbox" }
           );
           this.resolutionCenterLinks.push(
             // -- Past Motions
