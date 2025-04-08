@@ -1,0 +1,49 @@
+::ng-deep body {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.vote-main-div {
+  background-color: white;
+  padding: 2.5rem;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: -10px; // remove whitespace in corners around border
+}
+
+.vote-dialog-title {
+  font-size: 1.8rem;
+  color: black;
+}
+
+.vote-description {
+  color: #4678b3;
+  font-size: 2.1rem;
+  margin: 3rem 0 0 0;
+  flex-grow: 1;
+  line-height: 2.3rem;
+}
+
+mat-radio-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-radio-button {
+  font-size: 2rem;
+}
+
+// add space between label and next radio button
+mat-radio-button:first-child {
+  margin-right: 4rem;
+}
+
+// buttons
+.mat-mdc-dialog-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-top: 2.5rem;
+}
