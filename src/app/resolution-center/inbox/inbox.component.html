@@ -27,23 +27,46 @@
   <ng-container matColumnDef="vote-button">
     <th mat-header-cell *matHeaderCellDef>Vote</th>
     <td mat-cell *matCellDef="let objection">
-      <ng-container *ngIf="objection?.votes[0]?.objection_id === null">
+
+      <!-- display if President needs to cast tie-breaking vote -->
+      <!-- the back end will only send these rows if user is President -->
+      <ng-container *ngIf="objection?.presidentBreakTie; else voteBlock">
         <button
           [id]="objection.id"
           mat-raised-button
-          color="accent"
+          color="primary"
           class="btn btn-primary float-right"
           type="submit"
-          (click)="selectObjection(objection); openDialog(objection)"
+          (click)="openPresidentBreakTieDialog(objection)"
         >
-          Vote
+          Break Tie
         </button>
       </ng-container>
-      <ng-container *ngIf="objection?.votes[0]?.objection_id !== null">
+
+      <!-- display for standard owners who have not yet voted on an item -->
+      <ng-template #voteBlock>
+        <ng-container *ngIf="objection?.votes[0]?.objection_id === null; else hasVotedBlock">
+          <button
+            [id]="objection.id"
+            mat-raised-button
+            color="accent"
+            class="btn btn-primary float-right"
+            type="submit"
+            (click)="openVoteDialog(objection)"
+          >
+            Vote
+          </button>
+        </ng-container>
+      </ng-template>
+      
+
+      <!-- display if user has already voted -->
+      <ng-template #hasVotedBlock>
         <div (click)="openDetails(objection)">
           <p class="has-voted-check">&#10004;</p>
         </div>
-      </ng-container>
+      </ng-template>
+
     </td>
   </ng-container>
 
