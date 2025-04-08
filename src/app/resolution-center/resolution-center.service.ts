@@ -18,7 +18,6 @@ export class ResolutionCenterService {
   ) {}
 
 
-  // ---- DON'T USE THIS FUNCTION SET UP. DOESN'T WORK. YOU NEED TO SET THE BACKEND_URL ---- //
   public getInbox(): Observable<{ objections: Objection[] }> {
     const endPoint = "/api/inbox"
     return this.http.get<{ objections: Objection[] }>(BACKEND_URL + endPoint )  //, {
