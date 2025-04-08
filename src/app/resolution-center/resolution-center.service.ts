@@ -80,6 +80,14 @@ export class ResolutionCenterService {
     );
   }
 
+  public submitBreakTie(vote: number, objectionId: number) {
+    const endpoint = "/api/break-tie"
+    return this.http.put(
+      BACKEND_URL + endpoint,
+      { vote: { vote, objectionId } }
+    );
+  }
+
   // function is unused
   public getOutbox(): Observable<{ objections: any[] }> {
     const endpoint = "/api/outbox"

@@ -41,12 +41,11 @@ export class PresidentBreakTieDialogComponent implements OnInit {
   }
 
   onSubmit(objectionId: number) {
-    console.log('objectionId:', objectionId);
-    // this.resolutionCenterService
-    //   .submitVote(
-    //     this.selectedVote,
-    //     objectionId,
-    //   )
-    // .subscribe((response) => {});
+    this.resolutionCenterService
+      .submitBreakTie(
+        this.selectedVote,
+        objectionId,
+      )
+    .subscribe((response) => {});
   }
 }
