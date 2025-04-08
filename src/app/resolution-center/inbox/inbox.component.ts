@@ -19,7 +19,7 @@ export class InboxComponent implements OnInit {
 
   public objections: Objection[] = [];
 
-  public currentObjection: any;
+  // public currentObjection: any;
 
   public displayedColumns: string[] = [
     "submitted-by",
@@ -54,9 +54,9 @@ export class InboxComponent implements OnInit {
       });
   }
 
-  selectObjection(objection: Objection) {
-    this.currentObjection = objection;
-  }
+  // selectObjection(objection: Objection) {
+  //   this.currentObjection = objection;
+  // }
 
   openVoteDialog(objection: Objection) {
     // console.log('obj:', objection);
