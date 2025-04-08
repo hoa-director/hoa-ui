@@ -16,6 +16,8 @@ export class Objection {
   result: boolean | null;
   closedAt: Date | null;
   closesAt: Date;
+  presidentBreakTie: boolean | null;
+  presidentApproved: boolean | null;
   votes: {
     objection_id: number;
   }[] | null;
