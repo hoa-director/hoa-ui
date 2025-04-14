@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from "@angular/material/dialog";
+import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from "@angular/material/radio";
 import { Objection } from "../models/objection";
 import { ResolutionCenterService } from "../resolution-center.service";
@@ -9,7 +10,7 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '
   selector: "app-president-break-tie-dialog",
   templateUrl: "./president-break-tie-dialog.component.html",
   styleUrls: ["./president-break-tie-dialog.component.scss"],
-  imports: [MatDialogModule, MatRadioModule, ReactiveFormsModule],
+  imports: [MatButtonModule, MatDialogModule, MatRadioModule, ReactiveFormsModule],
   standalone: true,
 })
 
