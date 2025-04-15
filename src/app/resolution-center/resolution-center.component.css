@@ -23,11 +23,11 @@ a:-webkit-any-link.mdc-tab--active {
 }
 
 ::ng-deep .mat-mdc-header-cell {
-  font-size: 1.3rem !important;
+  font-size: 1.4rem !important;
 }
 
 ::ng-deep .mat-mdc-cell {
-  font-size: 1.3rem !important;
+  font-size: 1.4rem !important;
 }
 
 ::ng-deep .cdk-column-vote-button {
