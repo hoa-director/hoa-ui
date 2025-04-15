@@ -14,9 +14,8 @@ export class PastObjectionsComponent implements OnInit {
   public objections;
 
   public displayedColumns: string[] = [
-    "submitted-by",
-    "submitted-against",
-    "submitted-on",
+    "comment",
+    "closedAt",
     "view-button",
   ];
 

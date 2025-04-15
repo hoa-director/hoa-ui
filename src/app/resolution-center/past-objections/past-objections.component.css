@@ -8,3 +8,26 @@ table {
   border-radius: 5px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
 }
+
+.mat-column-comment {
+  padding: 15px 5px 15px 15px;
+}
+
+.truncate-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mat-column-closedAt {
+  padding: 15px 0;
+  width: 15%;
+  text-align: center;
+}
+
+.mat-column-view-button {
+  padding: 10px 15px;
+}
