@@ -57,7 +57,7 @@ export class ResolutionCenterComponent implements OnInit {
           this.activeLink = "Past Motions";
           break;
         case "/home/resolution-center/objection/create":
-          this.activeLink = "File Motion";
+          this.activeLink = "File New Motion";
           break;
         default:
           this.activeLink = "";
@@ -90,7 +90,7 @@ export class ResolutionCenterComponent implements OnInit {
         if (value === true) {
           this.resolutionCenterLinks.push(
             // -- Can created Motions
-            { name: "File Motion", path: "objection/create" }
+            { name: "File New Motion", path: "objection/create" }
           );
         }
       }
