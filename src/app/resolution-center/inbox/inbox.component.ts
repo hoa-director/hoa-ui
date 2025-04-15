@@ -22,9 +22,8 @@ export class InboxComponent implements OnInit {
   // public currentObjection: any;
 
   public displayedColumns: string[] = [
-    "submitted-by",
-    "submitted-against",
-    "submitted-on",
+    "comment",
+    "closesAt",
     "vote-button",
   ];
 

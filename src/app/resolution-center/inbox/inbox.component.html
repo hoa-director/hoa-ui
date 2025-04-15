@@ -1,28 +1,46 @@
 <table mat-table [dataSource]="objections" class="mat-elevation-z8" #inboxTable>
+
+  <!-- comment column -->
+  <ng-container matColumnDef="comment">
+    <th mat-header-cell *matHeaderCellDef>Comment</th>
+    <td mat-cell *matCellDef="let objection" (click)="openDetails(objection)">
+      {{ objection?.comment }}
+    </td>
+  </ng-container>
+
+  <!-- closesAt column -->
+  <ng-container matColumnDef="closesAt">
+    <th mat-header-cell *matHeaderCellDef>Closes</th>
+    <td mat-cell *matCellDef="let objection" (click)="openDetails(objection)">
+      {{ objection?.closesAt | date: 'MMM d, y,' }}
+      <br />
+      {{ objection?.closesAt | date: 'h:mm a' }}
+    </td>
+  </ng-container>
   
   <!-- Submitted By Column -->
-  <ng-container matColumnDef="submitted-by">
+  <!-- <ng-container matColumnDef="submitted-by">
     <th mat-header-cell *matHeaderCellDef>Submitted By</th>
     <td mat-cell *matCellDef="let objection" (click)="openDetails(objection)">
       {{ objection?.submittedByUser?.units[0]?.addressLineOne }}
     </td>
-  </ng-container>
+  </ng-container> -->
 
   <!-- Submitted Against Column -->
-  <ng-container matColumnDef="submitted-against">
+  <!-- <ng-container matColumnDef="submitted-against">
     <th mat-header-cell *matHeaderCellDef>Submitted Against</th>
     <td mat-cell *matCellDef="let objection" (click)="openDetails(objection)">
       {{ objection?.submittedAgainstUser?.units[0]?.addressLineOne === null ? 'General' : objection?.submittedAgainstUser?.units[0]?.addressLineOne }}
     </td>
-  </ng-container>
+  </ng-container> -->
 
   <!-- Submitted On Column -->
-  <ng-container matColumnDef="submitted-on">
+  <!-- <ng-container matColumnDef="submitted-on">
     <th mat-header-cell *matHeaderCellDef>Submitted On</th>
     <td mat-cell *matCellDef="let objection" (click)="openDetails(objection)">
       {{ objection.createdAt | date: 'MMM d, y, h:mm a' }}
     </td>
-  </ng-container>
+  </ng-container> -->
 
   <ng-container matColumnDef="vote-button">
     <th mat-header-cell *matHeaderCellDef>Vote</th>

@@ -9,6 +9,20 @@ table {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
+.mat-column-comment {
+  padding: 15px 5px 15px 15px;
+}
+
+.mat-column-closesAt {
+  padding: 15px 0;
+  width: 15%;
+  text-align: center;
+}
+
+.mat-column-vote-button {
+  padding: 15px 10px;
+}
+
 .has-voted-check {
   font-size: 2em;
   color: green;
