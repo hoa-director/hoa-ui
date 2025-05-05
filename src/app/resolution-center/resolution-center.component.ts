@@ -72,6 +72,7 @@ export class ResolutionCenterComponent implements OnInit {
 
   // -- Loop through Permission Object, add each Navbar Link to the array, based on user permissions
   checkPermissionsObject(obj: Record<string, any>): void {
+    this.resolutionCenterLinks = [];
     for (const [key, value] of Object.entries(obj)) {
       if (key.toString() === "can_view") {
         // -- Handles BOTH Open & Past Motions Links
