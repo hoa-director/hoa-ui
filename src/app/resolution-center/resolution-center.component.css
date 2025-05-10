@@ -4,6 +4,40 @@
   margin-top: 2rem;
 }
 
+::ng-deep .mdc-tab__text-label {
+/* ::ng-deep a.mat-tab-link { */
+  font-size: 1.75rem;
+  color: black !important;
+  text-decoration: none !important;
+}
+
+a:-webkit-any-link {
+  color: black;
+  text-decoration: none !important;
+}
+
+a:-webkit-any-link.mdc-tab--active {
+  color: black;
+  text-decoration: none !important;
+  font-weight: bold;
+}
+
+::ng-deep .mat-mdc-header-cell {
+  font-size: 1.4rem !important;
+}
+
+::ng-deep .mat-mdc-cell {
+  font-size: 1.4rem !important;
+}
+
+::ng-deep .cdk-column-vote-button {
+  text-align: center !important;
+}
+
+::ng-deep .cdk-column-view-button {
+  text-align: center !important;
+}
+
 nav {
   margin-bottom: 2rem;
 }
