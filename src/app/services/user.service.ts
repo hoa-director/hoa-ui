@@ -88,7 +88,7 @@ export class UserService {
               now.getTime() + expiresInDuration * 1000
             );
             this.saveAuthData(token, expirationDate);
-            this.saveUserData(response.user.userId);  
+            this.saveUserData(response.user.userId, response.user.roleTitle);  
             // this.saveUserData(response.user.name );  // -- save users firstName instead of id
             this.getLoggedInUser();
             // this.setSelectedAssociation({id: response.associationId, name: response.a});
@@ -186,8 +186,9 @@ export class UserService {
     };
   }
 
-  private saveUserData(userId: number) {
+  private saveUserData(userId: number, roleTitle: string) {
     sessionStorage.setItem("userId", userId.toString());
+    sessionStorage.setItem("roleTitle", roleTitle);
   }
 
   private saveUserAssociationData(associationId: number, associationName: string) {

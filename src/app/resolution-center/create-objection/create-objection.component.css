@@ -25,26 +25,27 @@ label {
 /* ---- LABELS ---- */
 .mat-label {
   margin-bottom: 10px; 
+  font-size: 1.6rem;
 }
 
 
 /* ---- BORDER COLORS ---- */
-.border {
-  /* border: 3px solid red;
-  border-radius: 5px; */
-}
+/* .border {
+  border: 3px solid red;
+  border-radius: 5px;
+} */
 
 
 /* ---- OTHER ELEMENTS ---- */
 .create-objection {
-  /* border: 3px solid black; */
-  /* border-radius: 5px; */
+  margin-top: 30px;
 }
 .form-group {
   /* border: 3px solid blue; */
   /* border-radius: 5px; */
-  margin-top: 10px;
-  margin-bottom: 10px;
+  /* margin-top: 15px; */
+  /* margin-bottom: 15px; */
+  margin-left: 20px;
 }
 .form-control {
   border: 1px solid black;
@@ -57,8 +58,22 @@ label {
 
 
 /* ---- MAT-OPTIONS ---- */
+
+::ng-deep mat-form-field {
+  margin-top: 10px !important;
+}
+
+::ng-deep .mat-mdc-option {
+  font-size: 1.4rem !important;
+}
+
+::ng-deep span.mat-mdc-select-value-text {
+  font-size: 1.6rem !important;
+}
+
 .mat-option {
   background-color: #f0f0f0 !important; 
+  /* font-size: 1.2rem !important; */
 }
 .mat-option:hover, .mat-option.mat-selected {
   background-color: lightblue !important; 
@@ -68,4 +83,24 @@ label {
   border-radius: 5px; */
   margin-top: 16px; 
   margin-bottom: 16px; 
+}
+
+::ng-deep div.mat-mdc-form-field-hint-wrapper {
+  display: none !important;
+}
+
+
+/* ---- TEXT AREA ---- */
+::ng-deep textarea.mat-mdc-input-element {
+  font-size: 1.6rem !important;
+}
+
+
+/* ---- BUTTONS ---- */
+::ng-deep .form-group.buttons {
+  margin-top: 20px !important;
+}
+
+::ng-deep span.mdc-button__label {
+  font-size: 1.6rem !important;
 }

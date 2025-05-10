@@ -14,9 +14,8 @@ export class PastObjectionsComponent implements OnInit {
   public objections;
 
   public displayedColumns: string[] = [
-    "submitted-by",
-    "submitted-against",
-    "submitted-on",
+    "comment",
+    "closedAt",
     "view-button",
   ];
 
@@ -39,7 +38,7 @@ export class PastObjectionsComponent implements OnInit {
    openDetails(objection: any): void {
     // console.log('past-objections component, objection:', objection);
     this.detailDialog.open(ObjectionDetailsComponent, {
-      width: '800px',
+      width: '500px',
       data: {
         objection: objection, 
         source: 'past-objections'

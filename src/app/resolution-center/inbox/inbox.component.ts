@@ -1,3 +1,4 @@
+// called "Open Motions" in the UI
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ResolutionCenterService } from "../resolution-center.service";
 import { UserService } from "../../services/user.service";
@@ -6,6 +7,7 @@ import { MatTable } from "@angular/material/table";
 import { MatDialog } from "@angular/material/dialog";
 import { VoteDialogComponent } from "../vote-dialog/vote-dialog.component";
 import { ObjectionDetailsComponent } from "../objection-details/objection-details.component";
+import { PresidentBreakTieDialogComponent } from "../president-break-tie-dialog/president-break-tie-dialog.component";
 
 @Component({
   selector: "app-inbox",
@@ -17,12 +19,11 @@ export class InboxComponent implements OnInit {
 
   public objections: Objection[] = [];
 
-  public currentObjection: any;
+  // public currentObjection: any;
 
   public displayedColumns: string[] = [
-    "submitted-by",
-    "submitted-against",
-    "submitted-on",
+    "comment",
+    "closesAt",
     "vote-button",
   ];
 
@@ -30,6 +31,7 @@ export class InboxComponent implements OnInit {
     private resolutionCenterService: ResolutionCenterService,
     private userService: UserService,
     public voteDialog: MatDialog,
+    public presidentBreakTieDialog: MatDialog,
     public detailDialog: MatDialog
   ) {}
 
@@ -51,16 +53,27 @@ export class InboxComponent implements OnInit {
       });
   }
 
-  selectObjection(objection: Objection) {
-    this.currentObjection = objection;
-  }
+  // selectObjection(objection: Objection) {
+  //   this.currentObjection = objection;
+  // }
 
-  openDialog(objection: Objection) {
+  openVoteDialog(objection: Objection) {
     // console.log('obj:', objection);
     const voteDialogRef = this.voteDialog.open(VoteDialogComponent, {
+      width: '500px',
       data: objection,
     });
     voteDialogRef.afterClosed().subscribe(() => {
+      this.init();
+    });
+  }
+
+  openPresidentBreakTieDialog(objection: Objection) {
+    const presidentBreakTieDialogRef = this.presidentBreakTieDialog.open(PresidentBreakTieDialogComponent, {
+      width: '500px',
+      data: objection,
+    });
+    presidentBreakTieDialogRef.afterClosed().subscribe(() => {
       this.init();
     });
   }
@@ -69,7 +82,7 @@ export class InboxComponent implements OnInit {
     // console.log('objection:', objection);
     if (objection.votes[0]?.objection_id > 0) {
       const detailDialogRef = this.detailDialog.open(ObjectionDetailsComponent, {
-        width: '800px',
+        width: '500px',
         data: { 
           objection: objection,
           source: 'inbox'

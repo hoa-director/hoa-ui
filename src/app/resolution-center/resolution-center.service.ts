@@ -18,7 +18,6 @@ export class ResolutionCenterService {
   ) {}
 
 
-  // ---- DON'T USE THIS FUNCTION SET UP. DOESN'T WORK. YOU NEED TO SET THE BACKEND_URL ---- //
   public getInbox(): Observable<{ objections: Objection[] }> {
     const endPoint = "/api/inbox"
     return this.http.get<{ objections: Objection[] }>(BACKEND_URL + endPoint )  //, {
@@ -51,8 +50,12 @@ export class ResolutionCenterService {
 
   public getUnits(): Observable<{ units: any[] }> { // -- Get list of units to file motion against
     const endpoint = "/api/units"
-    return this.http.get<{ units: any[] }>(BACKEND_URL + endpoint);
-    // params: new HttpParams().set( "associationId", sessionStorage.getItem("associationId").toString()),
+    return this.http.get<{ units: any[] }>(
+      BACKEND_URL + endpoint,
+      {
+        params: new HttpParams().set( "associationId", sessionStorage.getItem("associationId").toString() )
+      }
+    );
   }
 
   // -- POST Route 
@@ -74,6 +77,14 @@ export class ResolutionCenterService {
           "userId",
           sessionStorage.getItem("userId").toString()),
       }
+    );
+  }
+
+  public submitBreakTie(vote: number, objectionId: number) {
+    const endpoint = "/api/break-tie"
+    return this.http.put(
+      BACKEND_URL + endpoint,
+      { vote: { vote, objectionId } }
     );
   }
 
@@ -100,6 +111,13 @@ export class ResolutionCenterService {
 
     return this.http.get<{ objections: any[] }>(BACKEND_URL + endpoint);
     // params: new HttpParams().set( "associationId", sessionStorage.getItem("associationId").toString() ),
+  }
+
+  public getVoteCountPres(objectionId: number): any {
+    const endpoint = "/api/getVoteCountPresident";
+    return this.http.get(BACKEND_URL + endpoint, {
+      params: new HttpParams().set("objectionId", objectionId.toString()),
+    });
   }
 
   private getUserIdParams(): void {
