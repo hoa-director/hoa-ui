@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { DataService } from "../services/data.service";
 import { UserService } from "../services/user.service";
 import { Subscription } from "rxjs";
@@ -18,7 +18,8 @@ export class ResolutionCenterComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.resolutionCenterLinks = [];
     // this.resolutionCenterLinks = [
@@ -45,6 +46,24 @@ export class ResolutionCenterComponent implements OnInit {
   ngOnInit() {
     this.resolutionCenterLinks = [];
     this.listenForEvents();
+
+    // set active tab based on url
+    this.router.events.subscribe(() => {
+      switch (this.getCurrentUrl()) {
+        case "/home/resolution-center/inbox":
+          this.activeLink = "Open Motions";
+          break;
+        case "/home/resolution-center/past":
+          this.activeLink = "Past Motions";
+          break;
+        case "/home/resolution-center/objection/create":
+          this.activeLink = "File New Motion";
+          break;
+        default:
+          this.activeLink = "";
+          break;
+      }
+    })
   }
 
   getCurrentUrl(): string {
@@ -53,13 +72,14 @@ export class ResolutionCenterComponent implements OnInit {
 
   // -- Loop through Permission Object, add each Navbar Link to the array, based on user permissions
   checkPermissionsObject(obj: Record<string, any>): void {
+    this.resolutionCenterLinks = [];
     for (const [key, value] of Object.entries(obj)) {
       if (key.toString() === "can_view") {
         // -- Handles BOTH Open & Past Motions Links
         if (value === true) {
           this.resolutionCenterLinks.push(
             // -- Open Motions
-            { name: "Open Motions (Inbox)", path: "inbox" }
+            { name: "Open Motions", path: "inbox" }
           );
           this.resolutionCenterLinks.push(
             // -- Past Motions
@@ -71,7 +91,7 @@ export class ResolutionCenterComponent implements OnInit {
         if (value === true) {
           this.resolutionCenterLinks.push(
             // -- Can created Motions
-            { name: "File Motion", path: "objection/create" }
+            { name: "File New Motion", path: "objection/create" }
           );
         }
       }

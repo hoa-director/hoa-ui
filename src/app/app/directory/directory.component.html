@@ -4,7 +4,7 @@
   </div>
 
   <div class="sideways-nav-bar">
-    <nav mat-tab-nav-bar color="primary">
+    <nav mat-tab-nav-bar color="primary" [tabPanel]="tabPanel">
       <a mat-tab-link *ngFor="let link of directoryLinks"
       (click)="activeLink = link.name"
       [active]="activeLink == link.name"
@@ -17,6 +17,8 @@
   </div>
   <p>You can search, add, edit or delete units on this page.</p>
   <div>
-    <router-outlet></router-outlet>
+    <mat-tab-nav-panel #tabPanel>
+      <router-outlet></router-outlet>
+    </mat-tab-nav-panel>
   </div>  
 </div>

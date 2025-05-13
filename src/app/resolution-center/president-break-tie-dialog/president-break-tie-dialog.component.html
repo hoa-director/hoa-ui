@@ -1,20 +1,20 @@
-<div class="vote-main-div">
-  <h2 mat-dialog-title class="vote-dialog-title">Vote on the following motion:</h2>
+<div class="break-tie-main-div">
+  <h2 mat-dialog-title class="break-tie-dialog-title">Please cast the tie-breaking vote on the following motion:</h2>
   <mat-dialog-content>
-    <p class="vote-description">{{ objectionData.comment }}</p>
+    <p class="break-tie-description">{{ objectionData.comment }}</p>
   </mat-dialog-content>
-  <form [formGroup]="voteForm" (ngSubmit)="onSubmit(objectionData.id)">
+  <form [formGroup]="breakTieForm" (ngSubmit)="onSubmit(objectionData.id)">
     <mat-radio-group
-      formControlName="voteControl"
+      formControlName="breakTieControl"
       aria-label="Select an option"
-      class="vote-radio"
+      class="break-tie-radio"
     >
       <mat-radio-button value="0">Disapprove</mat-radio-button>
       <mat-radio-button value="1">Approve</mat-radio-button>
     </mat-radio-group>
     <mat-dialog-actions>
       <button
-        class="vote-cancel-button"
+        class="break-tie-cancel-button"
         mat-stroked-button
         color="primary"
         mat-dialog-close
@@ -22,12 +22,12 @@
         Cancel
       </button>
       <button
-        class="vote-submit-button"
+        class="break-tie-submit-button"
         mat-raised-button
         color="primary"
         mat-dialog-close
         type="submit"
-        [disabled]="!voteForm.valid"
+        [disabled]="!breakTieForm.valid"
       >
         Submit
       </button>

@@ -1,0 +1,30 @@
+<div class="objection-details-main-div">
+    <h2 mat-dialog-title class="black-text">{{ headerText }}</h2>
+    <mat-dialog-content>
+        <p class="comment blue-text">{{ data.objection.comment }}</p>
+        <p class="detail">
+            <span class="black-text">Result:  </span>
+            <span class="blue-text">{{ resultText }}</span>
+        </p>
+        <p class="detail">
+            <span class="black-text">{{ resultLabel }}</span>
+            <span class="blue-text">{{ resultString }}</span>
+        </p>
+        <br />
+        <p class="detail">
+            <span class="black-text">{{ closeLabel }}  </span>
+            <span class="blue-text">{{ closeDate | date: 'MMMM d, y, h:mm a' }}</span>
+        </p>
+        <p class="detail">
+            <span class="black-text">Submitted by:  </span>
+            <span class="blue-text">{{ data.objection.submittedByUser?.units[0]?.addressLineOne }}</span>
+        </p>
+        <p class="detail">
+            <span class="black-text">Submitted against:  </span>
+            <span class="blue-text">{{ data.objection.submittedAgainstUser?.units[0]?.addressLineOne || 'General' }}</span>
+        </p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button mat-button (click)="close()" color="primary">Close</button>
+    </mat-dialog-actions>
+</div>

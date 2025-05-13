@@ -13,6 +13,14 @@ export class Objection {
     id: number;
     units: { addressLineOne: string }[];
   };
+  result: boolean | null;
+  closedAt: Date | null;
+  closesAt: Date;
+  presidentBreakTie: boolean | null;
+  presidentApproved: boolean | null;
+  votes: {
+    objection_id: number;
+  }[] | null;
 
   // TODO: show user how much time is left to vote
   // timeLeftToVote() {
