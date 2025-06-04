@@ -63,6 +63,7 @@ export class CreateObjectionComponent implements OnInit {
 
   onCancel() {
     this.resetForm();
+    this.router.navigate(['/home/resolution-center/inbox']);
   }
 
   private resetForm() {
