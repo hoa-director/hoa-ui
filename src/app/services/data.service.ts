@@ -101,6 +101,12 @@ export class DataService {
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
 
+  searchUnits(inputString: string) {
+    const associationId = sessionStorage.getItem("associationId").toString();
+    const payload = { associationId, inputString };
+    return this.http.post(BACKEND_URL + "/api/directory-search", payload);
+  }
+
 
   // ---------------- EDIT UNIT PAGE ---------------- //
 
