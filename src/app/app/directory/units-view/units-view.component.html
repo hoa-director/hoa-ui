@@ -78,7 +78,7 @@
                 <mat-card-title class="unit-card-name" >
                     {{ unit.user.firstName.length < 1 && unit.user.lastName.length < 1 ? 'Vacant'  :  (unit.user.firstName + ' ' + unit.user.lastName) }}
                 </mat-card-title>
-                <mat-card-actions *ngIf="canEditUnit">
+                <mat-card-actions *ngIf="canEditUnit; else checkIfOwner">
                   <button 
                   class="edit-button"
                   mat-raised-button
@@ -86,6 +86,16 @@
                   (click)="editUnit(unit.unit.unitId)"
                   >Edit</button>
                 </mat-card-actions>
+                <ng-template #checkIfOwner>
+                  <mat-card-actions *ngIf="unit.user.userId === currentUserId">
+                    <button 
+                      class="edit-button"
+                      mat-raised-button
+                      color="secondary"
+                      (click)="editUnit(unit.unit.unitId)"
+                    >Edit</button>
+                  </mat-card-actions>
+                </ng-template>
               </div>
             <!-- <mat-card-subtitle>Owner</mat-card-subtitle> -->
           </mat-card-header>

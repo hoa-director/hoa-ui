@@ -20,6 +20,7 @@ import { Unit } from ".././unit.model";
 export class UnitsViewComponent implements OnInit, OnDestroy {
   units: Unit[] = [];
   users: any[] = [];
+  currentUserId: number = parseInt(sessionStorage.getItem('userId'));
 
   private userSubjectSubs: Subscription;
   isLoading = true;
