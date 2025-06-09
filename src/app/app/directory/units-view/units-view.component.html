@@ -116,7 +116,9 @@
               <h4>Phone:</h4>
               <div class="phone">
                 <!-- {{ unit.unit.number | phone : "US" }} -->
-                {{ unit.unit.number ? unit.unit.number : 'No Phone Number'}}
+                {{ unit.user.phoneOneLabel ? unit.user.phoneOneLabel + ': ' + unit.user.phoneOneNumber : 'None available' }}
+                <br />
+                {{ unit.user.phoneTwoLabel ? unit.user.phoneTwoLabel + ': ' + unit.user.phoneTwoNumber : '' }}
               </div>
             </div>
           </mat-card-content>
