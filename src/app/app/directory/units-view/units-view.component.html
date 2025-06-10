@@ -33,7 +33,7 @@
     </mat-form-field>    
 
     <button
-        class="add-user-button"    
+        class="btn-clear-search"    
         mat-raised-button
         color="secondary"
 
@@ -109,24 +109,22 @@
                 <br>
                 {{ unit.unit.addressLineTwo ? unit.unit.addressLineTwo: '' }}
                 <br>
-                {{unit.unit.city ? unit.unit.city : ''}}
-                , 
-                {{unit.unit.state ? unit.unit.state : ''}}
-                ,
+                {{unit.unit.city ? unit.unit.city : ''}},
+                {{unit.unit.state ? unit.unit.state : ''}},
                 {{unit.unit.zip ? unit.unit.zip : ''}} 
               </div>
 
               <br>
               <h4>E-Mail:</h4>
               <div class="email">
-                {{ unit.user.email ? unit.user.email : ''}}
+                {{ unit.user.email ? unit.user.email : 'Unavailable'}}
 
               </div>
               <br />
               <h4>Phone:</h4>
               <div class="phone">
                 <!-- {{ unit.unit.number | phone : "US" }} -->
-                {{ unit.user.phoneOneLabel ? unit.user.phoneOneLabel + ': ' + unit.user.phoneOneNumber : 'None available' }}
+                {{ unit.user.phoneOneLabel ? unit.user.phoneOneLabel + ': ' + unit.user.phoneOneNumber : 'Unavailable' }}
                 <br />
                 {{ unit.user.phoneTwoLabel ? unit.user.phoneTwoLabel + ': ' + unit.user.phoneTwoNumber : '' }}
               </div>

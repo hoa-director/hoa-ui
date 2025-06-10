@@ -8,15 +8,23 @@
   background-color: lightgrey;
   border-radius: 5px;
   /* padding: 1rem; */
+  gap: 8px; /* Space between cards */
+  padding: 16px;
+  max-width: 640px; /* 280px*2 + 20*2 + 10*4 */
+  margin-bottom: 30px;
 }  
 
 .unit-card {
-  width: 28rem;
-  /* height: 24rem; */
+  width: 280px;
+  height: 280px;
   /* margin-right: 2rem; */
   /* margin-left: 1rem; */
   margin: 1rem;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+#inputString {
+  font-size: 1.3rem;
 }
 
 mat-card-header {
@@ -33,12 +41,12 @@ mat-card-header {
   align-items: center; /* Vertical */
   /* border: 1px dashed red; */
 }
-mat-card-title {
-  /* border: 1px solid red; */
+/* mat-card-title {
+  border: 1px solid red;
 }
 mat-card-actions {
-  /* border: 1px solid red; */
-}
+  border: 1px solid red;
+} */
 .edit-button {
   border: 1px solid black;
   box-shadow: 0px 0px 0px;
@@ -64,6 +72,8 @@ mat-card-actions {
   padding-left: 0rem;
   padding-right: 0rem;
   padding-bottom: 0px;
+  font-size: 1.3rem;
+  line-height: 1.4;
 }
 .mat-mdc-card-content:last-child {
   padding-bottom: 0px;
