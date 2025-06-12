@@ -24,6 +24,7 @@ import { FailureModalComponent } from "app/app/failure-modal/failure-modal.compo
 export class UnitsAddComponent implements OnInit, OnDestroy {
   // newUnit: Unit[] = [];
   addUnitForm: FormGroup;
+  availableUsers: any[] = [];
 
   associations = [
     {
@@ -41,8 +42,9 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.listenForEvents();
-    // console.log('this.associationId', this.associationId);
+    this.dataService.getAvailableUsers().subscribe((response: any) => {
+      this.availableUsers = response; // array of {id, firstName, lastName}
+    });
     this.addUnitForm = this.fb.group({
       associationId: [{value: this.associations[0].id, disabled: true}, [Validators.required]], // required. Add get association
       addressLineOne: ['', [Validators.required]],

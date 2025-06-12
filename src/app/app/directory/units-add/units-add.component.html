@@ -107,8 +107,9 @@
                             class="form-control"
                             formControlName="userId"
                         >
-                            <mat-option value="7">Nate (test)</mat-option>
-                            <mat-option value="2">Sally (test)</mat-option>
+                            <mat-option *ngFor="let user of availableUsers" [value]="user.id">
+                                {{ user.firstName }} {{ user.lastName }}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
