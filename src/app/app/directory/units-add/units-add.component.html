@@ -33,7 +33,6 @@
                             class="form-control"
                             formControlName="addressLineOne"
                             type="text"
-                            placeholder="1234 Hennepin Ave S"
                             />
                     </mat-form-field>
                     <div class="validatorMsg" *ngIf="addUnitForm.get('addressLineOne').errors?.required && addUnitForm.get('addressLineOne').touched">
@@ -49,7 +48,6 @@
                         class="form-control"
                         formControlName="addressLineTwo"
                         type="text"
-                        placeholder="Unit 14"
                         />
                     </mat-form-field>
                 </div>
@@ -62,7 +60,6 @@
                         class="form-control"
                         formControlName="city"
                         type="text"
-                        placeholder="Hastings"
                         />
                     </mat-form-field>
                     <div class="validatorMsg" *ngIf="addUnitForm.get('city').errors?.required && addUnitForm.get('city').touched">
@@ -77,7 +74,6 @@
                         matInput
                         class="form-control"
                         formControlName="state"
-                        placeholder="MN"
                         >
                             <mat-option value="MN">MN</mat-option>
                             <mat-option value="WI">WI</mat-option>
@@ -96,7 +92,6 @@
                         class="form-control"
                         formControlName="zip"
                         type="text"
-                        placeholder="55401"
                         />
                     </mat-form-field>
                     <div class="validatorMsg" *ngIf="addUnitForm.get('zip').errors?.required && addUnitForm.get('zip').touched">
@@ -107,10 +102,10 @@
                     <label for="inputUser">Unit Owner</label>
                     <mat-form-field appearance="outline">
                         <mat-select
-                        id="inputUser"
-                        matInputclass="form-control"
-                        formControlName="user"
-                        placeholder="John Doe"
+                            id="inputUser"
+                            matInput
+                            class="form-control"
+                            formControlName="userId"
                         >
                             <mat-option value="7">Nate (test)</mat-option>
                             <mat-option value="2">Sally (test)</mat-option>
