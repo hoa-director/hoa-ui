@@ -13,6 +13,7 @@ import { Unit } from ".././unit.model";
 // -- components
 import { UnitModalComponent } from "../../modal/unit-modal/unit-modal.component";
 import { DataService } from "app/services/data.service";
+import { Router } from '@angular/router';
 import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
 import { FailureModalComponent } from "app/app/failure-modal/failure-modal.component";
 
@@ -38,7 +39,8 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
   constructor(
     private dataService: DataService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -94,11 +96,12 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
         .subscribe(
           (responseData: any) => {
             if(responseData.status === 'success'){ // -- If Response
-              console.log("SUCCESS responseData:", responseData);
+              // console.log("SUCCESS responseData:", responseData);
               setTimeout(() => {
                 this.openSuccessModal(); // -- tell user it worked
                 this.onReset(); // -- clear form
               }, 500);
+              this.router.navigate(['/home/directory/units-view']);
             } else if (responseData.status === 'failure') { // -- If NO Response
               console.log('FAIL responseData:', responseData);
               this.openFailureModal('Unit already exists in that Organization.'); // -- tell user it did NOT work
@@ -108,7 +111,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
             this.openFailureModal('There was an error when trying to create a new unit.'); // -- tell user it did NOT work
             console.log("unit-add ERROR", error);
           }
-        )
+        );
     } else { // -- If FORM NOT VALID
       console.log('ADD UNIT FORM NOT VALID');
     }
@@ -116,7 +119,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
   }
 
   onReset(): void {
-    console.log('CLEAR BTN');
+    // console.log('CLEAR BTN');
     this.addUnitForm.reset({
       // associationId: this.associations[0].id, // required
       addressLineOne: '',
@@ -124,7 +127,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
       city: '',
       state: '',
       zip: '',
-      userId: ''
+      userId: 0
     });
   }
 
