@@ -105,12 +105,14 @@
             <div class="contact-info">
               <h4>Address:</h4>
               <div class="address-line-1">
-                  {{ unit.unit.addressLineOne ? unit.unit.addressLineOne + ', ' : '' }} 
+                {{ unit.unit.addressLineOne ? unit.unit.addressLineOne : '' }} 
                 <br>
-                {{ unit.unit.addressLineTwo ? unit.unit.addressLineTwo: '' }}
-                <br>
+                <ng-container *ngIf="unit.unit.addressLineTwo">
+                  {{ unit.unit.addressLineTwo }}
+                  <br>
+                </ng-container>
                 {{unit.unit.city ? unit.unit.city : ''}},
-                {{unit.unit.state ? unit.unit.state : ''}},
+                {{unit.unit.state ? unit.unit.state : ''}}
                 {{unit.unit.zip ? unit.unit.zip : ''}} 
               </div>
 
