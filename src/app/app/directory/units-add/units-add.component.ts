@@ -131,6 +131,11 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
     });
   }
 
+    onCancel(): void {
+    this.onReset();
+    this.router.navigate(['/home/directory/units-view']);
+  }
+
   openSuccessModal() {
     this.dialog.open(SuccessModalComponent, {
       data: { message: 'Unit was created successfully.'}
