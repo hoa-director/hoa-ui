@@ -50,7 +50,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       zip: ['', [Validators.required]],
-      user: [''], // required
+      userId: ['']
     });
   }
 
@@ -64,7 +64,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
 
   // -- BUG ------- THIS FIRES TWICE. ------------------------------------------------
   addUnit() {
-    console.log('ADD BTN');
+    // console.log('ADD BTN');
     
     if (this.addUnitForm.valid) {
       isLoading(true);
@@ -80,6 +80,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
         city: formValues.city,
         state: formValues.state,
         zip: formValues.zip,
+        userId: formValues.userId
         // updatedAt: '2024-07-19 18:47:52.63-05',
         // createdAt: '2024-07-19 18:47:52.63-05',
       };
@@ -115,13 +116,13 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
   onReset(): void {
     console.log('CLEAR BTN');
     this.addUnitForm.reset({
-      associationId: this.associations[0].id, // required
+      // associationId: this.associations[0].id, // required
       addressLineOne: '',
-      // addressLineTwo: '',
-      // city: '',
-      // state: '',
-      // zip: '',
-      user: '', // required
+      addressLineTwo: '',
+      city: '',
+      state: '',
+      zip: '',
+      userId: ''
     });
   }
 
