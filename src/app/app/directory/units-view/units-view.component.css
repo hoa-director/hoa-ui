@@ -10,7 +10,7 @@
   /* padding: 1rem; */
   gap: 8px; /* Space between cards */
   padding: 16px;
-  max-width: 640px; /* 280px*2 + 20*2 + 10*4 */
+  max-width: 950px; /* 280px*3 + 20*3 + 10*5 */
   margin-bottom: 30px;
 }  
 
@@ -25,10 +25,18 @@
 
 #inputString {
   font-size: 1.3rem;
+  display: inline;
+  margin-bottom: 1rem;
+}
+
+.btn-clear-search {
+  display: inline;
+  margin: 15px 0 1rem 10px;
 }
 
 .btn-add-unit {
-  margin: 0 auto 0 500px;
+  display: inline;
+  margin: 15px 0  1rem 560px;
   font-size: 1.75rem;
 }
 
