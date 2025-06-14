@@ -42,6 +42,17 @@
         Clear
     </button>
 
+    <ng-container *ngIf="renderAddButton">
+      <button
+        mat-raised-button
+        color="primary"
+        class="btn btn-primary btn-add-unit"
+        (click)="goToAddUnit()"
+      >
+        Add Unit
+      </button>
+    </ng-container>
+
 
     <!-- <mat-form-field [formGroup]="searchUnitsForm">
         <input 

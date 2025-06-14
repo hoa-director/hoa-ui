@@ -3,17 +3,6 @@
     <h3 class="directory-header">Neighborhood Directory</h3>
   </div>
 
-  <ng-container *ngIf="renderAddButton">
-    <button
-      mat-raised-button
-      color="primary"
-      class="btn btn-primary btn-add-unit"
-      (click)="goToAddUnit()"
-    >
-      Add Unit
-    </button>
-  </ng-container>
-
   <!-- <div class="sideways-nav-bar">
     <nav mat-tab-nav-bar color="primary" [tabPanel]="tabPanel">
       <a mat-tab-link *ngFor="let link of directoryLinks"

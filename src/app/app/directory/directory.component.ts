@@ -19,7 +19,6 @@ export class DirectoryComponent    {
   activeLink: string;
   units: Unit[] = [];
   currentUserPermission: object;
-  renderAddButton: boolean = false;
 
   private userSubjectSubs: Subscription;
   isLoading = false;
@@ -49,12 +48,7 @@ export class DirectoryComponent    {
 
   ngOnDestroy() {
     this.userSubjectSubs.unsubscribe();
-    this.renderAddButton = false;
     // this.directoryLinks = [];
-  }
-
-  goToAddUnit() {
-    this.router.navigate(['/home/directory/units-add']);
   }
 
   // onFetchUnits() {
@@ -68,14 +62,8 @@ export class DirectoryComponent    {
   // }
 
   // -- Loop through Permission Object, add each Navbar Link to the array, based on user permissions
-  checkPermissionsObject(obj: Record<string, any>): void {
-    for (const [key, value] of Object.entries(obj)) {
-
-      if(key.toString() === 'can_add') {
-        if (value === true) {
-          this.renderAddButton = true;
-        }
-      }
+  // checkPermissionsObject(obj: Record<string, any>): void {
+  //   for (const [key, value] of Object.entries(obj)) {
 
       // console.log('checkPermissionsObject is running');
 
@@ -100,8 +88,8 @@ export class DirectoryComponent    {
       //     );
       //   }
       // }
-    }
-  }
+  //   }
+  // }
 
   // -- Get list of Directory/Unit-center Navbar Links/permissions. (Not the same as the units grid)
   checkCurrentUserPermissions() {
@@ -110,7 +98,7 @@ export class DirectoryComponent    {
     // this.dataService.fetchCurrentUserPermission('directory').subscribe((Response: any) => {
     this.dataService.fetchCurrentUserPermission('unit-center').subscribe((Response: any) => { // -- MUST match database!
       // console.log('response', Response);
-      this.checkPermissionsObject(Response);
+      // this.checkPermissionsObject(Response);
     }).add(() => {
       isLoading(false);
     });

@@ -21,6 +21,8 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   units: Unit[] = [];
   users: any[] = [];
   currentUserId: number = parseInt(sessionStorage.getItem('userId'));
+  currentUserPermission: object;
+  renderAddButton: boolean = false;
 
   private userSubjectSubs: Subscription;
   isLoading = true;
@@ -64,6 +66,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSubjectSubs.unsubscribe();
+    this.renderAddButton = false;
   }
 
 
@@ -85,6 +88,11 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
         // console.log('Can_edit_found and is:', value);
         if (value === true) {
           this.canEditUnit = true
+        }
+      }
+      if(key.toString() === 'can_add') {
+        if (value === true) {
+          this.renderAddButton = true;
         }
       }
     }
@@ -115,6 +123,10 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
       .add(() => {
         isLoading(false);
       });
+  }
+
+  goToAddUnit() {
+    this.router.navigate(['/home/directory/units-add']);
   }
 
   listenForEvents() {

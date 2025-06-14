@@ -27,6 +27,11 @@
   font-size: 1.3rem;
 }
 
+.btn-add-unit {
+  margin: 0 auto 0 500px;
+  font-size: 1.75rem;
+}
+
 mat-card-header {
   height: 5.25rem; 
   padding-top: 0rem;
