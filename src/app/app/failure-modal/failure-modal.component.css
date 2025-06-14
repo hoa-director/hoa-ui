@@ -1,12 +1,30 @@
+#failure-modal {
+    width: 350px;
+    height: 200px;
+    padding: 10px 40px;
+}
+
 .failure-title {
-    display: inline-flex;
-    flex-direction: row;
+    display: flex;
     align-items: center;
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
 } 
 .icon-error_outline {
     color: red;
     margin-bottom: 0;
     margin-top: 2rem;
-    margin-left: 0rem;
 }
 
+.mat-mdc-dialog-title {
+    padding: 0 0 5px 10px;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.mat-mdc-dialog-content {
+    padding: 25px 0 35px 0;
+    color: black;
+    font-size: 1.4rem;
+}
