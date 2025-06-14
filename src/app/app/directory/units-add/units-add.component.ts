@@ -103,13 +103,13 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
               }, 500);
               this.router.navigate(['/home/directory/units-view']);
             } else if (responseData.status === 'failure') { // -- If NO Response
-              console.log('FAIL responseData:', responseData);
-              this.openFailureModal('Unit already exists in that Organization.'); // -- tell user it did NOT work
+              // console.log('openFailureModal? responseData:', responseData);
+              this.openFailureModal(responseData.message); // -- tell user it did NOT work
             }
           },
           (error) => { // -- If Error
-            this.openFailureModal('There was an error when trying to create a new unit.'); // -- tell user it did NOT work
-            console.log("unit-add ERROR", error);
+            this.openFailureModal('An error occurred when attempting to save a new unit: ' + error); // -- tell user it did NOT work
+            // console.log("openFailureModal? error:", error);
           }
         );
     } else { // -- If FORM NOT VALID
@@ -131,7 +131,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
     });
   }
 
-    onCancel(): void {
+  onCancel(): void {
     this.onReset();
     this.router.navigate(['/home/directory/units-view']);
   }
@@ -142,7 +142,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
     })
   }
 
-  openFailureModal(message) {
+  openFailureModal(message: string) {
     this.dialog.open(FailureModalComponent, {
       data: { message: message}
     })

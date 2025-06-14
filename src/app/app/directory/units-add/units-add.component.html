@@ -1,5 +1,4 @@
 <div class="main-units-add-div">
-    <p>You can add a new unit to your organization.</p>
 
     <!-- FORM -->
     <div class="form-container">
@@ -25,7 +24,7 @@
                     </div>
                 </div>
                 <div class="form-div">
-                    <label for="inputAddressLineOne">Address Line One:</label>
+                    <label for="inputAddressLineOne">Address line one:</label>
                     <mat-form-field appearance="outline">
                         <input 
                             id="inputAddressLineOne"
@@ -40,7 +39,7 @@
                     </div>
                 </div>
                 <div class="form-div">
-                    <label for="inputAddressLineTewo">Address Line Two:</label>
+                    <label for="inputAddressLineTewo">Address line two:</label>
                     <mat-form-field appearance="outline">
                         <input 
                         id="inputAddressLineTewo"
@@ -84,7 +83,7 @@
                     </div>
                 </div>
                 <div class="form-div">
-                    <label for="inputZip">Zip Code:</label>
+                    <label for="inputZip">Zip code:</label>
                     <mat-form-field appearance="outline">
                         <input 
                         id="inputZip"
@@ -99,7 +98,7 @@
                     </div>
                 </div>
                 <div class="form-div">
-                    <label for="inputUser">Unit Owner:</label>
+                    <label for="inputUser">Unit owner:</label>
                     <mat-form-field appearance="outline">
                         <mat-select
                             id="inputUser"
@@ -117,39 +116,38 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <br>
-                <div class="buttons-div">
-                    <button
-                        mat-raised-button
-                        id="Submit-addUnitForm-button"
-                        class="button"
-                        color="primary"
-                        type="submit"       
-                    >
-                    Add Unit
-                    </button>
-    
-                    <button
-                        mat-raised-button
-                        id="clear-addUnitForm-button"
-                        class="button"
-                        color="secondary"
-                        type="button"
-                        (click)="onReset()"
-                    >
-                        Clear Form
-                    </button>
+            </div>
+            <div class="buttons-div">
+                <button
+                    mat-raised-button
+                    id="Submit-addUnitForm-button"
+                    class="button"
+                    color="primary"
+                    type="submit"       
+                >
+                    Save
+                </button>
 
-                    <button
-                        mat-raised-button
-                        class="button"
-                        color="secondary"
-                        type="button"
-                        (click)="onCancel()"
-                    >
-                        Cancel
-                    </button>
-                </div>
+                <button
+                    mat-raised-button
+                    id="clear-addUnitForm-button"
+                    class="button"
+                    color="secondary"
+                    type="button"
+                    (click)="onReset()"
+                >
+                    Clear
+                </button>
+
+                <button
+                    mat-raised-button
+                    class="button"
+                    color="secondary"
+                    type="button"
+                    (click)="onCancel()"
+                >
+                    Cancel
+                </button>
             </div>
         </form>
     </div>
