@@ -151,11 +151,11 @@
                             id="inputUser"
                             matInputclass="form-control"
                             formControlName="user"
-                            placeholder="John Doe"
                             >
+                                <mat-option value="0">Vacant</mat-option>
                                 <mat-option *ngFor="let unit of availableUsers" [value]="unit.id">
                                     {{unit.firstName}} 
-                                    {{unit.lastName}}, 
+                                    {{unit.lastName}} 
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
