@@ -116,6 +116,13 @@ getAvailableUsers(){
     this.dataService.getAvailableUsers()
     .subscribe((responseData: any) => {
       this.availableUsers = [...responseData];
+      if (this.currentUnit.user && this.currentUnit.userId !== 0) {
+        this.availableUsers.unshift({
+          id: this.currentUnit.userId,
+          firstName: this.currentUnit.user.firstName,
+          lastName: this.currentUnit.user.lastName
+        });
+    }
       // this.cdr.detectChanges();
     }).add(() => {
       isLoading(false);
@@ -147,9 +154,9 @@ getUnit(unitId: number) {
   .subscribe((responseData: any) => {
     this.currentUnit = responseData;
     if (this.currentUnit){
-      // console.log('GET_UNIT_CURRENT_unit:', this.currentUnit );
+      // console.log('currentUnit:', this.currentUnit );
       this.updateEditUnitForm(this.currentUnit)
-      this.unitStatus = this.currentUnit.deletedAt ? false : true
+      this.unitStatus = this.currentUnit.deletedAt ? false : true;
       this.disableEnableForm(); 
       if(!this.unitStatus){
         this.disableForm();
@@ -199,7 +206,7 @@ updateEditUnitForm(unit: any) {
     city: unit.city || '',
     state: unit.state || '',
     zip: unit.zip || '',
-    user: unit.user || ''
+    user: unit.userId || ''
   });
 }
 
