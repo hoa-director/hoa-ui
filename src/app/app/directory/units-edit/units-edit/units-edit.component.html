@@ -1,7 +1,5 @@
 <div class="main-units-edit-div">
     <div class="main-units-edit-div">
-        <p>You can edit a unit's information.</p>
-        <br>
         <div class="form-container-unitToggle" id="toggleUnitactive">
             <div class="form-grid">
                 <div class="form-div-unitToggle">
@@ -52,7 +50,7 @@
                     </div>
 
                     <div class="form-div">
-                        <label for="inputAssociationId">Organization: </label>
+                        <label for="inputAssociationId">Association: </label>
                         <mat-form-field appearance="outline">
                             <mat-select
                             id="inputAssociationId"
@@ -77,7 +75,6 @@
                                 class="form-control"
                                 formControlName="addressLineOne"
                                 type="text"
-                                placeholder="1234 Hennepin Ave S"
                                 />
                         </mat-form-field>
                     </div>
@@ -90,7 +87,6 @@
                             class="form-control"
                             formControlName="addressLineTwo"
                             type="text"
-                            placeholder="Unit 14"
                             />
                         </mat-form-field>
                     </div>
@@ -103,7 +99,6 @@
                             class="form-control"
                             formControlName="city"
                             type="text"
-                            placeholder="Hastings"
                             />
                         </mat-form-field>
                         <div class="validatorMsg" *ngIf="editUnitForm.get('city').errors?.required && editUnitForm.get('city').touched">
@@ -118,7 +113,6 @@
                             matInput
                             class="form-control"
                             formControlName="state"
-                            placeholder="MN"
                             >
                                 <mat-option value="MN">MN</mat-option>
                                 <mat-option value="WI">WI</mat-option>
@@ -137,7 +131,6 @@
                             class="form-control"
                             formControlName="zip"
                             type="text"
-                            placeholder="55401"
                             />
                         </mat-form-field>
                         <div class="validatorMsg" *ngIf="editUnitForm.get('zip').errors?.required && editUnitForm.get('zip').touched">
@@ -145,14 +138,15 @@
                         </div>
                     </div>
                     <div class="form-div">
-                        <label for="inputUser">Unit Owner</label>
+                        <label for="inputUser">Unit Owner:</label>
                         <mat-form-field appearance="outline">
                             <mat-select
-                            id="inputUser"
-                            matInputclass="form-control"
-                            formControlName="user"
+                                id="inputUser"
+                                matInput
+                                class="form-control"
+                                formControlName="user"
                             >
-                                <mat-option value="0">Vacant</mat-option>
+                                <mat-option [value]="0">Vacant</mat-option>
                                 <mat-option *ngFor="let unit of availableUsers" [value]="unit.id">
                                     {{unit.firstName}} 
                                     {{unit.lastName}} 
