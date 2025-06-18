@@ -27,7 +27,7 @@ export class UsersAddComponent implements OnInit {
       id: sessionStorage.getItem("associationId").toString(), 
       associationName: sessionStorage.getItem("associationName").toString()
     },
-    {id: 2, associationName: 'test'}
+    // {id: 2, associationName: 'test'}
   ];
   constructor(
     // --  SERVICES
@@ -78,7 +78,7 @@ getOrganizationRoles() {
 onReset(): void { 
   this.addUserForm.reset({
     organization: {value: this.associations[0].id, disabled: true}, 
-    role: {value: '25', disabled: false }
+    // role: {value: '25', disabled: false }
   });
   Object.keys(this.addUserForm.controls).forEach(key => {
     this.addUserForm.get(key)?.setErrors(null);
@@ -103,6 +103,10 @@ addUser(): void { // -- WORKS
       password: formValues.password,  
       number: formValues.organization, //Number(formValues.number),
       role: formValues.role, //Number(formValues.role),
+      phoneOneLabel: null,
+      phoneOneNumber: null,
+      phoneTwoLabel: null,
+      phoneTwoNumber: null
     }
     this.addUserForm.get('organization').disable(); 
     // console.log('USER Sent:', user); // -- Check form BEFORE sending.
