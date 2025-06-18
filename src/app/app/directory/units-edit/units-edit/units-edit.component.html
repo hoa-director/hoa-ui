@@ -154,29 +154,40 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div class="buttons-div">
-                        <button
-                            mat-raised-button
-                            id="Submit-editUnitForm-button"
-                            class="button"
-                            color="primary"
-                            type="submit"
-                            [disabled]="formIsDisabled"       
-                            >
-                            Save
-                        </button>
-                        <button
-                            mat-raised-button
-                            id="clear-editUnitForm-button"
-                            class="button"
-                            color="secondary"
-                            type="button"
-                            [disabled]="formIsDisabled"
-                            (click)="onReset()"
-                            >
-                            Cancel
-                        </button>
-                    </div>
+                </div>
+                <div class="buttons-div">
+                    <button
+                        mat-raised-button
+                        id="Submit-editUnitForm-button"
+                        class="edit-button"
+                        color="primary"
+                        type="submit"
+                        [disabled]="formIsDisabled"       
+                        >
+                        Save
+                    </button>
+                    <button
+                        mat-raised-button
+                        id="delete-editUnitForm-button"
+                        class="edit-button"
+                        color="secondary"
+                        type="button"
+                        [disabled]="formIsDisabled"
+                        (click)="onDelete()"      
+                        >
+                        Delete
+                    </button>
+                    <button
+                        mat-raised-button
+                        id="clear-editUnitForm-button"
+                        class="edit-button"
+                        color="secondary"
+                        type="button"
+                        [disabled]="formIsDisabled"
+                        (click)="onReset()"
+                        >
+                        Cancel
+                    </button>
                 </div>
             </form>
         </div>

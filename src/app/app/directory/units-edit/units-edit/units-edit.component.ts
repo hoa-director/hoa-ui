@@ -85,7 +85,7 @@ onToggleChangeUnit(): void {
       (responseData: any) => {
         if (responseData.status === 'success') {
           // console.log('ToggleChangeunit responseData:', responseData);
-          this.openSuccessModal(); // -- need to import to use
+          this.openSuccessModal("Successfully updated address's status");
           this.getUnit(this.unitId)
           // this.disableEnableForm(); // --------------------------come back to this
         } else if (responseData.status === 'failure') {
@@ -233,13 +233,30 @@ saveUnitChanges(){
     .subscribe(
       (responseData: any) => {
         if (responseData.status === 'success') {
-          this.openSuccessModal(); // -- need to import to use
+          this.openSuccessModal("Information for the address was successfully updated");
           this.router.navigate(['/home/directory/units-view']);
         } else if (responseData.status === 'failure') {
-          this.openFailureModal('User update failed.'); // Handle failure
+          this.openFailureModal('Failed to update address information'); // Handle failure
         }
       }
     );
+  }
+}
+
+onDelete() {
+  const confirmed = window.confirm("Are you sure you want to permanently delete this address?");
+  if (confirmed) {
+    const unitId = this.currentUnit.id;
+    this.dataService.deleteUnit(unitId).subscribe((response: any) => {
+      if (response.status === 'success') {
+        this.openSuccessModal("Successfully deleted address");
+        this.router.navigate(["/home/directory/units-view"]);
+      } else {
+        this.openFailureModal("Failed to delete address");
+      }
+    })
+  } else {
+    return;
   }
 }
 
@@ -248,13 +265,13 @@ onReset(): void {
   this.router.navigate(['/home/directory/units-view']);
 }
 
-openSuccessModal() {
+openSuccessModal(message: string) {
   this.dialog.open(SuccessModalComponent, {
-    data: { message: "User was updated successfully." }
+    data: { message: message }
   });
 }
 
-openFailureModal(message) {
+openFailureModal(message: string) {
   this.dialog.open(FailureModalComponent, {
     data: { message: message }
   })

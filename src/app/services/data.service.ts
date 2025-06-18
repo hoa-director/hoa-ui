@@ -197,7 +197,7 @@ export class DataService {
     const payload = { phoneObj, userId };
     return this.http.put(BACKEND_URL + endPoint, payload).pipe(
       catchError((error) => {
-        console.error('Error updating user phone fields', error);
+        console.log('Error updating user phone fields', error);
         return throwError(error);
       })
     );  
@@ -209,7 +209,17 @@ export class DataService {
     const payload = { userId };
     return this.http.post(BACKEND_URL + endPoint, payload).pipe(
       catchError((error) => {
-        console.error('Error fetching phone fields', error);
+        console.log('Error fetching phone fields', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  // DELETE ONE FROM UNITS
+  deleteUnit(unitId: number) {
+    return this.http.delete(BACKEND_URL + `/api/deleteUnit/${unitId}`).pipe(
+      catchError((error) => {
+        console.log('Error deleting unit:', error);
         return throwError(error);
       })
     );
