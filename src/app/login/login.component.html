@@ -44,23 +44,29 @@
               </mat-error>
             </mat-form-field>
 
-            <button
-              mat-stroked-button
-              class="reset-link"
-              color="primary"
-              routerLink="/reset-password"
-            >
-              Reset Password
-            </button>
-            <button
-              mat-raised-button
-              color="primary"
-              class="btn btn-primary float-right"
-              type="submit"
-              [disabled]="!loginForm.form.valid"
-            >
-              Login
-            </button>
+            <div class="div-btn-login">
+              <button
+                mat-raised-button
+                color="primary"
+                class="btn btn-primary"
+                type="submit"
+                [disabled]="!loginForm.form.valid"
+              >
+                Login
+              </button>
+            </div>
+            <br>
+            <div class="div-btn-login">
+              <button
+                mat-stroked-button
+                class="reset-link"
+                color="primary"
+                routerLink="/reset-password"
+              >
+                Reset Password
+              </button>
+            </div>
+
           </form>
         </div>
         <div></div>
