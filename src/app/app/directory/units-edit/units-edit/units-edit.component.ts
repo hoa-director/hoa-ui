@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from "../../../../services/user.service";
 import { DataService } from "app/services/data.service";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // -- models
 import { Unit } from "../../unit.model";
 // -- css & Components
@@ -40,7 +40,8 @@ constructor(
   private dataService: DataService,
   private fb: FormBuilder,
   private dialog: MatDialog,
-  private route: ActivatedRoute
+  private route: ActivatedRoute,
+  private router: Router
 ) {}
 
 // -- PAGE LOAD
@@ -233,6 +234,7 @@ saveUnitChanges(){
       (responseData: any) => {
         if (responseData.status === 'success') {
           this.openSuccessModal(); // -- need to import to use
+          this.router.navigate(['/home/directory/units-view']);
         } else if (responseData.status === 'failure') {
           this.openFailureModal('User update failed.'); // Handle failure
         }
@@ -243,16 +245,7 @@ saveUnitChanges(){
 
 // -- CANCEL
 onReset(): void {
-  console.log('onReset() - CANCEL');
-  // this.editUnitForm.reset({
-  //   associationId: this.associations[0].id, // required
-  //   addressLineOne: '',
-  //   // addressLineTwo: '',
-  //   // city: '',
-  //   // state: '',
-  //   // zip: '',
-  //   user: '', // required
-  // });
+  this.router.navigate(['/home/directory/units-view']);
 }
 
 openSuccessModal() {
