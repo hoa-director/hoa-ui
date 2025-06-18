@@ -10,21 +10,26 @@
     font-size: 3rem;
     font-weight: 800;
     text-align: center;
+    justify-content: center;
 } 
 .icon-done {
     color: #00B31E;
+    display: flex;
+    text-align: center;
     margin-bottom: 0;
     margin-top: 2rem;
 }
 
 .mat-mdc-dialog-title {
-    padding: 0 0 5px 10px;
+    padding: 0 0 5px 5px;
     font-size: 2rem;
     font-weight: 800;
 }
 
 .mat-mdc-dialog-content {
-    padding: 25px 0 35px 0;
+    padding: 25px 0 20px 0;
     color: black;
     font-size: 1.4rem;
+    line-height: 1.5rem;
+    text-align: center;
 }
