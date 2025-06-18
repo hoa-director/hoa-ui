@@ -157,4 +157,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
       }
     }
   }
+  editOwnUnit() {
+    this.router.navigate(['/home/directory/update-phone']); // Navigate to the edit page with unitId
+  }
 }

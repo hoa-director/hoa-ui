@@ -33,7 +33,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { UnitsEditComponent } from './units-edit/units-edit/units-edit.component';
-
+import { UnitsEditOwnComponent } from './units-edit/units-edit-own/units-edit-own.component';
 
 
 export const DirectoryRoutes: Routes = [
@@ -52,6 +52,7 @@ export const DirectoryRoutes: Routes = [
       { path: "units-add", component: UnitsAddComponent },
       { path: "units-edit/:unitId", component: UnitsEditComponent },
       { path: "units-edit", component: UnitsEditComponent },
+      { path: "update-phone", component: UnitsEditOwnComponent },
     ],
   },
 ]
@@ -61,6 +62,7 @@ export const DirectoryRoutes: Routes = [
     UnitsViewComponent, 
     UnitsAddComponent, 
     UnitsEditComponent, // Delete Unit is in Edit Page
+    UnitsEditOwnComponent,
   ],
   imports: [
     RouterModule.forChild(DirectoryRoutes),

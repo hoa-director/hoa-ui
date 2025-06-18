@@ -191,7 +191,29 @@ export class DataService {
     );
     }
 
+  // EDIT OWN PHONE NUMBERS
+  updatePhoneFields(phoneObj: any, userId: number) {
+    const endPoint = "/api/updatePhoneFields";
+    const payload = { phoneObj, userId };
+    return this.http.put(BACKEND_URL + endPoint, payload).pipe(
+      catchError((error) => {
+        console.error('Error updating user phone fields', error);
+        return throwError(error);
+      })
+    );  
+  }
 
+  // GET OWN PHONE NUMBER FIELDS BY USER ID
+  getPhoneFields(userId: number) {
+    const endPoint = "/api/getPhoneFields";
+    const payload = { userId };
+    return this.http.post(BACKEND_URL + endPoint, payload).pipe(
+      catchError((error) => {
+        console.error('Error fetching phone fields', error);
+        return throwError(error);
+      })
+    );
+  }
 
 
    // ---------------- DOCUMENTS PAGE ---------------- //
