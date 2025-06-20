@@ -225,7 +225,7 @@ saveUnitChanges(){
       city: formValues.city,
       state: formValues.state,
       zip: formValues.zip,
-      userId: parseInt(formValues.user),
+      userId: formValues.user === 0 ? null : parseInt(formValues.user),
       status: formValues.status === 'true' ? true : (formValues.status === 'false' ? false : null), //  true/false
     } 
     this.dataService
