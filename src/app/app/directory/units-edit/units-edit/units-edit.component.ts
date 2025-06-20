@@ -207,7 +207,7 @@ updateEditUnitForm(unit: any) {
     city: unit.city || '',
     state: unit.state || '',
     zip: unit.zip || '',
-    user: unit.userId || ''
+    user: unit.userId || 0
   });
 }
 
