@@ -77,27 +77,27 @@ getParams(){
 }
 
 // --  ACTIVATE/DEACTIVATE UNIT
-onToggleChangeUnit(): void {
-  if(this.currentUnit){
-    // console.log('CURRENT USER this.currentUser.id:', this.currentUint.id);
-    this.dataService.updateUnitStatus(this.currentUnit.id, this.unitStatus)
-    .subscribe(
-      (responseData: any) => {
-        if (responseData.status === 'success') {
-          // console.log('ToggleChangeunit responseData:', responseData);
-          this.openSuccessModal("Successfully updated address's status");
-          this.getUnit(this.unitId)
-          // this.disableEnableForm(); // --------------------------come back to this
-        } else if (responseData.status === 'failure') {
-          this.openFailureModal('User update failed.'); // Handle failure
-        }
-      }
-    );
-  } else { // this code should never fire. It's just incase.
-    console.error('No current unit selected');
-    alert('No Unit Selected');
-  }
-}
+// onToggleChangeUnit(): void {
+//   if(this.currentUnit){
+//     // console.log('CURRENT USER this.currentUser.id:', this.currentUint.id);
+//     this.dataService.updateUnitStatus(this.currentUnit.id, this.unitStatus)
+//     .subscribe(
+//       (responseData: any) => {
+//         if (responseData.status === 'success') {
+//           // console.log('ToggleChangeunit responseData:', responseData);
+//           this.openSuccessModal("Successfully updated address's status");
+//           this.getUnit(this.unitId)
+//           // this.disableEnableForm(); // --------------------------come back to this
+//         } else if (responseData.status === 'failure') {
+//           this.openFailureModal('User update failed.'); // Handle failure
+//         }
+//       }
+//     );
+//   } else { // this code should never fire. It's just incase.
+//     console.error('No current unit selected');
+//     alert('No Unit Selected');
+//   }
+// }
 
 // --  GET ALL UNITS DROPDOWN -- //
 getAllUnits(){
