@@ -118,14 +118,15 @@
                 </div>
             </div>
             <div class="buttons-div">
+
                 <button
                     mat-raised-button
-                    id="Submit-addUnitForm-button"
                     class="button"
-                    color="primary"
-                    type="submit"       
+                    color="secondary"
+                    type="button"
+                    (click)="onCancel()"
                 >
-                    Save
+                    Cancel
                 </button>
 
                 <button
@@ -141,12 +142,12 @@
 
                 <button
                     mat-raised-button
+                    id="Submit-addUnitForm-button"
                     class="button"
-                    color="secondary"
-                    type="button"
-                    (click)="onCancel()"
+                    color="primary"
+                    type="submit"       
                 >
-                    Cancel
+                    Save
                 </button>
             </div>
         </form>

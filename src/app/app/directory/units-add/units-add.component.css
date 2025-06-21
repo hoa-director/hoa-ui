@@ -17,18 +17,14 @@
 }
 
 .buttons-div {
-    display: flex;
-    justify-content: center;
     gap: 10px;
     margin-top: 25px;
 }
 
 .mat-mdc-raised-button {
-    height: 3.5rem;
-    width: 10rem;
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin: 5px;
+    width: 80px;
+    font-size: 1.3rem;
+    margin-right: 15px;
 }
 
 @media screen and (max-width: 1300px) {
