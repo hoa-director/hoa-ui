@@ -151,13 +151,14 @@
                 <div class="buttons-div">
                     <button
                         mat-raised-button
-                        id="Submit-editUnitForm-button"
+                        id="clear-editUnitForm-button"
                         class="edit-button"
-                        color="primary"
-                        type="submit"
-                        [disabled]="formIsDisabled"       
+                        color="secondary"
+                        type="button"
+                        [disabled]="formIsDisabled"
+                        (click)="onReset()"
                         >
-                        Save
+                        Cancel
                     </button>
                     <button
                         mat-raised-button
@@ -172,14 +173,13 @@
                     </button>
                     <button
                         mat-raised-button
-                        id="clear-editUnitForm-button"
+                        id="Submit-editUnitForm-button"
                         class="edit-button"
-                        color="secondary"
-                        type="button"
-                        [disabled]="formIsDisabled"
-                        (click)="onReset()"
+                        color="primary"
+                        type="submit"
+                        [disabled]="formIsDisabled"       
                         >
-                        Cancel
+                        Save
                     </button>
                 </div>
             </form>
