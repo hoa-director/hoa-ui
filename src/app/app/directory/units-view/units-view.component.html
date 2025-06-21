@@ -16,8 +16,7 @@
   
 
   <form [formGroup]="searchUnitsForm" >
-    <!-- <label class="form-label" for="searchUsersForm">Search For a User</label> -->
-
+    <label for="inputString">Search by address or owner:</label>
     <mat-form-field>
         <input 
           id="inputString"
@@ -25,8 +24,6 @@
           class="form-control"
           formControlName="inputTextSearch"
           type="text"
-          placeholder="Search by address or owner"
-
           [(ngModel)]="inputStringSearch"
           (ngModelChange)="onInputChangeSearch()"
         />

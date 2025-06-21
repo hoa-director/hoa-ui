@@ -23,8 +23,17 @@
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
+label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.625rem;
+    grid-column: 1 / 2;
+    font-size: 1.3rem;
+}
+
 #inputString {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   display: inline;
   margin-bottom: 1rem;
 }
@@ -36,7 +45,8 @@
 
 .btn-add-unit {
   display: inline;
-  margin: 20px 0 1rem 580px;
+  width: 85px;
+  margin: 20px 0 1rem 575px;
 }
 
 mat-card-header {
