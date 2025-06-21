@@ -13,6 +13,7 @@ import { Unit } from ".././unit.model";
 // -- components
 import { UnitModalComponent } from "../../modal/unit-modal/unit-modal.component";
 import { DataService } from "app/services/data.service";
+import { Router } from '@angular/router';
 import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
 import { FailureModalComponent } from "app/app/failure-modal/failure-modal.component";
 
@@ -24,6 +25,7 @@ import { FailureModalComponent } from "app/app/failure-modal/failure-modal.compo
 export class UnitsAddComponent implements OnInit, OnDestroy {
   // newUnit: Unit[] = [];
   addUnitForm: FormGroup;
+  availableUsers: any[] = [];
 
   associations = [
     {
@@ -37,12 +39,14 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
   constructor(
     private dataService: DataService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    // this.listenForEvents();
-    // console.log('this.associationId', this.associationId);
+    this.dataService.getAvailableUsers().subscribe((response: any) => {
+      this.availableUsers = response; // array of {id, firstName, lastName}
+    });
     this.addUnitForm = this.fb.group({
       associationId: [{value: this.associations[0].id, disabled: true}, [Validators.required]], // required. Add get association
       addressLineOne: ['', [Validators.required]],
@@ -50,7 +54,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       zip: ['', [Validators.required]],
-      user: [''], // required
+      userId: [0]
     });
   }
 
@@ -64,7 +68,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
 
   // -- BUG ------- THIS FIRES TWICE. ------------------------------------------------
   addUnit() {
-    console.log('ADD BTN');
+    // console.log('ADD BTN');
     
     if (this.addUnitForm.valid) {
       isLoading(true);
@@ -80,6 +84,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
         city: formValues.city,
         state: formValues.state,
         zip: formValues.zip,
+        userId: 0 ? null : formValues.userId
         // updatedAt: '2024-07-19 18:47:52.63-05',
         // createdAt: '2024-07-19 18:47:52.63-05',
       };
@@ -91,21 +96,22 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
         .subscribe(
           (responseData: any) => {
             if(responseData.status === 'success'){ // -- If Response
-              console.log("SUCCESS responseData:", responseData);
+              // console.log("SUCCESS responseData:", responseData);
               setTimeout(() => {
                 this.openSuccessModal(); // -- tell user it worked
                 this.onReset(); // -- clear form
               }, 500);
+              this.router.navigate(['/home/directory/units-view']);
             } else if (responseData.status === 'failure') { // -- If NO Response
-              console.log('FAIL responseData:', responseData);
-              this.openFailureModal('Unit already exists in that Organization.'); // -- tell user it did NOT work
+              // console.log('openFailureModal? responseData:', responseData);
+              this.openFailureModal(responseData.message); // -- tell user it did NOT work
             }
           },
           (error) => { // -- If Error
-            this.openFailureModal('There was an error when trying to create a new unit.'); // -- tell user it did NOT work
-            console.log("unit-add ERROR", error);
+            this.openFailureModal('An error occurred when attempting to save a new unit: ' + error); // -- tell user it did NOT work
+            // console.log("openFailureModal? error:", error);
           }
-        )
+        );
     } else { // -- If FORM NOT VALID
       console.log('ADD UNIT FORM NOT VALID');
     }
@@ -113,16 +119,21 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
   }
 
   onReset(): void {
-    console.log('CLEAR BTN');
+    // console.log('CLEAR BTN');
     this.addUnitForm.reset({
-      associationId: this.associations[0].id, // required
+      // associationId: this.associations[0].id, // required
       addressLineOne: '',
-      // addressLineTwo: '',
-      // city: '',
-      // state: '',
-      // zip: '',
-      user: '', // required
+      addressLineTwo: '',
+      city: '',
+      state: '',
+      zip: '',
+      userId: 0
     });
+  }
+
+  onCancel(): void {
+    this.onReset();
+    this.router.navigate(['/home/directory/units-view']);
   }
 
   openSuccessModal() {
@@ -131,7 +142,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
     })
   }
 
-  openFailureModal(message) {
+  openFailureModal(message: string) {
     this.dialog.open(FailureModalComponent, {
       data: { message: message}
     })

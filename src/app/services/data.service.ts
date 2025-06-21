@@ -101,6 +101,12 @@ export class DataService {
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
 
+  searchUnits(inputString: string) {
+    const associationId = sessionStorage.getItem("associationId").toString();
+    const payload = { associationId, inputString };
+    return this.http.post(BACKEND_URL + "/api/directory-search", payload);
+  }
+
 
   // ---------------- EDIT UNIT PAGE ---------------- //
 
@@ -185,7 +191,39 @@ export class DataService {
     );
     }
 
+  // EDIT OWN PHONE NUMBERS
+  updatePhoneFields(phoneObj: any, userId: number) {
+    const endPoint = "/api/updatePhoneFields";
+    const payload = { phoneObj, userId };
+    return this.http.put(BACKEND_URL + endPoint, payload).pipe(
+      catchError((error) => {
+        console.log('Error updating user phone fields', error);
+        return throwError(error);
+      })
+    );  
+  }
 
+  // GET OWN PHONE NUMBER FIELDS BY USER ID
+  getPhoneFields(userId: number) {
+    const endPoint = "/api/getPhoneFields";
+    const payload = { userId };
+    return this.http.post(BACKEND_URL + endPoint, payload).pipe(
+      catchError((error) => {
+        console.log('Error fetching phone fields', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  // DELETE ONE FROM UNITS
+  deleteUnit(unitId: number) {
+    return this.http.delete(BACKEND_URL + `/api/deleteUnit/${unitId}`).pipe(
+      catchError((error) => {
+        console.log('Error deleting unit:', error);
+        return throwError(error);
+      })
+    );
+  }
 
 
    // ---------------- DOCUMENTS PAGE ---------------- //

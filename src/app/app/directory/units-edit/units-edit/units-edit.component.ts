@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from "../../../../services/user.service";
 import { DataService } from "app/services/data.service";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // -- models
 import { Unit } from "../../unit.model";
 // -- css & Components
@@ -40,7 +40,8 @@ constructor(
   private dataService: DataService,
   private fb: FormBuilder,
   private dialog: MatDialog,
-  private route: ActivatedRoute
+  private route: ActivatedRoute,
+  private router: Router
 ) {}
 
 // -- PAGE LOAD
@@ -76,27 +77,27 @@ getParams(){
 }
 
 // --  ACTIVATE/DEACTIVATE UNIT
-onToggleChangeUnit(): void {
-  if(this.currentUnit){
-    // console.log('CURRENT USER this.currentUser.id:', this.currentUint.id);
-    this.dataService.updateUnitStatus(this.currentUnit.id, this.unitStatus)
-    .subscribe(
-      (responseData: any) => {
-        if (responseData.status === 'success') {
-          // console.log('ToggleChangeunit responseData:', responseData);
-          this.openSuccessModal(); // -- need to import to use
-          this.getUnit(this.unitId)
-          // this.disableEnableForm(); // --------------------------come back to this
-        } else if (responseData.status === 'failure') {
-          this.openFailureModal('User update failed.'); // Handle failure
-        }
-      }
-    );
-  } else { // this code should never fire. It's just incase.
-    console.error('No current unit selected');
-    alert('No Unit Selected');
-  }
-}
+// onToggleChangeUnit(): void {
+//   if(this.currentUnit){
+//     // console.log('CURRENT USER this.currentUser.id:', this.currentUint.id);
+//     this.dataService.updateUnitStatus(this.currentUnit.id, this.unitStatus)
+//     .subscribe(
+//       (responseData: any) => {
+//         if (responseData.status === 'success') {
+//           // console.log('ToggleChangeunit responseData:', responseData);
+//           this.openSuccessModal("Successfully updated address's status");
+//           this.getUnit(this.unitId)
+//           // this.disableEnableForm(); // --------------------------come back to this
+//         } else if (responseData.status === 'failure') {
+//           this.openFailureModal('User update failed.'); // Handle failure
+//         }
+//       }
+//     );
+//   } else { // this code should never fire. It's just incase.
+//     console.error('No current unit selected');
+//     alert('No Unit Selected');
+//   }
+// }
 
 // --  GET ALL UNITS DROPDOWN -- //
 getAllUnits(){
@@ -116,6 +117,13 @@ getAvailableUsers(){
     this.dataService.getAvailableUsers()
     .subscribe((responseData: any) => {
       this.availableUsers = [...responseData];
+      if (this.currentUnit.user && this.currentUnit.userId !== 0) {
+        this.availableUsers.unshift({
+          id: this.currentUnit.userId,
+          firstName: this.currentUnit.user.firstName,
+          lastName: this.currentUnit.user.lastName
+        });
+    }
       // this.cdr.detectChanges();
     }).add(() => {
       isLoading(false);
@@ -147,9 +155,9 @@ getUnit(unitId: number) {
   .subscribe((responseData: any) => {
     this.currentUnit = responseData;
     if (this.currentUnit){
-      // console.log('GET_UNIT_CURRENT_unit:', this.currentUnit );
+      // console.log('currentUnit:', this.currentUnit );
       this.updateEditUnitForm(this.currentUnit)
-      this.unitStatus = this.currentUnit.deletedAt ? false : true
+      this.unitStatus = this.currentUnit.deletedAt ? false : true;
       this.disableEnableForm(); 
       if(!this.unitStatus){
         this.disableForm();
@@ -199,7 +207,7 @@ updateEditUnitForm(unit: any) {
     city: unit.city || '',
     state: unit.state || '',
     zip: unit.zip || '',
-    user: unit.user || ''
+    user: unit.userId || 0
   });
 }
 
@@ -217,7 +225,7 @@ saveUnitChanges(){
       city: formValues.city,
       state: formValues.state,
       zip: formValues.zip,
-      user: formValues.user,
+      userId: formValues.user === 0 ? null : parseInt(formValues.user),
       status: formValues.status === 'true' ? true : (formValues.status === 'false' ? false : null), //  true/false
     } 
     this.dataService
@@ -225,36 +233,45 @@ saveUnitChanges(){
     .subscribe(
       (responseData: any) => {
         if (responseData.status === 'success') {
-          this.openSuccessModal(); // -- need to import to use
+          this.openSuccessModal("Information for the address was successfully updated");
+          this.router.navigate(['/home/directory/units-view']);
         } else if (responseData.status === 'failure') {
-          this.openFailureModal('User update failed.'); // Handle failure
+          this.openFailureModal('Failed to update address information'); // Handle failure
         }
       }
     );
   }
 }
 
-// -- CANCEL
-onReset(): void {
-  console.log('onReset() - CANCEL');
-  // this.editUnitForm.reset({
-  //   associationId: this.associations[0].id, // required
-  //   addressLineOne: '',
-  //   // addressLineTwo: '',
-  //   // city: '',
-  //   // state: '',
-  //   // zip: '',
-  //   user: '', // required
-  // });
+onDelete() {
+  const confirmed = window.confirm("Are you sure you want to permanently delete this address?");
+  if (confirmed) {
+    const unitId = this.currentUnit.id;
+    this.dataService.deleteUnit(unitId).subscribe((response: any) => {
+      if (response.status === 'success') {
+        this.openSuccessModal("Successfully deleted address");
+        this.router.navigate(["/home/directory/units-view"]);
+      } else {
+        this.openFailureModal("Failed to delete address");
+      }
+    })
+  } else {
+    return;
+  }
 }
 
-openSuccessModal() {
+// -- CANCEL
+onReset(): void {
+  this.router.navigate(['/home/directory/units-view']);
+}
+
+openSuccessModal(message: string) {
   this.dialog.open(SuccessModalComponent, {
-    data: { message: "User was updated successfully." }
+    data: { message: message }
   });
 }
 
-openFailureModal(message) {
+openFailureModal(message: string) {
   this.dialog.open(FailureModalComponent, {
     data: { message: message }
   })

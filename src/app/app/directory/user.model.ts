@@ -3,4 +3,8 @@ export interface User {
   lastName: string;
   email: string;
   number: string;
+  phoneOneLabel: string;
+  phoneOneNumber: string;
+  phoneTwoLabel: string;
+  phoneTwoNumber: string;
 }

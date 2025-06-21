@@ -18,6 +18,11 @@ mat-form-field {
   margin-bottom: 20px;
 }
 
+.div-btn-login {
+  display: flex;
+  justify-content: center;
+}
+
 .reset-link {
   margin-right: 2%;
 }

@@ -20,11 +20,16 @@
     max-width: 100%;
     width: 100%;
 }
+
 .buttons-div {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Default to two columns */
-    gap: 1rem; /* Optional: add some space between buttons */
-    width: 100%;
+  display: flex;
+}
+
+.edit-button {
+  margin-right: 15px;
+  margin-top: 20px;
+  width: 80px;
+  font-size: 1.3rem;
 }
 
 @media screen and (max-width: 1300px) {
@@ -61,6 +66,7 @@
     justify-content: flex-start;
     padding: 0.625rem;
     grid-column: 1 / 2;
+    font-size: 1.3rem;
 }
 .unit-toggle-div {
     display: grid;
@@ -98,7 +104,5 @@
 }
 mat-form-field {
     display: grid;
-}
-.validatorMsg {
-    /* border: 2px solid blue; */
+    font-size: 1.5rem;
 }

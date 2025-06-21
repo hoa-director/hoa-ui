@@ -1,0 +1,83 @@
+<div class="main-units-edit-div">
+    <!-- FORM -->
+    <div class="form-container">
+        <form [formGroup]="editUnitOwnForm" (ngSubmit)="savePhone()">
+            <h2>Phone number one:</h2>
+            <div class="form-grid">
+                <div class="form-div">
+                    <label for="inputPhoneOneLabel">Description:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                            id="inputPhoneOneLabel"
+                            matInput
+                            class="form-control"
+                            formControlName="phoneOneLabel"
+                            type="text"
+                            />
+                    </mat-form-field>
+                </div>
+                <div class="form-div">
+                    <label for="inputPhoneOneNumber">Number:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                            id="inputPhoneOneNumber"
+                            matInput
+                            class="form-control"
+                            formControlName="phoneOneNumber"
+                            type="text"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+            <h2 class="second-h2">Phone number two:</h2>
+            <div class="form-grid">
+                <div class="form-div">
+                    <label for="inputPhoneTwoLabel">Description:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                            id="inputPhoneTwoLabel"
+                            matInput
+                            class="form-control"
+                            formControlName="phoneTwoLabel"
+                            type="text"
+                            />
+                    </mat-form-field>
+                </div>
+                <div class="form-div">
+                    <label for="inputPhoneTwoNumber">Number:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                            id="inputPhoneTwoNumber"
+                            matInput
+                            class="form-control"
+                            formControlName="phoneTwoNumber"
+                            type="text"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="buttons-div">
+                <button
+                    mat-raised-button
+                    id="cancel-editUnitOwnForm-button"
+                    class="button"
+                    color="secondary"
+                    type="button"
+                    (click)="onCancel()"
+                    >
+                    Cancel
+                </button>
+                <button
+                    mat-raised-button
+                    id="submit-editUnitOwnForm-button"
+                    class="button"
+                    color="primary"
+                    type="submit"   
+                    >
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
