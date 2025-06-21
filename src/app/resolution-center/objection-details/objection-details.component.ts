@@ -23,7 +23,7 @@ export class ObjectionDetailsComponent implements OnInit {
     ) {
         this.headerText = data.source === 'inbox'
         ? 'You have already voted on:' 
-        : 'Resolved Motion';
+        : 'Resolved motion:';
 
         this.resultText = data.objection.closedAt === null
         ? 'In progress'

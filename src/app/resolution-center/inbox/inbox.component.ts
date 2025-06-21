@@ -70,7 +70,7 @@ export class InboxComponent implements OnInit {
 
   openPresidentBreakTieDialog(objection: Objection) {
     const presidentBreakTieDialogRef = this.presidentBreakTieDialog.open(PresidentBreakTieDialogComponent, {
-      width: '500px',
+      width: '550px',
       data: objection,
     });
     presidentBreakTieDialogRef.afterClosed().subscribe(() => {

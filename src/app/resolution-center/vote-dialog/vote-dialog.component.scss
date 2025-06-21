@@ -12,14 +12,14 @@
 }
 
 .vote-dialog-title {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: black;
 }
 
 .vote-description {
   color: #4678b3;
-  font-size: 2.1rem;
-  margin: 3rem 0 0 0;
+  font-size: 1.9rem;
+  margin: 2rem 0 0 0;
   flex-grow: 1;
   line-height: 2.3rem;
 }
@@ -31,7 +31,7 @@ mat-radio-group {
 }
 
 mat-radio-button {
-  font-size: 2rem;
+  font-size: 1.6rem;
 }
 
 // add space between label and next radio button
