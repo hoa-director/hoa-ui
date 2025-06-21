@@ -2,10 +2,6 @@ label {
   min-width: 50%;
 }
 
-.create-objection {
-  font-size: 2rem;
-}
-
 .comments-text-area {
   width: 50vw;
 }
@@ -25,7 +21,7 @@ label {
 /* ---- LABELS ---- */
 .mat-label {
   margin-bottom: 10px; 
-  font-size: 1.6rem;
+  font-size: 1.3rem;
 }
 
 
@@ -68,7 +64,7 @@ label {
 }
 
 ::ng-deep span.mat-mdc-select-value-text {
-  font-size: 1.6rem !important;
+  font-size: 1.5rem !important;
 }
 
 .mat-option {
@@ -89,18 +85,19 @@ label {
   display: none !important;
 }
 
+mat-error {
+  font-size: 1.3rem;
+  padding: 3px 0;
+}
+
 
 /* ---- TEXT AREA ---- */
 ::ng-deep textarea.mat-mdc-input-element {
-  font-size: 1.6rem !important;
+  font-size: 1.5rem !important;
 }
 
 
 /* ---- BUTTONS ---- */
 ::ng-deep .form-group.buttons {
   margin-top: 20px !important;
-}
-
-::ng-deep span.mdc-button__label {
-  font-size: 1.6rem !important;
 }

@@ -17,7 +17,7 @@
         </mat-select>
 
         <mat-error *ngIf="againstControl.hasError('required')"
-          >Please choose unit</mat-error
+          >Please select a unit</mat-error
         >
         <mat-hint>{{ againstControl.value?.sound }}</mat-hint>
       </mat-form-field>
@@ -39,7 +39,7 @@
       <button
         class="create-objection-cancel-button border"
         mat-stroked-button
-        color="primary"
+        color="secondary"
         type="reset"
         (click)="onCancel()"
       >
