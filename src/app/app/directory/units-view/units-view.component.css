@@ -10,9 +10,21 @@
   /* padding: 1rem; */
   gap: 8px; /* Space between cards */
   padding: 16px;
-  max-width: 950px; /* 280px*3 + 20*3 + 10*5 */
+  width: 332px;
   margin-bottom: 30px;
 }  
+
+@media (min-width: 900px) {
+  .flex-container {
+    width: 640px;
+  }
+}
+
+@media (min-width: 1224px) {
+  .flex-container {
+    width: 950px;
+  }
+}
 
 .unit-card {
   width: 280px;
@@ -45,8 +57,29 @@ label {
 
 .btn-add-unit {
   display: inline;
-  width: 85px;
-  margin: 20px 0 1rem 575px;
+  width: 84px;
+  margin: 0 0 16px 0;
+}
+
+@media (min-width: 630px) {
+  .btn-add-unit {
+    margin-top: 20px;
+    margin-left: 16px;
+  }
+}
+
+@media (min-width: 900px) {
+  .btn-add-unit {
+    margin-top: 20px;
+    margin-left: 268px;
+  }
+}
+
+@media (min-width: 1224px) {
+  .btn-add-unit {
+    margin-top: 20px;
+    margin-left: 578px;
+  }
 }
 
 mat-card-header {
