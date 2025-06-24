@@ -45,7 +45,7 @@ export class UsersViewComponent implements OnInit {
   ];
 
 public userRows: UserRow[] = []; // -- ALL Users (multiple)
-public currentUser;  // SINGLE User
+public currentUser: any;  // SINGLE User
 
 searchUsersForm: FormGroup;
 inputString: string = '';
@@ -109,6 +109,9 @@ constructor(
     // this.fetchUsers('') // did commenting this out fix the double firing issue???
   }
 
+  goToAddUser() {
+    this.router.navigate(['/home/users-center/users-add']);
+  }
 
   editUser(userId: number) {
     if(userId){

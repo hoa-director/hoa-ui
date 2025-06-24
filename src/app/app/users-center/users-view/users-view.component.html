@@ -1,34 +1,40 @@
 
 <div class="main-user-div">
-    <!-- <h3 class="users-header">Users Page</h3> -->
-    <p>You can search, add, edit or delete association users on this page.</p>
-
     <form [formGroup]="searchUsersForm" >
-        <!-- <label class="form-label" for="searchUsersForm">Search For a User</label> -->
+        <label class="form-label" for="inputString">Search by owner name, address, or email:</label>
         <mat-form-field>
             <input 
-            id="inputString"
-            matInput
-            class="form-control"
-            formControlName="inputText"
-            type="text"
-            placeholder="Search by name, email, or unit"
-
-            [(ngModel)]="inputString"
-            (ngModelChange)="onInputChange()"
+                id="inputString"
+                matInput
+                class="form-control"
+                formControlName="inputText"
+                type="text"
+                [(ngModel)]="inputString"
+                (ngModelChange)="onInputChange()"
             />
         </mat-form-field>    
 
         <button
-            class="add-user-button"    
+            class="btn-clear-search"    
             mat-raised-button
             color="secondary"
-  
             (click)="onReset()"
         >
             Clear
         </button>
     </form>
+
+    <ng-container>
+      <button
+        mat-raised-button
+        color="primary"
+        class="btn btn-primary btn-add-user"
+        (click)="goToAddUser()"
+      >
+        Add User
+      </button>
+    </ng-container>
+
     <br>
 
     <!-- Table -->
