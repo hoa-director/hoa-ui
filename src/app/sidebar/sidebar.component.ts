@@ -169,7 +169,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     );
   }
 
-  onLogout() {
-    this.userService.logout();
-  }
+  // onLogout() {
+  //   this.userService.logout();
+  // }
 }

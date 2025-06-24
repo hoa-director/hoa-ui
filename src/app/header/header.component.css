@@ -23,8 +23,9 @@
   max-height: 5rem;
 }
 .hoa-title {
-  font-size: 5rem;
-  margin-left: .5rem;
+  font-size: 3rem;
+  margin-left: 1rem;
+  letter-spacing: 1.1;
 }
 
 .header-user-data {
@@ -51,9 +52,13 @@
 }
 
 .user-name{
-  margin-left: 1rem;
-  border-right: white solid .1rem;
-  padding-right: 1rem;
+  padding-left: 2px;
+  padding-right: 1px;
+}
+
+.logout-button {
+  height: 30px;
+  padding: 0.5rem 1rem;
 }
 
 /* .header-user-data::after {
