@@ -59,6 +59,7 @@
 .logout-button {
   height: 30px;
   padding: 0.5rem 1rem;
+  font-weight: 550 !important;
 }
 
 /* .header-user-data::after {
