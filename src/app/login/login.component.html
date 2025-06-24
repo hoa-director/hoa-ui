@@ -1,7 +1,7 @@
 <div class="login-container">
   <app-back-fab></app-back-fab>
   <mat-card>
-    <div class="card-header">Login</div>
+    <div class="card-header">Log In</div>
     <mat-card-content>
       <div>
         <div class="custom-auth-error" *ngIf="userAuthError">
@@ -16,7 +16,6 @@
               <input
                 matInput
                 type="email"
-                placeholder="your@email.com"
                 class="form-control"
                 name="email"
                 required
@@ -32,7 +31,6 @@
               <input
                 matInput
                 type="password"
-                placeholder="password"
                 class="form-control"
                 name="password"
                 required
@@ -52,7 +50,7 @@
                 type="submit"
                 [disabled]="!loginForm.form.valid"
               >
-                Login
+                Log In
               </button>
             </div>
             <br>

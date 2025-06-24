@@ -22,4 +22,8 @@ export class HeaderComponent implements OnInit{
     this.loggedInUser$ = this.userService.user$;
     this.selectedAssociation$ = this.userService.selectedAssociation$;
   }
+
+  onLogout() {
+    this.userService.logout();
+  }
 }

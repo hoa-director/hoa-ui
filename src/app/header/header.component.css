@@ -3,9 +3,9 @@
 }
 
 .header-primary {
-  padding-left: calc(100vw * 0.05);
-  padding-right: calc(100vw * 0.05);
-  height: 10rem;
+  padding-left: calc(100vw * 0.025);
+  padding-right: calc(100vw * 0.025);
+  height: 8rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -23,13 +23,14 @@
   max-height: 5rem;
 }
 .hoa-title {
-  font-size: 5rem;
-  margin-left: .5rem;
+  font-size: 3rem;
+  margin-left: 1rem;
+  letter-spacing: 1.1;
 }
 
 .header-user-data {
-  padding-left: calc(100vw * 0.05);
-  padding-right: calc(100vw * 0.05);
+  padding-left: calc(100vw * 0.025);
+  padding-right: calc(100vw * 0.025);
   background-color: rgba(38, 41, 84);
   height: 4.5rem;
   color: #fff;
@@ -51,9 +52,14 @@
 }
 
 .user-name{
-  margin-left: 1rem;
-  border-right: white solid .1rem;
-  padding-right: 1rem;
+  padding-left: 2px;
+  padding-right: 1px;
+}
+
+.logout-button {
+  height: 30px;
+  padding: 0.5rem 1rem;
+  font-weight: 550 !important;
 }
 
 /* .header-user-data::after {

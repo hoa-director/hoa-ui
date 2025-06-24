@@ -144,7 +144,7 @@ export class UserService {
   // -- For Frontend Header Element
   getLoggedInUser(): void {
     this.http
-      .get<{ userFirstName: string, userRole: number }>(BACKEND_URL + "/user/loggedInUser", 
+      .get<{ userFirstName: string, userRole: number, associationName: string  }>(BACKEND_URL + "/user/loggedInUser", 
       // -- turned off 1/18/25 ---------
       //   {
       //   params: new HttpParams().set(
@@ -156,6 +156,7 @@ export class UserService {
       .subscribe((response) => {
         // console.log('getLoggedInUser:', response);
         this.setUser(response.userFirstName);
+        this.setSelectedAssociationSubject(response.associationName);
       });
   }
 
