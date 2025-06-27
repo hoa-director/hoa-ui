@@ -176,20 +176,16 @@ export class DataService {
     }
 
 
-     // -- AVAILABLE USERS DROPDOWN 
-     getAvailableUsers(){
-      const endPoint = "/api/getAvailableUsers"
-      const associationId = sessionStorage.getItem("associationId").toString()
-      const payload = {
-            associationId: associationId, 
-          }
-    return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
+  // ADD/EDIT UNIT -- AVAILABLE USERS DROPDOWN 
+  getAvailableUsers(){
+    const endPoint = "/api/getAvailableUsers";
+    return this.http.get(BACKEND_URL + endPoint ).pipe(
       catchError((error) => {
         console.error('availableUsers API failed.', error);
         return throwError(error);
       })
     );
-    }
+  }
 
   // EDIT OWN PHONE NUMBERS
   updatePhoneFields(phoneObj: any, userId: number) {
