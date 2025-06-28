@@ -75,7 +75,7 @@
 
         <ng-container matColumnDef="role">
             <th mat-header-cell *matHeaderCellDef>Role</th>
-            <td mat-cell *matCellDef="let user">{{ user.role >= 99 ?  'Master User' : (user.role >= 75 ?  'President' : (user.role >= 50 ? 'Admin' : 'HOA Member')) }}</td>
+            <td mat-cell *matCellDef="let user">{{ user.roles.roleTitle }}</td>
         </ng-container>
 
         <!-- <ng-container matColumnDef="created_at">
