@@ -56,7 +56,7 @@
 
         <ng-container matColumnDef="association">
             <th mat-header-cell *matHeaderCellDef>Neighborhood</th>
-            <td mat-cell *matCellDef="let user">{{user.associations[0]?.name}}</td>
+            <td mat-cell *matCellDef="let user">{{user.associations[0]?.name ? user.associations[0].name : '—'}}</td>
         </ng-container>
         
         <ng-container matColumnDef="unit">
