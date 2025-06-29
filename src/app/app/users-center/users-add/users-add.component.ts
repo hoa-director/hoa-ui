@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 // -- services
-import { UserService } from 'app/services/user.service';
 import { UsersCenterService } from "../../../services/users-center.service";  
 // -- models
 
@@ -22,36 +21,26 @@ import { FailureModalComponent } from 'app/app/failure-modal/failure-modal.compo
 export class UsersAddComponent implements OnInit {  
   addUserForm: FormGroup;
   allRoles: any;
-  associations = [
-    {
-      id: sessionStorage.getItem("associationId").toString(), 
-      associationName: sessionStorage.getItem("associationName").toString()
-    },
-    // {id: 2, associationName: 'test'}
-  ];
+  associations: any;
   constructor(
     // --  SERVICES
-    private userService: UserService,
-    private UsersCenterService: UsersCenterService,
+    private usersCenterService: UsersCenterService,
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {}
 
 ngOnInit(): void {
-  // const userOrganizations: any = this.userService.getUserAssociations();
-  // if(userOrganizations && userOrganizations.length > 0 ){
-  //   const org = userOrganizations[0]
-  //   console.log('org', org);
-  // }
-  // console.log('userOrganizations', userOrganizations[0]);
-  this.getOrganizationRoles();
+  this.usersCenterService.getAllAssociations().subscribe(associations => {
+    this.associations = associations;
+  });
+  // this.getOrganizationRoles();
   
   this.addUserForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]], 
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     // password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], 
-    organization: [{value: this.associations[0].id}, [Validators.required]], 
+    organization: ['', [Validators.required]], 
     role: ['', [Validators.required] ], 
   });
 }
@@ -59,7 +48,7 @@ ngOnInit(): void {
 
 // --  GET ALL ORGANIZATION ROLES  -- //
 getOrganizationRoles() {
-  this.UsersCenterService.fetchOrganizationRoles()
+  this.usersCenterService.fetchOrganizationRoles()
     .subscribe(
       (responseData: any) => {
         console.log('RESPONSE.DATA.ROLES:', responseData);
@@ -111,7 +100,7 @@ addUser(): void { // -- WORKS
     this.addUserForm.get('organization').disable(); 
     // console.log('USER Sent:', user); // -- Check form BEFORE sending.
 
-    this.UsersCenterService
+    this.usersCenterService
     .createUser(user)
     .subscribe(
       (responseData: any) => {

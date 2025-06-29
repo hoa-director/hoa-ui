@@ -49,6 +49,13 @@ export class UsersCenterService {
   }
 
 
+   // ---------------- ADD USER PAGE ---------------- //
+
+  getAllAssociations() {
+    const endPoint = "/api/getAllAssociations";
+    return this.http.get(BACKEND_URL + endPoint);
+  }
+  
   createUser(userObj: object) {
     // ---- ADD userObj{} HERE TO TEST ---- 
     const payload = userObj
