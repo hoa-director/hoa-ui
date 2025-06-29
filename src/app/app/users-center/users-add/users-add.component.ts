@@ -48,11 +48,11 @@ ngOnInit(): void {
   
   this.addUserForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]], 
-    firstName: [''],
-    lastName: [''],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], 
-    organization: [{value: this.associations[0].id, disabled: true}, [Validators.required] ], 
-    role: [{value: '50', disabled: false }, [Validators.required] ], 
+    firstName: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
+    // password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], 
+    organization: [{value: this.associations[0].id}, [Validators.required]], 
+    role: ['', [Validators.required] ], 
   });
 }
 
