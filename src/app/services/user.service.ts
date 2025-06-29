@@ -26,8 +26,8 @@ export class UserService {
   private tokenTimer: NodeJS.Timer;
 
   // available association properties
-  private availableAssociationsSubject = new ReplaySubject<AssociationModel[]>(1);
-  public availableAssociations$ = this.availableAssociationsSubject.asObservable();
+  // private availableAssociationsSubject = new ReplaySubject<AssociationModel[]>(1);
+  // public availableAssociations$ = this.availableAssociationsSubject.asObservable();
 
   // selected association properties
   private readonly selectedAssociationSubject = new BehaviorSubject<string>(null);
@@ -214,8 +214,8 @@ export class UserService {
           `/user/associations`
       )
       .subscribe((response) => {
-        // console.log('getUserAssociations_res:', response);
-        this.availableAssociationsSubject.next(response.associations);
+        console.log('getUserAssociations_response:', response);
+        return response;
       });
   }
 
