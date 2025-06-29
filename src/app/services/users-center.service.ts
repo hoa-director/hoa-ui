@@ -29,6 +29,16 @@ export class UsersCenterService {
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
 
+  fetchRolesByAssociation(associationId: number) {
+    const endPoint = "/api/fetchRolesByAssociation/" + associationId.toString();
+    return this.http.get(BACKEND_URL + endPoint).pipe(
+      catchError((error) => {
+        console.error('Fetch roles by associationId error:', error);
+        return throwError(error);
+      })
+    );
+  }
+
   // -- GET ONE ORGANIZATION ROLE ------ NOT BEING USED YET???
   fetchOneOrganizationRole() { 
     const endPoint = "/api/getOneRole"

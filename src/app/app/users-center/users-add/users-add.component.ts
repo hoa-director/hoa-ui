@@ -20,7 +20,7 @@ import { FailureModalComponent } from 'app/app/failure-modal/failure-modal.compo
 })
 export class UsersAddComponent implements OnInit {  
   addUserForm: FormGroup;
-  allRoles: any;
+  allRoles: any[] = [];
   associations: any;
   constructor(
     // --  SERVICES
@@ -47,19 +47,30 @@ ngOnInit(): void {
 
 
 // --  GET ALL ORGANIZATION ROLES  -- //
-getOrganizationRoles() {
-  this.usersCenterService.fetchOrganizationRoles()
-    .subscribe(
-      (responseData: any) => {
-        console.log('RESPONSE.DATA.ROLES:', responseData);
-        this.allRoles = [...responseData];
-        console.log('this.allRoles:', this.allRoles);
-        // this.cdr.detectChanges();
-      },
-      (error) => {
-        console.error('Error fetching roles:', error);
+// getOrganizationRoles() {
+//   this.usersCenterService.fetchOrganizationRoles()
+//     .subscribe(
+//       (responseData: any) => {
+//         console.log('RESPONSE.DATA.ROLES:', responseData);
+//         this.allRoles = [...responseData];
+//         console.log('this.allRoles:', this.allRoles);
+//         // this.cdr.detectChanges();
+//       },
+//       (error) => {
+//         console.error('Error fetching roles:', error);
+//       }
+//     );
+// }
+
+onAssociationChange(associationId: number) {
+  this.usersCenterService.fetchRolesByAssociation(associationId).subscribe(response => {
+    this.allRoles = response as any[];
+    this.allRoles.forEach(role => {
+      if (role.title === 'Owner') {
+        this.addUserForm.get('role')?.setValue(role.id); // -- Set default role to Owner
       }
-    );
+    });
+  })
 }
 
 

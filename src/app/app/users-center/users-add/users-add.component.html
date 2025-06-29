@@ -86,7 +86,8 @@
                     <mat-form-field>
                         <mat-select 
                             id="selectOrganization"
-                            formControlName="organization">
+                            formControlName="organization"
+                            (selectionChange)="onAssociationChange($event.value)">
 
                             <mat-option *ngFor="let association of associations" [value]="association.id">
                                 {{association.name}}
