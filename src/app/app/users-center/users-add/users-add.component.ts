@@ -90,12 +90,8 @@ onReset(): void {
 
 // -- ADD USER -- //
 addUser(): void { // -- WORKS 
-  // console.log('addUserForm:', this.addUserForm.value); // -- Check form BEFORE validating.
   if (this.addUserForm.valid) {
-    this.addUserForm.get('organization').enable(); 
-    // console.log('ADD USER FORM VALID');
     const formValues = this.addUserForm.value;
-    // console.log('this.addUserForm.value', this.addUserForm.value);
     let user: User = {
       email: formValues.email,
       firstName: formValues.firstName,
@@ -108,30 +104,26 @@ addUser(): void { // -- WORKS
       phoneTwoLabel: null,
       phoneTwoNumber: null
     }
-    this.addUserForm.get('organization').disable(); 
-    // console.log('USER Sent:', user); // -- Check form BEFORE sending.
 
     this.usersCenterService
     .createUser(user)
     .subscribe(
       (responseData: any) => {
-        console.log('SUBSCRIBE');
-      if(responseData){ // -- If Response
-        console.log('IF responseData NOT Null:', responseData);
-        this.openSuccessModal(); // -- tell user it worked
-        this.onReset(); // -- clear form
-      } else { // -- If NO Response
-        console.log('ELSE responseData NULL:', responseData);
-        this.openFailureModal('User already exists.'); // -- tell user it did NOT work
-        // alert('User with that email already exist.')
+        if(responseData.status === 400){ // email already exists
+          this.openFailureModal('This email already exists.'); 
+        } else if (responseData.status === 500) { // error
+          this.openFailureModal('Unable to create new user. Please try again later.');
+        } else { // success
+          this.openSuccessModal();
+          this.onReset(); // -- Reset Form
+        }
+      }, (error) => { // -- If Error
+        console.log('ADD-USER ERROR:', error);
+        this.openFailureModal('Unable to create new user. Please try again later.');
       }
-    }, (error) => { // -- If Error
-      console.log('ADD-USER ERROR:', error);
-      this.openFailureModal('There was an error when trying to create a new user.'); // -- tell user it did NOT work
-    }
-  )
+    )
   } else { // -- If FORM NOT VALID
-    console.log('ADD USER FORM NOT VALID');
+    this.openFailureModal('One or more fields are invalid.');
   }
 }
 
@@ -147,5 +139,4 @@ openFailureModal(message) {
     data: { message: message }
   })
 }
-
 }
