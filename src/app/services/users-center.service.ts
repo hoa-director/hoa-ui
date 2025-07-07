@@ -65,6 +65,11 @@ export class UsersCenterService {
     const endPoint = "/api/getAllAssociations";
     return this.http.get(BACKEND_URL + endPoint);
   }
+
+  fetchVacantUnits(associationId: number) {
+    const endPoint = `/api/fetchVacantUnits/${associationId}`;
+    return this.http.get(BACKEND_URL + endPoint);
+  }
   
   createUser(userObj: object) {
     // ---- ADD userObj{} HERE TO TEST ---- 

@@ -21,7 +21,8 @@ import { FailureModalComponent } from 'app/app/failure-modal/failure-modal.compo
 export class UsersAddComponent implements OnInit {  
   addUserForm: FormGroup;
   allRoles: any[] = [];
-  associations: any;
+  associations: any = [];
+  addresses: any[] = [];
   constructor(
     // --  SERVICES
     private usersCenterService: UsersCenterService,
@@ -33,7 +34,6 @@ ngOnInit(): void {
   this.usersCenterService.getAllAssociations().subscribe(associations => {
     this.associations = associations;
   });
-  // this.getOrganizationRoles();
   
   this.addUserForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]], 
@@ -42,6 +42,7 @@ ngOnInit(): void {
     // password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], 
     organization: ['', [Validators.required]], 
     role: ['', [Validators.required] ], 
+    address: [''],
   });
 }
 
@@ -70,7 +71,11 @@ onAssociationChange(associationId: number) {
         this.addUserForm.get('role')?.setValue(role.id); // -- Set default role to Owner
       }
     });
-  })
+  });
+
+  this.usersCenterService.fetchVacantUnits(associationId).subscribe(response => {
+    this.addresses = response as any[];
+  });
 }
 
 
@@ -89,7 +94,7 @@ onReset(): void {
 
 
 // -- ADD USER -- //
-addUser(): void { // -- WORKS 
+addUser(): void {
   if (this.addUserForm.valid) {
     const formValues = this.addUserForm.value;
     let user: User = {
@@ -99,6 +104,7 @@ addUser(): void { // -- WORKS
       password: formValues.password,  
       number: formValues.organization, //Number(formValues.number),
       role: formValues.role, //Number(formValues.role),
+      unitId: formValues.address,
       phoneOneLabel: null,
       phoneOneNumber: null,
       phoneTwoLabel: null,
