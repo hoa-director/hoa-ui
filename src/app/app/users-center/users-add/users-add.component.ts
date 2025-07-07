@@ -90,9 +90,8 @@ onReset(): void {
   this.addUserForm.reset();
   this.addUserForm.markAsPristine();
   this.addUserForm.markAsUntouched();
-  Object.keys(this.addUserForm.controls).forEach(key => {
-    this.addUserForm.get(key)?.setErrors(null);
-  });
+  this.allRoles = [];
+  this.addresses = [];
 }
 
 
