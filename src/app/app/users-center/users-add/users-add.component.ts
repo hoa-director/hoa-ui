@@ -116,7 +116,7 @@ addUser(): void {
     this.usersCenterService
     .createUser(user)
     .subscribe(
-      (responseData: any) => {
+      (responseData: any) => { // server will send status of 200, 400, or 500
         if(responseData.status === 400){ // email already exists
           this.openFailureModal('This email already exists.'); 
         } else if (responseData.status === 500) { // error
@@ -124,6 +124,7 @@ addUser(): void {
         } else { // success
           this.openSuccessModal();
           this.onReset(); // -- Reset Form
+          this.router.navigate(['/home/users-center/users-view']);
         }
       }, (error) => { // -- If Error
         console.log('ADD-USER ERROR:', error);
