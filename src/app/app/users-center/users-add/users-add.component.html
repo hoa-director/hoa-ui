@@ -139,25 +139,38 @@
 
 
                 <br>
+
                 <div class="buttons-div">
+
                     <button
-                        class="search-users-submit-button"    
+                        class="add-user-button"    
                         mat-raised-button
-                        color="primary"
-                        type="submit"
+                        color="secondary"
+                        type="button"
+                        (click)="onCancel()"
                     >
-                    Add User
+                        Cancel
                     </button>
-    
+
                     <button
-                        class="search-users-clear-button"    
+                        class="add-user-button"    
                         mat-raised-button
                         color="secondary"
                         type="button"
                         (click)="onReset()"
                     >
-                    Clear
+                        Clear
                     </button>
+
+                    <button
+                        class="add-user-button"    
+                        mat-raised-button
+                        color="primary"
+                        type="submit"
+                    >
+                        Save
+                    </button>
+
                 </div>
             </div>
         </form>

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 // -- services
 import { UsersCenterService } from "../../../services/users-center.service";  
 // -- models
@@ -27,7 +28,8 @@ export class UsersAddComponent implements OnInit {
     // --  SERVICES
     private usersCenterService: UsersCenterService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router,
   ) {}
 
 ngOnInit(): void {
@@ -78,6 +80,10 @@ onAssociationChange(associationId: number) {
   });
 }
 
+onCancel(): void {
+  this.onReset();
+  this.router.navigate(['/home/users-center/users-view']);
+}
 
 // -- CLEAR FORM -- //
 onReset(): void { 
