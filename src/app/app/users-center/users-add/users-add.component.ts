@@ -87,14 +87,11 @@ onCancel(): void {
 
 // -- CLEAR FORM -- //
 onReset(): void { 
-  this.addUserForm.reset({
-    organization: {value: this.associations[0].id, disabled: true}, 
-    // role: {value: '25', disabled: false }
-  });
+  this.addUserForm.reset();
+  this.addUserForm.markAsPristine();
+  this.addUserForm.markAsUntouched();
   Object.keys(this.addUserForm.controls).forEach(key => {
     this.addUserForm.get(key)?.setErrors(null);
-    // this.addUserForm.get(key)?.markAsPristine();
-    // this.addUserForm.get(key)?.markAsUntouched();
   });
 }
 
