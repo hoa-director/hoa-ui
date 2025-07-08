@@ -30,7 +30,7 @@ export class UsersEditComponent {
   formIsDisabled: boolean = false
   // userStatus: boolean = false; 
   currentAssociationId: number = parseInt(sessionStorage.getItem("associationId"));
-  associations: any[] = [];
+  associations: any = [];
 
   // allUserStatuses = [
   //   { id: 0, name: 'Inactive', description: 'User is inactive' },
@@ -38,7 +38,7 @@ export class UsersEditComponent {
   // ];
 
 constructor(
-  private UsersCenterService: UsersCenterService,
+  private usersCenterService: UsersCenterService,
   private fb: FormBuilder,
   private dialog: MatDialog,
   private route: ActivatedRoute,
@@ -52,6 +52,9 @@ ngOnInit() {
   this.getParams();
   this.initEditUnitForm();
   // this.getAllUsers();
+  this.usersCenterService.getAllAssociations().subscribe(associations => {
+    this.associations = associations;
+  });
   this.getOrganizationRoles(this.currentAssociationId);
   // this.disableEnableForm();
 
@@ -145,7 +148,7 @@ enableForm(){
 }
 // --  GET ALL ORGANIZATION ROLES  -- //
 getOrganizationRoles(associationId: number) {
-  this.UsersCenterService.fetchRolesByAssociation(associationId)
+  this.usersCenterService.fetchRolesByAssociation(associationId)
     .subscribe(
       (responseData: any) => {
         this.allRoles = [...responseData];
@@ -154,6 +157,10 @@ getOrganizationRoles(associationId: number) {
         console.error('Error fetching roles:', error);
       }
     );
+}
+
+handleAssociationChange(associationId: number) {
+  this.getOrganizationRoles(associationId);
 }
 
 // // --  GET ALL UNITS FOR DROPDOWN -- //
@@ -176,7 +183,7 @@ getUser(userId: number) {
   // console.log('this.userId', userId);
   this.getOrganizationRoles(this.currentAssociationId);
   isLoading(true);
-  this.UsersCenterService.fetchOneUser(userId)
+  this.usersCenterService.fetchOneUser(userId)
   .subscribe((responseData: any) => {
     // console.log('RESPONSE.DATA:', responseData);
     this.currentUser = responseData;
@@ -227,7 +234,7 @@ saveUserChanges(){
 
     // console.log('formValues.status:', formValues.status);
 
-    this.UsersCenterService
+    this.usersCenterService
     .updateUser(userObj)
     .subscribe(
       (responseData: any) => {

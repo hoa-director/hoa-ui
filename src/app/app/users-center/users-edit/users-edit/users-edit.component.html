@@ -57,9 +57,10 @@
                         <mat-select 
                             id="selectOrganization"
                             formControlName="organization"
+                            (selectionChange)="handleAssociationChange($event.value)"
                         >
                             <mat-option *ngFor="let association of associations" [value]="association.id">
-                                {{association.associationName}}
+                                {{association.name}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
