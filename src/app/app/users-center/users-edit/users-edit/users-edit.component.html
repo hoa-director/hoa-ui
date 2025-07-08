@@ -19,10 +19,10 @@
                         Email is required.
                     </div>
                     <div class="validatorMsg" *ngIf="editUserForm.get('email').errors?.email && editUserForm.get('email').touched">
-                        Please enter a valid email address.
+                        Please enter a valid email address
                     </div>
                 </div>
-              
+
                 <div class="form-div">
                     <label for="inputFirstName">First name:</label>
                     <mat-form-field appearance="outline">
@@ -33,9 +33,12 @@
                             formControlName="firstName"
                             type="text"
                         />
-                    </mat-form-field>    
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('firstName').errors?.required && editUserForm.get('firstName').touched">
+                        First name is required
+                    </div> 
                 </div>
-         
+
                 <div class="form-div">
                     <label for="inputLastName">Last name:</label>
                     <mat-form-field appearance="outline">
@@ -46,7 +49,10 @@
                             formControlName="lastName"
                             type="text"
                         />
-                    </mat-form-field>    
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('lastName').errors?.required && editUserForm.get('lastName').touched">
+                        Last name is required
+                    </div> 
                 </div>
 
 
@@ -64,6 +70,9 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('organization').errors?.required && editUserForm.get('organization').touched">
+                        Neighborhood is required
+                    </div> 
                 </div>
 
                 <div class="form-div">

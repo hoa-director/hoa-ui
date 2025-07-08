@@ -107,9 +107,9 @@ initEditUnitForm() {
   this.editUserForm = this.fb.group({
     // userId: [{value: this.userId}, [Validators.required]], 
     email: ['', [Validators.required, Validators.email]], 
-    firstName: [''],
-    lastName: [''],
-    organization: [''], 
+    firstName: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
+    organization: ['', [Validators.required]], 
     role: ['', [Validators.required] ], 
     // status: ['', [Validators.required] ], 
   });
