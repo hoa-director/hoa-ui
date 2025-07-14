@@ -104,10 +104,11 @@ export class UsersCenterService {
     
 
      // -- UPDATE USER INFO
-    updateUser(userId: number, userObj: any){
+    updateUser(userId: number, unitId: number, userObj: any){
       const endPoint = "/api/updateUser"
       const payload = {
             userId: userId,
+            unitId: unitId,
             userUpdates: userObj
           }
     return this.http.put(BACKEND_URL + endPoint, payload ).pipe(

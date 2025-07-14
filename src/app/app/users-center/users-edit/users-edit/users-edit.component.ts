@@ -253,10 +253,12 @@ saveUserChanges(){
       // status: formValues.status === 'true' ? true : (formValues.status === 'false' ? false : null), //  true/false
     } 
 
+    const unitId = formValues.address;
+
     // console.log('formValues.status:', formValues.status);
 
     this.usersCenterService
-    .updateUser(this.selectedUserId, userObj)
+    .updateUser(this.selectedUserId, unitId, userObj)
     .subscribe(
       (responseData: any) => {
         // console.log('response subscribe');
