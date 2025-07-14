@@ -23,6 +23,7 @@ import { error } from 'console';
 export class UsersEditComponent {
   userId: number; // pass user ID in here
   currentUser: any;
+  selectedUserId: number;
   editUserForm: FormGroup;
   // allUsers: any;
   allRoles: any[] = [];
@@ -200,6 +201,7 @@ handleAssociationChange(associationId: number) {
 // -- GET USER
 getUser(userId: number) {
   // console.log('this.userId', userId);
+  this.selectedUserId = userId;
   isLoading(true);
   this.usersCenterService.fetchOneUser(userId)
   .subscribe((responseData: any) => {
@@ -243,11 +245,10 @@ saveUserChanges(){
     const formValues = this.editUserForm.value
     // console.log('formValues.userId:', formValues.userId,);
     const userObj = {
-      // userId: formValues.userId,
       email: formValues.email,
       firstName: formValues.firstName,
       lastName: formValues.lastName,
-      number: formValues.number,
+      number: formValues.organization,
       role: formValues.role,
       // status: formValues.status === 'true' ? true : (formValues.status === 'false' ? false : null), //  true/false
     } 
@@ -255,7 +256,7 @@ saveUserChanges(){
     // console.log('formValues.status:', formValues.status);
 
     this.usersCenterService
-    .updateUser(userObj)
+    .updateUser(this.selectedUserId, userObj)
     .subscribe(
       (responseData: any) => {
         // console.log('response subscribe');

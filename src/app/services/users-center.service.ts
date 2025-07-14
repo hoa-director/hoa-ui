@@ -108,15 +108,13 @@ export class UsersCenterService {
     
 
      // -- UPDATE USER INFO
-    updateUser(userObj: any){
+    updateUser(userId: number, userObj: any){
       const endPoint = "/api/updateUser"
-      const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {
-            associationId: associationId, 
-            userId: userObj.userId,
+            userId: userId,
             userUpdates: userObj
           }
-    return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
+    return this.http.put(BACKEND_URL + endPoint, payload ).pipe(
       catchError((error) => {
         console.error('Update User API failed.', error);
         return throwError(error);
