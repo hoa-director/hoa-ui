@@ -29,8 +29,9 @@ export class UsersEditComponent {
   isLoading = false;
   formIsDisabled: boolean = false
   // userStatus: boolean = false; 
-  currentAssociationId: number = parseInt(sessionStorage.getItem("associationId"));
+  currentAssociationId: number;
   associations: any = [];
+  addresses: any[] = [];
 
   // allUserStatuses = [
   //   { id: 0, name: 'Inactive', description: 'User is inactive' },
@@ -55,14 +56,14 @@ ngOnInit() {
   this.usersCenterService.getAllAssociations().subscribe(associations => {
     this.associations = associations;
   });
-  this.getOrganizationRoles(this.currentAssociationId);
   // this.disableEnableForm();
 
-  this.editUserForm.get('userId')?.valueChanges.subscribe(value => { // -- Listen for User Dropdown selection changes
-    this.userId = value;
-    this.getUser(this.userId); 
-    this.disableForm();
-  });
+  // // userId is not a form field
+  // this.editUserForm.get('userId')?.valueChanges.subscribe(value => { // -- Listen for User Dropdown selection changes
+  //   this.userId = value;
+  //   this.getUser(this.userId); 
+  //   this.disableForm();
+  // });
 
 } 
 
@@ -111,7 +112,8 @@ initEditUnitForm() {
     lastName: ['', [Validators.required]],
     organization: ['', [Validators.required]], 
     role: ['', [Validators.required] ], 
-    // status: ['', [Validators.required] ], 
+    // status: ['', [Validators.required] ],
+    address: [''],
   });
 }
 
@@ -133,7 +135,9 @@ disableForm(){
   this.editUserForm.get('email')?.disable();
   this.editUserForm.get('firstName')?.disable();
   this.editUserForm.get('lastName')?.disable();
+  this.editUserForm.get('organization')?.disable();
   this.editUserForm.get('role')?.disable();
+  this.editUserForm.get('address')?.disable();
   // this.editUserForm.get('status')?.disable();
   this.formIsDisabled= true;
 }
@@ -142,7 +146,9 @@ enableForm(){
   this.editUserForm.get('email')?.enable();
   this.editUserForm.get('firstName')?.enable();
   this.editUserForm.get('lastName')?.enable();
+  this.editUserForm.get('organization')?.enable();
   this.editUserForm.get('role')?.enable();
+  this.editUserForm.get('address')?.enable();
   // this.editUserForm.get('status')?.enable();
   this.formIsDisabled = false;
 }
@@ -159,8 +165,21 @@ getOrganizationRoles(associationId: number) {
     );
 }
 
+getVacantUnits(associationId: number) {
+  this.usersCenterService.fetchVacantUnits(associationId)
+    .subscribe((response) => {
+      this.addresses = response as any[];
+      this.addresses = [this.currentUser?.units[0], ...this.addresses];
+    },
+  (error) => {
+    console.error('Error fetching vacant units:', error);
+  });
+}
+
 handleAssociationChange(associationId: number) {
+  this.currentAssociationId = associationId;
   this.getOrganizationRoles(associationId);
+  this.getVacantUnits(associationId);
 }
 
 // // --  GET ALL UNITS FOR DROPDOWN -- //
@@ -181,12 +200,12 @@ handleAssociationChange(associationId: number) {
 // -- GET USER
 getUser(userId: number) {
   // console.log('this.userId', userId);
-  this.getOrganizationRoles(this.currentAssociationId);
   isLoading(true);
   this.usersCenterService.fetchOneUser(userId)
   .subscribe((responseData: any) => {
     // console.log('RESPONSE.DATA:', responseData);
     this.currentUser = responseData;
+    this.handleAssociationChange(responseData.organization);
     // console.log('this.currentUser after API:', this.currentUser);
     if (this.currentUser){
       this.updateEditUserForm(this.currentUser)
@@ -213,6 +232,7 @@ updateEditUserForm(user: any) {
     lastName: user.lastName || '',
     organization: user.organization || '',
     role: user.role || '',
+    address: user.units[0].id || '',
   });
 }
 

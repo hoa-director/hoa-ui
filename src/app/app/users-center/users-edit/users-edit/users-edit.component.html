@@ -91,6 +91,21 @@
                     </mat-form-field>
                 </div>
 
+                <div class="form-div">
+                    <label for="selectAddress">Address:</label>
+                    <mat-form-field>
+                        <mat-select 
+                            id="selectAddress"
+                            formControlName="address">
+
+                            <mat-option *ngFor="let address of addresses" [value]="address.id">
+                                {{address.addressLineOne}}{{address.addressLineTwo ? ',  ' + address.addressLineTwo : ''}}
+                            </mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
                 <br>
                 <div class="buttons-div">
                     <button
