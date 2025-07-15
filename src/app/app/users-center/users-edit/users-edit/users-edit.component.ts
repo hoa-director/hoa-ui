@@ -170,7 +170,9 @@ getVacantUnits(associationId: number) {
   this.usersCenterService.fetchVacantUnits(associationId)
     .subscribe((response) => {
       this.addresses = response as any[];
-      this.addresses = [this.currentUser?.units[0], ...this.addresses];
+      if (this.currentUser?.units.length > 0) {
+        this.addresses = [this.currentUser.units[0], ...this.addresses];
+      }
     },
   (error) => {
     console.error('Error fetching vacant units:', error);
@@ -234,7 +236,7 @@ updateEditUserForm(user: any) {
     lastName: user.lastName || '',
     organization: user.organization || '',
     role: user.role || '',
-    address: user.units[0].id || '',
+    address: user.units[0]?.id || '',
   });
 }
 
@@ -253,7 +255,7 @@ saveUserChanges(){
       // status: formValues.status === 'true' ? true : (formValues.status === 'false' ? false : null), //  true/false
     } 
 
-    const unitId = formValues.address;
+    const unitId = formValues.address ? formValues.address : null;
 
     // console.log('formValues.status:', formValues.status);
 
