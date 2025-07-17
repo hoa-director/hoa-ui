@@ -98,6 +98,7 @@
                             id="selectAddress"
                             formControlName="address">
 
+                            <mat-option [value]="null"> </mat-option>
                             <mat-option *ngFor="let address of addresses" [value]="address.id">
                                 {{address.addressLineOne}}{{address.addressLineTwo ? ',  ' + address.addressLineTwo : ''}}
                             </mat-option>
