@@ -52,7 +52,7 @@ ngOnInit() {
   // this.listenForEvents();
 
   this.getParams();
-  this.initEditUnitForm();
+  this.initEditUserForm();
   // this.getAllUsers();
   this.usersCenterService.getAllAssociations().subscribe(associations => {
     this.associations = associations;
@@ -105,7 +105,7 @@ getParams(){
 }
 
 // -- INIT EDIT FORM ----- CHANGE TO USER FIELDS
-initEditUnitForm() {
+initEditUserForm() {
   this.editUserForm = this.fb.group({
     // userId: [{value: this.userId}, [Validators.required]], 
     email: ['', [Validators.required, Validators.email]], 
