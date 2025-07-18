@@ -111,6 +111,17 @@
 
                 <button
                     mat-raised-button
+                    class="edit-button"
+                    color="secondary"
+                    type="button"
+                    [disabled]="formIsDisabled"
+                    (click)="onCancel()"      
+                >
+                    Cancel
+                </button>
+
+                <button
+                    mat-raised-button
                     id="delete-editUserForm-button"
                     class="edit-button"
                     color="secondary"

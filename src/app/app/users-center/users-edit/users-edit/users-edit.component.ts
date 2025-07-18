@@ -278,6 +278,10 @@ saveUserChanges(){
   }
 }
 
+onCancel() {
+  this.router.navigate(["/home/users-center/users-view"]);
+}
+
 onDelete() {
   const confirmed = window.confirm("Are you sure you want to permanently delete this user?");
   if (confirmed) {
