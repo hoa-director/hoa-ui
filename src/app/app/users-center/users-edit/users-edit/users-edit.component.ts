@@ -276,20 +276,6 @@ saveUserChanges(){
   }
 }
 
-// -- CANCEL
-onReset(): void {
-  console.log('CANCEL');
-  // this.editUnitForm.reset({
-  //   associationId: this.associations[0].id, // required
-  //   addressLineOne: '',
-  //   // addressLineTwo: '',
-  //   // city: '',
-  //   // state: '',
-  //   // zip: '',
-  //   user: '', // required
-  // });
-}
-
 openSuccessModal() {
   this.dialog.open(SuccessModalComponent, {
     data: { message: "User was updated successfully." }
