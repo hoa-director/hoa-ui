@@ -268,6 +268,7 @@ saveUserChanges(){
         if (responseData.status === 'success') {
           // console.log('RESPONSE:', responseData);
           this.openSuccessModal("User was successfully updated.");
+          this.router.navigate(["/home/users-center/users-view"]);
         } else if (responseData.status === 'failure') {
           // console.log('RESPONSE', responseData);
           this.openFailureModal("Unable to update user. Please try again later.");
