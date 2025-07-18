@@ -108,6 +108,19 @@
                 </div>
 
                 <br>
+
+                <button
+                    mat-raised-button
+                    id="delete-editUserForm-button"
+                    class="edit-button"
+                    color="secondary"
+                    type="button"
+                    [disabled]="formIsDisabled"
+                    (click)="onDelete()"      
+                >
+                    Delete
+                </button>
+
                 <div class="buttons-div">
                     <button
                         class="search-users-submit-button"    

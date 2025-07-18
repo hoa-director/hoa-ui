@@ -119,7 +119,15 @@ export class UsersCenterService {
     );
     }
 
-
+  deleteUser(userId: number) {
+    const endpoint = "/api/deleteUser/";
+    return this.http.delete(BACKEND_URL + endpoint + userId).pipe(
+      catchError(error => {
+        console.error('Delete user failed:', error);
+        return throwError(error);
+      })
+    );
+  }
 
 // -- THIS WORKS
 

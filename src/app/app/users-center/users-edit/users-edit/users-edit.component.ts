@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from "rxjs";
 // -- services
 import { UsersCenterService } from 'app/services/users-center.service';
@@ -44,6 +44,7 @@ constructor(
   private fb: FormBuilder,
   private dialog: MatDialog,
   private route: ActivatedRoute,
+  private router: Router
 ) {}
 
 
@@ -266,25 +267,41 @@ saveUserChanges(){
         // console.log('response subscribe');
         if (responseData.status === 'success') {
           // console.log('RESPONSE:', responseData);
-          this.openSuccessModal(); // -- need to import to use
+          this.openSuccessModal("User was successfully updated.");
         } else if (responseData.status === 'failure') {
           // console.log('RESPONSE', responseData);
-          this.openFailureModal(); // Handle failure
+          this.openFailureModal("Unable to update user. Please try again later.");
         }
       }
     );
   }
 }
 
-openSuccessModal() {
+onDelete() {
+  const confirmed = window.confirm("Are you sure you want to permanently delete this user?");
+  if (confirmed) {
+    this.usersCenterService.deleteUser(this.userId).subscribe((response: any) => {
+      if (response.ok) {
+        this.openSuccessModal("Successfully deleted user.");
+        this.router.navigate(["/home/users-center/users-view"]);
+      } else {
+        this.openFailureModal("Failed to delete user. Please try again later.");
+      }
+    });
+  } else { // if user clicks Cancel
+    return;
+  }
+}
+
+openSuccessModal(message: string) {
   this.dialog.open(SuccessModalComponent, {
-    data: { message: "User was updated successfully." }
+    data: { message }
   });
 }
 
-openFailureModal() {
+openFailureModal(message: string) {
   this.dialog.open(FailureModalComponent, {
-    data: { message: "Unable to update user. Please try again later." }
+    data: { message }
   })
 }
 
