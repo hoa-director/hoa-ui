@@ -102,10 +102,11 @@
 
                 <div class="form-div">
                     <label for="selectRole">Role:</label>
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" (click)="checkIfNeighborhoodSelected()">
                         <mat-select 
                             id="selectRole"
-                            formControlName="role">
+                            formControlName="role"
+                        >
 
                             <mat-option *ngFor="let role of allRoles" [value]="role.id">
                                 <div class="roleTitleDiv">
@@ -115,6 +116,9 @@
 
                         </mat-select>
                     </mat-form-field>
+                    <div class="validatorMsg" *ngIf="showNeighborhoodRequiredMsg">
+                        Please select a Neighborhood first
+                    </div>
                     <div class="validatorMsg" *ngIf="addUserForm.get('role').errors?.required && addUserForm.get('role').touched">
                         Role is required
                     </div> 
@@ -123,10 +127,11 @@
 
                 <div class="form-div">
                     <label for="selectAddress">Address (optional):</label>
-                    <mat-form-field>
+                    <mat-form-field (click)="checkIfNeighborhoodSelected()">
                         <mat-select 
                             id="selectAddress"
-                            formControlName="address">
+                            formControlName="address"
+                        >
 
                             <mat-option [value]="null"> </mat-option>
                             <mat-option *ngFor="let address of addresses" [value]="address.id">
@@ -135,6 +140,9 @@
 
                         </mat-select>
                     </mat-form-field>
+                    <div class="validatorMsg" *ngIf="showNeighborhoodRequiredMsg">
+                        Please select a Neighborhood first
+                    </div>
                 </div>
 
 

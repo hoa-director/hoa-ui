@@ -24,6 +24,7 @@ export class UsersAddComponent implements OnInit {
   allRoles: any[] = [];
   associations: any = [];
   addresses: any[] = [];
+  showNeighborhoodRequiredMsg: boolean = false;
   constructor(
     // --  SERVICES
     private usersCenterService: UsersCenterService,
@@ -43,8 +44,21 @@ ngOnInit(): void {
     lastName: ['', [Validators.required]],
     // password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], 
     organization: ['', [Validators.required]], 
-    role: ['', [Validators.required] ], 
-    address: [''],
+    role: [{ value: '', disabled: true }, [Validators.required]],  
+    address: [{ value: '', disabled: true }],
+  });
+
+    // enable Role and Address only after Neighborhood is selected
+  this.addUserForm.get('organization')?.valueChanges.subscribe(value => {
+    if (value) {
+      this.addUserForm.get('role')?.enable();
+      this.addUserForm.get('address')?.enable();
+    } else {
+      this.addUserForm.get('role')?.reset();
+      this.addUserForm.get('role')?.disable();
+      this.addUserForm.get('address')?.reset();
+      this.addUserForm.get('address')?.disable();
+    }
   });
 }
 
@@ -64,6 +78,14 @@ ngOnInit(): void {
 //       }
 //     );
 // }
+
+checkIfNeighborhoodSelected() {
+  const orgSelected = this.addUserForm.get('organization')?.value;
+  if (!orgSelected) {
+    this.showNeighborhoodRequiredMsg = true;
+    setTimeout(() => this.showNeighborhoodRequiredMsg = false, 4000);
+  }
+}
 
 onAssociationChange(associationId: number) {
   this.usersCenterService.fetchRolesByAssociation(associationId).subscribe(response => {
