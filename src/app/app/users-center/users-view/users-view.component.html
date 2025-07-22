@@ -1,10 +1,10 @@
 
 <div class="main-user-div">
     <form [formGroup]="searchUsersForm" >
-        <label class="form-label" for="inputString">Search by name, address, email, or neighborhood:</label>
+        <label class="form-label" for="search-input">Search by name, address, email, or neighborhood:</label>
         <mat-form-field>
             <input 
-                id="inputString"
+                id="search-input"
                 matInput
                 class="form-control"
                 formControlName="inputText"
@@ -22,19 +22,19 @@
         >
             Clear
         </button>
+
+        <ng-container>
+        <button
+            mat-raised-button
+            color="primary"
+            class="btn btn-primary btn-add-user"
+            (click)="goToAddUser()"
+        >
+            Add User
+        </button>
+        </ng-container>
+
     </form>
-
-    <ng-container>
-      <button
-        mat-raised-button
-        color="primary"
-        class="btn btn-primary btn-add-user"
-        (click)="goToAddUser()"
-      >
-        Add User
-      </button>
-    </ng-container>
-
     <br>
 
     <!-- Table -->
@@ -62,15 +62,15 @@
         <ng-container matColumnDef="unit">
             <th mat-header-cell *matHeaderCellDef>Address</th>
             <td mat-cell *matCellDef="let user">
-              {{user.units[0]?.addressLineOne}}
-              <br>
-              {{user.units[0]?.addressLineTwo}}
+                {{user.units[0]?.addressLineOne}}
+                <br>
+                {{user.units[0]?.addressLineTwo}}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef>Email</th>
-            <td mat-cell *matCellDef="let user">{{user.email}}</td>
+            <td mat-cell class="truncate-email" *matCellDef="let user">{{user.email}}</td>
         </ng-container>
 
         <ng-container matColumnDef="role">
@@ -91,18 +91,18 @@
         <ng-container matColumnDef="edit-button">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let user">
-              <button
-                [id]="user.id"
-                mat-raised-button
-                color="accent"
-                class="btn btn-primary float-right"
-                type="submit"
-                (click)="editUser(user.id)"
-              >
-                Edit
-              </button>
+                <button
+                    [id]="user.id"
+                    mat-raised-button
+                    color="accent"
+                    class="btn btn-primary float-right"
+                    type="submit"
+                    (click)="editUser(user.id)"
+                >
+                    Edit
+                </button>
             </td>
-          </ng-container>
+        </ng-container>
 
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
