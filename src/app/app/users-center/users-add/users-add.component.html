@@ -1,7 +1,7 @@
 
 <div class="main-user-add-div">
 
-    <p class="p-instructions">Please enter the new user's information.</p>
+    <p>Add New User</p>
     
     <div class="form-container">
         <form [formGroup]="addUserForm" (ngSubmit)="addUser()" >
@@ -83,7 +83,7 @@
 
                 <div class="form-div">
                     <label for="selectOrganization">Neighborhood:</label>
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <mat-select 
                             id="selectOrganization"
                             formControlName="organization"
@@ -127,7 +127,7 @@
 
                 <div class="form-div">
                     <label for="selectAddress">Address (optional):</label>
-                    <mat-form-field (click)="checkIfNeighborhoodSelected()">
+                    <mat-form-field appearance="outline" (click)="checkIfNeighborhoodSelected()">
                         <mat-select 
                             id="selectAddress"
                             formControlName="address"
@@ -144,10 +144,6 @@
                         Please select a Neighborhood first
                     </div>
                 </div>
-
-
-
-                <br>
 
                 <div class="buttons-div">
 
