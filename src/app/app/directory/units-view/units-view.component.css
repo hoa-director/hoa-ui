@@ -57,7 +57,7 @@ label {
 
 .btn-add-unit {
   display: inline;
-  width: 84px;
+  width: 111px;
   margin: 0 0 16px 0;
 }
 
@@ -71,14 +71,14 @@ label {
 @media (min-width: 865px) {
   .btn-add-unit {
     margin-top: 20px;
-    margin-left: 268px;
+    margin-left: 244px;
   }
 }
 
 @media (min-width: 1176px) {
   .btn-add-unit {
     margin-top: 20px;
-    margin-left: 578px;
+    margin-left: 554px;
   }
 }
 
