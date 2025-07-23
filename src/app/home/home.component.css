@@ -2,7 +2,7 @@
   display: grid;
   /* -- 'auto' Makes sidebar same size as children --  */
   /* -- 'fr' Makes content always next to sidebar --  */
-  grid-template-columns: 0% auto 1fr 5%;  
+  grid-template-columns: 0% auto 1fr 1.5%;  
   grid-template-rows: 13rem auto 10rem;
   grid-template-areas:
     "header header header header"
