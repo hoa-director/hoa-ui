@@ -24,7 +24,7 @@
 }
 .hoa-title {
   font-size: 3rem;
-  margin-left: 1rem;
+  margin-left: 1.3rem;
   letter-spacing: 1.1;
 }
 
@@ -60,6 +60,7 @@
   height: 30px;
   padding: 0.5rem 1rem;
   font-weight: 550 !important;
+  color: rgba(38, 41, 84) !important;
 }
 
 /* .header-user-data::after {
