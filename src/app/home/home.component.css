@@ -24,7 +24,7 @@
   grid-area: content;
   margin-left: 10px;
   overflow: auto;
-  margin: 3rem;
+  margin-bottom: 3rem;
 }
 
 .main-container__footer {
