@@ -1,3 +1,8 @@
+.p-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
 .form-grid label {
     display: flex;
     align-items: center;
@@ -16,17 +21,18 @@
     width: 50%;
 }
 
-.second-h2 {
+.p-phone {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.p-second-phone {
     margin-top: 25px;
 }
 
 .validator-msg {
     font-size: 1.3rem;
-}
-
-h2 {
-    margin-bottom: 20px;
-    font-size: 1.7rem;
 }
 
 mat-form-field {
