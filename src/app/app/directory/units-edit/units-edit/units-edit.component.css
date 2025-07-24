@@ -106,3 +106,8 @@ mat-form-field {
     display: grid;
     font-size: 1.5rem;
 }
+
+p {
+    font-size: 2rem;
+    margin-bottom: 18px;
+}
