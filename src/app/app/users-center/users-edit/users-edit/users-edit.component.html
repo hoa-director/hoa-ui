@@ -1,5 +1,8 @@
 
 <div class="main-user-edit-div">
+
+    <p>Edit User: {{currentUser.firstName}} {{currentUser.lastName}}</p>
+
     <div class="form-container">
         <form [formGroup]="editUserForm" (ngSubmit)="saveUserChanges()" >
             <div class="form-grid">
@@ -59,7 +62,7 @@
 
                 <div class="form-div">
                     <label for="selectOrganization">Neighborhood:</label>
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <mat-select 
                             id="selectOrganization"
                             formControlName="organization"
@@ -93,7 +96,7 @@
 
                 <div class="form-div">
                     <label for="selectAddress">Address:</label>
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <mat-select 
                             id="selectAddress"
                             formControlName="address">
@@ -107,32 +110,31 @@
                     </mat-form-field>
                 </div>
 
-                <br>
-
-                <button
-                    mat-raised-button
-                    class="edit-button"
-                    color="secondary"
-                    type="button"
-                    [disabled]="formIsDisabled"
-                    (click)="onCancel()"      
-                >
-                    Cancel
-                </button>
-
-                <button
-                    mat-raised-button
-                    id="delete-editUserForm-button"
-                    class="edit-button"
-                    color="secondary"
-                    type="button"
-                    [disabled]="formIsDisabled"
-                    (click)="onDelete()"      
-                >
-                    Delete
-                </button>
-
                 <div class="buttons-div">
+
+                    <button
+                        mat-raised-button
+                        class="edit-button"
+                        color="secondary"
+                        type="button"
+                        [disabled]="formIsDisabled"
+                        (click)="onCancel()"      
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        mat-raised-button
+                        id="delete-editUserForm-button"
+                        class="edit-button"
+                        color="secondary"
+                        type="button"
+                        [disabled]="formIsDisabled"
+                        (click)="onDelete()"      
+                    >
+                        Delete
+                    </button>
+
                     <button
                         class="search-users-submit-button"    
                         mat-raised-button
@@ -140,7 +142,7 @@
                         type="submit"
                         [disabled]="formIsDisabled"
                     >
-                        Update
+                        Save
                     </button>
 
                 </div>
