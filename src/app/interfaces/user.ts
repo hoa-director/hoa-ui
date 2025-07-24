@@ -6,6 +6,7 @@ export interface User {
     password: String;
     number: Number;
     role: Number | null;
+    unitId: Number | null;
     phoneOneLabel: String | null;
     phoneOneNumber: String | null;
     phoneTwoLabel: String | null;

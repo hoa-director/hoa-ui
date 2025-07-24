@@ -34,18 +34,18 @@ export class UsersViewComponent implements OnInit {
 
   public displayedColumns: string[] = [ // -- Table Columns
     // 'id', 
-    'firstName', 
-    'lastName', 
+    'name',
+    'association',
     'unit',
     'email', 
     'role', 
-    'created_at', 
-    'deleted_at',
+    // 'created_at', 
+    // 'deleted_at',
     'edit-button', 
   ];
 
 public userRows: UserRow[] = []; // -- ALL Users (multiple)
-public currentUser;  // SINGLE User
+public currentUser: any;  // SINGLE User
 
 searchUsersForm: FormGroup;
 inputString: string = '';
@@ -77,7 +77,7 @@ constructor(
     .subscribe((responseData: any) => {
       this.userRows = responseData.map(user => {
         if (user.units.length === 0) { // <-- if units exits, but is empty array[], add default string
-          user.units = [{addressLineOne: "No Assigned Unit"}] 
+          user.units = [{addressLineOne: "—"}] 
         }
         return user;
       }
@@ -109,6 +109,9 @@ constructor(
     // this.fetchUsers('') // did commenting this out fix the double firing issue???
   }
 
+  goToAddUser() {
+    this.router.navigate(['/home/users-center/users-add']);
+  }
 
   editUser(userId: number) {
     if(userId){

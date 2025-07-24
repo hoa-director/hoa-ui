@@ -1,8 +1,10 @@
 <div class="main-units-edit-div">
+    <p class="p-title">Update Your Phone Numbers</p>
+
     <!-- FORM -->
     <div class="form-container">
         <form [formGroup]="editUnitOwnForm" (ngSubmit)="savePhone()">
-            <h2>Phone number one:</h2>
+            <p class="p-phone">Phone number one:</p>
             <div class="form-grid">
                 <div class="form-div">
                     <label for="inputPhoneOneLabel">Description:</label>
@@ -29,7 +31,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <h2 class="second-h2">Phone number two:</h2>
+            <p class="p-phone p-second-phone">Phone number two:</p>
             <div class="form-grid">
                 <div class="form-div">
                     <label for="inputPhoneTwoLabel">Description:</label>

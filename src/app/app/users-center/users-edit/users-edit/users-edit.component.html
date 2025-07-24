@@ -1,165 +1,152 @@
 
 <div class="main-user-edit-div">
-    <p>Add a new user to your association. User's will log in with their email address, so it must be unique.</p>
-    <br>
-    <div class="form-container-userToggle" id="toggleUseractive">
-        <div class="form-grid">
-            <div class="form-div">
-                <label>User Status:</label>
-                <div [ngClass]="!currentUser ? 'flex-toggle-div-disabled' : 'flex-toggle-div-enabled '">
-                    <div class="flex-toggle-inner-div" >
-                        Inactive
-                        <mat-slide-toggle color="primary" 
-                            labelPosition="before" 
-                            [disabled]="!currentUser" 
-                            [(ngModel)]="userStatus"
-                            (ngModelChange)="onToggleChangeUser()">
-                        </mat-slide-toggle>
-                        Active
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    <p>Edit User: {{currentUser.firstName}} {{currentUser.lastName}}</p>
 
     <div class="form-container">
         <form [formGroup]="editUserForm" (ngSubmit)="saveUserChanges()" >
             <div class="form-grid">
 
                 <div class="form-div">
-                    <label for="inputUserId">Select User: </label>
-                    <mat-form-field appearance="outline">
-                        <mat-select
-                        id="inputUserId"
-                        matInputclass="form-control"
-                        formControlName="userId"
-                        >
-                            <mat-option *ngFor="let user of allUsers" [value]="user.id">
-                                {{user.firstName}} 
-                                {{user.lastName}} 
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>  
-                <div class="form-div">
-                    <label for="inputEmail">User Email:</label>
+                    <label for="inputEmail">Email:</label>
                     <mat-form-field appearance="outline">
                         <input 
-                        id="inputEmail"
-                        matInput
-                        class="form-control"
-                        formControlName="email"
-                        type="text"
-                        placeholder="example@email.com"
-                        />
-                        
-                        <!-- [(ngModel)]="email" -->
-                        <!-- (ngModelChange)="onInputChange()" -->
+                            id="inputEmail"
+                            matInput
+                            class="form-control"
+                            formControlName="email"
+                            type="text"
+                        />  
                     </mat-form-field>
                     <div class="validatorMsg" *ngIf="editUserForm.get('email').errors?.required && editUserForm.get('email').touched">
                         Email is required.
                     </div>
                     <div class="validatorMsg" *ngIf="editUserForm.get('email').errors?.email && editUserForm.get('email').touched">
-                        Please enter a valid email address.
+                        Please enter a valid email address
                     </div>
                 </div>
-              
+
                 <div class="form-div">
-                    <label for="inputFirstName">First Name:</label>
+                    <label for="inputFirstName">First name:</label>
                     <mat-form-field appearance="outline">
                         <input 
-                        id="inputFirstName"
-                        matInput
-                        class="form-control"
-                        formControlName="firstName"
-                        type="text"
-                        placeholder="John"
+                            id="inputFirstName"
+                            matInput
+                            class="form-control"
+                            formControlName="firstName"
+                            type="text"
                         />
-                    </mat-form-field>    
-                    
-                    <!-- [(ngModel)]="firstName" -->
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('firstName').errors?.required && editUserForm.get('firstName').touched">
+                        First name is required
+                    </div> 
                 </div>
-         
+
                 <div class="form-div">
-                    <label for="inputLastName">Last Name:</label>
+                    <label for="inputLastName">Last name:</label>
                     <mat-form-field appearance="outline">
                         <input 
-                        id="inputLastName"
-                        matInput
-                        class="form-control"
-                        formControlName="lastName"
-                        type="text"
-                        placeholder="Doe"
+                            id="inputLastName"
+                            matInput
+                            class="form-control"
+                            formControlName="lastName"
+                            type="text"
                         />
-                    </mat-form-field>    
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('lastName').errors?.required && editUserForm.get('lastName').touched">
+                        Last name is required
+                    </div> 
                 </div>
 
 
 
                 <div class="form-div">
-                    <label for="selectOrganization">Organization:</label>
-                    <mat-form-field>
+                    <label for="selectOrganization">Neighborhood:</label>
+                    <mat-form-field appearance="outline">
                         <mat-select 
-                        id="selectOrganization"
-                        formControlName="organization">
-                        <mat-option *ngFor="let association of associations" [value]="association.id">
-                            {{association.associationName}}
-                        </mat-option>
+                            id="selectOrganization"
+                            formControlName="organization"
+                            (selectionChange)="handleAssociationChange($event.value)"
+                        >
+                            <mat-option *ngFor="let association of associations" [value]="association.id">
+                                {{association.name}}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('organization').errors?.required && editUserForm.get('organization').touched">
+                        Neighborhood is required
+                    </div> 
                 </div>
 
                 <div class="form-div">
                     <label for="selectRole">Role:</label>
                     <mat-form-field appearance="outline">
                         <mat-select 
-                        id="selectRole"
-                         formControlName="role">
+                            id="selectRole"
+                            formControlName="role"
+                        >
                             <mat-option *ngFor="let role of allRoles" [value]="role.id">
                                 <div class="roleTitleDiv">
                                     {{role.title}}
                                 </div>
-                                <div class="roleDescriptionDiv">
-                                    ({{role.description}})
-                                </div>
                             </mat-option>
-                                <!-- <mat-option value="25">Unit Owner</mat-option>
-                                <mat-option value="50">Admin</mat-option>
-                                <mat-option value="75">President</mat-option>
-                                <mat-option value="99">Master User</mat-option> -->
                         </mat-select>
                     </mat-form-field>
                 </div>
 
-                <br>
+                <div class="form-div">
+                    <label for="selectAddress">Address:</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select 
+                            id="selectAddress"
+                            formControlName="address">
+
+                            <mat-option [value]="null"> </mat-option>
+                            <mat-option *ngFor="let address of addresses" [value]="address.id">
+                                {{address.addressLineOne}}{{address.addressLineTwo ? ',  ' + address.addressLineTwo : ''}}
+                            </mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
                 <div class="buttons-div">
+
+                    <button
+                        mat-raised-button
+                        class="edit-button"
+                        color="secondary"
+                        type="button"
+                        [disabled]="formIsDisabled"
+                        (click)="onCancel()"      
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        mat-raised-button
+                        id="delete-editUserForm-button"
+                        class="edit-button"
+                        color="secondary"
+                        type="button"
+                        [disabled]="formIsDisabled"
+                        (click)="onDelete()"      
+                    >
+                        Delete
+                    </button>
+
                     <button
                         class="search-users-submit-button"    
                         mat-raised-button
                         color="primary"
                         type="submit"
                         [disabled]="formIsDisabled"
-                        >
-                        Save Changes
+                    >
+                        Save
                     </button>
 
-                    <button
-                        class="search-users-cancel-button"    
-                        mat-raised-button
-                        color="secondary"
-                        type="button"
-                        [disabled]="formIsDisabled"
-                        (click)="onReset()"
-                        >
-                        Clear
-                    </button>
                 </div>
             </div>
         </form>
-        
-
     </div>
-    
-
-
 </div>

@@ -89,7 +89,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
         // createdAt: '2024-07-19 18:47:52.63-05',
       };
       this.addUnitForm.get('associationId').disable(); 
-      console.log("formValues", formValues);
+      // console.log("formValues", formValues);
 
       this.dataService
         .addUnit(unit)
@@ -113,7 +113,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
           }
         );
     } else { // -- If FORM NOT VALID
-      console.log('ADD UNIT FORM NOT VALID');
+      return;
     }
     isLoading(false);
   }

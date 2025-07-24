@@ -12,15 +12,6 @@
   <div class="header-user-data">
     <p>Welcome, <span class="user-name">{{ loggedInUser$ | async }}</span>!</p>
     <button class="logout-button" mat-raised-button (click)="onLogout()">Log Out</button>
-    <!-- <div class="logged-in-indicator">
-      <mat-icon aria-hidden="false" aria-label="User icon">
-        account_circle
-      </mat-icon>
-      <p class="user-name">
-        {{ loggedInUser$ | async }}
-      </p>
-      <app-association-switch class="align-content-center"></app-association-switch>
-    </div> -->
   </div>
   <div class="header-line"></div>
 </header>

@@ -8,11 +8,11 @@ export class UserRow {
   id: number;
   first_name: string | null;
   last_name: string | null;
-  unit: string | null;
+  units: any[] | null;
   email: string;
   role: number;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;
-
+  associations: { name: string }[] | null;
 }

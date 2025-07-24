@@ -29,6 +29,16 @@ export class UsersCenterService {
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
 
+  fetchRolesByAssociation(associationId: number) {
+    const endPoint = "/api/fetchRolesByAssociation/" + associationId.toString();
+    return this.http.get(BACKEND_URL + endPoint).pipe(
+      catchError((error) => {
+        console.error('Fetch roles by associationId error:', error);
+        return throwError(error);
+      })
+    );
+  }
+
   // -- GET ONE ORGANIZATION ROLE ------ NOT BEING USED YET???
   fetchOneOrganizationRole() { 
     const endPoint = "/api/getOneRole"
@@ -43,18 +53,24 @@ export class UsersCenterService {
 
   // --  GET ALL USERS
   fetchUsers(inputString: string) { 
-    const endPoint = "/api/fetchUsers"
-      // .set('associationId',sessionStorage.getItem("associationId").toString()) // -- get from session
-      // .set('associationId', associationId.toString())  // -- get from previous function
-      const associationId = sessionStorage.getItem("associationId").toString()
-      const payload = {
-            associationId: [associationId], // -- associationIds MUST be un an array to work.
-            inputString: inputString
-          }
-    return this.http.post(BACKEND_URL + endPoint, payload );
+    const payload = { inputString: inputString || '' };
+    const endPoint = "/api/fetchUsers";
+    return this.http.post(BACKEND_URL + endPoint, payload);
   }
 
 
+   // ---------------- ADD USER PAGE ---------------- //
+
+  getAllAssociations() {
+    const endPoint = "/api/getAllAssociations";
+    return this.http.get(BACKEND_URL + endPoint);
+  }
+
+  fetchVacantUnits(associationId: number) {
+    const endPoint = `/api/fetchVacantUnits/${associationId}`;
+    return this.http.get(BACKEND_URL + endPoint);
+  }
+  
   createUser(userObj: object) {
     // ---- ADD userObj{} HERE TO TEST ---- 
     const payload = userObj
@@ -65,11 +81,7 @@ export class UsersCenterService {
     // -- GET ONE USER
     fetchOneUser(userId: number) { 
       const endPoint = "/api/getUser"
-      const associationId = sessionStorage.getItem("associationId").toString()
-      const payload = {
-        associationId: associationId, 
-        userId: userId
-      }
+      const payload = { userId };
       return this.http.post(BACKEND_URL + endPoint, payload );
     }
 
@@ -92,15 +104,14 @@ export class UsersCenterService {
     
 
      // -- UPDATE USER INFO
-    updateUser(userObj: any){
+    updateUser(userId: number, unitId: number, userObj: any){
       const endPoint = "/api/updateUser"
-      const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {
-            associationId: associationId, 
-            userId: userObj.userId,
+            userId: userId,
+            unitId: unitId,
             userUpdates: userObj
           }
-    return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
+    return this.http.put(BACKEND_URL + endPoint, payload ).pipe(
       catchError((error) => {
         console.error('Update User API failed.', error);
         return throwError(error);
@@ -108,7 +119,15 @@ export class UsersCenterService {
     );
     }
 
-
+  deleteUser(userId: number) {
+    const endpoint = "/api/deleteUser/";
+    return this.http.delete(BACKEND_URL + endpoint + userId).pipe(
+      catchError(error => {
+        console.error('Delete user failed:', error);
+        return throwError(error);
+      })
+    );
+  }
 
 // -- THIS WORKS
 
