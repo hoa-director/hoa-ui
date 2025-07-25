@@ -1,0 +1,18 @@
+::ng-deep body {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+.neighborhood-details-main-div {
+    padding: 1rem;
+}
+
+h2.mat-mdc-dialog-title {
+    font-size: 1.6rem;
+}
+
+.detail {
+    font-size: 1.6rem;
+    padding: 0.2rem 0;
+    line-height: 1.9rem;
+}
