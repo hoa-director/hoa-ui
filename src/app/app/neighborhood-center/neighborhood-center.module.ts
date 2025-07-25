@@ -18,30 +18,30 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 // -- components
-import { UsersCenterComponent } from './users-center.component';
-import { UsersViewComponent } from './users-view/users-view.component';
-import { UsersAddComponent } from './users-add/users-add.component';
+import { NeighborhoodCenterComponent } from './neighborhood-center.component';
+import { NeighborhoodViewComponent } from './neighborhood-view/neighborhood-view.component';
+import { NeighborhoodAddComponent } from './neighborhood-add/neighborhood-add.component';
+import { NeighborhoodEditComponent } from './neighborhood-edit/neighborhood-edit.component';
 // -- services 
-import { UsersCenterService } from 'app/services/users-center.service';
-import { UsersEditComponent } from './users-edit/users-edit/users-edit.component';
+import { NeighborhoodCenterService } from 'app/services/neighborhood-center.service';
+import { NeighborhoodEditComponent } from './neighborhood-edit/neighborhood-edit.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
-export const UsersCenterRoutes: Routes = [
+export const NeighborhoodCenterRoutes: Routes = [
   {
-    path: "users-center",
-    component: UsersCenterComponent,
+    path: "neighborhood-center",
+    component: NeighborhoodCenterComponent,
     canActivate: [AuthGuardService],
     children: [
       {
         path: "",
-        redirectTo: "home/users-center/users-view",
+        redirectTo: "home/neighborhood-center/neighborhood-view",
         pathMatch: "full",
       },
-      { path: "users-view", component: UsersViewComponent },
-      { path: "users-add", component: UsersAddComponent },
-      { path: "users-edit/:userId", component: UsersEditComponent },
-      { path: "users-edit", component: UsersEditComponent },
+      { path: "neighborhood-view", component: NeighborhoodViewComponent },
+      { path: "neighborhood-add", component: NeighborhoodAddComponent },
+      { path: "neighborhood-edit/:associationId", component: NeighborhoodEditComponent },
     ],
   },
 ];
@@ -53,7 +53,7 @@ export const UsersCenterRoutes: Routes = [
     CommonModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forChild(UsersCenterRoutes),
+    RouterModule.forChild(NeighborhoodCenterRoutes),
     MatTabsModule,
     BrowserAnimationsModule,
     MatTableModule,
@@ -69,11 +69,11 @@ export const UsersCenterRoutes: Routes = [
     MatSlideToggleModule,
   ],
   declarations: [
-    UsersCenterComponent,
-    UsersViewComponent,
-    UsersAddComponent,
-    UsersEditComponent,
+    NeighborhoodCenterComponent,
+    NeighborhoodViewComponent,
+    NeighborhoodAddComponent,
+    NeighborhoodEditComponent,
   ],
-  providers: [UsersCenterService],
+  providers: [NeighborhoodCenterService],
 })
-export class UsersCenterModule { }
+export class NeighborhoodCenterModule { }
