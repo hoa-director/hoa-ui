@@ -1,0 +1,152 @@
+
+<div class="main-user-edit-div">
+
+    <p>Edit User: {{currentUser.firstName}} {{currentUser.lastName}}</p>
+
+    <div class="form-container">
+        <form [formGroup]="editUserForm" (ngSubmit)="saveUserChanges()" >
+            <div class="form-grid">
+
+                <div class="form-div">
+                    <label for="inputEmail">Email:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                            id="inputEmail"
+                            matInput
+                            class="form-control"
+                            formControlName="email"
+                            type="text"
+                        />  
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('email').errors?.required && editUserForm.get('email').touched">
+                        Email is required.
+                    </div>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('email').errors?.email && editUserForm.get('email').touched">
+                        Please enter a valid email address
+                    </div>
+                </div>
+
+                <div class="form-div">
+                    <label for="inputFirstName">First name:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                            id="inputFirstName"
+                            matInput
+                            class="form-control"
+                            formControlName="firstName"
+                            type="text"
+                        />
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('firstName').errors?.required && editUserForm.get('firstName').touched">
+                        First name is required
+                    </div> 
+                </div>
+
+                <div class="form-div">
+                    <label for="inputLastName">Last name:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                            id="inputLastName"
+                            matInput
+                            class="form-control"
+                            formControlName="lastName"
+                            type="text"
+                        />
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('lastName').errors?.required && editUserForm.get('lastName').touched">
+                        Last name is required
+                    </div> 
+                </div>
+
+
+
+                <div class="form-div">
+                    <label for="selectOrganization">Neighborhood:</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select 
+                            id="selectOrganization"
+                            formControlName="organization"
+                            (selectionChange)="handleAssociationChange($event.value)"
+                        >
+                            <mat-option *ngFor="let association of associations" [value]="association.id">
+                                {{association.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editUserForm.get('organization').errors?.required && editUserForm.get('organization').touched">
+                        Neighborhood is required
+                    </div> 
+                </div>
+
+                <div class="form-div">
+                    <label for="selectRole">Role:</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select 
+                            id="selectRole"
+                            formControlName="role"
+                        >
+                            <mat-option *ngFor="let role of allRoles" [value]="role.id">
+                                <div class="roleTitleDiv">
+                                    {{role.title}}
+                                </div>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-div">
+                    <label for="selectAddress">Address:</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select 
+                            id="selectAddress"
+                            formControlName="address">
+
+                            <mat-option [value]="null"> </mat-option>
+                            <mat-option *ngFor="let address of addresses" [value]="address.id">
+                                {{address.addressLineOne}}{{address.addressLineTwo ? ',  ' + address.addressLineTwo : ''}}
+                            </mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="buttons-div">
+
+                    <button
+                        mat-raised-button
+                        class="edit-button"
+                        color="secondary"
+                        type="button"
+                        [disabled]="formIsDisabled"
+                        (click)="onCancel()"      
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        mat-raised-button
+                        id="delete-editUserForm-button"
+                        class="edit-button"
+                        color="secondary"
+                        type="button"
+                        [disabled]="formIsDisabled"
+                        (click)="onDelete()"      
+                    >
+                        Delete
+                    </button>
+
+                    <button
+                        class="search-users-submit-button"    
+                        mat-raised-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="formIsDisabled"
+                    >
+                        Save
+                    </button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="main-users-div">
+    <h3 class="general-page-header">
+        User Center
+    </h3>
+    <!-- <div class="sideways-nav-bar">
+        <nav mat-tab-nav-bar color="primary" [tabPanel]="tabPanel">
+            <a mat-tab-link *ngFor="let link of usersCenterLinks"
+            (click)="activeLink = link.name"
+            [active]="activeLink == link.name"
+            routerLinkActive="active"
+            [routerLink]="[link.path]"
+            >
+            {{link.name}}
+            </a>
+        </nav>
+    </div> -->
+    <div>
+        <mat-tab-nav-panel #tabPanel>
+            <router-outlet></router-outlet>
+        </mat-tab-nav-panel>
+    </div>
+</div>
