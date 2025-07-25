@@ -1,18 +1,12 @@
-import { getLocaleDateTimeFormat } from "@angular/common";
-import * as moment from "moment";
-import { Observable } from "rxjs";
-
-
-// -- model to use for the Users Page.
-export class UserRow {
+// model for Neighborhood Center's association row
+export class AssociationRow {
   id: number;
-  first_name: string | null;
-  last_name: string | null;
-  units: any[] | null;
-  email: string;
-  role: number;
+  name: string;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;
-  associations: { name: string }[] | null;
+  property_count: number;
+  property_list: string[] | null;
+  owner_count: number;
+  owner_list: string[] | null;
 }
