@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsersViewComponent } from './users-view.component';
+import { NeighborhoodViewComponent } from './neighborhood-view.component';
 
-describe('UsersViewComponent', () => {
-  let component: UsersViewComponent;
-  let fixture: ComponentFixture<UsersViewComponent>;
+describe('NeighborhoodViewComponent', () => {
+  let component: NeighborhoodViewComponent;
+  let fixture: ComponentFixture<NeighborhoodViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UsersViewComponent ]
+      declarations: [ NeighborhoodViewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UsersViewComponent);
+    fixture = TestBed.createComponent(NeighborhoodViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
