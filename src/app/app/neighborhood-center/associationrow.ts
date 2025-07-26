@@ -2,11 +2,11 @@
 export class AssociationRow {
   id: number;
   name: string;
-  created_at: Date;
-  updated_at: Date;
-  deleted_at: Date | null;
-  property_count: number;
-  property_list: string[] | null;
-  owner_count: number;
-  owner_list: string[] | null;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+  propertyCount: number;
+  propertyList: string[] | null;
+  ownerCount: number;
+  ownerList: string[] | null;
 }
