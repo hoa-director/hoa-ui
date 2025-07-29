@@ -1,10 +1,10 @@
 
-<div class="main-user-edit-div">
+<div class="main-neighborhood-edit-div">
 
-    <p>Edit User: {{currentUser.firstName}} {{currentUser.lastName}}</p>
+    <p>Edit Neighborhood: {{currentNeighborhood.firstName}} {{currentNeighborhood.lastName}}</p>
 
     <div class="form-container">
-        <form [formGroup]="editUserForm" (ngSubmit)="saveUserChanges()" >
+        <form [formGroup]="editNeighborhoodForm" (ngSubmit)="saveNeighborhoodChanges()" >
             <div class="form-grid">
 
                 <div class="form-div">
@@ -18,10 +18,10 @@
                             type="text"
                         />  
                     </mat-form-field>
-                    <div class="validatorMsg" *ngIf="editUserForm.get('email').errors?.required && editUserForm.get('email').touched">
+                    <div class="validatorMsg" *ngIf="editNeighborhoodForm.get('email').errors?.required && editNeighborhoodForm.get('email').touched">
                         Email is required.
                     </div>
-                    <div class="validatorMsg" *ngIf="editUserForm.get('email').errors?.email && editUserForm.get('email').touched">
+                    <div class="validatorMsg" *ngIf="editNeighborhoodForm.get('email').errors?.email && editNeighborhoodForm.get('email').touched">
                         Please enter a valid email address
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                             type="text"
                         />
                     </mat-form-field>
-                    <div class="validatorMsg" *ngIf="editUserForm.get('firstName').errors?.required && editUserForm.get('firstName').touched">
+                    <div class="validatorMsg" *ngIf="editNeighborhoodForm.get('firstName').errors?.required && editNeighborhoodForm.get('firstName').touched">
                         First name is required
                     </div> 
                 </div>
@@ -53,7 +53,7 @@
                             type="text"
                         />
                     </mat-form-field>
-                    <div class="validatorMsg" *ngIf="editUserForm.get('lastName').errors?.required && editUserForm.get('lastName').touched">
+                    <div class="validatorMsg" *ngIf="editNeighborhoodForm.get('lastName').errors?.required && editNeighborhoodForm.get('lastName').touched">
                         Last name is required
                     </div> 
                 </div>
@@ -73,7 +73,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <div class="validatorMsg" *ngIf="editUserForm.get('organization').errors?.required && editUserForm.get('organization').touched">
+                    <div class="validatorMsg" *ngIf="editNeighborhoodForm.get('organization').errors?.required && editNeighborhoodForm.get('organization').touched">
                         Neighborhood is required
                     </div> 
                 </div>
@@ -125,7 +125,7 @@
 
                     <button
                         mat-raised-button
-                        id="delete-editUserForm-button"
+                        id="delete-editNeighborhoodForm-button"
                         class="edit-button"
                         color="secondary"
                         type="button"
@@ -136,7 +136,7 @@
                     </button>
 
                     <button
-                        class="search-users-submit-button"    
+                        class="search-neighborhood-submit-button"    
                         mat-raised-button
                         color="primary"
                         type="submit"
