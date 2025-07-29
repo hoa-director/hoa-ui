@@ -1,10 +1,10 @@
 
-<div class="main-user-add-div">
+<div class="main-neighborhood-add-div">
 
-    <p>Add New User</p>
+    <p>Add New Neighborhood</p>
     
     <div class="form-container">
-        <form [formGroup]="addUserForm" (ngSubmit)="addUser()" >
+        <form [formGroup]="addNeighborhoodForm" (ngSubmit)="addNeighborhood()" >
             <div class="form-grid">
                 <div class="form-div">
 
@@ -18,10 +18,10 @@
                             type="text"
                         />
                     </mat-form-field>
-                    <div class="validatorMsg" *ngIf="addUserForm.get('email').errors?.required && addUserForm.get('email').touched">
+                    <div class="validatorMsg" *ngIf="addNeighborhoodForm.get('email').errors?.required && addNeighborhoodForm.get('email').touched">
                         Email is required
                     </div>
-                    <div class="validatorMsg" *ngIf="addUserForm.get('email').errors?.email && addUserForm.get('email').touched">
+                    <div class="validatorMsg" *ngIf="addNeighborhoodForm.get('email').errors?.email && addNeighborhoodForm.get('email').touched">
                         Please enter a valid email address
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                             type="text"
                         />
                     </mat-form-field> 
-                    <div class="validatorMsg" *ngIf="addUserForm.get('firstName').errors?.required && addUserForm.get('firstName').touched">
+                    <div class="validatorMsg" *ngIf="addNeighborhoodForm.get('firstName').errors?.required && addNeighborhoodForm.get('firstName').touched">
                         First name is required
                     </div>  
                 </div>
@@ -53,33 +53,10 @@
                             type="text"
                         />
                     </mat-form-field>
-                    <div class="validatorMsg" *ngIf="addUserForm.get('lastName').errors?.required && addUserForm.get('lastName').touched">
+                    <div class="validatorMsg" *ngIf="addNeighborhoodForm.get('lastName').errors?.required && addNeighborhoodForm.get('lastName').touched">
                         Last name is required
                     </div> 
                 </div>
-
-                <!-- <div class="form-div">
-                    <label for="inputPassword">Password:</label>
-                    <mat-form-field appearance="outline">
-                        <input 
-                        id="inputPassword"
-                        matInput
-                        class="form-control"
-                        formControlName="password"
-                        type="text"
-                        placeholder="Password"
-                        />
-                    </mat-form-field>
-                    <div class="validatorMsg" *ngIf="addUserForm.get('password').errors?.required && addUserForm.get('password').touched">
-                        Password is required.
-                    </div>
-                    <div class="validatorMsg" *ngIf="addUserForm.get('password').errors?.pattern && addUserForm.get('password').touched">
-                        Make sure to include a special character, number, lowercase and uppercase letters.
-                    </div>
-                    <div class="validatorMsg" *ngIf="addUserForm.get('password').errors?.['minLength'] && addUserForm.get('password').touched">
-                        Make sure it's at least 8 characters long.
-                    </div>
-                </div> -->
 
                 <div class="form-div">
                     <label for="selectOrganization">Neighborhood:</label>
@@ -95,7 +72,7 @@
 
                         </mat-select>
                     </mat-form-field>
-                    <div class="validatorMsg" *ngIf="addUserForm.get('organization').errors?.required && addUserForm.get('organization').touched">
+                    <div class="validatorMsg" *ngIf="addNeighborhoodForm.get('organization').errors?.required && addNeighborhoodForm.get('organization').touched">
                         Neighborhood is required
                     </div> 
                 </div>
@@ -119,7 +96,7 @@
                     <div class="validatorMsg" *ngIf="showNeighborhoodRequiredMsg">
                         Please select a Neighborhood first
                     </div>
-                    <div class="validatorMsg" *ngIf="addUserForm.get('role').errors?.required && addUserForm.get('role').touched">
+                    <div class="validatorMsg" *ngIf="addNeighborhoodForm.get('role').errors?.required && addNeighborhoodForm.get('role').touched">
                         Role is required
                     </div> 
                 </div>
@@ -148,7 +125,7 @@
                 <div class="buttons-div">
 
                     <button
-                        class="add-user-button"    
+                        class="add-neighborhood-button"    
                         mat-raised-button
                         color="secondary"
                         type="button"
@@ -158,7 +135,7 @@
                     </button>
 
                     <button
-                        class="add-user-button"    
+                        class="add-neighborhood-button"    
                         mat-raised-button
                         color="secondary"
                         type="button"
@@ -168,7 +145,7 @@
                     </button>
 
                     <button
-                        class="add-user-button"    
+                        class="add-neighborhood-button"    
                         mat-raised-button
                         color="primary"
                         type="submit"
