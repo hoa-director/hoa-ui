@@ -24,7 +24,6 @@ import { NeighborhoodAddComponent } from './neighborhood-add/neighborhood-add.co
 import { NeighborhoodEditComponent } from './neighborhood-edit/neighborhood-edit.component';
 // -- services 
 import { NeighborhoodCenterService } from 'app/services/neighborhood-center.service';
-import { NeighborhoodEditComponent } from './neighborhood-edit/neighborhood-edit.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
