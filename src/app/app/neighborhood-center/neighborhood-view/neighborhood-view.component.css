@@ -28,38 +28,30 @@ table {
 
 .btn-add-neighborhood {
   display: inline;
-  width: 95px;
-  margin: 20px 0 16px 15px;
+  width: 150px;
+  margin: 0 0 18px 0;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 500px) {
   .btn-add-neighborhood {
-    margin-left: 180px;
+    margin-left: 45%;
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 625px) {
   .btn-add-neighborhood {
-    margin-left: 280px;
+    margin-left: 55%;
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 833px) {
   .btn-add-neighborhood {
-    margin-left: 380px;
+    margin-left: 75%;
   }
 }
 
-@media (min-width: 1100px) {
-  .btn-add-neighborhood {
-    margin-left: 480px;
-  }
-}
-
-@media (min-width: 1239px) {
-  .btn-add-neighborhood {
-    margin-left: 578px;
-  }
+.text-center {
+  text-align: center;
 }
 
 .mat-mdc-header-cell {
@@ -71,48 +63,38 @@ table {
   height: 64px;
 }
 
-/* name */
 .mat-column-name {
   padding: 5px 15px;
-  width: 23%;
 }
 
-/* neighborhood */
-.mat-column-association {
+.mat-column-createdAt {
   padding: 5px 15px;
-  width: 13%;
+  width: 12%;
 }
 
-/* address */
-.mat-column-unit {
+.mat-column-updatedAt {
   padding: 5px 15px;
-  width: 34%;
+  width: 12%;
 }
 
-/* email */
-.mat-column-email {
+.mat-column-propertyCount {
   padding: 5px 15px;
-  width: 8%;
+  width: 12%;
 }
 
-.truncate-email {
-  width: 225px;
-  max-width: 225px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: middle;
-}
-
-/* role */
-.mat-column-role {
+.mat-column-ownerCount {
   padding: 5px 15px;
-  width: 10%;
+  width: 12%;
 }
 
-.mat-column-vote-button {
+.mat-column-viewButton {
   padding: 15px 10px;
-  width: 10%;
+  width: 7%;
+}
+
+.mat-column-editButton {
+  padding: 15px 10px;
+  width: 7%;
 }
 
 label {
