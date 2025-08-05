@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { formatDate } from '@angular/common';
 import { MatTable } from "@angular/material/table";
 import { MatDialog } from "@angular/material/dialog";
 import { NeighborhoodCenterService } from "../../../services/neighborhood-center.service";
@@ -29,6 +30,8 @@ export class NeighborhoodViewComponent implements OnInit {
 
   public neighborhoodRows: AssociationRow[] = [];
 
+  public neverUpdated: boolean = false;
+
   constructor(
     private router: Router,
     private neighborhoodCenterService: NeighborhoodCenterService,
@@ -41,16 +44,25 @@ export class NeighborhoodViewComponent implements OnInit {
   }
 
   fetchNeighborhoods() {
-    // this.neighborhoodCenterService.fetchNeighborhoods()
-    //   .subscribe((responseData: any) => {
-    //     this.neighborhoodRows = responseData.associations;
-    //   }, (error: any) => {
-    //     console.log('Error fetching neighborhoods:', error);
-    //   });
+    this.neighborhoodCenterService.fetchNeighborhoods()
+      .subscribe((responseData: any) => {
+        this.neighborhoodRows = responseData;
+        this.neighborhoodRows.map((association: AssociationRow) => {
+          const created = formatDate(association.createdAt, 'yyyy-MM-dd', 'en-US');
+          const updated = formatDate(association.updatedAt, 'yyyy-MM-dd', 'en-US');
+          if (updated === created) {
+            this.neverUpdated = true;
+          }
+          association.propertyCount = association.units.length;
+          association.ownerCount = association.users.length;
+        })
+      }, (error: any) => {
+        console.log('Error fetching neighborhoods:', error);
+      });
   }
 
   goToAddNeighborhood() {
-    this.router.navigate(['/home/neighborhood-center/neighborhood-add']);
+    this.router.navigate(['/home/neighborhood-center/add']);
   }
 
   viewNeighborhood(association: AssociationRow) {
@@ -66,7 +78,7 @@ export class NeighborhoodViewComponent implements OnInit {
 
   editNeighborhood(associationId: number) {
     if (associationId){
-      this.router.navigate([`/home/neighborhood-center/neighborhood-edit/${associationId}`]);
+      this.router.navigate([`/home/neighborhood-center/edit/${associationId}`]);
     } else {
       return;
     }

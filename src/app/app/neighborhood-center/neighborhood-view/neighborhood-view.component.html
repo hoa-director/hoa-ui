@@ -14,7 +14,7 @@
     <br>
 
     <!-- Table -->
-    <table mat-table [dataSource]="associationRows" class="mat-elevation-z8" #neighborhoodTable>
+    <table mat-table [dataSource]="neighborhoodRows" class="mat-elevation-z8" #neighborhoodTable>
 
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -29,7 +29,7 @@
         <ng-container matColumnDef="updatedAt">
             <th mat-header-cell *matHeaderCellDef>Last Updated</th>
             <td mat-cell *matCellDef="let association">
-                {{association.updatedAt === association.createdAt ? 'Never' : (association.updatedAt | date:'shortDate')}}
+                {{neverUpdated ? 'Never' : (association.updatedAt | date:'shortDate')}}
             </td>
         </ng-container>
 
