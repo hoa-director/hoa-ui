@@ -40,6 +40,14 @@
       >
       User Center
     </button>
+    <button
+      *ngIf="showNeighborhoodCenter"
+      mat-button
+      [routerLink]="['neighborhood-center/view']"
+      routerLinkActive="active"
+      >
+      Neighborhood Center
+    </button>
     <!-- <button mat-button (click)="onLogout()">
       Logout
     </button> -->
