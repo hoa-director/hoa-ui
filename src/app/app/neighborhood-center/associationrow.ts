@@ -6,7 +6,7 @@ export class AssociationRow {
   updatedAt: Date;
   deletedAt: Date | null;
   propertyCount: number;
-  propertyList: string[] | null;
+  units: string[] | null;
   ownerCount: number;
-  ownerList: string[] | null;
+  users: string[] | null;
 }
