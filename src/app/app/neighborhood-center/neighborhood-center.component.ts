@@ -11,10 +11,10 @@ import { Router } from '@angular/router';
 })
 export class NeighborhoodCenterComponent implements OnInit {
 
-  userCanView: boolean = false;
-  userCanAdd: boolean = false;
-  userCanEdit: boolean = false;
-  userCanDelete: boolean = false;
+  userCanView: boolean;
+  userCanAdd: boolean;
+  userCanEdit: boolean;
+  userCanDelete: boolean;
 
   constructor(
     private dataService: DataService,
@@ -22,7 +22,9 @@ export class NeighborhoodCenterComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.checkCurrentUserPermissions();
+  }
   
   ngOnDestroy() {
     this.userCanView = false;
@@ -55,8 +57,8 @@ export class NeighborhoodCenterComponent implements OnInit {
   }  
 
   checkCurrentUserPermissions() {
-    this.dataService.fetchCurrentUserPermission('neighborhood-center').subscribe((Response: any) => {
-      this.checkPermissionsObject(Response);
+    this.dataService.fetchCurrentUserPermission('neighborhood-center').subscribe((response: any) => {
+      this.checkPermissionsObject(response);
     });
   }
 }
