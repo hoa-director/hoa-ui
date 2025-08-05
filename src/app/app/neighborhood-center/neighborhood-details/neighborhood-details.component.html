@@ -1,28 +1,30 @@
 <div class="neighborhood-details-main-div">
-    <h2 mat-dialog-title>{{ data.association.name }} Details</h2>
+    <h2 mat-dialog-title>{{ name }} Details</h2>
     <mat-dialog-content>
-        <!-- <p>{{ data.objection.comment }}</p>
         <p class="detail">
-            <span class="black-text">Result:  </span>
-            <span class="blue-text">{{ resultText }}</span>
+            Created:  {{ createdAt }}
         </p>
         <p class="detail">
-            <span class="black-text">{{ resultLabel }}</span>
-            <span class="blue-text">{{ resultString }}</span>
+            Updated:  {{ updatedAt }}
         </p>
         <br />
         <p class="detail">
-            <span class="black-text">{{ closeLabel }}  </span>
-            <span class="blue-text">{{ closeDate | date: 'MMMM d, y, h:mm a' }}</span>
+            Property count:  {{ propertyCount }}
         </p>
+        <ul>
+            <li *ngFor="let unit of propertyList">
+                {{ unit.addressLineOne }}{{ unit.addressLineTwo && (',  ' + unit.addressLineTwo) }},  {{ unit.city }}
+            </li>
+        </ul>
+        <br>
         <p class="detail">
-            <span class="black-text">Submitted by:  </span>
-            <span class="blue-text">{{ data.objection.submittedByUser?.units[0]?.addressLineOne }}</span>
+            Owner count:  {{ ownerCount }}
         </p>
-        <p class="detail">
-            <span class="black-text">Submitted against:  </span>
-            <span class="blue-text">{{ data.objection.submittedAgainstUser?.units[0]?.addressLineOne || 'General' }}</span>
-        </p> -->
+        <ul>
+            <li *ngFor="let owner of ownerList">
+                {{ owner.firstName }}  {{ owner.lastName }}
+            </li>
+        </ul>
     </mat-dialog-content>
     <mat-dialog-actions align="center">
         <button mat-raised-button (click)="close()" color="primary">Close</button>

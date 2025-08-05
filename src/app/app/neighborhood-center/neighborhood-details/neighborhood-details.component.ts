@@ -1,17 +1,20 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CommonModule, formatDate } from '@angular/common';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 // import { ResolutionCenterService } from "../resolution-center.service";
 
 @Component({
     selector: 'app-neighborhood-details',
     templateUrl: './neighborhood-details.component.html',
-    styleUrls: ['./neighborhood-details.component.css']
+    styleUrls: ['./neighborhood-details.component.css'],
+    imports: [CommonModule, MatDialogModule],
+    standalone: true,
 })
 
 export class NeighborhoodDetailsComponent implements OnInit {
     name: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
     propertyCount: number;
     propertyList: string[];
     ownerCount: number;
@@ -23,15 +26,19 @@ export class NeighborhoodDetailsComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.name = data.association.name;
-        this.createdAt = data.association.createdAt;
-        this.updatedAt = data.association.updatedAt;
-        this.propertyCount = data.association.propertyCount;
-        this.propertyList = data.association.propertyList;
-        this.ownerCount = data.association.ownerCount;
-        this.ownerList = data.association.ownerList;
+        this.createdAt = formatDate(data.association.createdAt, 'yyyy-MM-dd', 'en-US');
+        this.updatedAt = formatDate(data.association.updatedAt, 'yyyy-MM-dd', 'en-US');
+        this.propertyCount = data.association.units.length;
+        this.propertyList = data.association.units;
+        this.ownerCount = data.association.users.length;
+        this.ownerList = data.association.users;
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        if (this.updatedAt === this.createdAt) {
+            this.updatedAt = 'Never';
+        }
+    }
 
     close(): void {
         this.dialogRef.close();
