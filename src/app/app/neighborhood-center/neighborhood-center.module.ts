@@ -35,12 +35,12 @@ export const NeighborhoodCenterRoutes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "home/neighborhood-center/neighborhood-view",
+        redirectTo: "home/neighborhood-center/view",
         pathMatch: "full",
       },
-      { path: "neighborhood-view", component: NeighborhoodViewComponent },
-      { path: "neighborhood-add", component: NeighborhoodAddComponent },
-      { path: "neighborhood-edit/:associationId", component: NeighborhoodEditComponent },
+      { path: "view", component: NeighborhoodViewComponent },
+      { path: "add", component: NeighborhoodAddComponent },
+      { path: "edit/:associationId", component: NeighborhoodEditComponent },
     ],
   },
 ];
