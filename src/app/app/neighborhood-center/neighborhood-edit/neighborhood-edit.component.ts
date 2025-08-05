@@ -24,13 +24,8 @@ export class NeighborhoodEditComponent {
   associationId: number;
   neighborhood: any;
   editNeighborhoodForm: FormGroup;
-  // allNeighborhood: any;
-  allRoles: any[] = [];
   isLoading = false;
   formIsDisabled: boolean = false
-  associations: any = [];
-  addresses: any[] = [];
-
 
   constructor(
     private neighborhoodCenterService: NeighborhoodCenterService,
@@ -43,8 +38,6 @@ export class NeighborhoodEditComponent {
 
   // -- PAGE LOAD
   ngOnInit() {
-    // this.listenForEvents();
-
     this.getParams();
     this.initEditNeighborhoodForm();
   } 
@@ -62,32 +55,16 @@ export class NeighborhoodEditComponent {
 
   initEditNeighborhoodForm() {
     this.editNeighborhoodForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]], 
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      organization: ['', [Validators.required]], 
-      role: ['', [Validators.required] ], 
-      address: [''],
+      name: ['', [Validators.required]], 
     });
   }
 
   disableForm(){
-    this.editNeighborhoodForm.get('email')?.disable();
-    this.editNeighborhoodForm.get('firstName')?.disable();
-    this.editNeighborhoodForm.get('lastName')?.disable();
-    this.editNeighborhoodForm.get('organization')?.disable();
-    this.editNeighborhoodForm.get('role')?.disable();
-    this.editNeighborhoodForm.get('address')?.disable();
+    this.editNeighborhoodForm.get('name')?.disable();
     this.formIsDisabled= true;
   }
   enableForm(){
-    console.log('YES');  
-    this.editNeighborhoodForm.get('email')?.enable();
-    this.editNeighborhoodForm.get('firstName')?.enable();
-    this.editNeighborhoodForm.get('lastName')?.enable();
-    this.editNeighborhoodForm.get('organization')?.enable();
-    this.editNeighborhoodForm.get('role')?.enable();
-    this.editNeighborhoodForm.get('address')?.enable();
+    this.editNeighborhoodForm.get('name')?.enable();
     this.formIsDisabled = false;
   }
 
@@ -99,7 +76,6 @@ export class NeighborhoodEditComponent {
       if (this.neighborhood){
         this.updateEditNeighborhoodForm(this.neighborhood)
       }
-    }).add(() => {
     });
   }
 
@@ -107,12 +83,7 @@ export class NeighborhoodEditComponent {
   // -- UPDATE EDIT FORM
   updateEditNeighborhoodForm(neighborhood: any) {
     this.editNeighborhoodForm.patchValue({
-      email: neighborhood.email || '',
-      firstName: neighborhood.firstName || '',
-      lastName: neighborhood.lastName || '',
-      organization: neighborhood.organization || '',
-      role: neighborhood.role || '',
-      address: neighborhood.units[0]?.id || '',
+      name: neighborhood.name || '',
     });
   }
 
@@ -120,31 +91,19 @@ export class NeighborhoodEditComponent {
   // -- SAVE NEIGHBORHOOD CHANGES
   saveNeighborhoodChanges(){
     if(this.editNeighborhoodForm.valid){
-      const formValues = this.editNeighborhoodForm.value
+      const formValues = this.editNeighborhoodForm.value;
       const neighborhoodObj = {
-        email: formValues.email,
-        firstName: formValues.firstName,
-        lastName: formValues.lastName,
-        number: formValues.organization,
-        role: formValues.role,
-        // status: formValues.status === 'true' ? true : (formValues.status === 'false' ? false : null), //  true/false
-      } 
-
-      const unitId = formValues.address ? formValues.address : null;
-
-      // console.log('formValues.status:', formValues.status);
+        name: formValues.name,
+      }
 
       this.neighborhoodCenterService
       .updateNeighborhood(this.associationId, neighborhoodObj)
       .subscribe(
         (responseData: any) => {
-          // console.log('response subscribe');
           if (responseData.status === 'success') {
-            // console.log('RESPONSE:', responseData);
             this.openSuccessModal("Neighborhood was successfully updated.");
-            this.router.navigate(["/home/neighborhood-center/neighborhood-view"]);
+            this.router.navigate(["/home/neighborhood-center/view"]);
           } else if (responseData.status === 'failure') {
-            // console.log('RESPONSE', responseData);
             this.openFailureModal("Unable to update neighborhood. Please try again later.");
           }
         }
@@ -153,16 +112,16 @@ export class NeighborhoodEditComponent {
   }
 
   onCancel() {
-    this.router.navigate(["/home/neighborhood-center/neighborhood-view"]);
+    this.router.navigate(["/home/neighborhood-center/view"]);
   }
 
   onDelete() {
     const confirmed = window.confirm("Are you sure you want to permanently delete this neighborhood?");
     if (confirmed) {
       this.neighborhoodCenterService.deleteNeighborhood(this.associationId).subscribe((response: any) => {
-        if (response.ok) {
+        if (response.status === 'success') {
           this.openSuccessModal("Successfully deleted neighborhood.");
-          this.router.navigate(["/home/neighborhood-center/neighborhood-view"]);
+          this.router.navigate(["/home/neighborhood-center/view"]);
         } else {
           this.openFailureModal("Failed to delete neighborhood. Please try again later.");
         }
