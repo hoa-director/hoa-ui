@@ -3,14 +3,6 @@ table {
   width: 100%;
 }
 
-#search-input {
-  height: 18px;
-  font-size: 1.5rem;
-  vertical-align: center;
-  display: inline;
-  /* margin-bottom: 1rem; */
-}
-
 .main-neighborhood-view-div{
   margin: 2rem;
 }

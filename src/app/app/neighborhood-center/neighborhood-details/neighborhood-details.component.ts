@@ -1,13 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 // import { ResolutionCenterService } from "../resolution-center.service";
 
 @Component({
     selector: 'app-neighborhood-details',
     templateUrl: './neighborhood-details.component.html',
     styleUrls: ['./neighborhood-details.component.css'],
-    imports: [CommonModule, MatDialogModule],
+    imports: [CommonModule, MatButtonModule, MatDialogModule],
     standalone: true,
 })
 
