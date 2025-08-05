@@ -18,52 +18,60 @@ export class NeighborhoodCenterService {
 
   // ---------------- VIEW NEIGHBORHOODS PAGE ---------------- //
 
-  // -- GET NEIGHBORHOODS/ASSOCIATIONS
   fetchNeighborhoods() { 
-    // const endPoint = "/api/getRoles"
-    //   const organizationId = sessionStorage.getItem("associationId").toString()
-    //   const payload = {
-    //     organizationId: organizationId, // -- associationIds MUST be un an array to work.
-    //   }
-    //   console.log('PAYLOAD:', payload);
-    // return this.http.post(BACKEND_URL + endPoint, payload );
+    const endPoint = "/api/fetchNeighborhoods";
+    return this.http.get(BACKEND_URL + endPoint).pipe(
+      catchError(error => {
+        console.log('Error fetching neighborhoods:', error);
+        return throwError(error);
+      })
+    );;
   }
 
+    // ---------------- NEIGHBORHOOD DETAILS PAGE ---------------- //
+
+  fetchOneNeighborhood(associationId: number) { 
+    const endPoint = `/api/fetchOneNeighborhood/${associationId}`;
+    return this.http.get(BACKEND_URL + endPoint).pipe(
+      catchError(error => {
+        console.log('Error fetching one neighborhood:', error);
+        return throwError(error);
+      })
+    );;
+  }
 
   // ---------------- ADD NEIGHBORHOOD PAGE ---------------- //
 
   createNeighborhood(neighborhoodObj: object) {
-    // const payload = neighborhoodObj;
-    // return this.http.post(BACKEND_URL + "/api/createUser", payload);
+    const endPoint = "/api/createNeighborhood";
+    const payload = neighborhoodObj;
+    return this.http.post(BACKEND_URL + endPoint, payload).pipe(
+      catchError(error => {
+        console.log('Error creating neighborhood:', error);
+        return throwError(error);
+      })
+    );
   }
 
 
   // ---------------- EDIT NEIGHBORHOOD PAGE ---------------- //
 
-  // -- GET SELECTED NEIGHBORHOOD/ASSOCIATION
-  fetchOneNeighborhood(associationId: number) { 
-    // const endPoint = "/api/getUser"
-    // const payload = { userId };
-    // return this.http.post(BACKEND_URL + endPoint, payload );
-  }
-
-  // -- UPDATE NEIGHBORHOOD/ASSOCIATION
   updateNeighborhood(associationId: number, neighborhoodObj: object){
-    // const endPoint = "/api/updateUserStatus"
-    // const payload = { associationId, neighborhoodObj };
-    // return this.http.post(BACKEND_URL + endPoint, payload ).pipe(
-    //   catchError((error) => {
-    //     console.error('Update User Status API failed.', error);
-    //     return throwError(error);
-    //   })
-    // );
+    const endPoint = `/api/updateNeighborhood/${associationId}`;
+    const payload = neighborhoodObj;
+    return this.http.put(BACKEND_URL + endPoint, payload).pipe(
+      catchError(error => {
+        console.log('Error updating neighborhood:', error);
+        return throwError(error);
+      })
+    );
   }
 
-  deleteUser(userId: number) {
-    const endpoint = "/api/deleteUser/";
-    return this.http.delete(BACKEND_URL + endpoint + userId).pipe(
+  deleteNeighborhood(associationId: number) {
+    const endpoint = `/api/deleteNeighborhood/${associationId}`;
+    return this.http.delete(BACKEND_URL + endpoint).pipe(
       catchError(error => {
-        console.error('Delete user failed:', error);
+        console.error('Error deleting neighborhood:', error);
         return throwError(error);
       })
     );
