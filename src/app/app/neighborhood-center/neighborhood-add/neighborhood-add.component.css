@@ -30,8 +30,7 @@
 
 .buttons-div {
     gap: 10px;
-    /* margin-top: 25px; */
-    grid-column: 1;
+    margin-top: 2rem;
 }
 
 .mat-mdc-raised-button {

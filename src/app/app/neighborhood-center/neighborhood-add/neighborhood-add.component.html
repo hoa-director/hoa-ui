@@ -5,9 +5,9 @@
     
     <div class="form-container">
         <form [formGroup]="addNeighborhoodForm" (ngSubmit)="addNeighborhood()" >
+
             <div class="form-grid">
                 <div class="form-div">
-
                     <label for="name">Neighborhood name:</label>
                     <mat-form-field appearance="outline">
                         <input 
@@ -19,42 +19,42 @@
                         />
                     </mat-form-field>
                     <div class="validatorMsg" *ngIf="addNeighborhoodForm.get('name').errors?.required && addNeighborhoodForm.get('name').touched">
-                        Neighborhood's name is required
+                        Neighborhood name is required
                     </div>
                 </div>
+            </div>
 
-                <div class="buttons-div">
+            <div class="buttons-div">
 
-                    <button
-                        class="add-neighborhood-button"    
-                        mat-raised-button
-                        color="secondary"
-                        type="button"
-                        (click)="onCancel()"
-                    >
-                        Cancel
-                    </button>
+                <button
+                    class="add-neighborhood-button"    
+                    mat-raised-button
+                    color="secondary"
+                    type="button"
+                    (click)="onCancel()"
+                >
+                    Cancel
+                </button>
 
-                    <button
-                        class="add-neighborhood-button"    
-                        mat-raised-button
-                        color="secondary"
-                        type="button"
-                        (click)="onReset()"
-                    >
-                        Clear
-                    </button>
+                <button
+                    class="add-neighborhood-button"    
+                    mat-raised-button
+                    color="secondary"
+                    type="button"
+                    (click)="onReset()"
+                >
+                    Clear
+                </button>
 
-                    <button
-                        class="add-neighborhood-button"    
-                        mat-raised-button
-                        color="primary"
-                        type="submit"
-                    >
-                        Save
-                    </button>
+                <button
+                    class="add-neighborhood-button"    
+                    mat-raised-button
+                    color="primary"
+                    type="submit"
+                >
+                    Save
+                </button>
 
-                </div>
             </div>
         </form>
     </div>
