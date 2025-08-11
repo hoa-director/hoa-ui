@@ -1,0 +1,63 @@
+
+<div class="main-neighborhood-edit-div">
+
+    <p>Edit Neighborhood: {{ neighborhood?.name }}</p>
+
+    <div class="form-container">
+        <form [formGroup]="editNeighborhoodForm" (ngSubmit)="saveNeighborhoodChanges()" >
+            
+            <div class="form-grid">
+                <div class="form-div">
+                    <label for="inputName">Neighborhood name:</label>
+                    <mat-form-field appearance="outline">
+                        <input 
+                            id="inputName"
+                            matInput
+                            class="form-control"
+                            formControlName="name"
+                            type="text"
+                        />  
+                    </mat-form-field>
+                    <div class="validatorMsg" *ngIf="editNeighborhoodForm.get('name').errors?.required && editNeighborhoodForm.get('name').touched">
+                        Neighborhood name is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons-div">
+                <button
+                    mat-raised-button
+                    class="edit-button"
+                    color="secondary"
+                    type="button"
+                    [disabled]="formIsDisabled"
+                    (click)="onCancel()"      
+                >
+                    Cancel
+                </button>
+
+                <button
+                    mat-raised-button
+                    id="delete-editNeighborhoodForm-button"
+                    class="edit-button"
+                    color="secondary"
+                    type="button"
+                    [disabled]="formIsDisabled"
+                    (click)="onDelete()"      
+                >
+                    Delete
+                </button>
+
+                <button
+                    class="search-neighborhood-submit-button"    
+                    mat-raised-button
+                    color="primary"
+                    type="submit"
+                    [disabled]="formIsDisabled"
+                >
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
