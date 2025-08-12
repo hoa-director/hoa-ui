@@ -9,20 +9,20 @@
       Directory
     </button>
     <button
-      *ngIf="showRulesAndRegulations"
-      mat-button
-      [routerLink]="['rules']"
-      routerLinkActive="active"
-    >
-      Rules & Regulations
-    </button>
-    <button
       *ngIf="showResolutionCenter"
       mat-button
       [routerLink]="['resolution-center/inbox']"
       routerLinkActive="active"
     >
       Resolution Center
+    </button>
+    <button
+      *ngIf="showRulesAndRegulations"
+      mat-button
+      [routerLink]="['rules']"
+      routerLinkActive="active"
+    >
+      Rules & Regulations
     </button>
     <button
       *ngIf="showAssociationDocuments"
