@@ -51,46 +51,6 @@ export class DirectoryComponent    {
     // this.directoryLinks = [];
   }
 
-  // onFetchUnits() {
-  //   isLoading(true);
-  //   this.dataService.fetchUnits('').subscribe((responseData: any) => {
-  //     this.units = responseData.units.;
-  //     console.log('this.units', this.units);
-  //   }).add(() => {
-  //     isLoading(false);
-  //   });
-  // }
-
-  // -- Loop through Permission Object, add each Navbar Link to the array, based on user permissions
-  // checkPermissionsObject(obj: Record<string, any>): void {
-  //   for (const [key, value] of Object.entries(obj)) {
-
-      // console.log('checkPermissionsObject is running');
-
-      // if(key.toString() === 'can_view') {
-      //   if (value === true) {
-      //   this.directoryLinks.push(
-      //     { name: "Directory Home", path: "units-view" },
-      //   );
-      // }
-      // }
-      // if(key.toString() === 'can_add') {
-      //   if (value === true) {
-      //     this.directoryLinks.push(
-      //       { name: "Add Unit", path: "units-add" },
-      //     );
-      //   }
-      // }
-      // if(key.toString() === 'can_edit') {
-      //   if (value === true) {
-      //     this.directoryLinks.push(
-      //       { name: "Edit Unit", path: "units-edit" },
-      //     );
-      //   }
-      // }
-  //   }
-  // }
-
   // -- Get list of Directory/Unit-center Navbar Links/permissions. (Not the same as the units grid)
   checkCurrentUserPermissions() {
     isLoading(true);

@@ -84,7 +84,7 @@ savePhone() {
       (responseData: any) => {
         if (responseData.status === 'success') {
           this.openSuccessModal();
-          this.router.navigate(['/home/directory/units-view']);
+          this.router.navigate(['/home/directory/view']);
         } else {
           this.openFailureModal(); // Handle failure
         }
@@ -104,7 +104,7 @@ onCancel() {
   //   // zip: '',
   //   user: '', // required
   // });
-  this.router.navigate(['/home/directory/units-view']);
+  this.router.navigate(['/home/directory/view']);
 }
 
 openSuccessModal() {

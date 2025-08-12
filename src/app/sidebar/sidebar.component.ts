@@ -64,6 +64,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     if (response.neighborhoodCenter) { this.showNeighborhoodCenter = response.neighborhoodCenter };
   }
 
+  goToDirectoryView(event: MouseEvent) {
+    event.preventDefault();  // Prevent the default navigation triggered by routerLink
+    this.router.navigate(['/home/directory/view']);
+  }
 
   listenForEvents() {
     this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(

@@ -234,7 +234,7 @@ saveUnitChanges(){
       (responseData: any) => {
         if (responseData.status === 'success') {
           this.openSuccessModal("Information for the address was successfully updated");
-          this.router.navigate(['/home/directory/units-view']);
+          this.router.navigate(['/home/directory/view']);
         } else if (responseData.status === 'failure') {
           this.openFailureModal('Failed to update address information'); // Handle failure
         }
@@ -250,7 +250,7 @@ onDelete() {
     this.dataService.deleteUnit(unitId).subscribe((response: any) => {
       if (response.status === 'success') {
         this.openSuccessModal("Successfully deleted address");
-        this.router.navigate(["/home/directory/units-view"]);
+        this.router.navigate(["/home/directory/view"]);
       } else {
         this.openFailureModal("Failed to delete address");
       }
@@ -262,7 +262,7 @@ onDelete() {
 
 // -- CANCEL
 onReset(): void {
-  this.router.navigate(['/home/directory/units-view']);
+  this.router.navigate(['/home/directory/view']);
 }
 
 openSuccessModal(message: string) {

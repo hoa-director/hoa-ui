@@ -94,7 +94,7 @@ export class UserService {
             // this.setSelectedAssociation({id: response.associationId, name: response.a});
             this.saveUserAssociationData(response.association.id, response.association.name);
             this.setSelectedAssociationSubject(response.association.name);
-            this.router.navigate(["/home", "directory", "units-view"]); // -- First page after login
+            this.router.navigate(["/home", "directory", "view"]); // -- First page after login
           }
           // return 'success';
         },

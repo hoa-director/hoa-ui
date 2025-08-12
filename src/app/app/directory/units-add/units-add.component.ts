@@ -101,7 +101,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
                 this.openSuccessModal(); // -- tell user it worked
                 this.onReset(); // -- clear form
               }, 500);
-              this.router.navigate(['/home/directory/units-view']);
+              this.router.navigate(['/home/directory/view']);
             } else if (responseData.status === 'failure') { // -- If NO Response
               // console.log('openFailureModal? responseData:', responseData);
               this.openFailureModal(responseData.message); // -- tell user it did NOT work
@@ -133,7 +133,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
 
   onCancel(): void {
     this.onReset();
-    this.router.navigate(['/home/directory/units-view']);
+    this.router.navigate(['/home/directory/view']);
   }
 
   openSuccessModal() {

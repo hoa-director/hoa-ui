@@ -3,8 +3,10 @@
     <button
       *ngIf="showNeighborhoodDirectory"
       mat-button
-      [routerLink]="['directory/units-view']"
+      [routerLink]="['directory']"
       routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
+      (click)="goToDirectoryView($event)"
     >
       Directory
     </button>
@@ -13,6 +15,7 @@
       mat-button
       [routerLink]="['resolution-center/inbox']"
       routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
     >
       Resolution Center
     </button>
@@ -21,6 +24,7 @@
       mat-button
       [routerLink]="['rules']"
       routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
     >
       Rules & Regulations
     </button>
@@ -29,6 +33,7 @@
       mat-button
       [routerLink]="['documents']"
       routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
     >
       Documents
     </button>
@@ -37,6 +42,7 @@
       mat-button
       [routerLink]="['users-center/users-view']"
       routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
       >
       User Center
     </button>
@@ -45,6 +51,7 @@
       mat-button
       [routerLink]="['neighborhood-center/view']"
       routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
       >
       Neighborhood Center
     </button>

@@ -126,7 +126,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   }
 
   goToAddUnit() {
-    this.router.navigate(['/home/directory/units-add']);
+    this.router.navigate(['/home/directory/add']);
   }
 
   listenForEvents() {
@@ -150,10 +150,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   editUnit(unitId: number) {
     if (this.canEditUnit) {
       if (unitId) {
-        this.router.navigate(['/home/directory/units-edit', unitId]); // Navigate to the edit page with unitId
-      } else {
-        console.log('Attempting to edit without unitId');
-        this.router.navigate(['/home/directory/units-edit']); // Navigate to the edit page without unitId
+        this.router.navigate(['/home/directory/edit', unitId]);
       }
     }
   }
