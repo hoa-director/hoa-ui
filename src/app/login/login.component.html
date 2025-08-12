@@ -11,8 +11,8 @@
       <div>
         <div>
           <form #loginForm="ngForm" (ngSubmit)="login(user)">
-            <mat-form-field>
-              <mat-label> E-Mail </mat-label>
+            <label for="email">Email:</label>
+            <mat-form-field appearance="outline">
               <input
                 matInput
                 type="email"
@@ -23,11 +23,12 @@
                 #email="ngModel"
               />
               <mat-error *ngIf="email.invalid && email.dirty">
-                Username is required
+                Email is required
               </mat-error>
             </mat-form-field>
-            <mat-form-field>
-              <mat-label> Password </mat-label>
+
+            <label for="password">Password:</label>
+            <mat-form-field appearance="outline">
               <input
                 matInput
                 type="password"
@@ -42,22 +43,24 @@
               </mat-error>
             </mat-form-field>
 
-            <div class="div-btn-login">
+            <div class="button-div">
               <button
                 mat-raised-button
                 color="primary"
-                class="btn btn-primary"
+                class="btn btn-primary btn-login"
                 type="submit"
                 [disabled]="!loginForm.form.valid"
               >
                 Log In
               </button>
             </div>
+
             <br>
-            <div class="div-btn-login">
+
+            <div class="button-div">
               <button
                 mat-stroked-button
-                class="reset-link"
+                class="btn-reset"
                 color="primary"
                 routerLink="/reset-password"
               >

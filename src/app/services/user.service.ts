@@ -100,7 +100,7 @@ export class UserService {
         },
         (error) => {
           if (error.status === 401) {
-            this.authErrorListener.next("Username or password in incorrect.");
+            this.authErrorListener.next("Username or password is incorrect");
             return;
           }
           this.authErrorListener.next(
