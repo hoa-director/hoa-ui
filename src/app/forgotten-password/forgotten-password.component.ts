@@ -57,7 +57,7 @@ export class ForgottenPasswordComponent implements OnInit, OnDestroy {
       .subscribe(
         (response) => {
           this.isSuccess = true;
-          this.responseMessageSubject.next("Your password has been changed. Please login with you new password. You will be brought to the login page shortly...");
+          this.responseMessageSubject.next("Your password has been changed. You will be brought to the Log In page shortly...");
           setTimeout(() => {this.router.navigate(["/login"])}, 5000);
         },
         (error) => {
