@@ -62,7 +62,7 @@ export class ForgottenPasswordComponent implements OnInit, OnDestroy {
         },
         (error) => {
           this.noSuccess = true;
-          this.responseMessageSubject.next("There was a server error. Please try again later");
+          this.responseMessageSubject.next("An error occurred. Please try again later.");
         }
       );
   }
