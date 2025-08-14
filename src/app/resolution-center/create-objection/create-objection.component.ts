@@ -57,13 +57,13 @@ export class CreateObjectionComponent implements OnInit {
       .submitObjection(objection)
       .subscribe((response) => {
         this.resetForm();
-        this.router.navigate(['/home/resolution-center/inbox']);
+        this.router.navigate(['/home/resolution-center/open']);
       });
   }
 
   onCancel() {
     this.resetForm();
-    this.router.navigate(['/home/resolution-center/inbox']);
+    this.router.navigate(['/home/resolution-center/open']);
   }
 
   private resetForm() {

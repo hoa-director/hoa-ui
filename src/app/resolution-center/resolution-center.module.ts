@@ -36,15 +36,12 @@ export const ResolutionCenterRoutes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "home/resolution-center/inbox",
+        redirectTo: "home/resolution-center/open",
         pathMatch: "full",
       },
-      { path: "inbox", component: InboxComponent },
-      { path: "outbox", component: OutboxComponent },
+      { path: "open", component: InboxComponent },
       { path: "past", component: PastObjectionsComponent },
-      { path: "objection/create", component: CreateObjectionComponent },
-      { path: "objection/view/:id", component: ObjectionComponent },
-      { path: "objection/:id", component: ObjectionComponent },
+      { path: "new", component: CreateObjectionComponent },
     ],
   },
 ];
