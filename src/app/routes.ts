@@ -73,7 +73,7 @@ export const routes: Routes = [
         runGuardsAndResolvers: 'always',
       },
       {
-        path: 'rules',
+        path: 'rules-regulations',
         component: RulesComponent,
         canActivate: [AuthGuardService],
         runGuardsAndResolvers: 'always',
@@ -85,7 +85,7 @@ export const routes: Routes = [
         runGuardsAndResolvers: 'always',
       },
       {
-        path: 'users-center',
+        path: 'user-center',
         component: UsersCenterComponent,
         canActivate: [AuthGuardService],
         runGuardsAndResolvers: 'always',

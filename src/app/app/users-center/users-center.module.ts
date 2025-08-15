@@ -29,19 +29,18 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 export const UsersCenterRoutes: Routes = [
   {
-    path: "users-center",
+    path: "user-center",
     component: UsersCenterComponent,
     canActivate: [AuthGuardService],
     children: [
       {
         path: "",
-        redirectTo: "home/users-center/users-view",
-        pathMatch: "full",
+        redirectTo: "view",
+        pathMatch: "prefix",
       },
-      { path: "users-view", component: UsersViewComponent },
-      { path: "users-add", component: UsersAddComponent },
-      { path: "users-edit/:userId", component: UsersEditComponent },
-      { path: "users-edit", component: UsersEditComponent },
+      { path: "view", component: UsersViewComponent },
+      { path: "add", component: UsersAddComponent },
+      { path: "edit/:userId", component: UsersEditComponent },
     ],
   },
 ];

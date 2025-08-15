@@ -268,7 +268,7 @@ saveUserChanges(){
         if (responseData.status === 'success') {
           // console.log('RESPONSE:', responseData);
           this.openSuccessModal("User was successfully updated.");
-          this.router.navigate(["/home/users-center/users-view"]);
+          this.router.navigate(["/home/user-center/view"]);
         } else if (responseData.status === 'failure') {
           // console.log('RESPONSE', responseData);
           this.openFailureModal("Unable to update user. Please try again later.");
@@ -279,7 +279,7 @@ saveUserChanges(){
 }
 
 onCancel() {
-  this.router.navigate(["/home/users-center/users-view"]);
+  this.router.navigate(["/home/user-center/view"]);
 }
 
 onDelete() {
@@ -288,7 +288,7 @@ onDelete() {
     this.usersCenterService.deleteUser(this.userId).subscribe((response: any) => {
       if (response.ok) {
         this.openSuccessModal("Successfully deleted user.");
-        this.router.navigate(["/home/users-center/users-view"]);
+        this.router.navigate(["/home/user-center/view"]);
       } else {
         this.openFailureModal("Failed to delete user. Please try again later.");
       }

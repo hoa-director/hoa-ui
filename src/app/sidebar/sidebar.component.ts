@@ -69,6 +69,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/home/directory/view']);
   }
 
+  goToUserCenterView(event: MouseEvent) {
+    event.preventDefault();
+    this.router.navigate(['/home/user-center/view']);
+  }
+
   listenForEvents() {
     this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(
       (isAuthenticated: boolean) => {

@@ -104,7 +104,7 @@ onAssociationChange(associationId: number) {
 
 onCancel(): void {
   this.onReset();
-  this.router.navigate(['/home/users-center/users-view']);
+  this.router.navigate(['/home/user-center/view']);
 }
 
 // -- CLEAR FORM -- //
@@ -146,7 +146,7 @@ addUser(): void {
         } else { // success
           this.openSuccessModal();
           this.onReset(); // -- Reset Form
-          this.router.navigate(['/home/users-center/users-view']);
+          this.router.navigate(['/home/user-center/view']);
         }
       }, (error) => { // -- If Error
         console.log('ADD-USER ERROR:', error);

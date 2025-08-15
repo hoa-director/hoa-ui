@@ -22,7 +22,7 @@
     <button
       *ngIf="showRulesAndRegulations"
       mat-button
-      [routerLink]="['rules']"
+      [routerLink]="['rules-regulations']"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: false }"
     >
@@ -40,9 +40,10 @@
     <button
       *ngIf="showUsersCenter"
       mat-button
-      [routerLink]="['users-center/users-view']"
+      [routerLink]="['user-center']"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: false }"
+      (click)="goToUserCenterView($event)"
       >
       User Center
     </button>
