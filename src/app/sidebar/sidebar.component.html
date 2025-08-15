@@ -50,9 +50,10 @@
     <button
       *ngIf="showNeighborhoodCenter"
       mat-button
-      [routerLink]="['neighborhood-center/view']"
+      [routerLink]="['neighborhood-center']"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: false }"
+      (click)="goToNeighborhoodCenterView($event)"
       >
       Neighborhood Center
     </button>

@@ -74,6 +74,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/home/user-center/view']);
   }
 
+  goToNeighborhoodCenterView(event: MouseEvent) {
+    event.preventDefault();
+    this.router.navigate(['/home/neighborhood-center/view']);
+  }
+
   listenForEvents() {
     this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(
       (isAuthenticated: boolean) => {
