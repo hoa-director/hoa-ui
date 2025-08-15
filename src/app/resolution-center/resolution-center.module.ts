@@ -36,8 +36,8 @@ export const ResolutionCenterRoutes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "home/resolution-center/open",
-        pathMatch: "full",
+        redirectTo: "open",
+        pathMatch: "prefix",
       },
       { path: "open", component: InboxComponent },
       { path: "past", component: PastObjectionsComponent },
