@@ -88,7 +88,7 @@ export class ResolutionCenterComponent implements OnInit {
     // this.dataService.fetchCurrentUserPermission('directory').subscribe((Response: any) => {
     this.dataService.fetchCurrentUserPermission("resolution-center").subscribe((Response: any) => {
         // -- MUST match database!
-        console.log("response", Response);
+        // console.log("response", Response);
         this.checkPermissionsObject(Response);
       })
       .add(() => {
