@@ -74,29 +74,17 @@ export class DataService {
 
 
   // ---------------- VIEW UNITS PAGE ---------------- //
-  // -- UNITS API ENDPOINT -- default when page opens
+  // -- RUNS ON PAGE LOAD
   fetchUnits(inputString: string) {
     const associationId = sessionStorage.getItem("associationId").toString()
     const payload = {
       associationId: associationId,
-      inputString: inputString // -- MUST match database!
+      inputString: inputString
     }
     return this.http.post(BACKEND_URL + "/api/directory", payload)
   }
 
-  // -- USERS API ENDPOINT
-  fetchUnitsByUserAPI(inputString: string) { 
-    const endPoint = "/api/directoryByUser"
-      // .set('associationId',sessionStorage.getItem("associationId").toString()) // -- get from session
-      // .set('associationId', associationId.toString())  // -- get from previous function
-      const associationId = sessionStorage.getItem("associationId").toString()
-      const payload = {
-            associationId: [associationId], // -- associationIds MUST be un an array to work.
-            inputString: inputString
-          }
-    return this.http.post(BACKEND_URL + endPoint, payload );
-  }
-
+  // RUNS ON SEARCH INPUT
   searchUnits(inputString: string) {
     const associationId = sessionStorage.getItem("associationId").toString();
     const payload = { associationId, inputString };
