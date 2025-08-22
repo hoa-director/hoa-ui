@@ -126,6 +126,7 @@ mat-card-actions {
   min-height: 1.8rem;
   margin-bottom: .1rem;
 }
+
 .card-content {
   /* border: 1px solid green; */
   margin: 1rem;
@@ -135,10 +136,18 @@ mat-card-actions {
   font-size: 1.3rem;
   line-height: 1.4;
 }
+
 .mat-mdc-card-content:last-child {
   padding-bottom: 0px;
 }
+
 .contact-info {
   /* border: 1px solid green; */
   margin-bottom: 0px;
+}
+
+.no-results-message {
+  font-size: 1.5rem;
+  margin: 1rem;
+  font-weight: bold;
 }

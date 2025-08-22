@@ -37,6 +37,9 @@
 </form>
 
   <div class="flex-container">
+    <div *ngIf="units.length < 1" class="no-results-message">
+      <p>No results</p>
+    </div>
     <div *ngFor="let unit of units">
       <mat-card class="unit-card">
         <mat-card-header>
