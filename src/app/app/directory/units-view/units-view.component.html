@@ -1,20 +1,5 @@
 <div class="main-units-view-div">
 
-  <!-- <router-outlet></router-outlet> -->
-  <!-- <h4>Search by:</h4>
-  <br>
-  <p>
-    <mat-slide-toggle 
-      color="primary" 
-      labelPosition="before" 
-      [(ngModel)]="searchByUserInfo"
-      >Unit Info
-    </mat-slide-toggle> 
-    User Info
-  </p> 
-  <br> -->
-  
-
   <form [formGroup]="searchUnitsForm" >
     <label for="inputString">Search by address or owner:</label>
     <mat-form-field>
@@ -49,101 +34,74 @@
         New Address
       </button>
     </ng-container>
-
-
-    <!-- <mat-form-field [formGroup]="searchUnitsForm">
-        <input 
-        id="inputStringUser"
-        matInput
-        class="form-control"
-        formControlName="inputTextUser"
-        type="text"
-        placeholder="Search by owner info"
-
-        [(ngModel)]="inputStringUser"
-        (ngModelChange)="onInputChangeUser()"
-        />
-    </mat-form-field>    
-
-    <button
-        class="add-user-button"    
-        mat-raised-button
-        color="secondary"
-
-        (click)="onReset()"
-    >
-        Clear
-    </button> -->
 </form>
 
   <div class="flex-container">
     <div *ngFor="let unit of units">
-      <!-- <ng-container *ngIf="unit"> -->
-        <mat-card class="unit-card">
-          <mat-card-header>
-            <!-- <div mat-card-avatar class="header-image"></div> -->
-              <div class="header-content">
-                <mat-card-title class="unit-card-name" >
-                    {{ unit.user.firstName.length < 1 && unit.user.lastName.length < 1 ? 'Vacant'  :  (unit.user.firstName + ' ' + unit.user.lastName) }}
-                </mat-card-title>
+      <mat-card class="unit-card">
+        <mat-card-header>
+          <div class="header-content">
 
-                <!-- Update Phone button displays on user's own entry card -->
-                <mat-card-actions *ngIf="unit.user.userId === currentUserId">
-                  <button 
-                    class="edit-phone-button"
-                    mat-raised-button
-                    color="primary"
-                    (click)="editOwnUnit()"
-                  >Update Phone</button>
-                </mat-card-actions>
+            <mat-card-title class="unit-card-name">
+              {{ unit.user.firstName.length < 1 && unit.user.lastName.length < 1 ? 'Vacant'  :  (unit.user.firstName + ' ' + unit.user.lastName) }}
+            </mat-card-title>
 
-                <!-- Edit button displays when user has permission -->
-                <mat-card-actions *ngIf="canEditUnit">
-                  <button 
-                  class="edit-button"
-                  mat-raised-button
-                  color="secondary"
-                  (click)="editUnit(unit.unit.unitId)"
-                  >Edit</button>
-                </mat-card-actions>
-              </div>
-            <!-- <mat-card-subtitle>Owner</mat-card-subtitle> -->
-          </mat-card-header>
-          <hr />
-          <!-- <img mat-card-image src="https://www.bankrate.com/2015/06/19095912/low-apprasials-and-condo-associations-can-trip-up-mortgages.jpg" alt=""> -->
-          <mat-card-content class="card-content">
-            <div class="contact-info">
-              <h4>Address:</h4>
-              <div class="address-line-1">
-                {{ unit.unit.addressLineOne ? unit.unit.addressLineOne : '' }} 
-                <br>
-                <ng-container *ngIf="unit.unit.addressLineTwo">
-                  {{ unit.unit.addressLineTwo }}
-                  <br>
-                </ng-container>
-                {{unit.unit.city ? unit.unit.city : ''}},
-                {{unit.unit.state ? unit.unit.state : ''}}
-                {{unit.unit.zip ? unit.unit.zip : ''}} 
-              </div>
+            <!-- Update Phone button displays on user's own entry card -->
+            <mat-card-actions *ngIf="unit.user.userId === currentUserId">
+              <button 
+                class="edit-phone-button"
+                mat-raised-button
+                color="primary"
+                (click)="editOwnUnit()"
+              >Update Phone</button>
+            </mat-card-actions>
 
+            <!-- Edit button displays when user has permission -->
+            <mat-card-actions *ngIf="canEditUnit">
+              <button 
+              class="edit-button"
+              mat-raised-button
+              color="secondary"
+              (click)="editUnit(unit.unit.unitId)"
+              >Edit</button>
+            </mat-card-actions>
+            
+          </div>
+        </mat-card-header>
+        <hr />
+        <!-- <img mat-card-image src="https://www.bankrate.com/2015/06/19095912/low-apprasials-and-condo-associations-can-trip-up-mortgages.jpg" alt=""> -->
+        <mat-card-content class="card-content">
+          <div class="contact-info">
+            <h4>Address:</h4>
+            <div class="address-line-1">
+              {{ unit.unit.addressLineOne ? unit.unit.addressLineOne : '' }} 
               <br>
-              <h4>E-Mail:</h4>
-              <div class="email">
-                {{ unit.user.email ? unit.user.email : 'Unavailable'}}
-
-              </div>
-              <br />
-              <h4>Phone:</h4>
-              <div class="phone">
-                <!-- {{ unit.unit.number | phone : "US" }} -->
-                {{ unit.user.phoneOneLabel ? unit.user.phoneOneLabel + ': ' + unit.user.phoneOneNumber : 'Unavailable' }}
-                <br />
-                {{ unit.user.phoneTwoLabel ? unit.user.phoneTwoLabel + ': ' + unit.user.phoneTwoNumber : '' }}
-              </div>
+              <ng-container *ngIf="unit.unit.addressLineTwo">
+                {{ unit.unit.addressLineTwo }}
+                <br>
+              </ng-container>
+              {{unit.unit.city ? unit.unit.city : ''}},
+              {{unit.unit.state ? unit.unit.state : ''}}
+              {{unit.unit.zip ? unit.unit.zip : ''}} 
             </div>
-          </mat-card-content>
-        </mat-card>
-      <!-- </ng-container> -->
+
+            <br>
+            <h4>E-Mail:</h4>
+            <div class="email">
+              {{ unit.user.email ? unit.user.email : 'Unavailable'}}
+
+            </div>
+            <br />
+            <h4>Phone:</h4>
+            <div class="phone">
+              <!-- {{ unit.unit.number | phone : "US" }} -->
+              {{ unit.user.phoneOneLabel ? unit.user.phoneOneLabel + ': ' + unit.user.phoneOneNumber : 'Unavailable' }}
+              <br />
+              {{ unit.user.phoneTwoLabel ? unit.user.phoneTwoLabel + ': ' + unit.user.phoneTwoNumber : '' }}
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>
