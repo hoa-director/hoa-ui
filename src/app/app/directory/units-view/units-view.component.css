@@ -28,11 +28,18 @@
 
 .unit-card {
   width: 280px;
-  height: 280px;
   /* margin-right: 2rem; */
   /* margin-left: 1rem; */
   margin: 1rem;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.is-pres-or-admin {
+  height: 330px;
+}
+
+.is-owner {
+  height: 280px;
 }
 
 label {

@@ -37,11 +37,13 @@
 </form>
 
   <div class="flex-container">
+
     <div *ngIf="units.length < 1" class="no-results-message">
       <p>No results</p>
     </div>
+
     <div *ngFor="let unit of units">
-      <mat-card class="unit-card">
+      <mat-card class="unit-card" [ngClass]="{ 'is-pres-or-admin' : isPresOrAdmin, 'is-owner' : !isPresOrAdmin }">
         <mat-card-header>
           <div class="header-content">
 
@@ -92,8 +94,8 @@
             <h4>E-Mail:</h4>
             <div class="email">
               {{ unit.user.email ? unit.user.email : 'Unavailable'}}
-
             </div>
+
             <br />
             <h4>Phone:</h4>
             <div class="phone">
@@ -102,6 +104,15 @@
               <br />
               {{ unit.user.phoneTwoLabel ? unit.user.phoneTwoLabel + ': ' + unit.user.phoneTwoNumber : '' }}
             </div>
+
+            <ng-container *ngIf="isPresOrAdmin">
+              <br />
+              <h4>Association:</h4>
+              <div class="association-name">
+                {{ unit.unit.associationName }}
+              </div>
+            </ng-container>
+
           </div>
         </mat-card-content>
       </mat-card>

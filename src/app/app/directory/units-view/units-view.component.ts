@@ -23,6 +23,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   currentUserId: number = parseInt(sessionStorage.getItem('userId'));
   currentUserPermission: object;
   renderAddButton: boolean = false;
+  isPresOrAdmin: boolean = (sessionStorage.getItem('roleTitle') === 'President' || sessionStorage.getItem('roleTitle') === 'Admin') ? true : false ;
 
   private userSubjectSubs: Subscription;
   isLoading = true;
