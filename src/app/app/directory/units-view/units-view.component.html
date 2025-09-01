@@ -48,7 +48,7 @@
           <div class="header-content">
 
             <mat-card-title class="unit-card-name">
-              {{ unit.user.firstName.length < 1 && unit.user.lastName.length < 1 ? 'Vacant'  :  (unit.user.firstName + ' ' + unit.user.lastName) }}
+              {{ unit.user?.firstName?.length < 1 && unit.user?.lastName?.length < 1 ? 'Vacant'  :  (unit.user.firstName + ' ' + unit.user.lastName) }}
             </mat-card-title>
 
             <!-- Update Phone button displays on user's own entry card -->
