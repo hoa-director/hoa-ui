@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { isLoading } from "../../../shared/isLoading";
+// import { isLoading } from "../../../shared/isLoading";
 import { MatDialog } from "@angular/material/dialog";
 // -- models
 import { Unit } from ".././unit.model";
@@ -34,7 +34,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
     },
   ];
   
-  isLoading = false;
+  // isLoading = false;
 
   constructor(
     private dataService: DataService,
@@ -68,10 +68,8 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
 
   // -- BUG ------- THIS FIRES TWICE. ------------------------------------------------
   addUnit() {
-    // console.log('ADD BTN');
-    
     if (this.addUnitForm.valid) {
-      isLoading(true);
+      // isLoading(true);
       this.addUnitForm.get('associationId').enable(); 
       const formValues = this.addUnitForm.value;
 
@@ -89,33 +87,29 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
         // createdAt: '2024-07-19 18:47:52.63-05',
       };
       this.addUnitForm.get('associationId').disable(); 
-      // console.log("formValues", formValues);
 
       this.dataService
         .addUnit(unit)
         .subscribe(
           (responseData: any) => {
-            if(responseData.status === 'success'){ // -- If Response
-              // console.log("SUCCESS responseData:", responseData);
+            if(responseData.status === 'success') {
               setTimeout(() => {
                 this.openSuccessModal(); // -- tell user it worked
                 this.onReset(); // -- clear form
+                this.router.navigate(['/home/directory/view']);
               }, 500);
-              this.router.navigate(['/home/directory/view']);
-            } else if (responseData.status === 'failure') { // -- If NO Response
-              // console.log('openFailureModal? responseData:', responseData);
+            } else if (responseData.status === 'failure') {
               this.openFailureModal(responseData.message); // -- tell user it did NOT work
             }
           },
           (error) => { // -- If Error
             this.openFailureModal('An error occurred when attempting to save a new unit: ' + error); // -- tell user it did NOT work
-            // console.log("openFailureModal? error:", error);
           }
         );
     } else { // -- If FORM NOT VALID
       return;
     }
-    isLoading(false);
+    // isLoading(false);
   }
 
   onReset(): void {
