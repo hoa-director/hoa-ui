@@ -24,7 +24,7 @@ export class NeighborhoodEditComponent {
   associationId: number;
   neighborhood: any;
   editNeighborhoodForm: FormGroup;
-  isLoading = false;
+  // isLoading = false;
   formIsDisabled: boolean = false
 
   constructor(

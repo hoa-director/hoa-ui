@@ -7,7 +7,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Router } from "@angular/router";
 
 // css
-import { isLoading } from "../../../shared/isLoading";
+// import { isLoading } from "../../../shared/isLoading";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 // models
 import { Unit } from ".././unit.model";
@@ -26,7 +26,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   isPresOrAdmin: boolean = (sessionStorage.getItem('roleTitle') === 'President' || sessionStorage.getItem('roleTitle') === 'Admin') ? true : false ;
 
   private userSubjectSubs: Subscription;
-  isLoading = true;
+  // isLoading = true;
 
   searchUnitsForm: FormGroup;
   inputStringSearch: string = '';
@@ -100,7 +100,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   }
   // -- Check is user has unit editing permissions
   checkCurrentUserPermissions() {
-    isLoading(true);
+    // isLoading(true);
     // const pageURL = this.getCurrentUrl().split('/').pop(); 
     const parts = this.getCurrentUrl().split('/'); // Split the URL by '/'
     const pageURL = parts[parts.length - 2]; 
@@ -109,12 +109,12 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
       // console.log('response', Response);
       this.checkPermissionsObject(Response);
     }).add(() => {
-      isLoading(false);
+      // isLoading(false);
     });
   }
 
   fetchSearchResults(inputString: string) {
-    isLoading(true);
+    // isLoading(true);
     this.dataService
       .searchUnits(inputString)
       .subscribe((responseData: any) => {
@@ -122,7 +122,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       })
       .add(() => {
-        isLoading(false);
+        // isLoading(false);
       });
   }
 

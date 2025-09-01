@@ -3,7 +3,7 @@ import { DataService } from "../../services/data.service";
 import { UserService } from "../../services/user.service";
 import { Subscription } from "rxjs";
 import { Unit } from "./unit.model";
-import { isLoading } from "../../shared/isLoading";
+// import { isLoading } from "../../shared/isLoading";
 import { MatDialog } from "@angular/material/dialog";
 import { UnitModalComponent } from "../modal/unit-modal/unit-modal.component";
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class DirectoryComponent    {
   currentUserPermission: object;
 
   private userSubjectSubs: Subscription;
-  isLoading = false;
+  // isLoading = false;
 
   constructor(
     private dataService: DataService,
@@ -53,14 +53,14 @@ export class DirectoryComponent    {
 
   // -- Get list of Directory/Unit-center Navbar Links/permissions. (Not the same as the units grid)
   checkCurrentUserPermissions() {
-    isLoading(true);
+    // isLoading(true);
     // const pageURL = this.getCurrentUrl().split('/').pop(); 
     // this.dataService.fetchCurrentUserPermission('directory').subscribe((Response: any) => {
     this.dataService.fetchCurrentUserPermission('unit-center').subscribe((Response: any) => { // -- MUST match database!
       // console.log('response', Response);
       // this.checkPermissionsObject(Response);
     }).add(() => {
-      isLoading(false);
+      // isLoading(false);
     });
   }
 

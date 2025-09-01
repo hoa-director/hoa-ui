@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 // -- models
 import { Unit } from "../../unit.model";
 // -- css & Components
-import { isLoading } from "../../../../shared/isLoading";
+// import { isLoading } from "../../../../shared/isLoading";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
@@ -22,7 +22,7 @@ export class UnitsEditComponent {
   editUnitForm: FormGroup;
   allUnits: any;
   availableUsers: any;
-  isLoading = false;
+  // isLoading = false;
   formIsDisabled: boolean = false
   unitStatus: boolean = false; 
   associations = [
@@ -101,19 +101,19 @@ getParams(){
 
 // --  GET ALL UNITS DROPDOWN -- //
 getAllUnits(){
-    isLoading(true);
+    // isLoading(true);
     this.dataService.fetchUnits('')
     .subscribe((responseData: any) => {
       this.allUnits = [...responseData.directory];
       // this.cdr.detectChanges();
     }).add(() => {
-      isLoading(false);
+      // isLoading(false);
     });
 }
 
 // --  GET AVAILABLE USERS DROPDOWN -- //
 getAvailableUsers(){
-    isLoading(true);
+    // isLoading(true);
     this.dataService.getAvailableUsers()
     .subscribe((responseData: any) => {
       this.availableUsers = [...responseData];
@@ -126,7 +126,7 @@ getAvailableUsers(){
     }
       // this.cdr.detectChanges();
     }).add(() => {
-      isLoading(false);
+      // isLoading(false);
     });
 }
 
@@ -150,7 +150,7 @@ initEditUnitForm() {
 
 // -- GET UNIT
 getUnit(unitId: number) {
-  isLoading(true);
+  // isLoading(true);
   this.dataService.fetchOneUnit(unitId)
   .subscribe((responseData: any) => {
     this.currentUnit = responseData;
@@ -164,7 +164,7 @@ getUnit(unitId: number) {
       }
     }
   }).add(() => {
-    isLoading(false);
+    // isLoading(false);
   });
 }
 

@@ -31,7 +31,7 @@ export class DataService {
       const payload = {
         organizationId: sessionStorage.getItem("associationId").toString(), // -- associationIds MUST be un an array to work.
       }
-      console.log('PAYLOAD:', payload);
+      // console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
 
@@ -42,7 +42,7 @@ export class DataService {
     const payload = {
       organizationId: sessionStorage.getItem("associationId").toString(), // -- associationIds MUST be un an array to work.
     }
-    console.log('PAYLOAD:', payload);
+    // console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
   
@@ -125,7 +125,7 @@ export class DataService {
 
     // --UPDATE USER STATUS
     updateUnitStatus(currentUnitId: number, unitStatus: boolean){
-      console.log('currentUnitId:', currentUnitId);
+      // console.log('currentUnitId:', currentUnitId);
       const endPoint = "/api/updateUnitStatus"
       const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {
@@ -143,7 +143,7 @@ export class DataService {
 
      // -- UPDATE UNIT INFO
      updateUnit(unitObj: any, ){
-      console.log('USEOBJ:', unitObj);
+      // console.log('USEOBJ:', unitObj);
       const endPoint = "/api/updateUnit"
       const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {

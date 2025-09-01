@@ -8,7 +8,7 @@ import { UsersCenterService } from 'app/services/users-center.service';
 // -- interfaces
 import { User } from "../../../../interfaces/user";
 // -- css & Components
-import { isLoading } from "../../../../shared/isLoading";
+// import { isLoading } from "../../../../shared/isLoading";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
@@ -27,7 +27,7 @@ export class UsersEditComponent {
   editUserForm: FormGroup;
   // allUsers: any;
   allRoles: any[] = [];
-  isLoading = false;
+  // isLoading = false;
   formIsDisabled: boolean = false
   // userStatus: boolean = false; 
   currentAssociationId: number;
@@ -144,7 +144,7 @@ disableForm(){
   this.formIsDisabled= true;
 }
 enableForm(){
-  console.log('YES');  
+  // console.log('YES');  
   this.editUserForm.get('email')?.enable();
   this.editUserForm.get('firstName')?.enable();
   this.editUserForm.get('lastName')?.enable();
@@ -205,7 +205,7 @@ handleAssociationChange(associationId: number) {
 getUser(userId: number) {
   // console.log('this.userId', userId);
   this.selectedUserId = userId;
-  isLoading(true);
+  // isLoading(true);
   this.usersCenterService.fetchOneUser(userId)
   .subscribe((responseData: any) => {
     // console.log('RESPONSE.DATA:', responseData);
@@ -224,7 +224,7 @@ getUser(userId: number) {
       // }
     }
   }).add(() => {
-    isLoading(false);
+    // isLoading(false);
   });
 }
 

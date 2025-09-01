@@ -11,7 +11,7 @@ export class AppComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
 
-  public isLoading = false;
+  // public isLoading = false;
 
   constructor(private userService: UserService) {}
 
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.listenForEvents();
     this.userService.autoAuthenticateUser();
 
-    document.addEventListener("loading", this.setLoadingStatus.bind(this));
+    // document.addEventListener("loading", this.setLoadingStatus.bind(this));
   }
 
   ngOnDestroy() {
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
-  setLoadingStatus(loadingEvent: CustomEvent) {
-    this.isLoading = loadingEvent.detail.isLoading;
-  }
+  // setLoadingStatus(loadingEvent: CustomEvent) {
+  //   this.isLoading = loadingEvent.detail.isLoading;
+  // }
 }

@@ -12,7 +12,7 @@ import { Subscription } from "rxjs";
 export class ResolutionCenterComponent implements OnInit {
   resolutionCenterLinks: any[];
   activeLink: string;
-  isLoading = false;
+  // isLoading = false;
   private userSubjectSubs: Subscription;
   
   constructor(

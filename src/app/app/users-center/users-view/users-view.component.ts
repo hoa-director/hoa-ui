@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 
 import { UserRow } from "../userrow";  // -- MODEL
 
-import { isLoading } from "app/shared/isLoading";
+// import { isLoading } from "app/shared/isLoading";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 
@@ -72,7 +72,7 @@ constructor(
   }
 
   fetchUsers(inputString) {
-    isLoading(true);
+    // isLoading(true);
     this.UsersCenterService.fetchUsers(inputString || '')
     .subscribe((responseData: any) => {
       this.userRows = responseData.map(user => {
@@ -85,11 +85,11 @@ constructor(
         // [...responseData]; // -- need to [...loop] to make the data structure iterable in the table component. 
         // console.log('this.userRows:', this.userRows); // -- Check STATE 
     }, (error) => {
-      console.log('fetchUsers() ERROR', error); // -- Console Log WORKS
+      console.log('fetchUsers() ERROR', error);
     }
   )
   .add(() => {
-    isLoading(false);
+    // isLoading(false);
   });
   }
 
