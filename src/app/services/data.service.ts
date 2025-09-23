@@ -109,9 +109,9 @@ export class DataService {
   // -- GET ONE UNIT
   fetchOneUnit(unitId: number) { 
     const endPoint = "/api/getUnit"
-      const associationId = sessionStorage.getItem("associationId").toString()
+      // const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {
-            associationId: associationId, 
+            // associationId: associationId, 
             unitId: unitId 
           }
     return this.http.post(BACKEND_URL + endPoint, payload );
