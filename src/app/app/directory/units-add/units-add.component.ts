@@ -13,6 +13,7 @@ import { Unit } from ".././unit.model";
 // -- components
 import { UnitModalComponent } from "../../modal/unit-modal/unit-modal.component";
 import { DataService } from "app/services/data.service";
+import { NeighborhoodCenterService } from "../../../services/neighborhood-center.service";
 import { Router } from '@angular/router';
 import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
 import { FailureModalComponent } from "app/app/failure-modal/failure-modal.component";
@@ -26,18 +27,13 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
   // newUnit: Unit[] = [];
   addUnitForm: FormGroup;
   availableUsers: any[] = [];
-
-  associations = [
-    {
-      id: sessionStorage.getItem("associationId").toString(), 
-      associationName: sessionStorage.getItem("associationName").toString()
-    },
-  ];
+  associations: any[] = [];
   
   // isLoading = false;
 
   constructor(
     private dataService: DataService,
+    private neighborhoodCenterService: NeighborhoodCenterService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private router: Router
@@ -47,8 +43,16 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
     this.dataService.getAvailableUsers().subscribe((response: any) => {
       this.availableUsers = response; // array of {id, firstName, lastName}
     });
+
+    this.neighborhoodCenterService.fetchNeighborhoods()
+      .subscribe((response: any) => {
+        this.associations = response;
+      }, (error: any) => {
+        console.log('Error fetching neighborhoods:', error);
+      });
+
     this.addUnitForm = this.fb.group({
-      associationId: [{value: this.associations[0].id, disabled: true}, [Validators.required]], // required. Add get association
+      associationId: ['', [Validators.required]],
       addressLineOne: ['', [Validators.required]],
       addressLineTwo: [''],
       city: ['', [Validators.required]],
@@ -70,7 +74,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
   addUnit() {
     if (this.addUnitForm.valid) {
       // isLoading(true);
-      this.addUnitForm.get('associationId').enable(); 
+      // this.addUnitForm.get('associationId').enable(); 
       const formValues = this.addUnitForm.value;
 
       let unit: Unit = {
@@ -86,7 +90,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
         // updatedAt: '2024-07-19 18:47:52.63-05',
         // createdAt: '2024-07-19 18:47:52.63-05',
       };
-      this.addUnitForm.get('associationId').disable(); 
+      // this.addUnitForm.get('associationId').disable(); 
 
       this.dataService
         .addUnit(unit)
@@ -115,7 +119,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
   onReset(): void {
     // console.log('CLEAR BTN');
     this.addUnitForm.reset({
-      // associationId: this.associations[0].id, // required
+      associationId: '',
       addressLineOne: '',
       addressLineTwo: '',
       city: '',
