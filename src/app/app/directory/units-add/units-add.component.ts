@@ -86,7 +86,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
         city: formValues.city,
         state: formValues.state,
         zip: formValues.zip,
-        userId: 0 ? null : formValues.userId
+        userId: formValues.userId === 0 ? null : formValues.userId
         // updatedAt: '2024-07-19 18:47:52.63-05',
         // createdAt: '2024-07-19 18:47:52.63-05',
       };
