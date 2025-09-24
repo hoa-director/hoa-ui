@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from "../../../../services/user.service";
 import { DataService } from "app/services/data.service";
+import { NeighborhoodCenterService } from "../../../../services/neighborhood-center.service";
 import { ActivatedRoute, Router } from '@angular/router';
 // -- models
 import { Unit } from "../../unit.model";
@@ -25,12 +26,7 @@ export class UnitsEditComponent {
   // isLoading = false;
   formIsDisabled: boolean = false
   unitStatus: boolean = false; 
-  associations = [
-    {
-      id: sessionStorage.getItem("associationId").toString(), 
-      associationName: sessionStorage.getItem("associationName").toString()
-    },
-  ];
+  associations: any[] = [];
   allUnitStatuses = [
     { id: 0, name: 'Inactive', description: 'Unit is inactive' },
     { id: 1, name: 'Active', description: 'Unit is active' },
@@ -38,6 +34,7 @@ export class UnitsEditComponent {
 
 constructor(
   private dataService: DataService,
+  private neighborhoodCenterService: NeighborhoodCenterService,
   private fb: FormBuilder,
   private dialog: MatDialog,
   private route: ActivatedRoute,
@@ -49,16 +46,23 @@ ngOnInit() {
   // this.listenForEvents();
   this.getParams();
   this.initEditUnitForm();
-  this.getAllUnits();
+  // this.getAllUnits();
   this.getAvailableUsers();
-  this.disableForm();
+  // this.disableForm();
+
+  this.neighborhoodCenterService.fetchNeighborhoods()
+    .subscribe((response: any) => {
+      this.associations = response;
+    }, (error: any) => {
+      console.log('Error fetching neighborhoods:', error);
+    });
 
   this.editUnitForm.get('unitId')?.valueChanges.subscribe(value => { // -- Listen for Unit Dropdown selection changes
     // console.log('on_Init_VALUE', value);
     this.unitId = value;
     // console.log('on_Init_this.unitId', this.unitId);
     this.getUnit(this.unitId) 
-    this.disableForm();
+    // this.disableForm();
   });
 }
 
@@ -100,16 +104,16 @@ getParams(){
 // }
 
 // --  GET ALL UNITS DROPDOWN -- //
-getAllUnits(){
-    // isLoading(true);
-    this.dataService.fetchUnits('')
-    .subscribe((responseData: any) => {
-      this.allUnits = [...responseData.directory];
-      // this.cdr.detectChanges();
-    }).add(() => {
-      // isLoading(false);
-    });
-}
+// getAllUnits(){
+//     // isLoading(true);
+//     this.dataService.fetchUnits('')
+//     .subscribe((responseData: any) => {
+//       this.allUnits = [...responseData.directory];
+//       // this.cdr.detectChanges();
+//     }).add(() => {
+//       // isLoading(false);
+//     });
+// }
 
 // --  GET AVAILABLE USERS DROPDOWN -- //
 getAvailableUsers(){
@@ -135,7 +139,7 @@ getAvailableUsers(){
 initEditUnitForm() {
   this.editUnitForm = this.fb.group({
     unitId: [{value: this.unitId, disabled: false}, [Validators.required]], 
-    associationId: [{value: this.associations[0].id, disabled: true}, [Validators.required]], // required. Add get association
+    associationId: ['', [Validators.required]],
     addressLineOne: [''],
     addressLineTwo: [''],
     city: ['', [Validators.required]],
@@ -158,10 +162,10 @@ getUnit(unitId: number) {
       // console.log('currentUnit:', this.currentUnit );
       this.updateEditUnitForm(this.currentUnit)
       this.unitStatus = this.currentUnit.deletedAt ? false : true;
-      this.disableEnableForm(); 
-      if(!this.unitStatus){
-        this.disableForm();
-      }
+      // this.disableEnableForm(); 
+      // if(!this.unitStatus){
+      //   this.disableForm();
+      // }
     }
   }).add(() => {
     // isLoading(false);
@@ -202,6 +206,7 @@ enableForm(){
 // -- UPDATE EDIT FORM
 updateEditUnitForm(unit: any) {
   this.editUnitForm.patchValue({
+    associationId: unit.associationId || '',
     addressLineOne: unit.addressLineOne || '',
     addressLineTwo: unit.addressLineTwo || '',
     city: unit.city || '',
@@ -219,7 +224,7 @@ saveUnitChanges(){
     const formValues = this.editUnitForm.value
     const unitObj = {
       unitId: this.currentUnit.id,
-      // associationId: formValues.associationId, //  don't send for now. 
+      associationId: formValues.associationId,
       addressLineOne: formValues.addressLineOne,
       addressLineTwo: formValues.addressLineTwo,
       city: formValues.city,
