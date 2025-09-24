@@ -128,7 +128,7 @@ addUser(): void {
       password: formValues.password,  
       number: formValues.organization, //Number(formValues.number),
       role: formValues.role, //Number(formValues.role),
-      unitId: formValues.address,
+      unitId: formValues.address || null,
       phoneOneLabel: null,
       phoneOneNumber: null,
       phoneTwoLabel: null,
