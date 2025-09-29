@@ -13,7 +13,6 @@ import { Unit } from ".././unit.model";
 // -- components
 import { UnitModalComponent } from "../../modal/unit-modal/unit-modal.component";
 import { DataService } from "app/services/data.service";
-import { NeighborhoodCenterService } from "../../../services/neighborhood-center.service";
 import { Router } from '@angular/router';
 import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
 import { FailureModalComponent } from "app/app/failure-modal/failure-modal.component";
@@ -33,7 +32,6 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataService: DataService,
-    private neighborhoodCenterService: NeighborhoodCenterService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private router: Router
@@ -44,7 +42,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
       this.availableUsers = response; // array of {id, firstName, lastName}
     });
 
-    this.neighborhoodCenterService.fetchNeighborhoods()
+    this.dataService.fetchNeighborhoods()
       .subscribe((response: any) => {
         this.associations = response;
       }, (error: any) => {
