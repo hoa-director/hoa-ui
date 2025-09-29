@@ -3,7 +3,7 @@ import { DataService } from "../../services/data.service";
 import { UserService } from "../../services/user.service";
 import { Subscription } from "rxjs";
 import { Document } from "./document.model";
-import { isLoading } from "../../shared/isLoading";
+// import { isLoading } from "../../shared/isLoading";
 
 @Component({
   selector: "app-documents",
@@ -15,7 +15,7 @@ export class DocumentsComponent implements OnInit {
 
   private loadingListenerSubs: Subscription;
   private userSubjectSubs: Subscription;
-  isLoading = false;
+  // isLoading = false;
   fileSource = "";
 
   constructor(
@@ -32,18 +32,18 @@ export class DocumentsComponent implements OnInit {
   }
 
   onFetchDocuments() {
-    isLoading(true);
+    // isLoading(true);
     this.dataService
       .fetchDocuments()
       .subscribe((responseData: any) => {
         this.documents = [...responseData];})
         .add(()=>{
-          isLoading(false);
+          // isLoading(false);
         });
   }
 
   onFetchAndOpenDocument(documentId: string) {
-    isLoading(true);
+    // isLoading(true);
     this.dataService
       .fetchDocumentById(documentId)
       .subscribe((response: Blob) => {
@@ -52,7 +52,7 @@ export class DocumentsComponent implements OnInit {
         this.fileSource = fileURL;
         this.openDocumentInWindow(this.fileSource);})
         .add(()=> {
-          isLoading(false);
+          // isLoading(false);
         });
   }
 

@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 // -- services
-import { UserService } from 'app/services/user.service';
 import { UsersCenterService } from "../../../services/users-center.service";  
 // -- models
 
 // -- interfaces
 import { User } from "../../../../app/interfaces/user";
 // -- css & Components
-import { isLoading } from "../../../shared/isLoading";
+// import { isLoading } from "../../../shared/isLoading";
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessModalComponent } from 'app/app/success-modal/success-modal.component';
@@ -21,81 +21,106 @@ import { FailureModalComponent } from 'app/app/failure-modal/failure-modal.compo
 })
 export class UsersAddComponent implements OnInit {  
   addUserForm: FormGroup;
-  allRoles: any;
-  associations = [
-    {
-      id: sessionStorage.getItem("associationId").toString(), 
-      associationName: sessionStorage.getItem("associationName").toString()
-    },
-    {id: 2, associationName: 'test'}
-  ];
+  allRoles: any[] = [];
+  associations: any = [];
+  addresses: any[] = [];
+  showNeighborhoodRequiredMsg: boolean = false;
   constructor(
     // --  SERVICES
-    private userService: UserService,
-    private UsersCenterService: UsersCenterService,
+    private usersCenterService: UsersCenterService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router,
   ) {}
 
 ngOnInit(): void {
-  // const userOrganizations: any = this.userService.getUserAssociations();
-  // if(userOrganizations && userOrganizations.length > 0 ){
-  //   const org = userOrganizations[0]
-  //   console.log('org', org);
-  // }
-  // console.log('userOrganizations', userOrganizations[0]);
-  this.getOrganizationRoles();
+  this.usersCenterService.getAllAssociations().subscribe(associations => {
+    this.associations = associations;
+  });
   
   this.addUserForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]], 
-    firstName: [''],
-    lastName: [''],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], 
-    organization: [{value: this.associations[0].id, disabled: true}, [Validators.required] ], 
-    role: [{value: '50', disabled: false }, [Validators.required] ], 
+    firstName: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
+    // password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).*$/)]], 
+    organization: ['', [Validators.required]], 
+    role: [{ value: '', disabled: true }, [Validators.required]],  
+    address: [{ value: '', disabled: true }],
+  });
+
+    // enable Role and Address only after Neighborhood is selected
+  this.addUserForm.get('organization')?.valueChanges.subscribe(value => {
+    if (value) {
+      this.addUserForm.get('role')?.enable();
+      this.addUserForm.get('address')?.enable();
+    } else {
+      this.addUserForm.get('role')?.reset();
+      this.addUserForm.get('role')?.disable();
+      this.addUserForm.get('address')?.reset();
+      this.addUserForm.get('address')?.disable();
+    }
   });
 }
 
 
 // --  GET ALL ORGANIZATION ROLES  -- //
-getOrganizationRoles() {
-  this.UsersCenterService.fetchOrganizationRoles()
-    .subscribe(
-      (responseData: any) => {
-        console.log('RESPONSE.DATA.ROLES:', responseData);
-        this.allRoles = [...responseData];
-        console.log('this.allRoles:', this.allRoles);
-        // this.cdr.detectChanges();
-      },
-      (error) => {
-        console.error('Error fetching roles:', error);
-      }
-    );
+// getOrganizationRoles() {
+//   this.usersCenterService.fetchOrganizationRoles()
+//     .subscribe(
+//       (responseData: any) => {
+//         console.log('RESPONSE.DATA.ROLES:', responseData);
+//         this.allRoles = [...responseData];
+//         console.log('this.allRoles:', this.allRoles);
+//         // this.cdr.detectChanges();
+//       },
+//       (error) => {
+//         console.error('Error fetching roles:', error);
+//       }
+//     );
+// }
+
+checkIfNeighborhoodSelected() {
+  const orgSelected = this.addUserForm.get('organization')?.value;
+  if (!orgSelected) {
+    this.showNeighborhoodRequiredMsg = true;
+    setTimeout(() => this.showNeighborhoodRequiredMsg = false, 4000);
+  }
 }
 
+onAssociationChange(associationId: number) {
+  this.usersCenterService.fetchRolesByAssociation(associationId).subscribe(response => {
+    this.allRoles = response as any[];
+    this.allRoles.forEach(role => {
+      if (role.title === 'Owner') {
+        this.addUserForm.get('role')?.setValue(role.id); // -- Set default role to Owner
+      }
+    });
+  });
+
+  this.usersCenterService.fetchVacantUnits(associationId).subscribe(response => {
+    this.addresses = response as any[];
+  });
+}
+
+onCancel(): void {
+  this.onReset();
+  this.router.navigate(['/home/user-center/view']);
+}
 
 // -- CLEAR FORM -- //
 onReset(): void { 
-  this.addUserForm.reset({
-    organization: {value: this.associations[0].id, disabled: true}, 
-    role: {value: '25', disabled: false }
-  });
-  Object.keys(this.addUserForm.controls).forEach(key => {
-    this.addUserForm.get(key)?.setErrors(null);
-    // this.addUserForm.get(key)?.markAsPristine();
-    // this.addUserForm.get(key)?.markAsUntouched();
-  });
+  this.addUserForm.reset();
+  this.addUserForm.markAsPristine();
+  this.addUserForm.markAsUntouched();
+  this.allRoles = [];
+  this.addresses = [];
 }
 
 
 // -- ADD USER -- //
-addUser(): void { // -- WORKS 
-  // console.log('addUserForm:', this.addUserForm.value); // -- Check form BEFORE validating.
+addUser(): void {
   if (this.addUserForm.valid) {
-    this.addUserForm.get('organization').enable(); 
-    // console.log('ADD USER FORM VALID');
     const formValues = this.addUserForm.value;
-    // console.log('this.addUserForm.value', this.addUserForm.value);
     let user: User = {
       email: formValues.email,
       firstName: formValues.firstName,
@@ -103,31 +128,33 @@ addUser(): void { // -- WORKS
       password: formValues.password,  
       number: formValues.organization, //Number(formValues.number),
       role: formValues.role, //Number(formValues.role),
+      unitId: formValues.address || null,
+      phoneOneLabel: null,
+      phoneOneNumber: null,
+      phoneTwoLabel: null,
+      phoneTwoNumber: null
     }
-    this.addUserForm.get('organization').disable(); 
-    // console.log('USER Sent:', user); // -- Check form BEFORE sending.
 
-    this.UsersCenterService
+    this.usersCenterService
     .createUser(user)
     .subscribe(
-      (responseData: any) => {
-        console.log('SUBSCRIBE');
-      if(responseData){ // -- If Response
-        console.log('IF responseData NOT Null:', responseData);
-        this.openSuccessModal(); // -- tell user it worked
-        this.onReset(); // -- clear form
-      } else { // -- If NO Response
-        console.log('ELSE responseData NULL:', responseData);
-        this.openFailureModal('User already exists.'); // -- tell user it did NOT work
-        // alert('User with that email already exist.')
+      (responseData: any) => { // server will send status of 200, 400, or 500
+        if(responseData.status === 400){ // email already exists
+          this.openFailureModal('This email already exists.'); 
+        } else if (responseData.status === 500) { // error
+          this.openFailureModal('Unable to create new user. Please try again later.');
+        } else { // success
+          this.openSuccessModal();
+          this.onReset(); // -- Reset Form
+          this.router.navigate(['/home/user-center/view']);
+        }
+      }, (error) => { // -- If Error
+        console.log('ADD-USER ERROR:', error);
+        this.openFailureModal('Unable to create new user. Please try again later.');
       }
-    }, (error) => { // -- If Error
-      console.log('ADD-USER ERROR:', error);
-      this.openFailureModal('There was an error when trying to create a new user.'); // -- tell user it did NOT work
-    }
-  )
+    )
   } else { // -- If FORM NOT VALID
-    console.log('ADD USER FORM NOT VALID');
+    this.openFailureModal('One or more fields are invalid.');
   }
 }
 
@@ -143,5 +170,4 @@ openFailureModal(message) {
     data: { message: message }
   })
 }
-
 }

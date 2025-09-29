@@ -70,7 +70,7 @@ export class InboxComponent implements OnInit {
 
   openPresidentBreakTieDialog(objection: Objection) {
     const presidentBreakTieDialogRef = this.presidentBreakTieDialog.open(PresidentBreakTieDialogComponent, {
-      width: '500px',
+      width: '550px',
       data: objection,
     });
     presidentBreakTieDialogRef.afterClosed().subscribe(() => {
@@ -79,20 +79,15 @@ export class InboxComponent implements OnInit {
   }
 
   openDetails(objection: any): void {
-    // console.log('objection:', objection);
-    if (objection.votes[0]?.objection_id > 0) {
-      const detailDialogRef = this.detailDialog.open(ObjectionDetailsComponent, {
-        width: '500px',
-        data: { 
-          objection: objection,
-          source: 'inbox'
-        },
-      });
-      detailDialogRef.afterClosed().subscribe(() => {
-        this.init();
-      });
-    } else {
-      return;
-    }
+    const detailDialogRef = this.detailDialog.open(ObjectionDetailsComponent, {
+      width: '500px',
+      data: { 
+        objection: objection,
+        source: 'open'
+      },
+    });
+    detailDialogRef.afterClosed().subscribe(() => {
+      this.init();
+    });
   }
 }

@@ -1,0 +1,38 @@
+<div class="neighborhood-details-main-div">
+    <h2 mat-dialog-title>{{ name }} Details</h2>
+    <mat-dialog-content>
+        <p>
+            Created:  {{ createdAt }}
+        </p>
+        <p>
+            Updated:  {{ updatedAt }}
+        </p>
+        <br />
+        <p>
+            Property count:  {{ propertyCount }}
+        </p>
+        <ul>
+            <li *ngFor="let unit of propertyList">
+                {{ unit.addressLineOne }}{{ unit.addressLineTwo && (',  ' + unit.addressLineTwo) }},  {{ unit.city }}
+            </li>
+        </ul>
+        <br>
+        <p>
+            Owner count:  {{ ownerCount }}
+        </p>
+        <ul>
+            <li *ngFor="let owner of ownerList">
+                {{ owner.firstName }}  {{ owner.lastName }}
+            </li>
+        </ul>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button 
+            mat-raised-button
+            type="button"
+            color="accent"
+            (click)="close()">
+        Close
+        </button>
+    </mat-dialog-actions>
+</div>

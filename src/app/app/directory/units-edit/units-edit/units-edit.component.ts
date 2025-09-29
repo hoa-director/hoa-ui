@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from "../../../../services/user.service";
 import { DataService } from "app/services/data.service";
-import { ActivatedRoute } from '@angular/router';
+import { NeighborhoodCenterService } from "../../../../services/neighborhood-center.service";
+import { ActivatedRoute, Router } from '@angular/router';
 // -- models
 import { Unit } from "../../unit.model";
 // -- css & Components
-import { isLoading } from "../../../../shared/isLoading";
+// import { isLoading } from "../../../../shared/isLoading";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
@@ -22,15 +23,10 @@ export class UnitsEditComponent {
   editUnitForm: FormGroup;
   allUnits: any;
   availableUsers: any;
-  isLoading = false;
+  // isLoading = false;
   formIsDisabled: boolean = false
   unitStatus: boolean = false; 
-  associations = [
-    {
-      id: sessionStorage.getItem("associationId").toString(), 
-      associationName: sessionStorage.getItem("associationName").toString()
-    },
-  ];
+  associations: any[] = [];
   allUnitStatuses = [
     { id: 0, name: 'Inactive', description: 'Unit is inactive' },
     { id: 1, name: 'Active', description: 'Unit is active' },
@@ -38,9 +34,11 @@ export class UnitsEditComponent {
 
 constructor(
   private dataService: DataService,
+  private neighborhoodCenterService: NeighborhoodCenterService,
   private fb: FormBuilder,
   private dialog: MatDialog,
-  private route: ActivatedRoute
+  private route: ActivatedRoute,
+  private router: Router
 ) {}
 
 // -- PAGE LOAD
@@ -48,16 +46,23 @@ ngOnInit() {
   // this.listenForEvents();
   this.getParams();
   this.initEditUnitForm();
-  this.getAllUnits();
+  // this.getAllUnits();
   this.getAvailableUsers();
-  this.disableForm();
+  // this.disableForm();
+
+  this.neighborhoodCenterService.fetchNeighborhoods()
+    .subscribe((response: any) => {
+      this.associations = response;
+    }, (error: any) => {
+      console.log('Error fetching neighborhoods:', error);
+    });
 
   this.editUnitForm.get('unitId')?.valueChanges.subscribe(value => { // -- Listen for Unit Dropdown selection changes
     // console.log('on_Init_VALUE', value);
     this.unitId = value;
     // console.log('on_Init_this.unitId', this.unitId);
     this.getUnit(this.unitId) 
-    this.disableForm();
+    // this.disableForm();
   });
 }
 
@@ -76,49 +81,56 @@ getParams(){
 }
 
 // --  ACTIVATE/DEACTIVATE UNIT
-onToggleChangeUnit(): void {
-  if(this.currentUnit){
-    // console.log('CURRENT USER this.currentUser.id:', this.currentUint.id);
-    this.dataService.updateUnitStatus(this.currentUnit.id, this.unitStatus)
-    .subscribe(
-      (responseData: any) => {
-        if (responseData.status === 'success') {
-          // console.log('ToggleChangeunit responseData:', responseData);
-          this.openSuccessModal(); // -- need to import to use
-          this.getUnit(this.unitId)
-          // this.disableEnableForm(); // --------------------------come back to this
-        } else if (responseData.status === 'failure') {
-          this.openFailureModal('User update failed.'); // Handle failure
-        }
-      }
-    );
-  } else { // this code should never fire. It's just incase.
-    console.error('No current unit selected');
-    alert('No Unit Selected');
-  }
-}
+// onToggleChangeUnit(): void {
+//   if(this.currentUnit){
+//     // console.log('CURRENT USER this.currentUser.id:', this.currentUint.id);
+//     this.dataService.updateUnitStatus(this.currentUnit.id, this.unitStatus)
+//     .subscribe(
+//       (responseData: any) => {
+//         if (responseData.status === 'success') {
+//           // console.log('ToggleChangeunit responseData:', responseData);
+//           this.openSuccessModal("Successfully updated address's status");
+//           this.getUnit(this.unitId)
+//           // this.disableEnableForm(); // --------------------------come back to this
+//         } else if (responseData.status === 'failure') {
+//           this.openFailureModal('User update failed.'); // Handle failure
+//         }
+//       }
+//     );
+//   } else { // this code should never fire. It's just incase.
+//     console.error('No current unit selected');
+//     alert('No Unit Selected');
+//   }
+// }
 
 // --  GET ALL UNITS DROPDOWN -- //
-getAllUnits(){
-    isLoading(true);
-    this.dataService.fetchUnits('')
-    .subscribe((responseData: any) => {
-      this.allUnits = [...responseData.directory];
-      // this.cdr.detectChanges();
-    }).add(() => {
-      isLoading(false);
-    });
-}
+// getAllUnits(){
+//     // isLoading(true);
+//     this.dataService.fetchUnits('')
+//     .subscribe((responseData: any) => {
+//       this.allUnits = [...responseData.directory];
+//       // this.cdr.detectChanges();
+//     }).add(() => {
+//       // isLoading(false);
+//     });
+// }
 
 // --  GET AVAILABLE USERS DROPDOWN -- //
 getAvailableUsers(){
-    isLoading(true);
+    // isLoading(true);
     this.dataService.getAvailableUsers()
     .subscribe((responseData: any) => {
       this.availableUsers = [...responseData];
+      if (this.currentUnit.user && this.currentUnit.userId !== 0) {
+        this.availableUsers.unshift({
+          id: this.currentUnit.userId,
+          firstName: this.currentUnit.user.firstName,
+          lastName: this.currentUnit.user.lastName
+        });
+    }
       // this.cdr.detectChanges();
     }).add(() => {
-      isLoading(false);
+      // isLoading(false);
     });
 }
 
@@ -127,7 +139,7 @@ getAvailableUsers(){
 initEditUnitForm() {
   this.editUnitForm = this.fb.group({
     unitId: [{value: this.unitId, disabled: false}, [Validators.required]], 
-    associationId: [{value: this.associations[0].id, disabled: true}, [Validators.required]], // required. Add get association
+    associationId: ['', [Validators.required]],
     addressLineOne: [''],
     addressLineTwo: [''],
     city: ['', [Validators.required]],
@@ -142,21 +154,21 @@ initEditUnitForm() {
 
 // -- GET UNIT
 getUnit(unitId: number) {
-  isLoading(true);
+  // isLoading(true);
   this.dataService.fetchOneUnit(unitId)
   .subscribe((responseData: any) => {
     this.currentUnit = responseData;
     if (this.currentUnit){
-      // console.log('GET_UNIT_CURRENT_unit:', this.currentUnit );
+      // console.log('currentUnit:', this.currentUnit );
       this.updateEditUnitForm(this.currentUnit)
-      this.unitStatus = this.currentUnit.deletedAt ? false : true
-      this.disableEnableForm(); 
-      if(!this.unitStatus){
-        this.disableForm();
-      }
+      this.unitStatus = this.currentUnit.deletedAt ? false : true;
+      // this.disableEnableForm(); 
+      // if(!this.unitStatus){
+      //   this.disableForm();
+      // }
     }
   }).add(() => {
-    isLoading(false);
+    // isLoading(false);
   });
 }
 
@@ -194,12 +206,13 @@ enableForm(){
 // -- UPDATE EDIT FORM
 updateEditUnitForm(unit: any) {
   this.editUnitForm.patchValue({
+    associationId: unit.associationId || '',
     addressLineOne: unit.addressLineOne || '',
     addressLineTwo: unit.addressLineTwo || '',
     city: unit.city || '',
     state: unit.state || '',
     zip: unit.zip || '',
-    user: unit.user || ''
+    user: unit.userId || 0
   });
 }
 
@@ -211,13 +224,13 @@ saveUnitChanges(){
     const formValues = this.editUnitForm.value
     const unitObj = {
       unitId: this.currentUnit.id,
-      // associationId: formValues.associationId, //  don't send for now. 
+      associationId: formValues.associationId,
       addressLineOne: formValues.addressLineOne,
       addressLineTwo: formValues.addressLineTwo,
       city: formValues.city,
       state: formValues.state,
       zip: formValues.zip,
-      user: formValues.user,
+      userId: formValues.user === 0 ? null : parseInt(formValues.user),
       status: formValues.status === 'true' ? true : (formValues.status === 'false' ? false : null), //  true/false
     } 
     this.dataService
@@ -225,36 +238,45 @@ saveUnitChanges(){
     .subscribe(
       (responseData: any) => {
         if (responseData.status === 'success') {
-          this.openSuccessModal(); // -- need to import to use
+          this.openSuccessModal("Information for the address was successfully updated");
+          this.router.navigate(['/home/directory/view']);
         } else if (responseData.status === 'failure') {
-          this.openFailureModal('User update failed.'); // Handle failure
+          this.openFailureModal('Failed to update address information'); // Handle failure
         }
       }
     );
   }
 }
 
-// -- CANCEL
-onReset(): void {
-  console.log('onReset() - CANCEL');
-  // this.editUnitForm.reset({
-  //   associationId: this.associations[0].id, // required
-  //   addressLineOne: '',
-  //   // addressLineTwo: '',
-  //   // city: '',
-  //   // state: '',
-  //   // zip: '',
-  //   user: '', // required
-  // });
+onDelete() {
+  const confirmed = window.confirm("Are you sure you want to permanently delete this address?");
+  if (confirmed) {
+    const unitId = this.currentUnit.id;
+    this.dataService.deleteUnit(unitId).subscribe((response: any) => {
+      if (response.status === 'success') {
+        this.openSuccessModal("Successfully deleted address");
+        this.router.navigate(["/home/directory/view"]);
+      } else {
+        this.openFailureModal("Failed to delete address");
+      }
+    })
+  } else {
+    return;
+  }
 }
 
-openSuccessModal() {
+// -- CANCEL
+onReset(): void {
+  this.router.navigate(['/home/directory/view']);
+}
+
+openSuccessModal(message: string) {
   this.dialog.open(SuccessModalComponent, {
-    data: { message: "User was updated successfully." }
+    data: { message: message }
   });
 }
 
-openFailureModal(message) {
+openFailureModal(message: string) {
   this.dialog.open(FailureModalComponent, {
     data: { message: message }
   })

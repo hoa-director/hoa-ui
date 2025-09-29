@@ -10,7 +10,7 @@ import { testRow } from "./testRows.model";
 import { Rule } from '../rules/rule.model';
 
 // -- COMPONENTS
-import { isLoading } from "../../shared/isLoading";
+// import { isLoading } from "../../shared/isLoading";
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -31,7 +31,7 @@ export class TestComponentComponent {
 
   private loadingListenerSubs: Subscription;
   private userSubjectSubs: Subscription;
-  isLoading = false;
+  // isLoading = false;
 
   constructor(
     private dataService: DataService,  // -- SERVICE
@@ -63,7 +63,7 @@ export class TestComponentComponent {
 
 // -- WORKS
   onFetchRows() {
-    isLoading(true);
+    // isLoading(true);
     this.dataService.fetchRows().subscribe((responseData: any) => {
       if(responseData){
         this.testRows = [...responseData];
@@ -71,23 +71,23 @@ export class TestComponentComponent {
       }
     })
       .add(() => {
-        isLoading(false);
+        // isLoading(false);
       });
   };
 
   // -- WORKS -- ONLY Adds a 'deleted_at' value, doesn't actually delete.
   onDeleteRow(deleteThis) {
-    isLoading(true);
+    // isLoading(true);
     this.dataService
     .deleteRowAPI(deleteThis) // -- this does fire 
     .subscribe((responseData: any) => {
 
-      console.log("createTestRow responseData:", responseData);
+      // console.log("createTestRow responseData:", responseData);
       // this.deletedRows = [responseData];
     })
       .add(() => {
         this.onFetchRows();
-        isLoading(false);
+        // isLoading(false);
       });
   };
 
@@ -95,7 +95,7 @@ export class TestComponentComponent {
 
 // -- WORKS
   onCreateTestRow() {
-    isLoading(true);
+    // isLoading(true);
     this.dataService
     .createTestRow('Adding a row', true, 1138) // -- this does fire 
     .subscribe((responseData: any) => {
@@ -104,21 +104,21 @@ export class TestComponentComponent {
     })
       .add(() => {
         this.onFetchRows();
-        isLoading(false);
+        // isLoading(false);
       });
   };
 
 // -- WORKS
   onUpdateRow() {
-    isLoading(true);
+    // isLoading(true);
     this.dataService
     .updateRow('API UPDATE Works!') // -- this does fire 
     .subscribe((responseData: any) => {
-      console.log("UPDATE Row responseData:", responseData);
+      // console.log("UPDATE Row responseData:", responseData);
       this.testRows = [...responseData];
     })
       .add(() => {
-        isLoading(false);
+        // isLoading(false);
       });
   };
 

@@ -33,7 +33,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { UnitsEditComponent } from './units-edit/units-edit/units-edit.component';
-
+import { UnitsEditOwnComponent } from './units-edit/units-edit-own/units-edit-own.component';
 
 
 export const DirectoryRoutes: Routes = [
@@ -43,24 +43,20 @@ export const DirectoryRoutes: Routes = [
     canActivate: [AuthGuardService],
     runGuardsAndResolvers: 'always',
     children: [
-      {
-        path: "",
-        redirectTo: "home/directory/units-view",
-        pathMatch: "full",
-      },
-      { path: "units-view", component: UnitsViewComponent },
-      { path: "units-add", component: UnitsAddComponent },
-      { path: "units-edit/:unitId", component: UnitsEditComponent },
-      { path: "units-edit", component: UnitsEditComponent },
+      { path: "view", component: UnitsViewComponent },
+      { path: "add", component: UnitsAddComponent },
+      { path: "edit/:unitId", component: UnitsEditComponent },
+      { path: "update-phone", component: UnitsEditOwnComponent },
     ],
   },
 ]
 @NgModule({
   declarations: [
-    DirectoryComponent, // -- actually "directory-home"
+    DirectoryComponent,
     UnitsViewComponent, 
     UnitsAddComponent, 
     UnitsEditComponent, // Delete Unit is in Edit Page
+    UnitsEditOwnComponent,
   ],
   imports: [
     RouterModule.forChild(DirectoryRoutes),

@@ -1,0 +1,46 @@
+.p-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.form-grid label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.625rem;
+    grid-column: 1 / 2;
+    font-size: 1.3rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1.25rem;
+    row-gap: 10rem;
+    max-width: 50%;
+    width: 50%;
+}
+
+.p-phone {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.p-second-phone {
+    margin-top: 25px;
+}
+
+.validator-msg {
+    font-size: 1.3rem;
+}
+
+mat-form-field {
+    font-size: 1.5rem;
+}
+
+button {
+    margin: 20px 15px 20px 0;
+    width: 80px;
+    font-size: 1.3rem;
+}

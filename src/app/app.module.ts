@@ -66,6 +66,7 @@ import { UsersCenterModule } from "./app/users-center/users-center.module";
 import { SuccessModalComponent } from './app/success-modal/success-modal.component';
 import { DirectoryModule } from "./app/directory/directory.module";
 import { FailureModalComponent } from './app/failure-modal/failure-modal.component';
+import { NeighborhoodCenterModule } from "./app/neighborhood-center/neighborhood-center.module";
 
 // import { UsersComponent } from './app/users-center/users-view/users.component';
 // import { UsersCenterComponent } from './app/users-center/users-center.component';
@@ -134,6 +135,7 @@ import { FailureModalComponent } from './app/failure-modal/failure-modal.compone
         DirectoryModule,
         ResolutionCenterModule,
         UsersCenterModule,
+        NeighborhoodCenterModule
     ],
     exports: [
         MatSlideToggleModule

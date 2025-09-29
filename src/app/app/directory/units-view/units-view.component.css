@@ -8,15 +8,85 @@
   background-color: lightgrey;
   border-radius: 5px;
   /* padding: 1rem; */
+  gap: 8px; /* Space between cards */
+  padding: 16px;
+  width: 332px;
+  margin-bottom: 30px;
 }  
 
+@media (min-width: 865px) {
+  .flex-container {
+    width: 640px;
+  }
+}
+
+@media (min-width: 1176px) {
+  .flex-container {
+    width: 950px;
+  }
+}
+
 .unit-card {
-  width: 28rem;
-  /* height: 24rem; */
+  width: 280px;
   /* margin-right: 2rem; */
   /* margin-left: 1rem; */
   margin: 1rem;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.is-pres-or-admin {
+  height: 330px;
+}
+
+.is-owner {
+  height: 280px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.625rem;
+    grid-column: 1 / 2;
+    font-size: 1.3rem;
+}
+
+#inputString {
+  font-size: 1.5rem;
+  display: inline;
+  margin-bottom: 1rem;
+}
+
+.btn-clear-search {
+  display: inline;
+  margin: 15px 0 1rem 10px;
+}
+
+.btn-add-unit {
+  display: inline;
+  width: 111px;
+  margin: 0 0 16px 0;
+}
+
+@media (min-width: 630px) {
+  .btn-add-unit {
+    margin-top: 20px;
+    margin-left: 16px;
+  }
+}
+
+@media (min-width: 865px) {
+  .btn-add-unit {
+    margin-top: 20px;
+    margin-left: 244px;
+  }
+}
+
+@media (min-width: 1176px) {
+  .btn-add-unit {
+    margin-top: 20px;
+    margin-left: 554px;
+  }
 }
 
 mat-card-header {
@@ -33,12 +103,17 @@ mat-card-header {
   align-items: center; /* Vertical */
   /* border: 1px dashed red; */
 }
-mat-card-title {
-  /* border: 1px solid red; */
+/* mat-card-title {
+  border: 1px solid red;
 }
 mat-card-actions {
-  /* border: 1px solid red; */
+  border: 1px solid red;
+} */
+
+.edit-phone-button {
+  width: 70px;
 }
+
 .edit-button {
   border: 1px solid black;
   box-shadow: 0px 0px 0px;
@@ -58,17 +133,28 @@ mat-card-actions {
   min-height: 1.8rem;
   margin-bottom: .1rem;
 }
+
 .card-content {
   /* border: 1px solid green; */
   margin: 1rem;
   padding-left: 0rem;
   padding-right: 0rem;
   padding-bottom: 0px;
+  font-size: 1.3rem;
+  line-height: 1.4;
 }
+
 .mat-mdc-card-content:last-child {
   padding-bottom: 0px;
 }
+
 .contact-info {
   /* border: 1px solid green; */
   margin-bottom: 0px;
+}
+
+.no-results-message {
+  font-size: 1.5rem;
+  margin: 1rem;
+  font-weight: bold;
 }

@@ -15,6 +15,8 @@ export class RequestPasswordChangeComponent implements OnInit {
 
   message: string = "";
 
+  requestResult: string = "";
+
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {}
@@ -32,6 +34,7 @@ export class RequestPasswordChangeComponent implements OnInit {
     this.userService.requestToken(email).subscribe(
       (response) => {
         this.message = `An email will be sent to ${email} with a link to reset your password`;
+        this.requestResult = "success";
         this.requestPasswordChange.disable();
         setTimeout(() => {
           this.router.navigate(["/landing"]);
@@ -39,6 +42,7 @@ export class RequestPasswordChangeComponent implements OnInit {
       },
       (error) => {
         this.message = `We couldn\'t find an account associated with ${email}`;
+        this.requestResult = "error";
       }
     );
   }

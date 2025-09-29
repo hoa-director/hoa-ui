@@ -12,7 +12,7 @@ import { Subscription } from "rxjs";
 export class ResolutionCenterComponent implements OnInit {
   resolutionCenterLinks: any[];
   activeLink: string;
-  isLoading = false;
+  // isLoading = false;
   private userSubjectSubs: Subscription;
   
   constructor(
@@ -22,25 +22,6 @@ export class ResolutionCenterComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.resolutionCenterLinks = [];
-    // this.resolutionCenterLinks = [
-    //   {
-    //     name: "Open Motions (Inbox)",
-    //     path: "inbox",
-    //   },
-    //   // ---- REMOVING "Outbox" PAGE/COMPONENT ----
-    //   // {
-    //   //   name: "Open Motions (Outbox)",
-    //   //   path: "outbox",
-    //   // },
-    //   {
-    //     name: "Past Motions",
-    //     path: "past",
-    //   },
-    //   {
-    //     name: "File Motion",
-    //     path: "objection/create",
-    //   },
-    // ];
   }
 
   ngOnInit() {
@@ -50,13 +31,13 @@ export class ResolutionCenterComponent implements OnInit {
     // set active tab based on url
     this.router.events.subscribe(() => {
       switch (this.getCurrentUrl()) {
-        case "/home/resolution-center/inbox":
+        case "/home/resolution-center/open":
           this.activeLink = "Open Motions";
           break;
         case "/home/resolution-center/past":
           this.activeLink = "Past Motions";
           break;
-        case "/home/resolution-center/objection/create":
+        case "/home/resolution-center/new":
           this.activeLink = "File New Motion";
           break;
         default:
@@ -79,7 +60,7 @@ export class ResolutionCenterComponent implements OnInit {
         if (value === true) {
           this.resolutionCenterLinks.push(
             // -- Open Motions
-            { name: "Open Motions", path: "inbox" }
+            { name: "Open Motions", path: "open" }
           );
           this.resolutionCenterLinks.push(
             // -- Past Motions
@@ -91,7 +72,7 @@ export class ResolutionCenterComponent implements OnInit {
         if (value === true) {
           this.resolutionCenterLinks.push(
             // -- Can created Motions
-            { name: "File New Motion", path: "objection/create" }
+            { name: "File New Motion", path: "new" }
           );
         }
       }
@@ -107,7 +88,7 @@ export class ResolutionCenterComponent implements OnInit {
     // this.dataService.fetchCurrentUserPermission('directory').subscribe((Response: any) => {
     this.dataService.fetchCurrentUserPermission("resolution-center").subscribe((Response: any) => {
         // -- MUST match database!
-        console.log("response", Response);
+        // console.log("response", Response);
         this.checkPermissionsObject(Response);
       })
       .add(() => {
