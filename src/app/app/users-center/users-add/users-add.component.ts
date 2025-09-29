@@ -146,9 +146,15 @@ addUser(): void {
         } else if (responseData.status === 500) { // error
           this.openFailureModal('Unable to create new user. Please try again later.');
         } else { // success
+          // email new user a password reset link
+          this.userService.requestToken(user.email).subscribe( response => {
+            console.log('Password reset link sent to new user email.');
+          }, error => {
+            console.error('Error sending password reset link:', error);
+          });
+
           this.openSuccessModal();
           this.onReset(); // -- Reset Form
-          this.userService.requestToken(user.email); // email new user a password reset link
           this.router.navigate(['/home/user-center/view']);
         }
       }, (error) => { // -- If Error
