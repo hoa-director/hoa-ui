@@ -1,5 +1,10 @@
-footer {
-  height: 100%;
+.footer {
+  height: 100px;
   background-color: rgba(38, 41, 84);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.3em;
   /* margin-top: auto; */
 }

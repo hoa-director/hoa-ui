@@ -1,7 +1,7 @@
 
 <div class="main-user-edit-div">
 
-    <p>Edit User: {{currentUser.firstName}} {{currentUser.lastName}}</p>
+    <p>Edit User: {{currentUser?.firstName}} {{currentUser?.lastName}}</p>
 
     <div class="form-container">
         <form [formGroup]="editUserForm" (ngSubmit)="saveUserChanges()" >

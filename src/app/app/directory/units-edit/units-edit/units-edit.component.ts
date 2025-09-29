@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from "../../../../services/user.service";
 import { DataService } from "app/services/data.service";
+import { NeighborhoodCenterService } from "../../../../services/neighborhood-center.service";
 import { ActivatedRoute, Router } from '@angular/router';
 // -- models
 import { Unit } from "../../unit.model";
 // -- css & Components
-import { isLoading } from "../../../../shared/isLoading";
+// import { isLoading } from "../../../../shared/isLoading";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
@@ -22,15 +23,10 @@ export class UnitsEditComponent {
   editUnitForm: FormGroup;
   allUnits: any;
   availableUsers: any;
-  isLoading = false;
+  // isLoading = false;
   formIsDisabled: boolean = false
   unitStatus: boolean = false; 
-  associations = [
-    {
-      id: sessionStorage.getItem("associationId").toString(), 
-      associationName: sessionStorage.getItem("associationName").toString()
-    },
-  ];
+  associations: any[] = [];
   allUnitStatuses = [
     { id: 0, name: 'Inactive', description: 'Unit is inactive' },
     { id: 1, name: 'Active', description: 'Unit is active' },
@@ -38,6 +34,7 @@ export class UnitsEditComponent {
 
 constructor(
   private dataService: DataService,
+  private neighborhoodCenterService: NeighborhoodCenterService,
   private fb: FormBuilder,
   private dialog: MatDialog,
   private route: ActivatedRoute,
@@ -49,16 +46,23 @@ ngOnInit() {
   // this.listenForEvents();
   this.getParams();
   this.initEditUnitForm();
-  this.getAllUnits();
+  // this.getAllUnits();
   this.getAvailableUsers();
-  this.disableForm();
+  // this.disableForm();
+
+  this.neighborhoodCenterService.fetchNeighborhoods()
+    .subscribe((response: any) => {
+      this.associations = response;
+    }, (error: any) => {
+      console.log('Error fetching neighborhoods:', error);
+    });
 
   this.editUnitForm.get('unitId')?.valueChanges.subscribe(value => { // -- Listen for Unit Dropdown selection changes
     // console.log('on_Init_VALUE', value);
     this.unitId = value;
     // console.log('on_Init_this.unitId', this.unitId);
     this.getUnit(this.unitId) 
-    this.disableForm();
+    // this.disableForm();
   });
 }
 
@@ -100,20 +104,20 @@ getParams(){
 // }
 
 // --  GET ALL UNITS DROPDOWN -- //
-getAllUnits(){
-    isLoading(true);
-    this.dataService.fetchUnits('')
-    .subscribe((responseData: any) => {
-      this.allUnits = [...responseData.directory];
-      // this.cdr.detectChanges();
-    }).add(() => {
-      isLoading(false);
-    });
-}
+// getAllUnits(){
+//     // isLoading(true);
+//     this.dataService.fetchUnits('')
+//     .subscribe((responseData: any) => {
+//       this.allUnits = [...responseData.directory];
+//       // this.cdr.detectChanges();
+//     }).add(() => {
+//       // isLoading(false);
+//     });
+// }
 
 // --  GET AVAILABLE USERS DROPDOWN -- //
 getAvailableUsers(){
-    isLoading(true);
+    // isLoading(true);
     this.dataService.getAvailableUsers()
     .subscribe((responseData: any) => {
       this.availableUsers = [...responseData];
@@ -126,7 +130,7 @@ getAvailableUsers(){
     }
       // this.cdr.detectChanges();
     }).add(() => {
-      isLoading(false);
+      // isLoading(false);
     });
 }
 
@@ -135,7 +139,7 @@ getAvailableUsers(){
 initEditUnitForm() {
   this.editUnitForm = this.fb.group({
     unitId: [{value: this.unitId, disabled: false}, [Validators.required]], 
-    associationId: [{value: this.associations[0].id, disabled: true}, [Validators.required]], // required. Add get association
+    associationId: ['', [Validators.required]],
     addressLineOne: [''],
     addressLineTwo: [''],
     city: ['', [Validators.required]],
@@ -150,7 +154,7 @@ initEditUnitForm() {
 
 // -- GET UNIT
 getUnit(unitId: number) {
-  isLoading(true);
+  // isLoading(true);
   this.dataService.fetchOneUnit(unitId)
   .subscribe((responseData: any) => {
     this.currentUnit = responseData;
@@ -158,13 +162,13 @@ getUnit(unitId: number) {
       // console.log('currentUnit:', this.currentUnit );
       this.updateEditUnitForm(this.currentUnit)
       this.unitStatus = this.currentUnit.deletedAt ? false : true;
-      this.disableEnableForm(); 
-      if(!this.unitStatus){
-        this.disableForm();
-      }
+      // this.disableEnableForm(); 
+      // if(!this.unitStatus){
+      //   this.disableForm();
+      // }
     }
   }).add(() => {
-    isLoading(false);
+    // isLoading(false);
   });
 }
 
@@ -202,6 +206,7 @@ enableForm(){
 // -- UPDATE EDIT FORM
 updateEditUnitForm(unit: any) {
   this.editUnitForm.patchValue({
+    associationId: unit.associationId || '',
     addressLineOne: unit.addressLineOne || '',
     addressLineTwo: unit.addressLineTwo || '',
     city: unit.city || '',
@@ -219,7 +224,7 @@ saveUnitChanges(){
     const formValues = this.editUnitForm.value
     const unitObj = {
       unitId: this.currentUnit.id,
-      // associationId: formValues.associationId, //  don't send for now. 
+      associationId: formValues.associationId,
       addressLineOne: formValues.addressLineOne,
       addressLineTwo: formValues.addressLineTwo,
       city: formValues.city,
@@ -234,7 +239,7 @@ saveUnitChanges(){
       (responseData: any) => {
         if (responseData.status === 'success') {
           this.openSuccessModal("Information for the address was successfully updated");
-          this.router.navigate(['/home/directory/units-view']);
+          this.router.navigate(['/home/directory/view']);
         } else if (responseData.status === 'failure') {
           this.openFailureModal('Failed to update address information'); // Handle failure
         }
@@ -250,7 +255,7 @@ onDelete() {
     this.dataService.deleteUnit(unitId).subscribe((response: any) => {
       if (response.status === 'success') {
         this.openSuccessModal("Successfully deleted address");
-        this.router.navigate(["/home/directory/units-view"]);
+        this.router.navigate(["/home/directory/view"]);
       } else {
         this.openFailureModal("Failed to delete address");
       }
@@ -262,7 +267,7 @@ onDelete() {
 
 // -- CANCEL
 onReset(): void {
-  this.router.navigate(['/home/directory/units-view']);
+  this.router.navigate(['/home/directory/view']);
 }
 
 openSuccessModal(message: string) {

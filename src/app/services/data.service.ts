@@ -31,7 +31,7 @@ export class DataService {
       const payload = {
         organizationId: sessionStorage.getItem("associationId").toString(), // -- associationIds MUST be un an array to work.
       }
-      console.log('PAYLOAD:', payload);
+      // console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
 
@@ -42,7 +42,7 @@ export class DataService {
     const payload = {
       organizationId: sessionStorage.getItem("associationId").toString(), // -- associationIds MUST be un an array to work.
     }
-    console.log('PAYLOAD:', payload);
+    // console.log('PAYLOAD:', payload);
     return this.http.post(BACKEND_URL + endPoint, payload );
   }
   
@@ -74,29 +74,17 @@ export class DataService {
 
 
   // ---------------- VIEW UNITS PAGE ---------------- //
-  // -- UNITS API ENDPOINT -- default when page opens
+  // -- RUNS ON PAGE LOAD
   fetchUnits(inputString: string) {
     const associationId = sessionStorage.getItem("associationId").toString()
     const payload = {
       associationId: associationId,
-      inputString: inputString // -- MUST match database!
+      inputString: inputString
     }
     return this.http.post(BACKEND_URL + "/api/directory", payload)
   }
 
-  // -- USERS API ENDPOINT
-  fetchUnitsByUserAPI(inputString: string) { 
-    const endPoint = "/api/directoryByUser"
-      // .set('associationId',sessionStorage.getItem("associationId").toString()) // -- get from session
-      // .set('associationId', associationId.toString())  // -- get from previous function
-      const associationId = sessionStorage.getItem("associationId").toString()
-      const payload = {
-            associationId: [associationId], // -- associationIds MUST be un an array to work.
-            inputString: inputString
-          }
-    return this.http.post(BACKEND_URL + endPoint, payload );
-  }
-
+  // RUNS ON SEARCH INPUT
   searchUnits(inputString: string) {
     const associationId = sessionStorage.getItem("associationId").toString();
     const payload = { associationId, inputString };
@@ -121,9 +109,9 @@ export class DataService {
   // -- GET ONE UNIT
   fetchOneUnit(unitId: number) { 
     const endPoint = "/api/getUnit"
-      const associationId = sessionStorage.getItem("associationId").toString()
+      // const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {
-            associationId: associationId, 
+            // associationId: associationId, 
             unitId: unitId 
           }
     return this.http.post(BACKEND_URL + endPoint, payload );
@@ -137,7 +125,7 @@ export class DataService {
 
     // --UPDATE USER STATUS
     updateUnitStatus(currentUnitId: number, unitStatus: boolean){
-      console.log('currentUnitId:', currentUnitId);
+      // console.log('currentUnitId:', currentUnitId);
       const endPoint = "/api/updateUnitStatus"
       const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {
@@ -155,7 +143,7 @@ export class DataService {
 
      // -- UPDATE UNIT INFO
      updateUnit(unitObj: any, ){
-      console.log('USEOBJ:', unitObj);
+      // console.log('USEOBJ:', unitObj);
       const endPoint = "/api/updateUnit"
       const associationId = sessionStorage.getItem("associationId").toString()
       const payload = {

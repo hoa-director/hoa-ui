@@ -2,6 +2,19 @@
   <h2 mat-dialog-title class="vote-dialog-title">Please vote on the following motion:</h2>
   <mat-dialog-content>
     <p class="vote-description">{{ objectionData.comment }}</p>
+    <br>
+    <p class="detail black-text">
+      <span>Closes at:  </span>
+      <span>{{ objectionData.closesAt | date: 'MMMM d, y, h:mm a' }}</span>
+    </p>
+    <p class="detail black-text">
+      <span>Submitted by:  </span>
+      <span>{{ objectionData.submittedByUser?.units[0]?.addressLineOne }}</span>
+    </p>
+    <p class="detail black-text">
+      <span>Submitted against:  </span>
+      <span>{{ objectionData.submittedAgainstUser?.units[0]?.addressLineOne || 'General' }}</span>
+    </p>
   </mat-dialog-content>
   <form [formGroup]="voteForm" (ngSubmit)="onSubmit(objectionData.id)">
     <mat-radio-group

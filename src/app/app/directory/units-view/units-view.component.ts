@@ -7,7 +7,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Router } from "@angular/router";
 
 // css
-import { isLoading } from "../../../shared/isLoading";
+// import { isLoading } from "../../../shared/isLoading";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 // models
 import { Unit } from ".././unit.model";
@@ -23,9 +23,10 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   currentUserId: number = parseInt(sessionStorage.getItem('userId'));
   currentUserPermission: object;
   renderAddButton: boolean = false;
+  isPresOrAdmin: boolean = (sessionStorage.getItem('roleTitle') === 'President' || sessionStorage.getItem('roleTitle') === 'Admin') ? true : false ;
 
   private userSubjectSubs: Subscription;
-  isLoading = true;
+  // isLoading = true;
 
   searchUnitsForm: FormGroup;
   inputStringSearch: string = '';
@@ -99,7 +100,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   }
   // -- Check is user has unit editing permissions
   checkCurrentUserPermissions() {
-    isLoading(true);
+    // isLoading(true);
     // const pageURL = this.getCurrentUrl().split('/').pop(); 
     const parts = this.getCurrentUrl().split('/'); // Split the URL by '/'
     const pageURL = parts[parts.length - 2]; 
@@ -108,12 +109,12 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
       // console.log('response', Response);
       this.checkPermissionsObject(Response);
     }).add(() => {
-      isLoading(false);
+      // isLoading(false);
     });
   }
 
   fetchSearchResults(inputString: string) {
-    isLoading(true);
+    // isLoading(true);
     this.dataService
       .searchUnits(inputString)
       .subscribe((responseData: any) => {
@@ -121,12 +122,12 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       })
       .add(() => {
-        isLoading(false);
+        // isLoading(false);
       });
   }
 
   goToAddUnit() {
-    this.router.navigate(['/home/directory/units-add']);
+    this.router.navigate(['/home/directory/add']);
   }
 
   listenForEvents() {
@@ -150,10 +151,7 @@ export class UnitsViewComponent implements OnInit, OnDestroy {
   editUnit(unitId: number) {
     if (this.canEditUnit) {
       if (unitId) {
-        this.router.navigate(['/home/directory/units-edit', unitId]); // Navigate to the edit page with unitId
-      } else {
-        console.log('Attempting to edit without unitId');
-        this.router.navigate(['/home/directory/units-edit']); // Navigate to the edit page without unitId
+        this.router.navigate(['/home/directory/edit', unitId]);
       }
     }
   }

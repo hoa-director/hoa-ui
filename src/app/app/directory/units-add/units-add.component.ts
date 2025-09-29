@@ -6,13 +6,14 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { isLoading } from "../../../shared/isLoading";
+// import { isLoading } from "../../../shared/isLoading";
 import { MatDialog } from "@angular/material/dialog";
 // -- models
 import { Unit } from ".././unit.model";
 // -- components
 import { UnitModalComponent } from "../../modal/unit-modal/unit-modal.component";
 import { DataService } from "app/services/data.service";
+import { NeighborhoodCenterService } from "../../../services/neighborhood-center.service";
 import { Router } from '@angular/router';
 import { SuccessModalComponent } from "app/app/success-modal/success-modal.component";
 import { FailureModalComponent } from "app/app/failure-modal/failure-modal.component";
@@ -26,18 +27,13 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
   // newUnit: Unit[] = [];
   addUnitForm: FormGroup;
   availableUsers: any[] = [];
-
-  associations = [
-    {
-      id: sessionStorage.getItem("associationId").toString(), 
-      associationName: sessionStorage.getItem("associationName").toString()
-    },
-  ];
+  associations: any[] = [];
   
-  isLoading = false;
+  // isLoading = false;
 
   constructor(
     private dataService: DataService,
+    private neighborhoodCenterService: NeighborhoodCenterService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private router: Router
@@ -47,8 +43,16 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
     this.dataService.getAvailableUsers().subscribe((response: any) => {
       this.availableUsers = response; // array of {id, firstName, lastName}
     });
+
+    this.neighborhoodCenterService.fetchNeighborhoods()
+      .subscribe((response: any) => {
+        this.associations = response;
+      }, (error: any) => {
+        console.log('Error fetching neighborhoods:', error);
+      });
+
     this.addUnitForm = this.fb.group({
-      associationId: [{value: this.associations[0].id, disabled: true}, [Validators.required]], // required. Add get association
+      associationId: ['', [Validators.required]],
       addressLineOne: ['', [Validators.required]],
       addressLineTwo: [''],
       city: ['', [Validators.required]],
@@ -68,11 +72,9 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
 
   // -- BUG ------- THIS FIRES TWICE. ------------------------------------------------
   addUnit() {
-    // console.log('ADD BTN');
-    
     if (this.addUnitForm.valid) {
-      isLoading(true);
-      this.addUnitForm.get('associationId').enable(); 
+      // isLoading(true);
+      // this.addUnitForm.get('associationId').enable(); 
       const formValues = this.addUnitForm.value;
 
       let unit: Unit = {
@@ -84,44 +86,40 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
         city: formValues.city,
         state: formValues.state,
         zip: formValues.zip,
-        userId: 0 ? null : formValues.userId
+        userId: formValues.userId === 0 ? null : formValues.userId
         // updatedAt: '2024-07-19 18:47:52.63-05',
         // createdAt: '2024-07-19 18:47:52.63-05',
       };
-      this.addUnitForm.get('associationId').disable(); 
-      // console.log("formValues", formValues);
+      // this.addUnitForm.get('associationId').disable(); 
 
       this.dataService
         .addUnit(unit)
         .subscribe(
           (responseData: any) => {
-            if(responseData.status === 'success'){ // -- If Response
-              // console.log("SUCCESS responseData:", responseData);
+            if(responseData.status === 'success') {
               setTimeout(() => {
                 this.openSuccessModal(); // -- tell user it worked
                 this.onReset(); // -- clear form
+                this.router.navigate(['/home/directory/view']);
               }, 500);
-              this.router.navigate(['/home/directory/units-view']);
-            } else if (responseData.status === 'failure') { // -- If NO Response
-              // console.log('openFailureModal? responseData:', responseData);
+            } else if (responseData.status === 'failure') {
               this.openFailureModal(responseData.message); // -- tell user it did NOT work
             }
           },
           (error) => { // -- If Error
             this.openFailureModal('An error occurred when attempting to save a new unit: ' + error); // -- tell user it did NOT work
-            // console.log("openFailureModal? error:", error);
           }
         );
     } else { // -- If FORM NOT VALID
       return;
     }
-    isLoading(false);
+    // isLoading(false);
   }
 
   onReset(): void {
     // console.log('CLEAR BTN');
     this.addUnitForm.reset({
-      // associationId: this.associations[0].id, // required
+      associationId: '',
       addressLineOne: '',
       addressLineTwo: '',
       city: '',
@@ -133,7 +131,7 @@ export class UnitsAddComponent implements OnInit, OnDestroy {
 
   onCancel(): void {
     this.onReset();
-    this.router.navigate(['/home/directory/units-view']);
+    this.router.navigate(['/home/directory/view']);
   }
 
   openSuccessModal() {

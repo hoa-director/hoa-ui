@@ -19,7 +19,7 @@
 .vote-description {
   color: #4678b3;
   font-size: 1.9rem;
-  margin: 2rem 0 0 0;
+  margin: 15px 0 10px 0;
   flex-grow: 1;
   line-height: 2.3rem;
 }
@@ -32,6 +32,7 @@ mat-radio-group {
 
 mat-radio-button {
   font-size: 1.6rem;
+  margin-top: 20px;
 }
 
 // add space between label and next radio button
@@ -46,4 +47,17 @@ mat-radio-button:first-child {
   align-items: center;
   gap: 10px;
   padding-top: 2.5rem;
+}
+
+.detail {
+    font-size: 1.3rem;
+    line-height: 1.6rem;
+}
+
+.blue-text {
+    color: #4678b3;
+}
+
+.black-text {
+    color: black;
 }

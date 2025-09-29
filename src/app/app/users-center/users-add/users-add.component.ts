@@ -7,7 +7,7 @@ import { UsersCenterService } from "../../../services/users-center.service";
 // -- interfaces
 import { User } from "../../../../app/interfaces/user";
 // -- css & Components
-import { isLoading } from "../../../shared/isLoading";
+// import { isLoading } from "../../../shared/isLoading";
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessModalComponent } from 'app/app/success-modal/success-modal.component';
@@ -104,7 +104,7 @@ onAssociationChange(associationId: number) {
 
 onCancel(): void {
   this.onReset();
-  this.router.navigate(['/home/users-center/users-view']);
+  this.router.navigate(['/home/user-center/view']);
 }
 
 // -- CLEAR FORM -- //
@@ -128,7 +128,7 @@ addUser(): void {
       password: formValues.password,  
       number: formValues.organization, //Number(formValues.number),
       role: formValues.role, //Number(formValues.role),
-      unitId: formValues.address,
+      unitId: formValues.address || null,
       phoneOneLabel: null,
       phoneOneNumber: null,
       phoneTwoLabel: null,
@@ -146,7 +146,7 @@ addUser(): void {
         } else { // success
           this.openSuccessModal();
           this.onReset(); // -- Reset Form
-          this.router.navigate(['/home/users-center/users-view']);
+          this.router.navigate(['/home/user-center/view']);
         }
       }, (error) => { // -- If Error
         console.log('ADD-USER ERROR:', error);

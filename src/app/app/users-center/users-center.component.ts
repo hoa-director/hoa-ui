@@ -88,7 +88,7 @@ export class UsersCenterComponent implements OnInit {
       // const pageURL = parts[parts.length - 2 ]; 
       // console.log('new_pageURL', pageURL);
       this.dataService.fetchCurrentUserPermission('users-center').subscribe((Response: any) => {
-        console.log('response', Response);
+        // console.log('response', Response);
         this.checkPermissionsObject(Response);
       }).add(() => {
         // isLoading(false);

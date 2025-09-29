@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 
 import { UserRow } from "../userrow";  // -- MODEL
 
-import { isLoading } from "app/shared/isLoading";
+// import { isLoading } from "app/shared/isLoading";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 
@@ -72,7 +72,7 @@ constructor(
   }
 
   fetchUsers(inputString) {
-    isLoading(true);
+    // isLoading(true);
     this.UsersCenterService.fetchUsers(inputString || '')
     .subscribe((responseData: any) => {
       this.userRows = responseData.map(user => {
@@ -85,11 +85,11 @@ constructor(
         // [...responseData]; // -- need to [...loop] to make the data structure iterable in the table component. 
         // console.log('this.userRows:', this.userRows); // -- Check STATE 
     }, (error) => {
-      console.log('fetchUsers() ERROR', error); // -- Console Log WORKS
+      console.log('fetchUsers() ERROR', error);
     }
   )
   .add(() => {
-    isLoading(false);
+    // isLoading(false);
   });
   }
 
@@ -110,50 +110,12 @@ constructor(
   }
 
   goToAddUser() {
-    this.router.navigate(['/home/users-center/users-add']);
+    this.router.navigate(['/home/user-center/add']);
   }
 
   editUser(userId: number) {
     if(userId){
-      this.router.navigate(['/home/users-center/users-edit', userId]); // Navigate to the edit page with unitId
-    } else {
-      console.log('EDIT-NO-UNITID', userId);
-      this.router.navigate(['/home/users-center/users-edit']); // Navigate to the edit page with unitId
+      this.router.navigate(['/home/user-center/edit', userId]); // Navigate to the edit page with unitId
     }
   }
-  // addUser(): void {
-  //   console.log('ADD-USER-BUTTON');
-  //   // ---- ADD userObj{} HERE TO TEST ---- 
-  //   const userObj =  {
-  //     email: 'test5@gmail.com',
-  //     password: 'test', 
-  //     number: 1,
-  //     role: 99,
-  //     firstName: 'dale15',
-  //     lastName: 'Earnhardt',
-  //   }
-
-  //   this.usersService.createUser(userObj).subscribe((responseData: any) => {
-  //     console.log('addUser SUBSCRIBE');
-  //     console.log('responseData:', responseData); // -- Console Log WORKS
-  //     if(responseData){
-  //       console.log('IF responseData NOT Null');
-  //     } else {
-  //       console.log('ELSE responseData NULL');
-  //       alert('Unable to create User.')
-  //     }
-  //     }, (error) => {
-  //       console.log('ADD-USER ERROR:', error);
-  //     }
-  //   )
-  //   .add(() => {
-  //     isLoading(false);
-  //     this.fetchUsers(this.inputString)
-  //   });
-  // } 
-
-
-
-
-
 }

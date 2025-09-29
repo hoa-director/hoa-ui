@@ -21,7 +21,7 @@ export class ObjectionDetailsComponent implements OnInit {
         public dialogRef: MatDialogRef<ObjectionDetailsComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
-        this.headerText = data.source === 'inbox'
+        this.headerText = data.source === 'open'
         ? 'You have already voted on:' 
         : 'Resolved motion:';
 

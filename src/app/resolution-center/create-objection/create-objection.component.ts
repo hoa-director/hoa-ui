@@ -41,7 +41,7 @@ export class CreateObjectionComponent implements OnInit {
   private init() {
     this.resolutionCenterService.getUnits().subscribe((response) => {
       this.units = response.units;
-      console.log('this.units:', this.units);
+      // console.log('this.units:', this.units);
     });
   }
 
@@ -57,13 +57,13 @@ export class CreateObjectionComponent implements OnInit {
       .submitObjection(objection)
       .subscribe((response) => {
         this.resetForm();
-        this.router.navigate(['/home/resolution-center/inbox']);
+        this.router.navigate(['/home/resolution-center/open']);
       });
   }
 
   onCancel() {
     this.resetForm();
-    this.router.navigate(['/home/resolution-center/inbox']);
+    this.router.navigate(['/home/resolution-center/open']);
   }
 
   private resetForm() {
