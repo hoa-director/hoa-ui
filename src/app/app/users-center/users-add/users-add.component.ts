@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 // -- services
-import { UsersCenterService } from "../../../services/users-center.service";  
+import { UsersCenterService } from "../../../services/users-center.service";
+import { UserService } from "../../../services/user.service";
 // -- models
 
 // -- interfaces
@@ -28,6 +29,7 @@ export class UsersAddComponent implements OnInit {
   constructor(
     // --  SERVICES
     private usersCenterService: UsersCenterService,
+    private userService: UserService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private router: Router,
@@ -146,6 +148,7 @@ addUser(): void {
         } else { // success
           this.openSuccessModal();
           this.onReset(); // -- Reset Form
+          this.userService.requestToken(user.email); // email new user a password reset link
           this.router.navigate(['/home/user-center/view']);
         }
       }, (error) => { // -- If Error
