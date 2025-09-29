@@ -160,6 +160,17 @@ export class DataService {
     }
 
 
+  // Add unit -- neighborhoods dropdown
+  fetchNeighborhoods() { 
+    const endPoint = "/api/fetchNeighborhoodsForNewUnit";
+    return this.http.get(BACKEND_URL + endPoint).pipe(
+      catchError(error => {
+        console.log('Error fetching neighborhoods:', error);
+        return throwError(error);
+      })
+    );;
+  }
+
   // ADD/EDIT UNIT -- AVAILABLE USERS DROPDOWN 
   getAvailableUsers(){
     const endPoint = "/api/getAvailableUsers";

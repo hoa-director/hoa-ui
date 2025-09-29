@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from "../../../../services/user.service";
 import { DataService } from "app/services/data.service";
-import { NeighborhoodCenterService } from "../../../../services/neighborhood-center.service";
 import { ActivatedRoute, Router } from '@angular/router';
 // -- models
 import { Unit } from "../../unit.model";
@@ -34,7 +33,6 @@ export class UnitsEditComponent {
 
 constructor(
   private dataService: DataService,
-  private neighborhoodCenterService: NeighborhoodCenterService,
   private fb: FormBuilder,
   private dialog: MatDialog,
   private route: ActivatedRoute,
@@ -50,7 +48,7 @@ ngOnInit() {
   this.getAvailableUsers();
   // this.disableForm();
 
-  this.neighborhoodCenterService.fetchNeighborhoods()
+  this.dataService.fetchNeighborhoods()
     .subscribe((response: any) => {
       this.associations = response;
     }, (error: any) => {
