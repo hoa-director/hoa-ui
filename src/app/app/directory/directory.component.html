@@ -1,24 +1,7 @@
 <div class="main-directory-div">
   <div id="directory-header-container">
-    <h3 class="directory-header">Neighborhood Directory</h3>
+    <h3 class="directory-header">Directory</h3>
   </div>
 
-  <div class="sideways-nav-bar">
-    <nav mat-tab-nav-bar color="primary" [tabPanel]="tabPanel">
-      <a mat-tab-link *ngFor="let link of directoryLinks"
-      (click)="activeLink = link.name"
-      [active]="activeLink == link.name"
-      routerLinkActive="active"
-      [routerLink]="[link.path]"
-      >
-        {{link.name}}
-      </a>
-    </nav>
-  </div>
-  <p>You can search, add, edit or delete units on this page.</p>
-  <div>
-    <mat-tab-nav-panel #tabPanel>
-      <router-outlet></router-outlet>
-    </mat-tab-nav-panel>
-  </div>  
+  <router-outlet></router-outlet>
 </div>

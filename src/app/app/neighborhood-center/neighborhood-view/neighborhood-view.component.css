@@ -1,0 +1,99 @@
+
+table {
+  width: 100%;
+}
+
+.main-neighborhood-view-div{
+  margin: 2rem;
+}
+
+.mat-elevation-z8 {
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 40px;
+}
+
+.btn-clear-search {
+  display: inline;
+  margin: 15px 0 1rem 10px;
+}
+
+.btn-add-neighborhood {
+  display: inline;
+  width: 150px;
+  margin: 0 0 18px 0;
+}
+
+@media (min-width: 500px) {
+  .btn-add-neighborhood {
+    margin-left: 45%;
+  }
+}
+
+@media (min-width: 625px) {
+  .btn-add-neighborhood {
+    margin-left: 55%;
+  }
+}
+
+@media (min-width: 833px) {
+  .btn-add-neighborhood {
+    margin-left: 75%;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mat-mdc-header-cell {
+  font-size: 1.4rem;
+}
+
+.mat-mdc-cell {
+  font-size: 1.4rem !important;
+  height: 64px;
+}
+
+.mat-column-name {
+  padding: 5px 15px;
+}
+
+.mat-column-createdAt {
+  padding: 5px 15px;
+  width: 12%;
+}
+
+.mat-column-updatedAt {
+  padding: 5px 15px;
+  width: 12%;
+}
+
+.mat-column-propertyCount {
+  padding: 5px 15px;
+  width: 12%;
+}
+
+.mat-column-ownerCount {
+  padding: 5px 15px;
+  width: 12%;
+}
+
+.mat-column-viewButton {
+  padding: 15px 10px;
+  width: 7%;
+}
+
+.mat-column-editButton {
+  padding: 15px 10px;
+  width: 7%;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.625rem 0;
+  grid-column: 1 / 2;
+  font-size: 1.3rem;
+}

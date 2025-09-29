@@ -5,7 +5,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { DialogComponent } from "../dialog/dialog.component";
 import { Subscription } from "rxjs";
 import { Rule } from "./rule.model";
-import { isLoading } from "../../shared/isLoading";
+// import { isLoading } from "../../shared/isLoading";
 
 @Component({
   selector: "app-rules",
@@ -17,7 +17,7 @@ export class RulesComponent implements OnInit {
   currentRuleList: any;
 
   private userSubjectSubs: Subscription;
-  isLoading = false;
+  // isLoading = false;
 
   constructor(
     private dataService: DataService,
@@ -43,11 +43,11 @@ export class RulesComponent implements OnInit {
   }
 
   onFetchRules() {
-    isLoading(true);
+    // isLoading(true);
     this.dataService.fetchRules().subscribe((responseData: any) => { // -- Subscribe to fetchRules HERE
       this.rules = [...responseData];
     }).add(() => {
-      isLoading(false);
+      // isLoading(false);
     });
   }
 

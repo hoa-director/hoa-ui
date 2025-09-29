@@ -1,6 +1,6 @@
 /* The side navigation menu */
 .sidebar {
-  margin: 0;
+  margin: 0 15px 0 0;
   padding: 0;
   width: 200px;
   height: 100%;
@@ -10,33 +10,32 @@
 /* Sidebar links */
 .sidebar button {
   display: block;
-  color: black;
+  color: #262953;
   padding: 16px;
-  border-right: solid 1px rgba(0, 0, 0, 0.12);
+  border-right: solid 1px rgba(0, 0, 0, 0.27);
   border-radius: unset;
   width: 100%;
   height: 5rem;
+  font-size: 1.4rem;
 }
 
 .nav-vertical-line {
   padding-bottom: 100%;
-  border-right: solid 1px rgba(0, 0, 0, 0.12);
+  border-right: solid 1px rgba(0, 0, 0, 0.27);
 }
 
 /* Active/current link */
 .sidebar button.active {
   /* background-color: #83b834; */
-  /* background-color:#3779b7; */
-  color: black;
-  border-right: solid 5px #3779b7;
+  background-color:#bdd3e7;
+  /* border-right: solid 5px #3779b7; */
   /* border: solid 3px #3779b7; */
   /* border-radius: 5px; */
 }
 
 /* Links on mouse-over */
 .sidebar button:hover:not(.active) {
-  background-color: #3779b7;
-  color: white;
+  background-color: #bdd3e7;
 }
 
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */

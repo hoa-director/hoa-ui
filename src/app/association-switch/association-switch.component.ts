@@ -12,13 +12,13 @@ import { AssociationModel } from "app/models/association.model";
 export class AssociationSwitchComponent implements OnInit, OnDestroy {
   subscriptions = [];
   currentAssociation: string;
-  availableAssociations$: Observable<AssociationModel[]>;
+  // availableAssociations$: Observable<AssociationModel[]>;
 
   constructor(public userService: UserService, private location: Location) {}
 
   ngOnInit() {
     this.userService.getUserAssociations();
-    this.availableAssociations$ = this.userService.availableAssociations$;
+    // this.availableAssociations$ = this.userService.availableAssociations$;
     const selectedAssociationSubscription =
       this.userService.selectedAssociation$.subscribe((value: any) => {
         this.currentAssociation = value;

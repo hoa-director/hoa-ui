@@ -3,46 +3,63 @@
     <button
       *ngIf="showNeighborhoodDirectory"
       mat-button
-      [routerLink]="['directory/units-view']"
+      [routerLink]="['directory']"
       routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
+      (click)="goToDirectoryView($event)"
     >
-      Neighborhood Directory
-    </button>
-    <button
-      *ngIf="showRulesAndRegulations"
-      mat-button
-      [routerLink]="['rules']"
-      routerLinkActive="active"
-    >
-      Rules & Regulations
+      Directory
     </button>
     <button
       *ngIf="showResolutionCenter"
       mat-button
-      [routerLink]="['resolution-center/inbox']"
+      [routerLink]="['resolution-center']"
       routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
     >
       Resolution Center
+    </button>
+    <button
+      *ngIf="showRulesAndRegulations"
+      mat-button
+      [routerLink]="['rules-regulations']"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
+    >
+      Rules & Regulations
     </button>
     <button
       *ngIf="showAssociationDocuments"
       mat-button
       [routerLink]="['documents']"
       routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
     >
-      Association Documents
+      Documents
     </button>
     <button
       *ngIf="showUsersCenter"
       mat-button
-      [routerLink]="['users-center/users-view']"
+      [routerLink]="['user-center']"
       routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
+      (click)="goToUserCenterView($event)"
       >
-      Users Center
+      User Center
     </button>
-    <button mat-button (click)="onLogout()">
+    <button
+      *ngIf="showNeighborhoodCenter"
+      mat-button
+      [routerLink]="['neighborhood-center']"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
+      (click)="goToNeighborhoodCenterView($event)"
+      >
+      Neighborhood Center
+    </button>
+    <!-- <button mat-button (click)="onLogout()">
       Logout
-    </button>
+    </button> -->
     <div class="nav-vertical-line"></div>
   </div>
 </div>

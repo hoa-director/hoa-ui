@@ -50,13 +50,16 @@
   color: #fff;
   text-transform: uppercase;
   backface-visibility: hidden;
+  margin-top: 50px;
   margin-bottom: 6rem;
 }
 .heading-primary--main {
   display: block;
+  margin-bottom: 60px;
   font-size: 6rem;
   font-weight: 400;
-  letter-spacing: 3.5rem;
+  line-height: 1.45;
+  letter-spacing: 1.1rem;
   animation-name: moveInLeft;
   animation-duration: 1s;
   animation-timing-function: ease-out;
@@ -65,7 +68,7 @@
   display: block;
   font-size: 2rem;
   font-weight: 700;
-  letter-spacing: 1.75rem;
+  letter-spacing: 1.2rem;
   animation: moveInRight 1s ease-out;
 }
 
@@ -78,7 +81,7 @@
   border-radius: 10rem;
   transition: all 0.2s;
   position: relative;
-  font-size: 1.6rem;
+  font-size: 16px;
 }
 .btn:hover {
   transform: translateY(-3px);

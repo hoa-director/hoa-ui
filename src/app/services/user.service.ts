@@ -5,7 +5,7 @@ import { Observable, of, ReplaySubject, BehaviorSubject, Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { environment } from "../../environments/environment";
 import { asObservable } from "./asObservable";
-import { isLoading } from "../shared/isLoading";
+// import { isLoading } from "../shared/isLoading";
 import { UserModel } from "app/models/user.model";
 import { AssociationModel } from "app/models/association.model";
 
@@ -26,8 +26,8 @@ export class UserService {
   private tokenTimer: NodeJS.Timer;
 
   // available association properties
-  private availableAssociationsSubject = new ReplaySubject<AssociationModel[]>(1);
-  public availableAssociations$ = this.availableAssociationsSubject.asObservable();
+  // private availableAssociationsSubject = new ReplaySubject<AssociationModel[]>(1);
+  // public availableAssociations$ = this.availableAssociationsSubject.asObservable();
 
   // selected association properties
   private readonly selectedAssociationSubject = new BehaviorSubject<string>(null);
@@ -65,7 +65,7 @@ export class UserService {
   }
 
   loginUser(user) {
-    isLoading(true);
+    // isLoading(true);
     this.http
       .post<{
         token: string;
@@ -94,13 +94,13 @@ export class UserService {
             // this.setSelectedAssociation({id: response.associationId, name: response.a});
             this.saveUserAssociationData(response.association.id, response.association.name);
             this.setSelectedAssociationSubject(response.association.name);
-            this.router.navigate(["/home", "directory", "units-view"]); // -- First page after login
+            this.router.navigate(["/home", "directory", "view"]); // -- First page after login
           }
           // return 'success';
         },
         (error) => {
           if (error.status === 401) {
-            this.authErrorListener.next("Username or password in incorrect.");
+            this.authErrorListener.next("Username or password is incorrect");
             return;
           }
           this.authErrorListener.next(
@@ -109,7 +109,7 @@ export class UserService {
         }
       )
       .add(() => {
-        isLoading(false);
+        // isLoading(false);
       });
   }
 
@@ -144,7 +144,7 @@ export class UserService {
   // -- For Frontend Header Element
   getLoggedInUser(): void {
     this.http
-      .get<{ userFirstName: string, userRole: number }>(BACKEND_URL + "/user/loggedInUser", 
+      .get<{ userFirstName: string, userRole: number, associationName: string  }>(BACKEND_URL + "/user/loggedInUser", 
       // -- turned off 1/18/25 ---------
       //   {
       //   params: new HttpParams().set(
@@ -156,6 +156,7 @@ export class UserService {
       .subscribe((response) => {
         // console.log('getLoggedInUser:', response);
         this.setUser(response.userFirstName);
+        this.setSelectedAssociationSubject(response.associationName);
       });
   }
 
@@ -213,8 +214,8 @@ export class UserService {
           `/user/associations`
       )
       .subscribe((response) => {
-        // console.log('getUserAssociations_res:', response);
-        this.availableAssociationsSubject.next(response.associations);
+        // console.log('getUserAssociations_response:', response);
+        return response;
       });
   }
 
